@@ -1,0 +1,15 @@
+{
+  "extends": ["eslint:recommended", "next", "prettier"],
+  "rules": {
+    "no-undef": "off",
+    "@next/next/no-img-element": "off",
+    "@next/next/link-passhref": "error",
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", ["parent", "sibling"], "index"],
+        "newlines-between": "always"
+      }
+    ]
+  }
+}
