@@ -1,2 +1,11 @@
+export { ReactComponent as AlbumIcon } from './album.svg';
+export { ReactComponent as ArrowUpIcon } from './arrow-up.svg';
+export { ReactComponent as CameraIcon } from './camera.svg';
+export { ReactComponent as FileIcon } from './file.svg';
+export { ReactComponent as HamburgerIcon } from './hamburger.svg';
+export { ReactComponent as DeleteIcon } from './ic-delete.svg';
 export { ReactComponent as LogoIcon } from './logo.svg';
 export { ReactComponent as PinIcon } from './pin.svg';
+export { ReactComponent as PlusIcon } from './plus.svg';
+export { ReactComponent as ReplyIcon } from './reply.svg';
+export { ReactComponent as TodoIcon } from './todo.svg';
