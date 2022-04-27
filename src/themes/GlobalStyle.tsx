@@ -1,8 +1,6 @@
 import emotionReset from 'emotion-reset';
 import { Global, css } from '@emotion/react';
 
-import { breakpoints } from '.';
-
 /** https://www.joshwcomeau.com/css/custom-css-reset/ */
 const customReset = css`
   *,
@@ -77,7 +75,7 @@ const global = css`
   }
 
   /** 작은 단말 대응 (iPhone SE, Galaxy Fold ) */
-  ${breakpoints?.small} {
+  @media (max-width: 360px) {
     html {
       font-size: 11px;
     }
