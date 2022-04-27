@@ -18,6 +18,11 @@ export const parameters = {
     defaultViewport: 'iphone12',
   },
   layout: 'fullscreen',
+  options: {
+    storySort: {
+      order: ['Design System', 'Components', ['reusable', 'home'], 'Pages', ['home']],
+    },
+  },
 };
 
 export const decorators = [

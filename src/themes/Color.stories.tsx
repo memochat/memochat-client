@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { lightTheme } from '.';
 
 export default {
-  title: 'DESIGN SYSTEM/Color',
+  title: 'Design System/Color',
   component: () => null,
   parameters: {
     viewport: {
