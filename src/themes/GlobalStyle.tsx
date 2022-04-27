@@ -1,5 +1,7 @@
-import { Global, css } from '@emotion/react';
 import emotionReset from 'emotion-reset';
+import { Global, css } from '@emotion/react';
+
+import { breakpoints } from '.';
 
 /** https://www.joshwcomeau.com/css/custom-css-reset/ */
 const customReset = css`
@@ -68,8 +70,17 @@ const global = css`
   ${emotionReset}
   ${customReset}
 
-  body {
+  html {
+    font-size: 13px;
+
     font-family: 'Spoqa Han Sans Neo', 'M PLUS 1', 'sans-serif';
+  }
+
+  /** 작은 단말 대응 (iPhone SE, Galaxy Fold ) */
+  ${breakpoints?.small} {
+    html {
+      font-size: 11px;
+    }
   }
 `;
 
