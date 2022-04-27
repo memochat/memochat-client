@@ -17,19 +17,13 @@ export const parameters = {
     viewports: INITIAL_VIEWPORTS,
     defaultViewport: 'iphone12',
   },
+  layout: 'fullscreen',
 };
 
 export const decorators = [
   (Story) => (
     <ThemeProvider theme={useDarkMode() ? darkTheme : lightTheme}>
       <GlobalStyle />
-      <Global
-        styles={css`
-          body {
-            padding: 0 !important;
-          }
-        `}
-      />
       <Story />
     </ThemeProvider>
   ),
