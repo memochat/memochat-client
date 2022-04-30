@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import { ColorTheme } from '@src/themes/types';
+
 const PRIMARY_HOVER_BACKGROUND_COLOR = '#5D61D3';
 
 type ButtonType = 'primary' | 'secondary';
@@ -8,6 +10,7 @@ type ButtonSize = 'small' | 'medium';
 type ButtonProps = {
   children: string;
   type?: ButtonType;
+  htmlType?: 'submit' | 'button';
   size?: ButtonSize;
   disabled?: boolean;
   className?: string;
@@ -16,6 +19,7 @@ type ButtonProps = {
 
 function Button({
   type = 'primary',
+  htmlType = 'button',
   size = 'medium',
   disabled,
   onClick = () => null,
@@ -30,7 +34,7 @@ function Button({
   return (
     <Wrapper
       {...props}
-      type="button"
+      type={htmlType}
       buttonType={type}
       size={size}
       disabled={disabled}
@@ -38,6 +42,30 @@ function Button({
     />
   );
 }
+
+const getBackgroundColor = ({
+  disabled,
+  type,
+  theme,
+}: Pick<ButtonProps, 'disabled' | 'type'> & { theme: ColorTheme }) => {
+  if (disabled) {
+    return theme.color.gray6;
+  }
+
+  return type === 'primary' ? theme.color.purple1 : theme.color.gray6;
+};
+
+const getColor = ({
+  disabled,
+  type,
+  theme,
+}: Pick<ButtonProps, 'disabled' | 'type'> & { theme: ColorTheme }) => {
+  if (disabled) {
+    return type === 'primary' ? theme.color.gray3 : theme.color.gray4;
+  }
+
+  return type === 'primary' ? theme.color.white : theme.color.black1;
+};
 
 const Wrapper = styled.button<
   Pick<ButtonProps, 'disabled' | 'size'> & { buttonType: ButtonProps['type'] }
@@ -50,20 +78,8 @@ const Wrapper = styled.button<
   height: ${(p) => (p.size === 'medium' ? '5.2rem' : '4rem')};
   border-radius: 1.6rem;
 
-  background-color: ${(p) =>
-    p.disabled
-      ? p.theme.color.gray6
-      : p.buttonType === 'primary'
-      ? p.theme.color.purple1
-      : p.theme.color.gray6};
-  color: ${(p) =>
-    p.disabled
-      ? p.buttonType === 'primary'
-        ? p.theme.color.gray3
-        : p.theme.color.gray4
-      : p.buttonType === 'primary'
-      ? p.theme.color.white
-      : p.theme.color.black1};
+  background-color: ${(p) => getBackgroundColor({ ...p, type: p.buttonType })};
+  color: ${(p) => getColor({ ...p, type: p.buttonType })};
 
   font-size: 1.4rem;
   font-weight: 400;
