@@ -61,6 +61,8 @@ const customReset = css`
     resize: none;
     outline: none;
     background-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
   }
 `;
 
