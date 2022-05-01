@@ -1,4 +1,6 @@
-import { ChatType, RoomType } from './RoomCard';
+import { ChatType } from './RoomCard';
+
+import { RoomType } from '@src/types/api/room';
 
 export const mock: {
   rooms: {

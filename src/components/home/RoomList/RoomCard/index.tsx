@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 
 import { PinIcon } from '@src/assets/svgs';
 import { breakpoints } from '@src/themes';
+import { RoomType } from '@src/types/api/room';
 
 const getRoomIconImgSrc = (type: RoomType): string => {
   return {
@@ -25,7 +26,6 @@ const getLastChatByChatType = (type: ChatType, text: string = ''): string => {
 };
 
 /** @TODO interface로 옮겨질 타입들  */
-export type RoomType = 'default' | 'wishlist' | 'calender' | 'budget' | 'study';
 export type ChatType = 'text' | 'image' | 'video' | 'link' | 'todo';
 
 interface RoomCardProps {
