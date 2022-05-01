@@ -4,6 +4,7 @@
     "no-undef": "off",
     "@next/next/no-img-element": "off",
     "@next/next/link-passhref": "error",
+    "no-unused-vars": "warn",
     "import/order": [
       "error",
       {
