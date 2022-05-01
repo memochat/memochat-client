@@ -62,7 +62,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
             {lastChat ? getLastChatByChatType(lastChat.type, lastChat.text) : ' '}
           </LastChat>
         </div>
-        {hasReminder && <ReminderIcon src="/images/alarm.png" alt="알림" />}
+        {hasReminder && <ReminderIcon src="images/alarm.png" alt="알림" />}
       </Content>
     </Wrapper>
   );
