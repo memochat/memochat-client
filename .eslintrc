@@ -14,7 +14,8 @@
     "no-undef": "off",
     "@next/next/no-img-element": "off",
     "@next/next/link-passhref": "error",
-    "no-unused-vars": "warn",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars":"warn",
 
     //prop-types
     "react/require-default-props": "warn",

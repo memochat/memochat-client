@@ -1,3 +1,20 @@
 {
-  "conventionalCommits.scopes": ["components", "storybook"]
+  "conventionalCommits.scopes": ["components", "storybook"],
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+
+  //ts
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.preferences.importModuleSpecifier": "shortest",
+
+  //style
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "stylelint.validate": ["typescript", "typescriptreact"],
+  "stylelint.enable": true,
+  "stylelint.customSyntax": "@stylelint/postcss-css-in-js",
+  "stylelint.configFile": ".stylelintrc"
 }
