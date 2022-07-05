@@ -1,5 +1,5 @@
 {
-  "extends": ["airbnb", "airbnb-typescript", "airbnb/hooks", "next", "plugin:prettier/recommended"],
+  "extends": ["next", "plugin:prettier/recommended"],
   "plugins": ["no-relative-import-paths"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -14,16 +14,11 @@
     "no-undef": "off",
     "@next/next/no-img-element": "off",
     "@next/next/link-passhref": "error",
-    "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars":"warn",
-
-    //prop-types
-    "react/require-default-props": "warn",
+    "no-unused-vars": "warn",
 
     //react
     "react/jsx-props-no-spreading": "off",
     //import-rules
-    "import/prefer-default-export": "off",
     "import/order": [
       "error",
       {
@@ -32,7 +27,7 @@
       }
     ],
     "no-relative-import-paths/no-relative-import-paths": [
-      "warn",
+      "off",
       { "rootDir": "src", "allowSameFolder": true }
     ],
     "import/no-unused-modules": [

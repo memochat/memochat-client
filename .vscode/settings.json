@@ -12,9 +12,5 @@
   //style
   "css.validate": false,
   "less.validate": false,
-  "scss.validate": false,
-  "stylelint.validate": ["typescript", "typescriptreact"],
-  "stylelint.enable": true,
-  "stylelint.customSyntax": "@stylelint/postcss-css-in-js",
-  "stylelint.configFile": ".stylelintrc"
+  "scss.validate": false
 }
