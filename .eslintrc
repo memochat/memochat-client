@@ -1,15 +1,41 @@
 {
-  "extends": ["eslint:recommended", "next", "prettier"],
+  "extends": ["next", "plugin:prettier/recommended"],
+  "plugins": ["no-relative-import-paths"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
   "rules": {
     "no-undef": "off",
     "@next/next/no-img-element": "off",
     "@next/next/link-passhref": "error",
     "no-unused-vars": "warn",
+
+    //react
+    "react/jsx-props-no-spreading": "off",
+    //import-rules
     "import/order": [
       "error",
       {
         "groups": ["builtin", "external", ["parent", "sibling"], "index"],
         "newlines-between": "always"
+      }
+    ],
+    "no-relative-import-paths/no-relative-import-paths": [
+      "off",
+      { "rootDir": "src", "allowSameFolder": true }
+    ],
+    "import/no-unused-modules": [
+      "warn",
+      {
+        "missingExports": true,
+        "unusedExports": true,
+        "ignoreExports": ["./src/pages"]
       }
     ]
   }

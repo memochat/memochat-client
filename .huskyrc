@@ -1,0 +1,6 @@
+{
+  "hooks": {
+    "pre-commit": "yarn lint-staged",
+    "prepare-commit-msg": "exec < /dev/tty && yarn cz --hook || true"
+  }
+}
