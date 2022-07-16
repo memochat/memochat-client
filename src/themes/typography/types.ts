@@ -3,7 +3,7 @@
 import { CSSObject } from '@emotion/styled';
 
 //Scale Tokens
-const globalTypographyGroupNames = [
+export const globalTypographyGroupNames = [
   'h1',
   'h2',
   'h3',

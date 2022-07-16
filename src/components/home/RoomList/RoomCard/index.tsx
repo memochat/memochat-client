@@ -5,7 +5,7 @@ import { getRoomIconImageUrlByType } from '@src/helpers/room';
 import { breakpoints } from '@src/themes/breakpoints';
 import { RoomType } from '@src/types/api/room';
 
-const getLastChatByChatType = (type: ChatType, text: string = ''): string => {
+const getLastChatByChatType = (type: ChatType, text = ''): string => {
   if (type === 'image') {
     return '이미지 메모';
   }
