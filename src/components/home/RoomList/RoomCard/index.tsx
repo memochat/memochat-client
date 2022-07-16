@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 import { PinIcon } from '@src/assets/svgs';
 import { getRoomIconImageUrlByType } from '@src/helpers/room';
-import { breakpoints } from '@src/themes';
+import { breakpoints } from '@src/themes/breakpoints';
 import { RoomType } from '@src/types/api/room';
 
 const getLastChatByChatType = (type: ChatType, text: string = ''): string => {
@@ -99,7 +99,7 @@ const Profile = styled.div`
   height: 3.2rem;
   border-radius: 0.8rem;
 
-  background-color: ${(p) => p.theme.color.purple6};
+  background-color: ${(p) => p.theme.color.purple5};
 
   & > img {
     width: 2.4rem;

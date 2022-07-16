@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { ColorTheme } from '@src/themes/types';
+import { EmotionTheme } from '@src/themes';
 
 const PRIMARY_HOVER_BACKGROUND_COLOR = '#5D61D3';
 
@@ -47,7 +47,7 @@ const getBackgroundColor = ({
   disabled,
   type,
   theme,
-}: Pick<ButtonProps, 'disabled' | 'type'> & { theme: ColorTheme }) => {
+}: Pick<ButtonProps, 'disabled' | 'type'> & { theme: EmotionTheme }) => {
   if (disabled) {
     return theme.color.gray6;
   }
@@ -59,7 +59,7 @@ const getColor = ({
   disabled,
   type,
   theme,
-}: Pick<ButtonProps, 'disabled' | 'type'> & { theme: ColorTheme }) => {
+}: Pick<ButtonProps, 'disabled' | 'type'> & { theme: EmotionTheme }) => {
   if (disabled) {
     return type === 'primary' ? theme.color.gray3 : theme.color.gray4;
   }

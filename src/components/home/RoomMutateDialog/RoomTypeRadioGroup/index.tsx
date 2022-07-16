@@ -57,7 +57,7 @@ const Radio = styled.li<{ isSelected: boolean }>`
   margin-right: 1rem;
   border-radius: 0.8rem;
 
-  background-color: ${(p) => (p.isSelected ? p.theme.color.purple4 : p.theme.color.purple6)};
+  background-color: ${(p) => (p.isSelected ? p.theme.color.purple4 : p.theme.color.purple5)};
 
   & > img {
     width: 2.4rem;

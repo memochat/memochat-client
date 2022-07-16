@@ -4,7 +4,7 @@ import type {
   SemanticColorKey,
   SemanticColorScheme,
   ColorTheme,
-} from './types/color';
+} from './types';
 
 export const populateSemanticColors = (
   colors: ColorScheme,
