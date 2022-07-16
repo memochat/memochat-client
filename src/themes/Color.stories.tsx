@@ -107,7 +107,7 @@ const ColorList = ({
 );
 
 const Template: ComponentStory<any> = () => {
-  const { color, semanticColor } = lightTheme;
+  const { color } = lightTheme;
 
   return (
     <StyledWrapper>
@@ -126,7 +126,7 @@ const Template: ComponentStory<any> = () => {
       </section>
       <section>
         <h2>Semantic Color</h2>
-        <ColorList colors={semanticColor} namespace="background" />
+        {/* <ColorList colors={semanticColor} namespace="background" /> */}
       </section>
     </StyledWrapper>
   );

@@ -7,7 +7,7 @@ export const lightTheme: Readonly<ColorTheme> = parseColorTheme({
     white: '#ffffff',
     black1: '#000000',
     black2: '#111111',
-    slateGrey: '#EBEEF6',
+    slateGrey: '#F3F6FF',
 
     gray1: '#333333',
     gray2: '#4F4F4F',
@@ -21,9 +21,8 @@ export const lightTheme: Readonly<ColorTheme> = parseColorTheme({
     purple1: '#686DF2',
     purple2: '#888AFB',
     purple3: '#B7B9FE',
-    purple4: '#B7B9FE',
+    purple4: '#C8CAFE',
     purple5: '#D9DAFF',
-    purple6: '#EBEBFF',
 
     // primary
     blue1: '#3D6DF6',
@@ -61,10 +60,7 @@ export const lightTheme: Readonly<ColorTheme> = parseColorTheme({
     yellow4: '#FDF1B8',
     yellow5: '#FEF9DB',
   },
-  semanticColor: {
-    background: 'white',
-    backgroundLow: 'slateGrey',
-  },
+  semanticColor: { background: '' },
 });
 
 export const darkTheme: Readonly<ColorTheme> = parseColorTheme({
@@ -73,7 +69,7 @@ export const darkTheme: Readonly<ColorTheme> = parseColorTheme({
     white: '#ffffff',
     black1: '#000000',
     black2: '#111111',
-    slateGrey: '#EBEEF6',
+    slateGrey: '#F3F6FF',
 
     gray1: '#333333',
     gray2: '#4F4F4F',
@@ -82,15 +78,13 @@ export const darkTheme: Readonly<ColorTheme> = parseColorTheme({
     gray5: '#E0E0E0',
     gray6: '#F2F2F2',
     gray7: '#F9F9F9',
-
     /** Brand Color */
     // brand
     purple1: '#686DF2',
     purple2: '#888AFB',
     purple3: '#B7B9FE',
-    purple4: '#B7B9FE',
+    purple4: '#C8CAFE',
     purple5: '#D9DAFF',
-    purple6: '#EBEBFF',
 
     // primary
     blue1: '#3D6DF6',
@@ -128,10 +122,7 @@ export const darkTheme: Readonly<ColorTheme> = parseColorTheme({
     yellow4: '#FDF1B8',
     yellow5: '#FEF9DB',
   },
-  semanticColor: {
-    background: 'white',
-    backgroundLow: 'slateGrey',
-  },
+  semanticColor: { background: '' },
 });
 
 export type EmotionTheme = typeof lightTheme;
