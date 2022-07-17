@@ -18,14 +18,14 @@ export const globalTypographyGroupNames = [
 
 export type GlobalTypographyGroup = typeof globalTypographyGroupNames[number];
 
-export type FontSizeType = { [T in GlobalTypographyGroup]: CSSObject['fontSize'] };
-export type FontWeightType = { [T in GlobalTypographyGroup]: CSSObject['fontWeight'] };
-export type LineHeightType = { [T in GlobalTypographyGroup]: CSSObject['lineHeight'] };
-export type LetterSpacingType = { [T in GlobalTypographyGroup]: CSSObject['letterSpacing'] };
+type TypographyPropType<T extends TypographyThemeProps> = Record<
+  GlobalTypographyGroup,
+  CSSObject[T]
+>;
+
+const typographyThemeProps = ['fontSize', 'fontWeight', 'lineHeight'] as const;
+export type TypographyThemeProps = typeof typographyThemeProps[number];
 
 export type TypographyTheme = {
-  fontSize: FontSizeType;
-  lineHeight: LineHeightType;
-  fontWeight: FontWeightType;
-  letterSpacing: LetterSpacingType;
+  [T in TypographyThemeProps]: TypographyPropType<T>;
 };
