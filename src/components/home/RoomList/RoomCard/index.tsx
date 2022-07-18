@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { PinIcon } from '@src/assets/icons';
+import { Icon } from '@src/components/reusable';
 import { getRoomIconImageUrlByType } from '@src/helpers/room';
 import { breakpoints } from '@src/themes';
 import { RoomType } from '@src/types/api/room';
@@ -56,7 +56,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
         <div>
           <Title>
             <b>{title}</b>
-            {isPinned && <PinIcon />}
+            {isPinned && <Icon name="Pin" />}
           </Title>
           <LastChat>
             {lastChat ? getLastChatByChatType(lastChat.type, lastChat.text) : ' '}

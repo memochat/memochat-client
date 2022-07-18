@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { PlusIcon } from '@src/assets/icons';
+import { Icon } from '@src/components/reusable';
 
 interface RoomCreateButtonProps {
   className?: string;
@@ -10,7 +10,7 @@ interface RoomCreateButtonProps {
 const RoomCreateButton: React.FC<RoomCreateButtonProps> = (props) => {
   return (
     <Wrapper {...props}>
-      <PlusIcon />
+      <Icon name="Plus" />
     </Wrapper>
   );
 };

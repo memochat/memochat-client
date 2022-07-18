@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
 
+import Icon from '../../Icon';
 import TodoItemInput from './TodoItemInput';
-
-import { DeleteIcon, PlusIcon } from '@src/assets/icons';
 
 interface TodoListInputProps {
   onCancelClick: VoidFunction;
@@ -14,10 +13,10 @@ const TodoListInput = ({ onCancelClick }: TodoListInputProps) => {
       <Header>
         <p>투두 추가하기</p>
         <button className="delete" type="button" onClick={onCancelClick}>
-          <DeleteIcon />
+          <Icon name="Delete" />
         </button>
         <button className="add" type="button" onClick={() => null}>
-          <PlusIcon />
+          <Icon name="Plus" />
         </button>
       </Header>
       <TodoList>
