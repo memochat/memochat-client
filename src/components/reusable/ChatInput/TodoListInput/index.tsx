@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 import TodoItemInput from './TodoItemInput';
 
-import { DeleteIcon, PlusIcon } from '@src/assets/svgs';
+import { DeleteIcon, PlusIcon } from '@src/assets/icons';
 
 interface TodoListInputProps {
   onCancelClick: VoidFunction;

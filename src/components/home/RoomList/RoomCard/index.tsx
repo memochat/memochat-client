@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { PinIcon } from '@src/assets/svgs';
+import { PinIcon } from '@src/assets/icons';
 import { getRoomIconImageUrlByType } from '@src/helpers/room';
 import { breakpoints } from '@src/themes';
 import { RoomType } from '@src/types/api/room';

@@ -5,7 +5,7 @@ import { css } from '@emotion/react';
 import ChatInputActionRow from './ChatInputActionRow';
 import TodoListInput from './TodoListInput';
 
-import { ReplyIcon } from '@src/assets/svgs';
+import { ReplyIcon } from '@src/assets/icons';
 
 type TempRoomType = {
   id: number;

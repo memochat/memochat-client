@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { PlusIcon } from '@src/assets/svgs';
+import { PlusIcon } from '@src/assets/icons';
 
 interface RoomCreateButtonProps {
   className?: string;

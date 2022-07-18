@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { LogoIcon } from '@src/assets/svgs';
+import { LogoIcon } from '@src/assets/icons';
 import { Badge } from '@src/components/reusable';
 
 const HomeHeader = () => {
