@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 
-import Icon from '../../Icon';
 import TodoItemInput from './TodoItemInput';
+
+import { Icon } from '@src/components/reusable';
 
 interface TodoListInputProps {
   onCancelClick: VoidFunction;

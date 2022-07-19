@@ -4,7 +4,8 @@ import { css } from '@emotion/react';
 
 import ChatInputActionRow from './ChatInputActionRow';
 import TodoListInput from './TodoListInput';
-import Icon from '../Icon';
+
+import { Icon } from '@src/components/reusable';
 
 type TempRoomType = {
   id: number;
