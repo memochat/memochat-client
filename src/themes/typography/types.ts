@@ -1,6 +1,5 @@
-import { CSSObject } from '@emotion/styled';
+import { CSSObject } from '@emotion/react';
 
-//Scale Tokens
 export const globalTypographyGroupNames = [
   'h1',
   'h2',
@@ -16,10 +15,13 @@ export const globalTypographyGroupNames = [
 
 export type GlobalTypographyGroup = typeof globalTypographyGroupNames[number];
 
-export type TypographyPropType<T extends TypographyThemeProps> = Record<
-  GlobalTypographyGroup,
-  CSSObject[T]
->;
-
 const typographyThemeProps = ['fontSize', 'fontWeight', 'lineHeight'] as const;
-export type TypographyThemeProps = typeof typographyThemeProps[number];
+type TypographyThemeProps = typeof typographyThemeProps[number];
+
+export type TypographyMixins = {
+  [T in GlobalTypographyGroup]: {
+    [K in TypographyThemeProps]: CSSObject[K];
+  };
+};
+
+export type TypographyTheme = Required<TypographyMixins>;

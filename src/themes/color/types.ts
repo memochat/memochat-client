@@ -35,18 +35,4 @@ export type ColorToken =
 
 export type ColorScheme = Record<ColorToken, string>;
 
-//Semantic Token
-export type SemanticColorKey = 'background';
-export type SemanticColorScheme = Record<SemanticColorKey, string>;
-
-export type ColorTheme = {
-  /**
-   * Raw color tokens
-   */
-  color: ColorScheme;
-
-  /**
-   * Sematic color object
-   */
-  semanticColor: SemanticColorScheme;
-};
+export type ColorTheme = ColorScheme;
