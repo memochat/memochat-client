@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 import { CSSObject } from '@emotion/styled';
 
 //Scale Tokens
@@ -18,14 +16,10 @@ export const globalTypographyGroupNames = [
 
 export type GlobalTypographyGroup = typeof globalTypographyGroupNames[number];
 
-type TypographyPropType<T extends TypographyThemeProps> = Record<
+export type TypographyPropType<T extends TypographyThemeProps> = Record<
   GlobalTypographyGroup,
   CSSObject[T]
 >;
 
 const typographyThemeProps = ['fontSize', 'fontWeight', 'lineHeight'] as const;
 export type TypographyThemeProps = typeof typographyThemeProps[number];
-
-export type TypographyTheme = {
-  [T in TypographyThemeProps]: TypographyPropType<T>;
-};

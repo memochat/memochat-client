@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { lightTheme } from '../theme';
-import { h1, h2, h3, h4, body1, body2, body3, body4, body5, body6 } from './mixin';
 import { GlobalTypographyGroup, globalTypographyGroupNames } from './types';
 
 export default {
@@ -55,43 +54,43 @@ const StyledRow = styled.div`
 const Text = {
   h1: styled.p`
     color: ${({ theme }) => theme.color.slateGrey};
-    ${h1}
+    ${({ theme }) => theme.typography.h1}
   `,
   h2: styled.p`
     color: ${({ theme }) => theme.color.slateGrey};
-    ${h2}
+    ${({ theme }) => theme.typography.h2}
   `,
   h3: styled.p`
     color: ${({ theme }) => theme.color.slateGrey};
-    ${h3}
+    ${({ theme }) => theme.typography.h3}
   `,
   h4: styled.p`
     color: ${({ theme }) => theme.color.slateGrey};
-    ${h4}
+    ${({ theme }) => theme.typography.h4}
   `,
   body1: styled.p`
     color: ${({ theme }) => theme.color.slateGrey};
-    ${body1}
+    ${({ theme }) => theme.typography.body1}
   `,
   body2: styled.p`
     color: ${({ theme }) => theme.color.slateGrey};
-    ${body2}
+    ${({ theme }) => theme.typography.body2}
   `,
   body3: styled.p`
     color: ${({ theme }) => theme.color.slateGrey};
-    ${body3}
+    ${({ theme }) => theme.typography.body3}
   `,
   body4: styled.p`
     color: ${({ theme }) => theme.color.slateGrey};
-    ${body4}
+    ${({ theme }) => theme.typography.body4}
   `,
   body5: styled.p`
     color: ${({ theme }) => theme.color.slateGrey};
-    ${body5}
+    ${({ theme }) => theme.typography.body5}
   `,
   body6: styled.p`
     color: ${({ theme }) => theme.color.slateGrey};
-    ${body6}
+    ${({ theme }) => theme.typography.body6}
   `,
 };
 
