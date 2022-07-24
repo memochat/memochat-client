@@ -54,7 +54,6 @@ const Wrapper = styled.div`
   align-items: center;
   width: 100%;
   padding: 2.6rem 1.6rem;
-
   text-align: center;
   white-space: pre-wrap;
 

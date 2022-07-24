@@ -1,7 +1,7 @@
 import { ChangeEvent, InputHTMLAttributes, useState, FocusEvent } from 'react';
 import styled from '@emotion/styled';
 
-import { ColorTheme } from '@src/themes/types';
+import { EmotionTheme } from '@src/themes';
 
 interface TextFieldProps
   extends Pick<
@@ -111,7 +111,7 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-const getStatusColor = ({ status, theme }: { status: TextFieldStatus; theme: ColorTheme }) => {
+const getStatusColor = ({ status, theme }: { status: TextFieldStatus; theme: EmotionTheme }) => {
   return {
     default: theme.color.gray3,
     focused: theme.color.purple1,

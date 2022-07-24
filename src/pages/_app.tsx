@@ -2,7 +2,8 @@ import { ThemeProvider } from '@emotion/react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
-import { lightTheme, GlobalStyle } from '@src/themes';
+import GlobalStyle from '@src/themes/GlobalStyle';
+import { lightTheme } from '@src/themes';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import styled from '@emotion/styled';
-import { lightTheme } from '.';
+import { lightTheme } from '../theme';
 
 export default {
   title: 'Design System/Color',
@@ -107,10 +107,10 @@ const ColorList = ({
 );
 
 const Template: ComponentStory<any> = () => {
-  const { color, semanticColor } = lightTheme;
+  const { color } = lightTheme;
 
   return (
-    <StyledWrapper>
+    <StyledWrapper theme={lightTheme}>
       <h1>Design System : Color</h1>
       <section>
         <h2>Color</h2>
@@ -123,10 +123,6 @@ const Template: ComponentStory<any> = () => {
         <ColorList colors={color} namespace="red" />
         <ColorList colors={color} namespace="green" />
         <ColorList colors={color} namespace="yellow" />
-      </section>
-      <section>
-        <h2>Semantic Color</h2>
-        <ColorList colors={semanticColor} namespace="background" />
       </section>
     </StyledWrapper>
   );

@@ -74,7 +74,7 @@ const Wrapper = styled.div<{ open: boolean }>`
   width: 80%;
   border-radius: 1.6rem;
 
-  background-color: ${(p) => p.theme.semanticColor.background};
+  background-color: ${(p) => p.theme.color.white};
   opacity: 0;
 
   ${(p) =>
