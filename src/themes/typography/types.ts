@@ -18,10 +18,8 @@ export type GlobalTypographyGroup = typeof globalTypographyGroupNames[number];
 const typographyThemeProps = ['fontSize', 'fontWeight', 'lineHeight'] as const;
 type TypographyThemeProps = typeof typographyThemeProps[number];
 
-export type TypographyMixins = {
+export type TypographyTheme = Required<{
   [T in GlobalTypographyGroup]: {
     [K in TypographyThemeProps]: CSSObject[K];
   };
-};
-
-export type TypographyTheme = Required<TypographyMixins>;
+}>;

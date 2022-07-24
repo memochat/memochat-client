@@ -33,6 +33,4 @@ export type ColorToken =
   | MakeTokenSet<'gray', [1, 2, 3, 4, 5, 6, 7]>
   | MakeTokenSet<'black', [1, 2]>;
 
-export type ColorScheme = Record<ColorToken, string>;
-
-export type ColorTheme = ColorScheme;
+export type ColorTheme = Record<ColorToken, string>;
