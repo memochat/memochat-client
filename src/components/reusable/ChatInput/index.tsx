@@ -5,7 +5,7 @@ import { css } from '@emotion/react';
 import ChatInputActionRow from './ChatInputActionRow';
 import TodoListInput from './TodoListInput';
 
-import { ReplyIcon } from '@src/assets/svgs';
+import { Icon } from '@src/components/reusable';
 
 type TempRoomType = {
   id: number;
@@ -71,7 +71,7 @@ export default function ChatInput({
       {selectedRoom && showSelectedRoomName && <RoomName>{selectedRoom?.title}</RoomName>}
       {state === 'text' && (
         <InputArea>
-          {showReplyIcon && <ReplyIcon className="ReplyIcon" />}
+          {showReplyIcon && <Icon className="ReplyIcon" name="Reply" />}
           <TextArea
             placeholder="메모를 입력해주세요."
             rows={1}

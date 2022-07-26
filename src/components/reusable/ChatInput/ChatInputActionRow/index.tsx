@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { AlbumIcon, CameraIcon, FileIcon, TodoIcon, ArrowUpIcon } from '@src/assets/icons';
+import { Icon } from '@src/components/reusable';
 
 interface ChatInputActionRowProps {
   showSubmitButton: boolean;
@@ -13,13 +13,13 @@ export default function ChatInputActionRow({
 }: ChatInputActionRowProps) {
   return (
     <Wrapper>
-      <AlbumIcon onClick={() => alert('앨범 클릭')} />
-      <CameraIcon onClick={() => alert('카메라 클릭')} />
-      <FileIcon onClick={() => alert('첨부파일 클릭')} />
-      <TodoIcon onClick={onTodoClick} />
+      <Icon name="Album" onClick={() => alert('앨범 클릭')} />
+      <Icon name="Camera" onClick={() => alert('카메라 클릭')} />
+      <Icon name="File" onClick={() => alert('첨부파일 클릭')} />
+      <Icon name="Todo" onClick={onTodoClick} />
       {showSubmitButton && (
         <SubmitButton onClick={() => alert('전송버튼 클릭')}>
-          <ArrowUpIcon />
+          <Icon name="ArrowUp" />
         </SubmitButton>
       )}
     </Wrapper>

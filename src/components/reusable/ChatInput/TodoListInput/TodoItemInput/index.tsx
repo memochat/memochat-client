@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 
-import { HamburgerIcon } from '@src/assets/icons';
+import Icon from '@src/components/reusable/Icon';
 
 const TodoItemInput = () => {
   return (
     <Wrapper>
-      <HamburgerIcon className="hamburger-icon" />
+      <Icon className="hamburger-icon" name="Hamburger" />
       <Checkbox />
       <InputWrapper>
         <input />

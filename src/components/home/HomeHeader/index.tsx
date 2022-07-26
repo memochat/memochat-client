@@ -1,12 +1,11 @@
 import styled from '@emotion/styled';
 
-import { LogoIcon } from '@src/assets/svgs';
-import { Badge } from '@src/components/reusable';
+import { Badge, Icon } from '@src/components/reusable';
 
 const HomeHeader = () => {
   return (
     <Wrapper>
-      <LogoIcon className="HomeHeader__logo-icon" />
+      <StyledLogoIcon name="Logo" width="10.8rem" color="purple1" aria-label="메모쳇 로고" />
       <button aria-label="알림">
         <Badge visible={true}>
           <img className="HomeHeader__bell-icon" src="images/bell.png" alt="" />
@@ -32,16 +31,14 @@ const Wrapper = styled.header`
     margin-left: 1.6rem;
   }
 
-  .HomeHeader__logo-icon {
-    width: 10.8rem;
-    margin-right: auto;
-    fill: ${(p) => p.theme.color.purple1};
-  }
-
   .HomeHeader__bell-icon {
     width: 2.7rem;
     height: 2.7rem;
   }
+`;
+
+const StyledLogoIcon = styled(Icon)`
+  margin-right: auto;
 `;
 
 const ProfileImg = styled.img`
