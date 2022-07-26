@@ -2,10 +2,10 @@ import { SVGProps } from 'react';
 import styled from '@emotion/styled';
 
 import * as icon from '@src/assets/icons';
-import { ColorTheme } from '@src/themes/types';
+import { ColorTheme } from '@src/themes';
 
 export type IconNameType = keyof typeof icon;
-export type ColorThemeNameType = keyof ColorTheme['color'];
+export type ColorThemeNameType = keyof ColorTheme;
 
 const DEFAULT_SIZE = 30;
 

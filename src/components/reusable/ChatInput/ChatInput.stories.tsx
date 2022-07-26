@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import ChatInput from './index';
+import ChatInput from '.';
 
 export default {
   title: 'Components/reusable/ChatInput',
