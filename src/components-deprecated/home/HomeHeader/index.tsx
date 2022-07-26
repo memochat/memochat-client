@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { Badge, Icon } from '@src/components/reusable';
+import { Badge, Icon } from '@src/components-deprecated/reusable';
 
 const HomeHeader = () => {
   return (

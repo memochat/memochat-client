@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import Icon from '@src/components/reusable/Icon';
+import Icon from '@src/components-deprecated/reusable/Icon';
 
 const TodoItemInput = () => {
   return (

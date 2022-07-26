@@ -3,8 +3,8 @@ import styled from '@emotion/styled';
 
 import RoomTypeRadioGroup from './RoomTypeRadioGroup';
 
-import { Button, Modal, TextField } from '@src/components/reusable';
-import { ModalButtonGroup } from '@src/components/reusable/Modal';
+import { Button, Modal, TextField } from '@src/components-deprecated/reusable';
+import { ModalButtonGroup } from '@src/components-deprecated/reusable/Modal';
 import { RoomType } from '@src/types/api/room';
 
 const ROOM_NAME_MAX = 20;
