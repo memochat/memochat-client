@@ -6,8 +6,8 @@ import { EmotionTheme } from '@src/themes';
 
 const getHeightBySize = (size: NonNullable<ButtonProps['size']>) => {
   return {
-    small: '52px',
-    medium: '40px',
+    small: '40px',
+    medium: '52px',
   }[size];
 };
 
@@ -23,11 +23,16 @@ const getTypographyBySize = ({ size, theme }: getTypographyBySizeProps) => {
   }[size];
 };
 
-interface getBackgroundColorByStatusProps extends Required<Pick<ButtonProps, 'disabled' | 'type'>> {
+interface getBackgroundColorByStatusProps
+  extends Required<Pick<ButtonProps, 'disabled' | 'variant'>> {
   theme: EmotionTheme;
 }
 
-const getBackgroundColorByStatus = ({ disabled, type, theme }: getBackgroundColorByStatusProps) => {
+const getBackgroundColorByStatus = ({
+  disabled,
+  variant,
+  theme,
+}: getBackgroundColorByStatusProps) => {
   if (disabled) {
     return theme.color.gray6;
   }
@@ -35,38 +40,36 @@ const getBackgroundColorByStatus = ({ disabled, type, theme }: getBackgroundColo
   return {
     primary: theme.color.purple1,
     secondary: theme.color.gray6,
-  }[type];
+  }[variant];
 };
 
-interface getColorByStatusProps extends Required<Pick<ButtonProps, 'disabled' | 'type'>> {
+interface getColorByStatusProps extends Required<Pick<ButtonProps, 'disabled' | 'variant'>> {
   theme: EmotionTheme;
 }
 
-const getColorByStatus = ({ disabled, type, theme }: getColorByStatusProps) => {
+const getColorByStatus = ({ disabled, variant, theme }: getColorByStatusProps) => {
   return {
     primary: disabled ? theme.color.gray3 : theme.color.white,
     secondary: disabled ? theme.color.gray4 : theme.color.black1,
-  }[type];
+  }[variant];
 };
 
 const PRIMARY_HOVER_BACKGROUND_COLOR = '#5D61D3';
 
-interface getHoverColorByType extends Required<Pick<ButtonProps, 'type'>> {
+interface getHoverColorByType extends Required<Pick<ButtonProps, 'variant'>> {
   theme: EmotionTheme;
 }
 
-const getHoverColorByType = ({ type, theme }: getHoverColorByType) => {
+const getHoverColorByType = ({ variant, theme }: getHoverColorByType) => {
   return {
     primary: PRIMARY_HOVER_BACKGROUND_COLOR,
     secondary: theme.color.gray5,
-  }[type];
+  }[variant];
 };
 
-export const Button = styled.button<
-  { buttonType: NonNullable<ButtonProps['type']> } & Required<
-    Pick<ButtonProps, 'size' | 'disabled'>
-  >
->`
+type StyledButtonProps = Required<Pick<ButtonProps, 'size' | 'disabled' | 'variant'>>;
+
+export const Button = styled.button<StyledButtonProps>`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -75,15 +78,15 @@ export const Button = styled.button<
   height: ${(p) => getHeightBySize(p.size)};
   border-radius: 16px;
 
-  ${(p) => getTypographyBySize({ size: p.size, theme: p.theme })};
+  ${(p) => getTypographyBySize(p)};
 
-  background-color: ${(p) => getBackgroundColorByStatus({ ...p, type: p.buttonType })};
-  color: ${(p) => getColorByStatus({ ...p, type: p.buttonType })};
+  background-color: ${(p) => getBackgroundColorByStatus(p)};
+  color: ${(p) => getColorByStatus(p)};
 
   ${(p) =>
     p.disabled
       ? ''
       : `&:hover { 
-            background-color: ${getHoverColorByType({ ...p, type: p.buttonType })};
+            background-color: ${getHoverColorByType(p)};
           }`}
 `;

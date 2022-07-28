@@ -22,12 +22,12 @@ export default {
 
 export const Primary: StoryObj<typeof Button> = {
   args: {
-    type: 'primary',
+    variant: 'primary',
   },
 };
 
 export const Secondary: StoryObj<typeof Button> = {
   args: {
-    type: 'secondary',
+    variant: 'secondary',
   },
 };

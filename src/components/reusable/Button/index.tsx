@@ -10,23 +10,22 @@ type BaseButtonProps = DetailedHTMLProps<
   HTMLButtonElement
 >;
 
-export interface ButtonProps extends Omit<BaseButtonProps, 'children' | 'type'> {
+export interface ButtonProps extends Omit<BaseButtonProps, 'children'> {
   children: ReactNode;
-  type?: ButtonType;
-  htmlType?: BaseButtonProps['type'];
+  variant?: ButtonType;
   size?: ButtonSize;
 }
 
 const Button = ({
   children,
-  type = 'primary',
-  htmlType = 'button',
+  variant = 'primary',
   size = 'medium',
+  type = 'button',
   disabled = false,
   ...props
 }: ButtonProps) => {
   return (
-    <Styled.Button {...props} type={htmlType} buttonType={type} size={size} disabled={disabled}>
+    <Styled.Button {...props} type={type} variant={variant} size={size} disabled={disabled}>
       {children}
     </Styled.Button>
   );
