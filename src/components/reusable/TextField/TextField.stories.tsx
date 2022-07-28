@@ -47,7 +47,7 @@ export default {
 const Default: ComponentStory<typeof TextField> = (args) => {
   const [value, setValue] = useState('');
 
-  return <TextField {...args} value={value} onChange={setValue} />;
+  return <TextField {...args} value={value} onChange={(e) => setValue(e.target.value)} />;
 };
 
 export const 기본 = Default.bind({});
