@@ -1,13 +1,12 @@
-import { ChangeEvent, InputHTMLAttributes, useState, FocusEvent, useCallback } from 'react';
+import { FC, ChangeEvent, InputHTMLAttributes, useState, FocusEvent, useCallback } from 'react';
 
 /** @todo 지우기 */
 // eslint-disable-next-line import/no-cycle
 import * as Styled from './styled';
 
 export interface TextFieldProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'id' | 'value' | 'onChange' | 'type'> {
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'id' | 'value' | 'type'> {
   value: string;
-  onChange: (value: string) => void;
   id: string;
   label: string;
   /** 타입 @default 'text' */
@@ -24,7 +23,7 @@ export interface TextFieldProps
   helperMessage?: string;
 }
 
-function TextField({
+const TextField: FC<TextFieldProps> = ({
   id,
   value,
   label,
@@ -36,35 +35,41 @@ function TextField({
   success,
   successMessage = '',
   helperMessage = '',
-  onChange = () => null,
-  onFocus = () => null,
-  onBlur = () => null,
+  onChange,
+  onFocus,
+  onBlur,
   ...props
-}: TextFieldProps) {
+}) => {
   const [isFocused, setIsFocused] = useState(false);
 
-  const handleToggleFocus = useCallback(
-    (input: boolean) => (e: FocusEvent<HTMLInputElement>) => {
-      setIsFocused(input);
-
-      if (input) {
-        onFocus(e);
-      } else {
-        onBlur(e);
-      }
+  const handleFocus = useCallback(
+    (e: FocusEvent<HTMLInputElement>) => {
+      setIsFocused(true);
+      onFocus?.(e);
     },
-    [onFocus, onBlur],
+    [onFocus],
   );
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value = '' } = e.target;
+  const handleBlur = useCallback(
+    (e: FocusEvent<HTMLInputElement>) => {
+      setIsFocused(false);
+      onBlur?.(e);
+    },
+    [onBlur],
+  );
 
-    if (maxLength && value.length > maxLength) {
-      return;
-    }
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const { value = '' } = e.target;
 
-    onChange(value);
-  };
+      if (maxLength && value.length > maxLength) {
+        return;
+      }
+
+      onChange?.(e);
+    },
+    [maxLength, onChange],
+  );
 
   const getHelperMessage = () => {
     if (error) {
@@ -91,8 +96,8 @@ function TextField({
           type={type}
           maxLength={maxLength}
           onChange={handleChange}
-          onFocus={handleToggleFocus(true)}
-          onBlur={handleToggleFocus(false)}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
         />
         {maxLength && <Styled.MaxLength>{`${value?.length || 0}/${maxLength}`}</Styled.MaxLength>}
       </Styled.InputWrapper>
@@ -101,6 +106,6 @@ function TextField({
       </Styled.HelperMessage>
     </Styled.Wrapper>
   );
-}
+};
 
 export default TextField;
