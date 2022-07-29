@@ -23,7 +23,7 @@ export interface TextFieldProps
   helperMessage?: string;
 }
 
-const TextField: FC<TextFieldProps> = ({
+const TextField = ({
   id,
   value,
   label,
@@ -39,7 +39,7 @@ const TextField: FC<TextFieldProps> = ({
   onFocus,
   onBlur,
   ...props
-}) => {
+}: TextFieldProps) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus = useCallback(
