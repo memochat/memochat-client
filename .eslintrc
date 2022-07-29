@@ -30,7 +30,6 @@
       "off",
       { "rootDir": "src", "allowSameFolder": true }
     ],
-    "import/no-cycle": "error",
     "import/no-unused-modules": [
       "off",
       {
