@@ -1,91 +1,98 @@
-import { ChangeEvent, useState, FocusEvent, useCallback } from 'react';
+import { ChangeEvent, useState, FocusEvent, useCallback, forwardRef } from 'react';
 
 import { TextFieldProps } from './TextField.types';
 import * as Styled from './TextField.styles';
 
-const TextField = ({
-  id,
-  value,
-  label,
-  type = 'text',
-  maxLength,
-  className,
-  error,
-  errorMessage = '',
-  success,
-  successMessage = '',
-  helperMessage = '',
-  onChange,
-  onFocus,
-  onBlur,
-  ...props
-}: TextFieldProps) => {
-  const [isFocused, setIsFocused] = useState(false);
-
-  const handleFocus = useCallback(
-    (e: FocusEvent<HTMLInputElement>) => {
-      setIsFocused(true);
-      onFocus?.(e);
+const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
+  (
+    {
+      id,
+      value,
+      label,
+      type = 'text',
+      maxLength,
+      className,
+      error,
+      errorMessage = '',
+      success,
+      successMessage = '',
+      helperMessage = '',
+      onChange,
+      onFocus,
+      onBlur,
+      ...props
     },
-    [onFocus],
-  );
+    ref,
+  ) => {
+    const [isFocused, setIsFocused] = useState(false);
 
-  const handleBlur = useCallback(
-    (e: FocusEvent<HTMLInputElement>) => {
-      setIsFocused(false);
-      onBlur?.(e);
-    },
-    [onBlur],
-  );
+    const handleFocus = useCallback(
+      (e: FocusEvent<HTMLInputElement>) => {
+        setIsFocused(true);
+        onFocus?.(e);
+      },
+      [onFocus],
+    );
 
-  const handleChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const { value = '' } = e.target;
+    const handleBlur = useCallback(
+      (e: FocusEvent<HTMLInputElement>) => {
+        setIsFocused(false);
+        onBlur?.(e);
+      },
+      [onBlur],
+    );
 
-      if (maxLength && value.length > maxLength) {
-        return;
+    const handleChange = useCallback(
+      (e: ChangeEvent<HTMLInputElement>) => {
+        const { value = '' } = e.target;
+
+        if (maxLength && value.length > maxLength) {
+          return;
+        }
+
+        onChange?.(e);
+      },
+      [maxLength, onChange],
+    );
+
+    const getHelperMessage = () => {
+      if (error) {
+        return errorMessage;
       }
 
-      onChange?.(e);
-    },
-    [maxLength, onChange],
-  );
+      if (success) {
+        return successMessage;
+      }
 
-  const getHelperMessage = () => {
-    if (error) {
-      return errorMessage;
-    }
+      return helperMessage;
+    };
 
-    if (success) {
-      return successMessage;
-    }
-
-    return helperMessage;
-  };
-
-  return (
-    <Styled.Wrapper className={className}>
-      <Styled.Label htmlFor={id} error={error}>
-        {label}
-      </Styled.Label>
-      <Styled.InputWrapper error={error} success={success} isFocused={isFocused}>
-        <Styled.Input
-          {...props}
-          id={id}
-          value={value}
-          type={type}
-          maxLength={maxLength}
-          onChange={handleChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-        />
-        {maxLength && <Styled.MaxLength>{`${value?.length || 0}/${maxLength}`}</Styled.MaxLength>}
-      </Styled.InputWrapper>
-      <Styled.HelperMessage error={error} success={success}>
-        {getHelperMessage()}
-      </Styled.HelperMessage>
-    </Styled.Wrapper>
-  );
-};
+    return (
+      <Styled.Wrapper className={className}>
+        <Styled.Label htmlFor={id} error={error}>
+          {label}
+        </Styled.Label>
+        <Styled.InputWrapper error={error} success={success} isFocused={isFocused}>
+          <Styled.Input
+            {...props}
+            ref={ref}
+            id={id}
+            value={value}
+            type={type}
+            maxLength={maxLength}
+            onChange={handleChange}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+          />
+          {maxLength && <Styled.MaxLength>{`${value?.length || 0}/${maxLength}`}</Styled.MaxLength>}
+        </Styled.InputWrapper>
+        <Styled.HelperMessage error={error} success={success}>
+          {getHelperMessage()}
+        </Styled.HelperMessage>
+      </Styled.Wrapper>
+    );
+  },
+);
+TextField.displayName = 'TextField';
 
 export default TextField;

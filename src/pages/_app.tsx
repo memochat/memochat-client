@@ -6,11 +6,13 @@ import { GlobalStyle, lightTheme } from '@src/themes';
 import GlobalConfirmModal from '@src/components/reusable/GlobalConfirmModal';
 import { ModalReducerContextProvider } from '@src/contexts/ModalReducerContext';
 
+import 'styles/global.css';
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>MEMOCHAT | Light up Your Idea</title>
+        <title>MEMOCHAT | Light up Your Idea</title>renderCount
         <meta name="description" content="Light up Your Idea." />
         <link rel="icon" href="/favicon.png" />
         <meta

@@ -17,6 +17,7 @@ const Stepper = forwardRef<HTMLDivElement, Props>((props, ref) => {
       <S.StepperStepConnector className="stepper-connector">
         {steps.map((v, i) => (
           <S.StepperStepButton
+            type="button"
             className="stepper-connector__button"
             onClick={onStepBtnClick(i)}
             active={i <= activeIndex}

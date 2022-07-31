@@ -6,6 +6,7 @@ export const StepperRoot = styled.div`
   display: flex;
   flex-direction: column;
   ${({ css }) => css}
+  height: 100%;
 `;
 
 export const StepperStepConnector = styled.div`
@@ -43,8 +44,12 @@ export const StepperStepButton = styled.button<StepperStepButtonProps>`
   }
 `;
 
-export const StepperContent = styled.div``;
+export const StepperContent = styled.div`
+  height: 100%;
+  width: 100%;
+`;
 
 export const StepperStep = styled.div<StepperStepProps>`
   display: ${({ active }) => (active ? 'block' : 'none')};
+  height: 100%;
 `;
