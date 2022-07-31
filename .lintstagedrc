@@ -1,6 +1,7 @@
 {
   "**/*.{ts,tsx}": [
     "eslint --fix",
-    "prettier --write"
+    "prettier --write",
+    "bash -c tsc --noEmit"
   ]
 }
