@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { TextFieldProps } from './TextField.type';
+import { TextFieldProps } from './TextField.types';
 
 import { EmotionTheme } from '@src/themes';
 

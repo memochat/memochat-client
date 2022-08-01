@@ -1,7 +1,7 @@
 import { ChangeEvent, useState, FocusEvent, useCallback } from 'react';
 
-import { TextFieldProps } from './TextField.type';
-import * as Styled from './TextField.style';
+import { TextFieldProps } from './TextField.types';
+import * as Styled from './TextField.styles';
 
 const TextField = ({
   id,
