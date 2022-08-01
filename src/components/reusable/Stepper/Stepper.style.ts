@@ -20,13 +20,11 @@ export const StepperStepButton = styled.button<StepperStepButtonProps>`
   width: 25px;
   height: 25px;
   background-color: ${({ theme, active }) => (active ? theme.color.purple1 : theme.color.gray4)};
-  border-radius: 9999px;
+  border-radius: 50%;
 
   /* subText */
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 154.2%;
-  letter-spacing: -0.3px;
+  ${({ theme }) => theme.typography.body3}
+
   color: ${({ theme }) => theme.color.white};
 
   &:not(&:first-of-type) {

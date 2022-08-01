@@ -5,14 +5,11 @@ import { Props } from './Stepper.types';
 
 const Stepper = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const { children, activeIndex, handleStepBtnClick, ...rest } = props;
-  if (children === null || children === undefined) {
-    throw new Error('children must be provided when using Stepper');
-  }
 
   const steps = Children.toArray(children).filter(Boolean);
 
   const onStepBtnClick = (index: number) => (e: MouseEvent<HTMLButtonElement>) => {
-    handleStepBtnClick && handleStepBtnClick(index, e);
+    handleStepBtnClick?.(index, e);
   };
 
   return (
