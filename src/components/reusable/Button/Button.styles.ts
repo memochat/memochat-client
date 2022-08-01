@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { ButtonProps } from './Button.type';
+import { ButtonProps } from './Button.types';
 
 import { EmotionTheme } from '@src/themes';
 
