@@ -3,3 +3,6 @@ node_modules
 
 # next config
 next.config.js
+
+# scripts
+src/scripts
