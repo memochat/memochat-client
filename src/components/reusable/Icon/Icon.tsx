@@ -1,21 +1,11 @@
-import { SVGProps } from 'react';
 import styled from '@emotion/styled';
 
-import * as icon from '@src/assets/icons';
-import { ColorTheme } from '@src/themes';
+import { SvgIconProps } from './Icon.types';
 
-export type IconNameType = keyof typeof icon;
-export type ColorThemeNameType = keyof ColorTheme;
+import * as icon from '@src/assets/icons';
+import { ColorToken } from '@src/themes';
 
 const DEFAULT_SIZE = 30;
-
-interface SvgIconProps extends SVGProps<SVGSVGElement> {
-  name: IconNameType;
-  size?: number;
-  width?: string;
-  height?: string;
-  color?: ColorThemeNameType;
-}
 
 const Icon = ({
   name,
@@ -32,8 +22,7 @@ const Icon = ({
   >`
     &,
     path {
-      ${(p) =>
-        p.colorName ? `fill: ${p.theme.color[colorName as ColorThemeNameType]} !important` : ''};
+      ${(p) => (p.colorName ? `fill: ${p.theme.color[colorName as ColorToken]} !important` : '')};
       width: ${width ?? `${size}px`};
       height: ${height ?? 'auto'};
     }
