@@ -1,8 +1,6 @@
 import styled from '@emotion/styled';
 
-/** @todo 지우기 */
-// eslint-disable-next-line import/no-cycle
-import { TextFieldProps } from '.';
+import { TextFieldProps } from './TextField.type';
 
 import { EmotionTheme } from '@src/themes';
 

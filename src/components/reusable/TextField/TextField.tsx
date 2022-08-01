@@ -1,27 +1,7 @@
-import { FC, ChangeEvent, InputHTMLAttributes, useState, FocusEvent, useCallback } from 'react';
+import { ChangeEvent, useState, FocusEvent, useCallback } from 'react';
 
-/** @todo 지우기 */
-// eslint-disable-next-line import/no-cycle
-import * as Styled from './styled';
-
-export interface TextFieldProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'id' | 'value' | 'type'> {
-  value: string;
-  id: string;
-  label: string;
-  /** 타입 @default 'text' */
-  type?: 'text' | 'password';
-  /** 에러 여부 */
-  error?: boolean;
-  /** 에러 메시지 */
-  errorMessage?: string;
-  /** 성공 여부 */
-  success?: boolean;
-  /** 성공 메시지 */
-  successMessage?: string;
-  /** 안내 메시지 */
-  helperMessage?: string;
-}
+import { TextFieldProps } from './TextField.type';
+import * as Styled from './TextField.style';
 
 const TextField = ({
   id,
