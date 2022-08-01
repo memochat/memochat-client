@@ -12,7 +12,7 @@ const Stepper = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const steps = Children.toArray(children).filter(Boolean);
 
   const onStepBtnClick = (index: number) => (e: MouseEvent<HTMLButtonElement>) => {
-    handleStepBtnClick && handleStepBtnClick(index, e);
+    handleStepBtnClick?.(index, e);
   };
 
   return (
