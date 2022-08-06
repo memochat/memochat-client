@@ -25,12 +25,12 @@ const useModalLayoutVisible = <T extends HTMLElement>(open: boolean, dimRef: Ref
   const [isVisible, setIsVisible] = useState<boolean>(open);
 
   useEffect(() => {
-    open && !isVisible && setIsVisible(true);
-  }, [open, isVisible]);
+    open && setIsVisible(true);
+  }, [open]);
 
   const handleAnimationend = useCallback(() => {
-    !open && isVisible && setIsVisible(false);
-  }, [open, isVisible]);
+    !open && setIsVisible(false);
+  }, [open]);
 
   /** 애니메이션이 끝난 후에 모달이 안보이도록 함 */
   useEffect(() => {

@@ -20,17 +20,17 @@ const UpsertRoomDialog = ({ type, defaultValue, open, onClose }: UpsertRoomDialo
   );
 
   const handleRoomNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue({
-      ...value,
+    setValue((prevValue) => ({
+      ...prevValue,
       roomName: e.target.value,
-    });
+    }));
   };
 
   const handleRoomTypeChange = (id: number) => {
-    setValue({
-      ...value,
+    setValue((prevValue) => ({
+      ...prevValue,
       roomTypeId: id,
-    });
+    }));
   };
 
   const isInvalid = !value.roomName || !value.roomTypeId;
