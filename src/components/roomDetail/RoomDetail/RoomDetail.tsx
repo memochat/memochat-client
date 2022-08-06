@@ -2,40 +2,21 @@ import Image from 'next/image';
 
 import { RoomDetailProps } from './RoomDetail.types';
 import * as S from './RoomDetail.styles';
+import RoomSection from '../RoomSection';
 
 import Icon from '@src/components/reusable/Icon';
 
 //TODO:api나오면 변경
 const dummy = [
-  { title: '사진', count: 124, contents: [1, 2, 3], onClick: () => alert('click') },
+  {
+    title: '사진',
+    count: 124,
+    images: ['/images/alarm.png', '/images/bell.png'],
+    onClick: () => alert('click'),
+  },
   { title: '파일', count: 14, onClick: () => alert('click') },
   { title: '링크', count: 4, onClick: () => alert('click') },
 ];
-
-const renderSections = (sections: typeof dummy[number][]) => {
-  return sections.map((section, i) => {
-    return (
-      <S.RoomSection key={i} onClick={section.onClick}>
-        <S.RoomSectionButton>
-          <S.RoomSectionTitle>{section.title}</S.RoomSectionTitle>
-          {section.count}
-          <S.IconBox>
-            <Icon name="ArrowRight" width="16px" height="16px"></Icon>
-          </S.IconBox>
-        </S.RoomSectionButton>
-        {section.contents && (
-          <S.RoomSectionContent>
-            {section.contents.map((v) => (
-              <S.ImageBox key={v}>
-                <Image alt="ok" layout="fill" src="/images/alarm.png"></Image>
-              </S.ImageBox>
-            ))}
-          </S.RoomSectionContent>
-        )}
-      </S.RoomSection>
-    );
-  });
-};
 
 const RoomDetail = ({}: RoomDetailProps) => {
   const onModifyBtnClick = () => {
@@ -58,10 +39,16 @@ const RoomDetail = ({}: RoomDetailProps) => {
             <S.NBCButton onClick={onModifyBtnClick}>변경</S.NBCButton>
           </S.NBCBox>
         </S.NBCSection>
-        {renderSections(dummy)}
-        <S.RoomSection>
-          <S.RoomSectionButton color="red1">메모룸 나가기</S.RoomSectionButton>
-        </S.RoomSection>
+        {dummy.map((v, i) => (
+          <RoomSection key={i} {...v}></RoomSection>
+        ))}
+        <RoomSection
+          onClick={() => {
+            alert('나가기');
+          }}
+          color="red1"
+          title="메모룸 나가기"
+        ></RoomSection>
       </S.Main>
     </S.Wrapper>
   );
