@@ -1,3 +1,4 @@
+import NextImage from 'next/image';
 import styled from '@emotion/styled';
 
 const HEADER_HEIGHT = 50;
@@ -45,7 +46,7 @@ export const Main = styled.main`
   background-color: ${({ theme }) => theme.color.gray6};
 `;
 
-export const RoomChangeSection = styled.section`
+export const RoomBaseInfo = styled.section`
   padding-top: 40px;
   background-color: ${({ theme }) => theme.color.white};
   display: flex;
@@ -53,21 +54,21 @@ export const RoomChangeSection = styled.section`
   align-items: center;
 `;
 
-export const RoomChangeBox = styled.div`
+export const RoomTitleBox = styled.div`
   padding-top: 8px;
   display: flex;
   padding: 16px;
   width: 100%;
 `;
 
-export const RoomChangeTitle = styled.h3`
+export const RoomTitle = styled.h3`
   flex-grow: 1;
   text-align: left;
   ${({ theme }) => theme.typography.body1};
   color: ${({ theme }) => theme.color.gray3};
 `;
 
-export const RoomChangeButton = styled.button`
+export const RoomTitleChangeButton = styled.button`
   ${({ theme }) => theme.typography.body1};
   color: ${({ theme }) => theme.color.purple1};
 `;
@@ -77,20 +78,16 @@ export const RoomChangeButton = styled.button`
 export const ImageBox = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  column-gap: 8px;
   width: 100%;
-  height: 80px;
 
-  //next/image 컴포넌트들
-  & > * {
-    background-color: #ebeef6;
-    border-radius: 8px;
-    position: relative;
-
-    & > span {
-      & > img {
-        aspect-ratio: 1/1;
-        object-fit: cover;
-      }
-    }
+  //next/image 컴포넌트
+  & > span {
+    aspect-ratio: 1/1;
   }
+`;
+
+export const Image = styled(NextImage)`
+  border-radius: 8px;
+  background-color: #ebeef6;
 `;

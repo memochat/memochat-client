@@ -14,7 +14,7 @@ const RoomDetailMenuItem = (props: RoomDetailMenuProps) => {
         {count}
         {count && (
           <S.IconBox>
-            <Icon name="ArrowRight" width="16px" height="16px"></Icon>
+            <Icon name="ArrowRight" width="16px" height="16px" />
           </S.IconBox>
         )}
       </S.RoomDetailMenuButton>
