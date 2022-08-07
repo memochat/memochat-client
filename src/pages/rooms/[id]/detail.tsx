@@ -15,13 +15,9 @@ const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
     query: { id },
   } = ctx;
 
-  if (typeof id !== 'string') {
-    throw new Error('room id가 string이 아닙니다.');
-  }
-
   return {
     props: {
-      id,
+      id: id as string,
     },
   };
 };
