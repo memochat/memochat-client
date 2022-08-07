@@ -3,7 +3,7 @@ import { ComponentMeta, StoryObj } from '@storybook/react';
 import RoomDetail from '.';
 
 export default {
-  title: 'Components/Room Detail',
+  title: 'Components/roomDetail/RoomDetail',
   component: RoomDetail,
   args: {},
   argTypes: {},
