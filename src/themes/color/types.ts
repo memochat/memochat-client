@@ -24,7 +24,7 @@ type MakeTokenSet<
 export type ColorToken =
   | 'slateGrey'
   | 'white'
-  | MakeTokenSet<'purple', [1, 2, 3, 4, 5]>
+  | MakeTokenSet<'purple', [1, 2, 3, 4, 5, 6]>
   | MakeTokenSet<'blue', [1, 2, 3, 4, 5]>
   | MakeTokenSet<'orange', [1, 2, 3, 4, 5]>
   | MakeTokenSet<'red', [1, 2, 3, 4, 5]>

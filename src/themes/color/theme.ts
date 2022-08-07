@@ -21,6 +21,7 @@ export const lightColorTheme: Readonly<ColorTheme> = {
   purple3: '#B7B9FE',
   purple4: '#C8CAFE',
   purple5: '#D9DAFF',
+  purple6: '#EBEBFF',
 
   // primary
   blue1: '#3D6DF6',
@@ -80,6 +81,7 @@ export const darkColorTheme: Readonly<ColorTheme> = {
   purple3: '#B7B9FE',
   purple4: '#C8CAFE',
   purple5: '#D9DAFF',
+  purple6: '#EBEBFF',
 
   // primary
   blue1: '#3D6DF6',
