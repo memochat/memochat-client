@@ -5,10 +5,12 @@ export const Wrapper = styled.form`
   display: flex;
   flex-direction: column;
 `;
-export const Input = styled.input`
+export const Textarea = styled.textarea`
   width: 100%;
   padding: 12px 16px;
   height: 64px;
+  min-height: 2.4rem;
+  max-height: 9rem;
   background-color: ${({ theme }) => theme.color.white};
 
   ${({ theme }) => theme.typography.body1};
@@ -29,6 +31,7 @@ export const ToolBoxIconBox = styled.div`
   display: flex;
   align-items: center;
   gap: 25px;
+  min-height: 32px;
 `;
 
 export const SubmitBtn = styled.button`
