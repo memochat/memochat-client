@@ -26,7 +26,7 @@ export default {
 } as ComponentMeta<typeof RoomDetailMenu>;
 
 const Template: ComponentStory<typeof RoomDetailMenu> = (args) => {
-  return <RoomDetailMenu {...args}></RoomDetailMenu>;
+  return <RoomDetailMenu {...args} />;
 };
 
 export const Default = Template.bind({});
@@ -50,22 +50,26 @@ export const 이미지존재하는경우 = Template.bind({});
         width={80}
         height={80}
         src="https://images.unsplash.com/photo-1655488513929-42ed6b424409?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2829&q=80"
-      ></img>
+        alt=""
+      />
       <img
         width={80}
         height={80}
         src="https://images.unsplash.com/photo-1655488513929-42ed6b424409?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2829&q=80"
-      ></img>
+        alt=""
+      />
       <img
         width={80}
         height={80}
         src="https://images.unsplash.com/photo-1655488513929-42ed6b424409?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2829&q=80"
-      ></img>
+        alt=""
+      />
       <img
         width={80}
         height={80}
         src="https://images.unsplash.com/photo-1655488513929-42ed6b424409?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2829&q=80"
-      ></img>
+        alt=""
+      />
     </span>
   ),
 };

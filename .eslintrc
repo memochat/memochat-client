@@ -18,6 +18,7 @@
     "@typescript-eslint/no-unused-vars": "warn",
     //react
     "react/jsx-props-no-spreading": "off",
+    "react/self-closing-comp": "warn",
     //import-rules
     "import/order": [
       "error",

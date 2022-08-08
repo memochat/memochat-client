@@ -27,8 +27,8 @@ const Template: ComponentStory<typeof Stepper> = (args) => {
     >
       <div className="a">
         첫번째 페이지
-        <br></br>
-        <br></br>
+        <br />
+        <br />
         Cillum aliquip mollit Lorem esse. Anim id ea excepteur irure voluptate. Sit veniam ut ad
         incididunt exercitation exercitation. In duis aliqua amet ipsum proident elit reprehenderit
         officia elit. Amet excepteur velit officia mollit et quis irure ea dolor. Adipisicing in
@@ -36,14 +36,16 @@ const Template: ComponentStory<typeof Stepper> = (args) => {
         incididunt eu.
       </div>
       <div className="a">
-        두번째 페이지<br></br>
-        <br></br>
+        두번째 페이지
+        <br />
+        <br />
         Aliquip nostrud adipisicing occaecat magna dolore pariatur. Proident irure quis culpa irure
         enim sit. Sit mollit esse Lorem nulla dolor. Nostrud velit sit labore ex labore.
       </div>
       <div className="a">
-        세번째 페이지<br></br>
-        <br></br>
+        세번째 페이지
+        <br />
+        <br />
         Labore cillum mollit do ea exercitation. Aliqua anim nisi amet laborum. Nulla eiusmod anim
         laboris aute cillum fugiat fugiat consectetur proident.
       </div>

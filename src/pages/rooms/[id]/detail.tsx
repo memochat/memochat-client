@@ -7,17 +7,16 @@ interface Props {
 }
 
 const detail: NextPage<Props> = (props) => {
-  return <RoomDetail></RoomDetail>;
+  return <RoomDetail />;
 };
 
 const getServerSideProps: GetServerSideProps<Props> = async (ctx) => {
   const {
     query: { id },
   } = ctx;
-
   return {
     props: {
-      id: id as string,
+      id: String(id),
     },
   };
 };
