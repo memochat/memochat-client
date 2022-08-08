@@ -1,5 +1,7 @@
 export { ReactComponent as Album } from './album.svg';
 export { ReactComponent as ArrowUp } from './arrow-up.svg';
+export { ReactComponent as ArrowLeft } from './arrow-left.svg';
+export { ReactComponent as ArrowRight } from './arrow-right.svg';
 export { ReactComponent as Camera } from './camera.svg';
 export { ReactComponent as File } from './file.svg';
 export { ReactComponent as Hamburger } from './hamburger.svg';

@@ -1,5 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import styled from '@emotion/styled';
+
 import { lightTheme } from '../theme';
 
 export default {
