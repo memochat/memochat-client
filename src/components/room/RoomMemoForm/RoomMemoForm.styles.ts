@@ -30,18 +30,8 @@ export const ToolBoxIconBox = styled.div`
   flex-grow: 1;
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 16px;
   min-height: 32px;
 `;
 
-export const SubmitBtn = styled.button`
-  background-color: ${({ theme }) => theme.color.orange2};
-  border: 1px solid;
-  border-color: ${({ theme }) => theme.color.orange1};
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+export const SubmitBtn = styled.button``;

@@ -42,21 +42,25 @@ const RoomMemoForm = ({}: RoomMemoFormProps) => {
         alert(JSON.stringify(v, null, 2));
       })}
     >
-      <S.Textarea {...memoRegister} placeholder="메모를 입력하세요." />
+      <S.Textarea {...memoRegister} placeholder="채팅방 선택 후 메모작성." />
       <S.ToolBox>
         <S.ToolBoxIconBox>
           <button type="button" onClick={onAlbumIconBtnClick} aria-label="앨범">
-            <Icon name="Album" width="21px" height="24px"></Icon>
+            <Icon name="Album" width="100%" height="100%" />
           </button>
           <button type="button" onClick={onCameraIconBtnClick} aria-label="카메라">
-            {/*TODO: native 권한 필요 */}
-            <Icon name="Camera" width="21px" height="24px"></Icon>
+            {/*TODO: native 권한 요청 */}
+            <Icon name="Camera" width="100%" height="100%" />
           </button>
         </S.ToolBoxIconBox>
-        {isDirty && (
+        {isDirty ? (
           <S.SubmitBtn type="submit">
-            <Icon name="ArrowUp" color="white" width="14px" height="16px"></Icon>
+            <Icon name="Send" width="100%" height="100%" />
           </S.SubmitBtn>
+        ) : (
+          <span>
+            <Icon name="Pencil" width="100%" height="100%" />
+          </span>
         )}
       </S.ToolBox>
     </S.Wrapper>
