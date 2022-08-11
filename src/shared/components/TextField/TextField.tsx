@@ -25,7 +25,6 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     ref,
   ) => {
     const [isFocused, setIsFocused] = useState(false);
-
     const handleFocus = useCallback(
       (e: FocusEvent<HTMLInputElement>) => {
         setIsFocused(true);

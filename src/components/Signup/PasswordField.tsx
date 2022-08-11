@@ -6,7 +6,7 @@ import { SignUpFormType } from '@src/hooks/useSignupForm';
 
 interface Props {
   control: Control<SignUpFormType, string>;
-  name: 'password';
+  name: Exclude<keyof SignUpFormType, 'id'>;
 }
 
 const PasswordField = forwardRef<HTMLInputElement, Props>((props, ref) => {
@@ -14,11 +14,6 @@ const PasswordField = forwardRef<HTMLInputElement, Props>((props, ref) => {
   const { field, fieldState } = useController({
     control,
     name,
-    rules: {
-      required: { value: true, message: '필수값입니다.' },
-      minLength: { value: 10, message: '최소 10자까지 입력 가능합니다.' },
-      maxLength: { value: 20, message: '최대 20자까지 입력 가능합니다.' },
-    },
   });
 
   return (
@@ -26,7 +21,7 @@ const PasswordField = forwardRef<HTMLInputElement, Props>((props, ref) => {
       ref={ref}
       type="password"
       name={name}
-      id="password-textfield"
+      id={`${name}-textfield`}
       value={field.value}
       onChange={field.onChange}
       label="비밀번호"
@@ -37,7 +32,7 @@ const PasswordField = forwardRef<HTMLInputElement, Props>((props, ref) => {
       successMessage="사용가능한 비밀번호입니다."
       helperMessage="최대 20자까지 입력 가능합니다."
       maxLength={20}
-    ></TextField>
+    />
   );
 });
 PasswordField.displayName = 'SignUpField';
