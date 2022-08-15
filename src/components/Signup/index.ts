@@ -1,2 +1,2 @@
 export { default as SignUp } from './Signup';
-export type { signupProps } from './Signup.types';
+export type { SignupProps as signupProps } from './Signup.types';

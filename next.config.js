@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   /**@param {import("webpack").Configuration} config */
   webpack(config) {
     /**
