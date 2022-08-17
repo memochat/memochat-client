@@ -1,6 +1,7 @@
 import { useForm, UseFormProps } from 'react-hook-form';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+
 export interface SignUpFormType {
   id: string;
   password: string;
@@ -37,10 +38,10 @@ const schema = z
 
 const useSignupForm = (props?: UseFormProps<SignUpFormType>) => {
   return useForm<SignUpFormType>({
-    defaultValues,
+    ...props,
+    defaultValues: props?.defaultValues || defaultValues,
     mode: 'all',
     resolver: zodResolver(schema),
-    ...props,
   });
 };
 

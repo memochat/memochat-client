@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { Controller } from 'react-hook-form';
+import { Controller, SubmitHandler } from 'react-hook-form';
 
 import TextField from '../reusable/TextField';
 import * as S from './Signup.styles';
@@ -8,7 +8,7 @@ import { SignupProps } from './Signup.types';
 
 import Button from '@src/components/reusable/Button';
 import { Stepper } from '@src/components/reusable/Stepper';
-import useSignupForm from '@src/hooks/useSignupForm';
+import useSignupForm, { SignUpFormType } from '@src/hooks/useSignupForm';
 
 const Signup = ({}: SignupProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -29,16 +29,15 @@ const Signup = ({}: SignupProps) => {
     setActiveIndex((prev) => prev + 1);
   };
 
-  //쓰로틀로 아이디 중복체크
+  const onSubmit: SubmitHandler<SignUpFormType> = (values) => {
+    alert(JSON.stringify(values, null, 2));
+    router.push('/signup/complete');
+  };
+
+  //TODO: 쓰로틀로 아이디 중복체크
 
   return (
-    <S.Wrapper
-      as="form"
-      onSubmit={handleSubmit((v) => {
-        alert(JSON.stringify(v, null, 2));
-        router.push('/signup/complete');
-      })}
-    >
+    <S.Wrapper as="form" onSubmit={handleSubmit(onSubmit)}>
       <S.Title>
         작성한 메모의 저장을 위해서
         <br /> 회원가입이 필요해요!

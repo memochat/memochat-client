@@ -2,14 +2,14 @@ import { useEffect, useRef } from 'react';
 import Lottie from 'lottie-web';
 import { useRouter } from 'next/router';
 
-import { SignupCompleteProps } from './SignupComplete.types';
-import * as S from './SignupComplete.styles';
+import * as S from './SigninComplete.styles';
 import Button from '../reusable/Button';
+import { SigninCompleteProps } from './SigninComplete.types';
 
-//TODO:로티 나오면 변경
+//TODO: 로티나오면 변경
 // import signupLottie from '@src/assets/lotti/signup.json';
 
-const SignupComplete = ({}: SignupCompleteProps) => {
+const SigninComplete = ({}: SigninCompleteProps) => {
   const lottieRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -36,7 +36,7 @@ const SignupComplete = ({}: SignupCompleteProps) => {
   return (
     <S.Wrapper>
       <S.Header>
-        <S.Title>회원가입을 완료하였습니다!</S.Title>
+        <S.Title>로그인을 완료하였습니다!</S.Title>
       </S.Header>
       <S.Content ref={lottieRef} />
       <S.ButtonContainer>
@@ -46,4 +46,4 @@ const SignupComplete = ({}: SignupCompleteProps) => {
   );
 };
 
-export default SignupComplete;
+export default SigninComplete;
