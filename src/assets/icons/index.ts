@@ -11,3 +11,5 @@ export { ReactComponent as Pin } from './pin.svg';
 export { ReactComponent as Plus } from './plus.svg';
 export { ReactComponent as Reply } from './reply.svg';
 export { ReactComponent as Todo } from './todo.svg';
+export { ReactComponent as Send } from './send.svg';
+export { ReactComponent as Pencil } from './pencil.svg';

@@ -12,23 +12,23 @@ const Icon = ({
   size = DEFAULT_SIZE,
   width,
   height,
-  color: colorName,
+  color: colorname,
   ...props
 }: SvgIconProps) => {
   const SvgIcon = icon[name];
 
   const StyledSvgIcon = styled(SvgIcon)<
-    Pick<SvgIconProps, 'size' | 'width' | 'height'> & { colorName: SvgIconProps['color'] }
+    Pick<SvgIconProps, 'size' | 'width' | 'height'> & { colorname: SvgIconProps['color'] }
   >`
     &,
     path {
-      ${(p) => (p.colorName ? `fill: ${p.theme.color[colorName as ColorToken]} !important` : '')};
+      ${(p) => (p.colorname ? `fill: ${p.theme.color[colorname as ColorToken]} !important` : '')};
       width: ${width ?? `${size}px`};
       height: ${height ?? 'auto'};
     }
   `;
 
-  return <StyledSvgIcon {...props} colorname={colorName} />;
+  return <StyledSvgIcon {...props} colorname={colorname} />;
 };
 
 export default Icon;
