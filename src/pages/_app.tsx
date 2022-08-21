@@ -2,8 +2,9 @@ import { ThemeProvider } from '@emotion/react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
-import GlobalStyle from '@src/themes/GlobalStyle';
-import { lightTheme } from '@src/themes';
+import { GlobalStyle, lightTheme } from '@src/themes';
+import GlobalConfirmModal from '@src/components/reusable/GlobalConfirmModal';
+import ConfirmContextProvider from '@src/contexts/ConfirmContextProvider';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -19,7 +20,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider theme={lightTheme}>
         <GlobalStyle />
-        <Component {...pageProps} />
+        <ConfirmContextProvider>
+          <Component {...pageProps} />
+          <GlobalConfirmModal />
+        </ConfirmContextProvider>
       </ThemeProvider>
     </>
   );

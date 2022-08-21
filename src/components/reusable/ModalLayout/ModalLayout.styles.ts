@@ -14,6 +14,8 @@ export const Container = styled.div<{ open: boolean }>`
   overflow: hidden;
 
   ${(p) => !p.open && 'pointer-events: none;'}
+
+  z-index: 100;
 `;
 
 export const fadeIn = keyframes`
