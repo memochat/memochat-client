@@ -3,7 +3,7 @@ import { ComponentMeta, StoryObj } from '@storybook/react';
 import UpsertRoomDialog from '.';
 
 export default {
-  title: 'Components/reusable/room/UpsertRoomDialog',
+  title: 'Components/room/UpsertRoomDialog',
   component: UpsertRoomDialog,
   args: {
     open: true,
