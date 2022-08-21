@@ -17,7 +17,7 @@ const SignIn = ({}: SignInProps) => {
     alert(JSON.stringify(values, null, 2));
     router.push('/signin/complete');
   };
-  console.log(formState.errors);
+
   return (
     <S.Wrapper as="form" onSubmit={handleSubmit(onSubmit)}>
       <S.Title>메모챗 로그인</S.Title>

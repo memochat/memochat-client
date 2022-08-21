@@ -6,8 +6,7 @@ import * as S from './SigninComplete.styles';
 import Button from '../reusable/Button';
 import { SigninCompleteProps } from './SigninComplete.types';
 
-//TODO: 로티나오면 변경
-// import signupLottie from '@src/assets/lotti/signup.json';
+import loginLottie from '@src/assets/lotti/login.json';
 
 const SigninComplete = ({}: SigninCompleteProps) => {
   const lottieRef = useRef<HTMLDivElement>(null);
@@ -23,7 +22,7 @@ const SigninComplete = ({}: SigninCompleteProps) => {
       renderer: 'svg',
       loop: false,
       autoplay: true,
-      // animationData: signupLottie,
+      animationData: loginLottie,
       path: '',
     });
   }, []);

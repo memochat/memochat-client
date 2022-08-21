@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Header = styled.header`
-  padding: 36px 18px;
+  padding: 36px 18px 0 18px;
 `;
 
 export const Title = styled.h1`
