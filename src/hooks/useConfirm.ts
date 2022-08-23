@@ -1,12 +1,11 @@
 import { useContext } from 'react';
 
-import ConfirmContext from '@src/contexts/ConfirmContext';
-import { CONFIRM_ACTION } from '@src/contexts/ConfirmContext/ConfirmContext.types';
+import GlobalReducerContext, { GLOBAL_REDUCER_ACTION } from '@src/contexts/GlobalReducerContext';
 
 let resolveCallback: (value: boolean) => void;
 
 const useConfirm = () => {
-  const [confirmState, dispatch] = useContext(ConfirmContext);
+  const [state, dispatch] = useContext(GlobalReducerContext);
 
   const confirm = (payload: {
     headerTitle?: string;
@@ -14,7 +13,7 @@ const useConfirm = () => {
     description?: string;
   }): Promise<boolean> => {
     dispatch({
-      type: CONFIRM_ACTION.OPEN_CONFIRM,
+      type: GLOBAL_REDUCER_ACTION.OPEN_CONFIRM,
       payload,
     });
     return new Promise((resolve) => {
@@ -24,7 +23,7 @@ const useConfirm = () => {
 
   const closeConfirm = () => {
     dispatch({
-      type: CONFIRM_ACTION.CLOSE_CONFIRM,
+      type: GLOBAL_REDUCER_ACTION.CLOSE_CONFIRM,
     });
   };
 
@@ -38,7 +37,7 @@ const useConfirm = () => {
     resolveCallback(false);
   };
 
-  return { confirm, onConfirm, onCancel, confirmState };
+  return { confirm, onConfirm, onCancel, confirmModalState: state.confirmModal };
 };
 
 export default useConfirm;

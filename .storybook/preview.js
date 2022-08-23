@@ -4,7 +4,7 @@ import { ThemeProvider } from 'emotion-theming';
 
 import { lightTheme, darkTheme, GlobalStyle } from '../src/themes';
 import GlobalConfirmModal from '../src/components/reusable/GlobalConfirmModal';
-import ConfirmContextProvider from '../src/contexts/ConfirmContextProvider';
+import { GlobalReducerContextProvider } from '../src/contexts/GlobalReducerContext';
 
 
 export const parameters = {
@@ -31,10 +31,10 @@ export const decorators = [
   (Story) => (
     <ThemeProvider theme={useDarkMode() ? darkTheme : lightTheme}>
       <GlobalStyle />
-      <ConfirmContextProvider>
+      <GlobalReducerContextProvider>
         <Story />
         <GlobalConfirmModal/>
-      </ConfirmContextProvider>
+      </GlobalReducerContextProvider>
     </ThemeProvider>
   ),
 ];

@@ -3,10 +3,15 @@ import ConfirmModal from '../ConfirmModal';
 import useConfirm from '@src/hooks/useConfirm';
 
 const GlobalConfirmModal = () => {
-  const { onConfirm, onCancel, confirmState } = useConfirm();
+  const { onConfirm, onCancel, confirmModalState } = useConfirm();
 
   return (
-    <ConfirmModal {...confirmState} onClose={onCancel} onConfirm={onConfirm} onCancel={onCancel} />
+    <ConfirmModal
+      {...confirmModalState}
+      onClose={onCancel}
+      onConfirm={onConfirm}
+      onCancel={onCancel}
+    />
   );
 };
 

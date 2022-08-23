@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
 
-export interface ConfirmContextProviderProps {
+export interface GlobalReducerContextProviderProps {
   children: ReactNode;
 }
