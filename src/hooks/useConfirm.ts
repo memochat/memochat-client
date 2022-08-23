@@ -4,16 +4,21 @@ import ConfirmContext from '@src/contexts/ConfirmContext';
 import { CONFIRM_ACTION } from '@src/contexts/ConfirmContext/ConfirmContext.types';
 
 let resolveCallback: (value: boolean) => void;
+
 const useConfirm = () => {
   const [confirmState, dispatch] = useContext(ConfirmContext);
 
-  const confirm = (payload: { headerTitle?: string; title: string; description?: string }) => {
+  const confirm = (payload: {
+    headerTitle?: string;
+    title: string;
+    description?: string;
+  }): Promise<boolean> => {
     dispatch({
       type: CONFIRM_ACTION.OPEN_CONFIRM,
       payload,
     });
-    return new Promise((res) => {
-      resolveCallback = res;
+    return new Promise((resolve) => {
+      resolveCallback = resolve;
     });
   };
 
