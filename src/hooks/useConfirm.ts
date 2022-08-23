@@ -5,7 +5,7 @@ import GlobalReducerContext, { GLOBAL_REDUCER_ACTION } from '@src/contexts/Globa
 let resolveCallback: (value: boolean) => void;
 
 const useConfirm = () => {
-  const [state, dispatch] = useContext(GlobalReducerContext);
+  const [{ confirmState }, dispatch] = useContext(GlobalReducerContext);
 
   const confirm = (payload: {
     headerTitle?: string;
@@ -37,7 +37,7 @@ const useConfirm = () => {
     resolveCallback(false);
   };
 
-  return { confirm, onConfirm, onCancel, confirmModalState: state.confirmModal };
+  return { confirm, onConfirm, onCancel, confirmState };
 };
 
 export default useConfirm;

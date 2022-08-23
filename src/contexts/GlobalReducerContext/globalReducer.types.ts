@@ -1,7 +1,7 @@
 import { ConfirmModalProps } from '@src/components/reusable/ConfirmModal';
 
 export type GlobalReducerState = {
-  confirmModal: Pick<ConfirmModalProps, 'open' | 'headerTitle' | 'title' | 'description'>;
+  confirmState: Pick<ConfirmModalProps, 'open' | 'headerTitle' | 'title' | 'description'>;
 };
 
 export const GLOBAL_REDUCER_ACTION = {

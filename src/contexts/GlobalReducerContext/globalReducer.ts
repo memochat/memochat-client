@@ -5,7 +5,7 @@ import {
 } from './globalReducer.types';
 
 export const initialGlobalReducerState: GlobalReducerState = {
-  confirmModal: {
+  confirmState: {
     open: false,
     title: '',
   },
@@ -19,7 +19,7 @@ const globalReducer = (
     case GLOBAL_REDUCER_ACTION.OPEN_CONFIRM:
       return {
         ...state,
-        confirmModal: {
+        confirmState: {
           ...action.payload,
           open: true,
         },
@@ -27,8 +27,8 @@ const globalReducer = (
     case GLOBAL_REDUCER_ACTION.CLOSE_CONFIRM:
       return {
         ...state,
-        confirmModal: {
-          ...initialGlobalReducerState.confirmModal,
+        confirmState: {
+          ...initialGlobalReducerState.confirmState,
           open: false,
         },
       };
