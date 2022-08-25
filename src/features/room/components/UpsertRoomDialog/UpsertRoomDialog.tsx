@@ -4,10 +4,8 @@ import RoomTypeRadioGroup from '../RoomTypeRadioGroup';
 import { UpsertRoomDialogProps } from './UpsertRoomDialog.types';
 import * as S from './UpsertRoomDialog.styles';
 
-import Modal, { ModalButtonGroup } from '@src/components/reusable/Modal';
-import ModalContents from '@src/components/reusable/Modal/ModalContents';
-import Button from '@src/components/reusable/Button';
-import TextField from '@src/components/reusable/TextField';
+import Button from '@src/shared/components/Button';
+import { Modal, ModalButtonGroup, ModalContents, TextField } from '@src/shared/components';
 
 const UpsertRoomDialog = ({ type, defaultValue, open, onClose }: UpsertRoomDialogProps) => {
   const title = type === 'create' ? '룸 만들기' : '룸 수정하기';

@@ -1,10 +1,9 @@
 import Link from 'next/link';
 
-import * as S from './HomeHeader.styles';
+import Icon from '../Icon';
+import * as S from './Header.styles';
 
-import Icon from '@src/components/reusable/Icon';
-
-const HomeHeader = () => {
+const Header = () => {
   return (
     <S.Wrapper>
       <Icon name="Logo" width="134px" height="22px" />
@@ -17,4 +16,4 @@ const HomeHeader = () => {
   );
 };
 
-export default HomeHeader;
+export default Header;

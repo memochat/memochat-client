@@ -4,8 +4,8 @@ import { useEffectOnce } from 'react-use';
 import * as S from './RoomMemoForm.styles';
 import { RoomMemoFormProps } from './RoomMemoForm.types';
 
-import Icon from '@src/components/reusable/Icon';
-import useMemoForm from '@src/hooks/useMemoForm';
+import useRoomMemoForm from '@src/features/room/hooks/useMemoForm';
+import { Icon } from '@src/shared/components';
 
 const RoomMemoForm = ({}: RoomMemoFormProps) => {
   const {
@@ -14,7 +14,7 @@ const RoomMemoForm = ({}: RoomMemoFormProps) => {
     setFocus,
     handleSubmit,
     formState: { isDirty },
-  } = useMemoForm();
+  } = useRoomMemoForm();
 
   const memoRegister = register('memo', {
     onChange: (e) => {
