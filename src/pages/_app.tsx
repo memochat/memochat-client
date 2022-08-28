@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>MEMOCHAT | Light up Your Idea</title>renderCount
+        <title>MEMOCHAT | Light up Your Idea</title>
         <meta name="description" content="Light up Your Idea." />
         <link rel="icon" href="/favicon.png" />
         <meta

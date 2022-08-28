@@ -17,7 +17,5 @@ tsconfig.tsbuildinfo
 # env
 .env
 
-<<<<<<< HEAD
-
 #misc
 .DS_Store

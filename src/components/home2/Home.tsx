@@ -36,7 +36,7 @@ const Home = ({}: HomeProps) => {
     <S.Wrapper>
       <S.Title>내 메모를 채팅처럼</S.Title>
       <Image src="/images/logo.png" alt="logo" layout="fixed" width="222px" height="30px" />
-      <S.Content ref={lottieRef} />
+      <S.Lottie ref={lottieRef} />
       <S.LoginBtn type="button" onClick={handleLoginBtnClick}>
         로그인
       </S.LoginBtn>

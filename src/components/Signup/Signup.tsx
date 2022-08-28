@@ -12,9 +12,8 @@ import useSignupForm, { SignUpFormType } from '@src/hooks/useSignupForm';
 
 const Signup = ({}: SignupProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const { watch, control, handleSubmit, getFieldState, formState } = useSignupForm();
+  const { control, handleSubmit, getFieldState, formState } = useSignupForm();
   const [isDuplicates, setIsDuplicates] = useState(false);
-  const id = watch('id');
 
   const router = useRouter();
 

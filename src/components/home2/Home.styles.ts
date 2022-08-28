@@ -22,7 +22,7 @@ export const LogoIcon = styled(Icon)`
   padding-top: 8px;
 `;
 
-export const Content = styled.div`
+export const Lottie = styled.div`
   padding: 50px 18px 0 18px;
 `;
 
