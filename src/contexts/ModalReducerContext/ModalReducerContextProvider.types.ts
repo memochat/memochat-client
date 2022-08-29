@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
 
-export interface GlobalReducerContextProviderProps {
+export interface ModalReducerContextProviderProps {
   children: ReactNode;
 }

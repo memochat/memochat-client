@@ -1,11 +1,11 @@
 import { useContext } from 'react';
 
-import GlobalReducerContext, { GLOBAL_REDUCER_ACTION } from '@src/contexts/GlobalReducerContext';
+import ModalReducerContext, { MODAL_REDUCER_ACTION } from '@src/contexts/ModalReducerContext';
 
 let resolveCallback: (value: boolean) => void;
 
 const useConfirm = () => {
-  const [{ confirmState }, dispatch] = useContext(GlobalReducerContext);
+  const [{ confirmState }, dispatch] = useContext(ModalReducerContext);
 
   const confirm = (payload: {
     headerTitle?: string;
@@ -13,7 +13,7 @@ const useConfirm = () => {
     description?: string;
   }): Promise<boolean> => {
     dispatch({
-      type: GLOBAL_REDUCER_ACTION.OPEN_CONFIRM,
+      type: MODAL_REDUCER_ACTION.OPEN_CONFIRM,
       payload,
     });
     return new Promise((resolve) => {
@@ -23,7 +23,7 @@ const useConfirm = () => {
 
   const closeConfirm = () => {
     dispatch({
-      type: GLOBAL_REDUCER_ACTION.CLOSE_CONFIRM,
+      type: MODAL_REDUCER_ACTION.CLOSE_CONFIRM,
     });
   };
 

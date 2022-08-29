@@ -4,7 +4,7 @@ import Head from 'next/head';
 
 import { GlobalStyle, lightTheme } from '@src/themes';
 import GlobalConfirmModal from '@src/components/reusable/GlobalConfirmModal';
-import { GlobalReducerContextProvider } from '@src/contexts/GlobalReducerContext';
+import { ModalReducerContextProvider } from '@src/contexts/ModalReducerContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -20,10 +20,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider theme={lightTheme}>
         <GlobalStyle />
-        <GlobalReducerContextProvider>
+        <ModalReducerContextProvider>
           <Component {...pageProps} />
           <GlobalConfirmModal />
-        </GlobalReducerContextProvider>
+        </ModalReducerContextProvider>
       </ThemeProvider>
     </>
   );
