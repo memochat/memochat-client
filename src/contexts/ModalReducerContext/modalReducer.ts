@@ -13,6 +13,7 @@ const modalReducer = (state: ModalReducerState, action: ModalReducerAction): Mod
       return {
         ...state,
         confirmState: {
+          ...initialModalReducerState.confirmState,
           ...action.payload,
           open: true,
         },

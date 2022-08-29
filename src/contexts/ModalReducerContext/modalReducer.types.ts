@@ -11,7 +11,11 @@ export const MODAL_REDUCER_ACTION = {
 
 export type ModalReducerActionType = typeof MODAL_REDUCER_ACTION[keyof typeof MODAL_REDUCER_ACTION];
 
-export type ModalReducerAction = {
-  type: ModalReducerActionType;
-  payload?: any;
-};
+export type ModalReducerAction =
+  | {
+      type: 'OPEN_CONFIRM';
+      payload?: Pick<ConfirmModalProps, 'headerTitle' | 'title' | 'description'>;
+    }
+  | {
+      type: 'CLOSE_CONFIRM';
+    };
