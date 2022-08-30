@@ -3,7 +3,7 @@ import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { ThemeProvider } from 'emotion-theming';
 
 import { lightTheme, darkTheme, GlobalStyle } from '../src/themes';
-import GlobalConfirmModal from '../src/components/reusable/GlobalConfirmModal';
+import GlobalConfirmModal from '../src/shared/components/GlobalConfirmModal';
 import { ModalReducerContextProvider } from '../src/contexts/ModalReducerContext';
 
 
