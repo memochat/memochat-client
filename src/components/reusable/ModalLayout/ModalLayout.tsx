@@ -1,4 +1,5 @@
 import React, { RefObject, useCallback, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 import { ModalLayoutProps } from './ModalLayout.types';
 import * as S from './ModalLayout.styles';
@@ -7,15 +8,16 @@ const ModalLayout: React.FC<ModalLayoutProps> = ({ open, children, onClose }) =>
   const dimRef = useRef<HTMLDivElement>(null);
   const isVisible = useModalLayoutVisible(open, dimRef);
 
-  if (!isVisible) {
+  if (typeof document === 'undefined' || !isVisible) {
     return null;
   }
 
-  return (
+  return createPortal(
     <S.Container open={open}>
       <S.Dim ref={dimRef} open={open} onClick={onClose} />
       {children}
-    </S.Container>
+    </S.Container>,
+    document.body,
   );
 };
 
