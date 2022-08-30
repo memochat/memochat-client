@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 
-import SigninComplete from '@src/components/SigninComplete';
+import { SigninComplete } from '@src/features/auth/components';
 
 const Complete: NextPage = () => {
   return <SigninComplete />;

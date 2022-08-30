@@ -3,8 +3,8 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
 import { GlobalStyle, lightTheme } from '@src/themes';
-import GlobalConfirmModal from '@src/components/reusable/GlobalConfirmModal';
 import { ModalReducerContextProvider } from '@src/contexts/ModalReducerContext';
+import GlobalConfirmModal from '@src/shared/components/GlobalConfirmModal';
 
 import 'styles/global.css';
 

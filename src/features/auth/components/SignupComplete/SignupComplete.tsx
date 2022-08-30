@@ -2,13 +2,13 @@ import { useEffect, useRef } from 'react';
 import Lottie from 'lottie-web';
 import { useRouter } from 'next/router';
 
-import * as S from './SigninComplete.styles';
-import Button from '../reusable/Button';
-import { SigninCompleteProps } from './SigninComplete.types';
+import { SignupCompleteProps } from './SignupComplete.types';
+import * as S from './SignupComplete.styles';
 
-import loginLottie from '@src/assets/lotti/login.json';
+import signupLottie from '@src/assets/lotti/signup.json';
+import { Button } from '@src/shared/components';
 
-const SigninComplete = ({}: SigninCompleteProps) => {
+const SignupComplete = ({}: SignupCompleteProps) => {
   const lottieRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -22,7 +22,7 @@ const SigninComplete = ({}: SigninCompleteProps) => {
       renderer: 'svg',
       loop: false,
       autoplay: true,
-      animationData: loginLottie,
+      animationData: signupLottie,
       path: '',
     });
   }, []);
@@ -35,7 +35,7 @@ const SigninComplete = ({}: SigninCompleteProps) => {
   return (
     <S.Wrapper>
       <S.Header>
-        <S.Title>로그인을 완료하였습니다!</S.Title>
+        <S.Title>회원가입을 완료하였습니다!</S.Title>
       </S.Header>
       <S.Content ref={lottieRef} />
       <S.ButtonContainer>
@@ -45,4 +45,4 @@ const SigninComplete = ({}: SigninCompleteProps) => {
   );
 };
 
-export default SigninComplete;
+export default SignupComplete;

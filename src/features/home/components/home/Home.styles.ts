@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 
-import Button from '../reusable/Button';
-import Icon from '../reusable/Icon';
+import { Button, Icon } from '@src/shared/components';
 
 export const Wrapper = styled.div`
   min-height: 100%;

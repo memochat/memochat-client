@@ -1,9 +1,9 @@
 import { NextPage } from 'next';
 
-import { SignUp } from '@src/components/Signup';
+import { Signup } from '@src/features/auth/components';
 
 const SignUpPage: NextPage = () => {
-  return <SignUp />;
+  return <Signup />;
 };
 
 export default SignUpPage;

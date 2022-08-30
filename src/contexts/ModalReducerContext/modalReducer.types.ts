@@ -1,4 +1,4 @@
-import { ConfirmModalProps } from '@src/components/reusable/ConfirmModal';
+import { ConfirmModalProps } from '@src/shared/components/ConfirmModal';
 
 export type ModalReducerState = {
   confirmState: Pick<ConfirmModalProps, 'open' | 'headerTitle' | 'title' | 'description'>;

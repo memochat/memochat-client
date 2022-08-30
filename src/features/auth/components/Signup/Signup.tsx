@@ -2,13 +2,11 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Controller, SubmitHandler } from 'react-hook-form';
 
-import TextField from '../reusable/TextField';
+import useSignupForm, { SignUpFormType } from '../../hooks/useSignupForm';
 import * as S from './Signup.styles';
 import { SignupProps } from './Signup.types';
 
-import Button from '@src/components/reusable/Button';
-import { Stepper } from '@src/components/reusable/Stepper';
-import useSignupForm, { SignUpFormType } from '@src/hooks/useSignupForm';
+import { Button, Stepper, TextField } from '@src/shared/components';
 
 const Signup = ({}: SignupProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
