@@ -4,7 +4,7 @@ import RoomDetailMenu from '../RoomDetailMenu';
 import * as S from './RoomDetail.styles';
 import { RoomDetailProps } from './RoomDetail.types';
 
-import Icon from '@src/components/reusable/Icon';
+import { Icon } from '@src/shared/components';
 
 const images = ['/images/alarm.png', '/images/bell.png', '/images/bell.png', '/images/bell.png'];
 //TODO:api나오면 변경

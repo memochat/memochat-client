@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next';
 
-import RoomDetail from '@src/components/roomDetail/RoomDetail';
+import RoomDetail from '@src/features/room/components/RoomDetail';
 
 interface Props {
   id: string;

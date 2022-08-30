@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 import { Icon } from '@src/components-deprecated/reusable';
-import { getRoomIconImageUrlByType } from '@src/helpers/room';
+import { getRoomIconImageUrlByType } from '@src/features/room/helpers/room';
 import { breakpoints } from '@src/themes/breakpoints';
 import { RoomType } from '@src/types/api/room';
 
