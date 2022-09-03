@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 import RoomTypeRadioGroup from '../RoomTypeRadioGroup';
 import { UpsertRoomDialogProps } from './UpsertRoomDialog.types';
@@ -17,6 +17,12 @@ const UpsertRoomDialog = ({ type, defaultValue, open, onClose }: UpsertRoomDialo
     },
   );
 
+  useEffect(() => {
+    if (defaultValue) {
+      setValue(defaultValue);
+    }
+  }, [defaultValue]);
+
   const handleRoomNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue((prevValue) => ({
       ...prevValue,
@@ -29,6 +35,11 @@ const UpsertRoomDialog = ({ type, defaultValue, open, onClose }: UpsertRoomDialo
       ...prevValue,
       roomTypeId: id,
     }));
+  };
+
+  const handleConfirm = () => {
+    /** @todo */
+    onClose();
   };
 
   const isInvalid = !value.roomName || !value.roomTypeId;
@@ -52,8 +63,10 @@ const UpsertRoomDialog = ({ type, defaultValue, open, onClose }: UpsertRoomDialo
         </S.Wrapper>
       </ModalContents>
       <ModalButtonGroup>
-        <Button variant="secondary">취소</Button>
-        <Button variant="primary" disabled={isInvalid}>
+        <Button variant="secondary" onClick={onClose}>
+          취소
+        </Button>
+        <Button variant="primary" disabled={isInvalid} onClick={handleConfirm}>
           확인
         </Button>
       </ModalButtonGroup>
