@@ -18,4 +18,7 @@ export interface RoomProps {
   className?: string;
   onSelect: () => void;
   onClick: () => void;
+  onEdit: () => void;
+  onDelete: () => void;
+  onPin: () => void;
 }

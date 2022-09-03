@@ -12,6 +12,11 @@ export default {
       imageUrl: '/images/bell.png',
     },
     isSelected: true,
+    onSelect: () => alert('Select'),
+    onClick: () => alert('Click'),
+    onPin: () => alert('Pin'),
+    onEdit: () => alert('Edit'),
+    onDelete: () => alert('Delete'),
   },
   argTypes: {},
 } as ComponentMeta<typeof Room>;
