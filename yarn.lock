@@ -9992,6 +9992,11 @@ react-sizeme@^3.0.1:
     shallowequal "^1.1.0"
     throttle-debounce "^3.0.1"
 
+react-swipeable-list@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/react-swipeable-list/-/react-swipeable-list-1.6.0.tgz#b2621266cd1c7c54eebcb69cacd21f8d05741c68"
+  integrity sha512-ClOkXoXONBvcFX4Upawj/hhuQSiDYbOzPxLM1ba13aiPW0MmjS2OwmjbEOh4yALs5FpZipATy6ddq4kWBO096A==
+
 react-syntax-highlighter@^13.5.3:
   version "13.5.3"
   resolved "https://registry.npmjs.org/react-syntax-highlighter/-/react-syntax-highlighter-13.5.3.tgz"
