@@ -43,7 +43,7 @@ const RoomList = () => {
   const [selectedRoom, setSelectedRoom] = useState(rooms[0]);
   const [selectedUpdateRoom, setSelectedUpdateRoom] = useState(rooms[0]);
 
-  const [openUpsertRoomDialog, setOpenUpsertRoomDialog] = useState(false);
+  const [isUpsertRoomDialogOpen, setIsUpsertRoomDialogOpen] = useState(false);
 
   return (
     <>
@@ -51,14 +51,16 @@ const RoomList = () => {
         {rooms.map((room) => (
           <Room
             key={room.id}
-            {...room}
+            name={room.name}
+            roomType={room.roomType}
+            lastChat={room.lastChat}
             isSelected={selectedRoom.id === room.id}
             onSelect={() => setSelectedRoom(room)}
             onClick={() => alert('룸 클릭')}
             onPin={() => alert('고정 클릭')}
             onEdit={() => {
               setSelectedUpdateRoom(room);
-              setOpenUpsertRoomDialog(true);
+              setIsUpsertRoomDialogOpen(true);
             }}
             onDelete={async () => {
               if (
@@ -76,8 +78,8 @@ const RoomList = () => {
       </SwipeableList>
       <UpsertRoomDialog
         type="update"
-        open={openUpsertRoomDialog}
-        onClose={() => setOpenUpsertRoomDialog(false)}
+        open={isUpsertRoomDialogOpen}
+        onClose={() => setIsUpsertRoomDialogOpen(false)}
         /** @todo api 확정되면 반영 */
         defaultValue={{ roomName: selectedUpdateRoom?.name, roomTypeId: 1 }}
       />
