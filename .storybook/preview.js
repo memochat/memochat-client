@@ -34,6 +34,7 @@ export const decorators = [
       <ModalReducerContextProvider>
         <Story />
         <GlobalConfirmModal/>
+        <div id='bottom-sheet'></div>
       </ModalReducerContextProvider>
     </ThemeProvider>
   ),
