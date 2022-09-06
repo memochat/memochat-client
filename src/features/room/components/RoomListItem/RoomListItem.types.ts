@@ -1,7 +1,7 @@
 /** @TODO api에 따라 변경될 여지 */
 export type ChatType = 'text' | 'image' | 'video' | 'link';
 
-export interface RoomProps {
+export interface RoomListItemProps {
   name: string;
   roomType: {
     name: string;

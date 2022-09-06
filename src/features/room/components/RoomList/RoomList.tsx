@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { SwipeableList, Type as ListType } from 'react-swipeable-list';
 import 'react-swipeable-list/dist/styles.css';
 
-import Room, { RoomProps } from '@src/features/room/components/Room';
+import RoomListItem, { RoomListItemProps } from '@src/features/room/components/RoomListItem';
 import UpsertRoomDialog from '@src/features/room/components/UpsertRoomDialog';
 import useConfirm from '@src/hooks/useConfirm';
 
-const MOCK_ROOM_LIST: (Pick<RoomProps, 'name' | 'roomType' | 'lastChat'> & { id: number })[] = [
+const MOCK_ROOM_LIST: (Pick<RoomListItemProps, 'name' | 'roomType' | 'lastChat'> & {
+  id: number;
+})[] = [
   {
     id: 1,
     name: '룸1',
@@ -49,7 +51,7 @@ const RoomList = () => {
     <>
       <SwipeableList fullSwipe={false} type={ListType.IOS}>
         {rooms.map((room) => (
-          <Room
+          <RoomListItem
             key={room.id}
             name={room.name}
             roomType={room.roomType}

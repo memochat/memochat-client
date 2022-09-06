@@ -8,10 +8,10 @@ import {
 } from 'react-swipeable-list';
 import 'react-swipeable-list/dist/styles.css';
 
-import { ChatType, RoomProps } from './Room.types';
-import * as S from './Room.styles';
+import { ChatType, RoomListItemProps } from './RoomListItem.types';
+import * as S from './RoomListItem.styles';
 
-const Room = ({
+const RoomListItem = ({
   name,
   roomType,
   isSelected,
@@ -22,7 +22,7 @@ const Room = ({
   onPin,
   onEdit,
   onDelete,
-}: RoomProps) => {
+}: RoomListItemProps) => {
   const [isDragging, setIsDragging] = useState(false);
 
   const handleSwipeProgress = () => {
@@ -82,7 +82,7 @@ const Room = ({
   );
 };
 
-export default Room;
+export default RoomListItem;
 
 const getLastChatByChatType = (type: ChatType, text = ''): string => {
   if (type === 'image') {
