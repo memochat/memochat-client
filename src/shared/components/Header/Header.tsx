@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Icon from '../Icon';
 import * as S from './Header.styles';
 
+/** @todo HomeHeader로 이동 */
 const Header = () => {
   return (
     <S.Wrapper>
