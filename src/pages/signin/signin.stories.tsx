@@ -1,6 +1,6 @@
 import { ComponentMeta, StoryObj } from '@storybook/react';
 
-import SignIn from '.';
+import SignIn from './index.page';
 
 export default {
   component: SignIn,
