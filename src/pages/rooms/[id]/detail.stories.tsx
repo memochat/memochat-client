@@ -1,9 +1,9 @@
 import { ComponentMeta, StoryObj } from '@storybook/react';
 
-import RoomDetail from '.';
+import RoomDetail from './index.page';
 
 export default {
-  title: 'Components/roomDetail/RoomDetail',
+  title: 'Pages/Rooms/Detail',
   component: RoomDetail,
   args: {},
   argTypes: {},

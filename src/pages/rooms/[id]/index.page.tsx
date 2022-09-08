@@ -1,10 +1,11 @@
 import Image from 'next/image';
+import { GetServerSideProps, NextPage } from 'next';
 
-import RoomDetailMenu from '../RoomDetailMenu';
-import * as S from './RoomDetail.styles';
-import { RoomDetailProps } from './RoomDetail.types';
+import { RoomDetailProps } from './detail.types';
+import * as S from './detail.styles';
 
 import { Icon } from '@src/shared/components';
+import { RoomDetailMenu } from '@src/features/room/components';
 
 const images = ['/images/alarm.png', '/images/bell.png', '/images/bell.png', '/images/bell.png'];
 //TODO:api나오면 변경
@@ -33,7 +34,7 @@ const dummy = [
   { title: '링크', count: 4, onClick: () => alert('click') },
 ];
 
-const RoomDetail = ({}: RoomDetailProps) => {
+const RoomDetail: NextPage<RoomDetailProps> = ({ id }) => {
   const onModifyBtnClick = () => {
     alert('변경');
   };
@@ -71,3 +72,15 @@ const RoomDetail = ({}: RoomDetailProps) => {
 };
 
 export default RoomDetail;
+
+export const getServerSideProps: GetServerSideProps<RoomDetailProps> = async (ctx) => {
+  const {
+    query: { id },
+  } = ctx;
+
+  return {
+    props: {
+      id: String(id),
+    },
+  };
+};
