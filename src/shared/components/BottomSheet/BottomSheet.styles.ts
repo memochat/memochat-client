@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ open: boolean }>`
+  display: ${({ open }) => (open ? 'block' : 'none')};
   position: absolute;
   bottom: 0;
   left: 0;

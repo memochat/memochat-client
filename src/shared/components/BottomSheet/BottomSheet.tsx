@@ -5,9 +5,9 @@ import { useEffectOnce } from 'react-use';
 import * as S from './BottomSheet.styles';
 import { BottomSheetProps } from './BottomSheet.types';
 
-const Component = ({ title, children }: BottomSheetProps) => {
+const Component = ({ title, children, open }: BottomSheetProps) => {
   return (
-    <S.Wrapper>
+    <S.Wrapper open={open}>
       <S.Title>{title}</S.Title>
       <S.Content>{children}</S.Content>
     </S.Wrapper>

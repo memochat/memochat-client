@@ -14,6 +14,7 @@ export default {
 export const 옵션있는상태: StoryObj<typeof BottomSheet> = {
   args: {
     title: '제목이에요',
+    open: true,
     children: (
       <>
         <div
@@ -40,6 +41,7 @@ export const 옵션있는상태: StoryObj<typeof BottomSheet> = {
 export const Default: StoryObj<typeof BottomSheet> = {
   args: {
     title: '선택하세요',
+    open: true,
     children: (
       <>
         <div>Elit labore Lorem incididunt velit cillum sunt officia.</div>
