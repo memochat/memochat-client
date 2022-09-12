@@ -6,6 +6,7 @@ import * as S from './signin.styles';
 
 import useSigninForm, { SigninFormType } from '@src/features/auth/hooks/useSigninForm';
 import { Button, TextField } from '@src/shared/components';
+import { ROUTE } from '@src/shared/constants/route';
 
 const SignIn: NextPage = () => {
   const { control, formState, handleSubmit } = useSigninForm();
@@ -14,7 +15,7 @@ const SignIn: NextPage = () => {
 
   const onSubmit: SubmitHandler<SigninFormType> = (values) => {
     alert(JSON.stringify(values, null, 2));
-    router.push('/signin/complete');
+    router.push(ROUTE.SIGN_IN_COMPLETE);
   };
 
   return (

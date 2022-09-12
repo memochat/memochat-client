@@ -7,6 +7,7 @@ import * as S from './complete.styles';
 
 import signupLottie from '@src/assets/lotti/signup.json';
 import { Button } from '@src/shared/components';
+import { ROUTE } from '@src/shared/constants/route';
 
 const SignUpComplete: NextPage = () => {
   const lottieRef = useRef<HTMLDivElement>(null);
@@ -28,8 +29,7 @@ const SignUpComplete: NextPage = () => {
   }, []);
 
   const handleOnStartBtnClick = () => {
-    //push home
-    router.push('/');
+    router.push(ROUTE.HOME);
   };
 
   return (

@@ -7,6 +7,7 @@ import * as S from './signup.styles';
 
 import useSignupForm, { SignUpFormType } from '@src/features/auth/hooks/useSignupForm';
 import { Button, Stepper, TextField } from '@src/shared/components';
+import { ROUTE } from '@src/shared/constants/route';
 
 const SignUp: NextPage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -28,7 +29,7 @@ const SignUp: NextPage = () => {
 
   const onSubmit: SubmitHandler<SignUpFormType> = (values) => {
     alert(JSON.stringify(values, null, 2));
-    router.push('/signup/complete');
+    router.push(ROUTE.SIGN_UP_COMPLETE);
   };
 
   //TODO: 쓰로틀로 아이디 중복체크

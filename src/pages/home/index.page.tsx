@@ -8,6 +8,7 @@ import { NextPage } from 'next';
 import * as S from './home.styles';
 
 import splashLottie from '@src/assets/lotti/splash.json';
+import { ROUTE } from '@src/shared/constants/route';
 
 const Home: NextPage = () => {
   const lottieRef = useRef<HTMLDivElement>(null);
@@ -29,7 +30,7 @@ const Home: NextPage = () => {
   }, []);
 
   const handleLoginBtnClick: MouseEventHandler<HTMLButtonElement> = () => {
-    router.push('/signin');
+    router.push(ROUTE.SIGN_IN);
   };
 
   return (
