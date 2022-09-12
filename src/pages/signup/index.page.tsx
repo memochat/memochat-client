@@ -1,14 +1,14 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { Controller, SubmitHandler } from 'react-hook-form';
+import { NextPage } from 'next';
 
-import useSignupForm, { SignUpFormType } from '../../hooks/useSignupForm';
-import * as S from './Signup.styles';
-import { SignupProps } from './Signup.types';
+import * as S from './signup.styles';
 
+import useSignupForm, { SignUpFormType } from '@src/features/auth/hooks/useSignupForm';
 import { Button, Stepper, TextField } from '@src/shared/components';
 
-const Signup = ({}: SignupProps) => {
+const SignUp: NextPage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const { control, handleSubmit, getFieldState, formState } = useSignupForm();
   const [isDuplicates, setIsDuplicates] = useState(false);
@@ -121,4 +121,4 @@ const Signup = ({}: SignupProps) => {
   );
 };
 
-export default Signup;
+export default SignUp;

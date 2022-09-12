@@ -1,14 +1,14 @@
 import { useEffect, useRef } from 'react';
 import Lottie from 'lottie-web';
 import { useRouter } from 'next/router';
+import { NextPage } from 'next';
 
-import { SignupCompleteProps } from './SignupComplete.types';
-import * as S from './SignupComplete.styles';
+import * as S from './complete.styles';
 
 import signupLottie from '@src/assets/lotti/signup.json';
 import { Button } from '@src/shared/components';
 
-const SignupComplete = ({}: SignupCompleteProps) => {
+const SignUpComplete: NextPage = () => {
   const lottieRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -45,4 +45,4 @@ const SignupComplete = ({}: SignupCompleteProps) => {
   );
 };
 
-export default SignupComplete;
+export default SignUpComplete;

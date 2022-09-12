@@ -3,13 +3,13 @@ import Image from 'next/image';
 import { MouseEventHandler, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { NextPage } from 'next';
 
-import * as S from './Home.styles';
-import { HomeProps } from './Home.types';
+import * as S from './home.styles';
 
 import splashLottie from '@src/assets/lotti/splash.json';
 
-const Home = ({}: HomeProps) => {
+const Home: NextPage = () => {
   const lottieRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 

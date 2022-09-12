@@ -1,20 +1,20 @@
 import styled from '@emotion/styled';
 
-export const Wrapper = styled.main`
+export const Wrapper = styled.div`
   min-height: 100vh;
-  height: 100%;
-  width: 100%;
+  padding: 36px 18px 18px 18px;
   display: flex;
   flex-direction: column;
-  padding: 36px 18px;
 `;
+
 export const Title = styled.h1`
-  margin-bottom: 16px;
   ${({ theme }) => theme.typography.h1};
-  color: ${({ theme }) => theme.color.black1};
 `;
-export const Content = styled.section`
-  height: 100%;
+
+export const FieldContainer = styled.div`
+  flex-grow: 1;
+  padding-top: 26px;
+  gap: 40px;
   display: flex;
   flex-direction: column;
 `;

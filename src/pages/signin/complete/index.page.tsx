@@ -1,14 +1,14 @@
 import { useEffect, useRef } from 'react';
 import Lottie from 'lottie-web';
 import { useRouter } from 'next/router';
+import { NextPage } from 'next';
 
-import * as S from './SigninComplete.styles';
-import { SigninCompleteProps } from './SigninComplete.types';
+import * as S from './complete.styles';
 
 import loginLottie from '@src/assets/lotti/login.json';
 import { Button } from '@src/shared/components';
 
-const SigninComplete = ({}: SigninCompleteProps) => {
+const SignInComplete: NextPage = () => {
   const lottieRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -28,7 +28,6 @@ const SigninComplete = ({}: SigninCompleteProps) => {
   }, []);
 
   const handleOnStartBtnClick = () => {
-    //push home
     router.push('/');
   };
 
@@ -45,4 +44,4 @@ const SigninComplete = ({}: SigninCompleteProps) => {
   );
 };
 
-export default SigninComplete;
+export default SignInComplete;
