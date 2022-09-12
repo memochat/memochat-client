@@ -1,6 +1,8 @@
 import { useContext } from 'react';
 
-import ModalReducerContext, { MODAL_REDUCER_ACTION } from '@src/contexts/ModalReducerContext';
+import ModalReducerContext, {
+  MODAL_REDUCER_ACTION,
+} from '@src/shared/contexts/ModalReducerContext';
 
 let resolveCallback: (value: boolean) => void;
 

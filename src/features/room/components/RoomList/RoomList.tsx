@@ -4,7 +4,7 @@ import 'react-swipeable-list/dist/styles.css';
 
 import RoomListItem, { RoomListItemProps } from '@src/features/room/components/RoomListItem';
 import UpsertRoomDialog from '@src/features/room/components/UpsertRoomDialog';
-import useConfirm from '@src/hooks/useConfirm';
+import useConfirm from '@src/shared/hooks/useConfirm';
 
 const MOCK_ROOM_LIST: (Pick<RoomListItemProps, 'name' | 'roomType' | 'lastChat'> & {
   id: number;

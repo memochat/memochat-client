@@ -4,7 +4,7 @@ import Button from '../Button';
 
 import GlobalConfirmModal from '.';
 
-import useConfirm from '@src/hooks/useConfirm';
+import useConfirm from '@src/shared/hooks/useConfirm';
 
 export default {
   title: 'Components/reusable/GlobalConfirmModal',

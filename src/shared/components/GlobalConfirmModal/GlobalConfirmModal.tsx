@@ -1,6 +1,6 @@
 import ConfirmModal from '../ConfirmModal';
 
-import useConfirm from '@src/hooks/useConfirm';
+import useConfirm from '@src/shared/hooks/useConfirm';
 
 const GlobalConfirmModal = () => {
   const { confirmState, onConfirm, onCancel } = useConfirm();
