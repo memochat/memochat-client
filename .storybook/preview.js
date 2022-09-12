@@ -6,7 +6,6 @@ import { lightTheme, darkTheme, GlobalStyle } from '../src/themes';
 import { ModalReducerContextProvider } from '../src/shared/contexts/ModalReducerContext';
 import GlobalConfirmModal from '../src/shared/components/GlobalConfirmModal';
 
-
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   controls: {

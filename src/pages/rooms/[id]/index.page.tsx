@@ -40,7 +40,7 @@ const RoomDetail: NextPage<RoomDetailProps> = ({ id }) => {
   };
 
   return (
-    <S.Wrapper>
+    <>
       {/* TODO: 추후에 별도 header컴포넌트로 분리 */}
       <S.Header>
         <S.IconBox>
@@ -48,7 +48,7 @@ const RoomDetail: NextPage<RoomDetailProps> = ({ id }) => {
         </S.IconBox>
         <S.Title>글자수가 10글자 라면</S.Title>
       </S.Header>
-      <S.Main>
+      <S.Wrapper>
         <S.RoomBaseInfo>
           <Image alt="ok" src="/images/alarm.png" layout="fixed" width={125} height={125} />
           <S.RoomTitleBox>
@@ -66,8 +66,8 @@ const RoomDetail: NextPage<RoomDetailProps> = ({ id }) => {
           variant="danger"
           title="메모룸 나가기"
         />
-      </S.Main>
-    </S.Wrapper>
+      </S.Wrapper>
+    </>
   );
 };
 
