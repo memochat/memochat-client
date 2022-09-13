@@ -23,6 +23,12 @@ module.exports = {
           prettierConfig: { printWidth: 120, singleQuote: true },
         },
       },
+    },
+    {
+      name: 'storybook-addon-next',
+      options: {
+        nextConfigPath: path.resolve(__dirname, '../next.config.js')
+      }
     }
   ],
   framework: '@storybook/react',
