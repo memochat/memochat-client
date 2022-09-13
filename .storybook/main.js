@@ -4,6 +4,9 @@ const path = require('path');
 module.exports = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   staticDirs: ['../public'],
+  core: {
+    builder: 'webpack5',
+  },
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
@@ -20,7 +23,7 @@ module.exports = {
           prettierConfig: { printWidth: 120, singleQuote: true },
         },
       },
-    },
+    }
   ],
   framework: '@storybook/react',
   webpackFinal: async (config) => {
@@ -30,7 +33,7 @@ module.exports = {
         extensions: config.resolve.extensions,
       }),
     ];
-
+    
     config.module.rules.unshift({
       test: /\.svg$/,
       use: ['@svgr/webpack'],
