@@ -5,7 +5,7 @@ import * as S from './Checkbox.styles';
 
 import { Icon } from '@src/shared/components';
 
-const Checkbox = ({ className, checked: outerChecked, onClick, onChange }: CheckboxProps) => {
+const Checkbox = ({ className, checked: outerChecked, onChange, ...inputProps }: CheckboxProps) => {
   const [checked, setChecked] = useState(outerChecked);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const Checkbox = ({ className, checked: outerChecked, onClick, onChange }: Check
 
   return (
     <S.Label className={className}>
-      <input type="checkbox" checked={checked} onClick={onClick} onChange={handleChange} />
+      <input type="checkbox" checked={checked} onChange={handleChange} {...inputProps} />
       <S.Checkmark checked={checked}>
         {checked && <Icon name="Check" size={12} color="white" />}
       </S.Checkmark>
