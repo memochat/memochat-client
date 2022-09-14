@@ -1,19 +1,38 @@
 import styled from '@emotion/styled';
 
-export const Wrapper = styled.div`
+import { HeaderProps } from './Header.types';
+
+import { ellipsis } from '@src/shared/styles';
+
+const HEADER_HEIGHT = 56;
+
+export const Wrapper = styled.header`
+  background-color: white;
+  position: fixed;
+  top: 0;
+  height: ${HEADER_HEIGHT + 'px'};
   width: 100%;
-  height: 51px;
-  display: flex;
-  justify-content: space-between;
-  padding: 15px 20px 14px 18px;
+  text-align: center;
+  padding: 18px 16px;
+  border-bottom: 1px solid ${({ theme }) => theme.color.gray5};
+  gap: 16px;
+
+  display: grid;
+  grid-template-columns: minmax(20px, auto) 1fr minmax(20px, auto);
+
+  z-index: 10000; //TODO: 테마값 적용할것
 `;
 
-export const ProfileImg = styled.img`
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  object-fit: cover;
-  overflow: hidden;
+export const Title = styled.h1<Pick<HeaderProps, 'titleOrient'>>`
+  ${({ theme }) => theme.typography.h3};
+  color: ${({ theme }) => theme.color.black1};
+  text-align: ${({ titleOrient }) => titleOrient};
 
-  background-color: ${(p) => p.theme.color.gray6};
+  ${ellipsis(1)}
+`;
+
+export const IconButton = styled.button`
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
 `;

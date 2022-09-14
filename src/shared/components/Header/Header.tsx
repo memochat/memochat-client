@@ -1,18 +1,32 @@
-import Link from 'next/link';
+import Router from 'next/router';
 
-import Icon from '../Icon';
+import { HeaderProps } from './Header.types';
 import * as S from './Header.styles';
+import Icon from '../Icon';
 
-/** @todo HomeHeader로 이동 */
-const Header = () => {
+const Header = ({
+  leftIconName = 'ArrowLeft',
+  onLeftIconClick = () => {
+    Router.back();
+  },
+  rightIconName,
+  onRightIconClick,
+  title = '',
+  titleOrient = 'center',
+}: HeaderProps) => {
   return (
     <S.Wrapper>
-      <Icon name="Logo" width="134px" height="22px" />
-      <Link href="/setting">
-        <a aria-label="설정페이지">
-          <S.ProfileImg src="" alt="프로필" />
-        </a>
-      </Link>
+      {leftIconName && (
+        <S.IconButton onClick={onLeftIconClick}>
+          <Icon name={leftIconName} width="100%" height="100%" />
+        </S.IconButton>
+      )}
+      <S.Title titleOrient={titleOrient}>{title}</S.Title>
+      {rightIconName && (
+        <S.IconButton onClick={onRightIconClick}>
+          <Icon name={rightIconName} width="100%" height="100%" />
+        </S.IconButton>
+      )}
     </S.Wrapper>
   );
 };
