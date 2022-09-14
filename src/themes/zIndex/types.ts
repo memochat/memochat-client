@@ -1,10 +1,4 @@
-export const globalZIndexGroupNames = [
-  //
-  'header',
-  'modal',
-  'alert',
-  'bottomSheet',
-] as const;
+export const globalZIndexGroupNames = ['header', 'modal', 'alert', 'bottomSheet'] as const;
 
 type GlobalZIndexGroup = typeof globalZIndexGroupNames[number];
 
