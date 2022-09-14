@@ -23,10 +23,10 @@ export const Wrapper = styled.header`
   z-index: 10000; //TODO: 테마값 적용할것
 `;
 
-export const Title = styled.h1<Pick<HeaderProps, 'titleOrient'>>`
+export const Title = styled.h1<Pick<HeaderProps, 'titleAlign'>>`
   ${({ theme }) => theme.typography.h3};
   color: ${({ theme }) => theme.color.black1};
-  text-align: ${({ titleOrient }) => titleOrient};
+  text-align: ${({ titleAlign }) => titleAlign};
 
   ${ellipsis(1)}
 `;

@@ -12,7 +12,7 @@ const Header = ({
   rightIconName,
   onRightIconClick,
   title = '',
-  titleOrient = 'center',
+  titleAlign = 'center',
 }: HeaderProps) => {
   return (
     <S.Wrapper>
@@ -21,7 +21,7 @@ const Header = ({
           <Icon name={leftIconName} width="100%" height="100%" />
         </S.IconButton>
       )}
-      <S.Title titleOrient={titleOrient}>{title}</S.Title>
+      <S.Title titleAlign={titleAlign}>{title}</S.Title>
       {rightIconName && (
         <S.IconButton onClick={onRightIconClick}>
           <Icon name={rightIconName} width="100%" height="100%" />
