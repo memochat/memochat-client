@@ -17,13 +17,13 @@ const Header = ({
   return (
     <S.Wrapper>
       {leftIconName && (
-        <S.IconButton onClick={onLeftIconClick}>
+        <S.IconButton type="button" align="left" onClick={onLeftIconClick}>
           <Icon name={leftIconName} width="100%" height="100%" />
         </S.IconButton>
       )}
       <S.Title titleAlign={titleAlign}>{title}</S.Title>
       {rightIconName && (
-        <S.IconButton onClick={onRightIconClick}>
+        <S.IconButton type="button" align="right" onClick={onRightIconClick}>
           <Icon name={rightIconName} width="100%" height="100%" />
         </S.IconButton>
       )}

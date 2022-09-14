@@ -17,6 +17,26 @@ export const Default: StoryObj<typeof Header> = {
   },
 };
 
+export const 텍스트왼쪽: StoryObj<typeof Header> = {
+  args: {
+    title: '글자수가 10글자 라면',
+    titleAlign: 'left',
+    onLeftIconClick: () => {
+      alert('hi');
+    },
+  },
+};
+
+export const 텍스트오른쪽: StoryObj<typeof Header> = {
+  args: {
+    title: '글자수가 10글자 라면',
+    titleAlign: 'right',
+    onLeftIconClick: () => {
+      alert('hi');
+    },
+  },
+};
+
 export const 텍스트넘칠때: StoryObj<typeof Header> = {
   args: {
     title: '글자수가 10글자 라면 먹고싶다람쥐느러미미미미미미미',
