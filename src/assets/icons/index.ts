@@ -14,3 +14,6 @@ export { ReactComponent as Reply } from './reply.svg';
 export { ReactComponent as Todo } from './todo.svg';
 export { ReactComponent as Send } from './send.svg';
 export { ReactComponent as Pencil } from './pencil.svg';
+export { ReactComponent as Avatar } from './avatar.svg';
+export { ReactComponent as Chat } from './chat.svg';
+export { ReactComponent as Lang } from './lang.svg';
