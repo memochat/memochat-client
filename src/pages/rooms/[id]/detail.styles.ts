@@ -17,7 +17,7 @@ export const Header = styled.header`
   display: grid;
   grid-template-columns: 2fr 8fr 2fr;
 
-  z-index: 1; //TODO: 특수 컴포넌트별 z-index값 설정이 필요
+  z-index: ${({ theme }) => theme.zIndex.header};
 `;
 
 export const Title = styled.h1`

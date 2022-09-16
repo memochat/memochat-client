@@ -1,19 +1,40 @@
 import styled from '@emotion/styled';
 
-export const Wrapper = styled.div`
+import { HeaderProps } from './Header.types';
+
+import { ellipsis } from '@src/shared/styles';
+
+const HEADER_HEIGHT = 56;
+
+export const Wrapper = styled.header`
+  background-color: white;
+  position: fixed;
+  top: 0;
+  height: ${HEADER_HEIGHT + 'px'};
   width: 100%;
-  height: 51px;
+  text-align: center;
+  padding: 18px 52px;
+  border-bottom: 1px solid ${({ theme }) => theme.color.gray5};
+  gap: 16px;
   display: flex;
-  justify-content: space-between;
-  padding: 15px 20px 14px 18px;
+
+  z-index: ${({ theme }) => theme.zIndex.header};
 `;
 
-export const ProfileImg = styled.img`
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  object-fit: cover;
-  overflow: hidden;
+export const Title = styled.h1<Pick<HeaderProps, 'titleAlign'>>`
+  ${({ theme }) => theme.typography.h3};
+  color: ${({ theme }) => theme.color.black1};
+  width: 100%;
+  text-align: ${({ titleAlign }) => titleAlign};
 
-  background-color: ${(p) => p.theme.color.gray6};
+  ${ellipsis(1)}
+`;
+
+export const IconButton = styled.button<{ align: 'right' | 'left' }>`
+  position: absolute;
+  left: ${({ align }) => (align === 'left' ? '16px' : 'unset')};
+  right: ${({ align }) => (align === 'right' ? '16px' : 'unset')};
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
 `;

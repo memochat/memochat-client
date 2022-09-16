@@ -1,3 +1,4 @@
+import { SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { StepperStepButtonProps, StepperStepProps } from './Stepper.types';
@@ -5,7 +6,7 @@ import { StepperStepButtonProps, StepperStepProps } from './Stepper.types';
 export const StepperRoot = styled.div`
   display: flex;
   flex-direction: column;
-  ${({ css }) => css}
+  ${({ css }) => css as SerializedStyles}
   height: 100%;
 `;
 
