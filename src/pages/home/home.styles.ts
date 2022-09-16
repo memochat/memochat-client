@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import { Button, Icon } from '@src/shared/components';
 
 export const Wrapper = styled.div`
-  min-height: 100%;
   padding: 48px 32px 0 32px;
   display: flex;
   flex-direction: column;

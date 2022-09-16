@@ -1,17 +1,15 @@
+import { breakpointTheme } from './breakpoints';
 import { darkColorTheme, lightColorTheme } from './color';
 import { zIndexTheme } from './zIndex';
 import { typographyTheme } from './typography';
 
-export const lightTheme = {
+const commonTheme = {
   typography: typographyTheme,
-  color: lightColorTheme,
+  breakpoint: breakpointTheme,
   zIndex: zIndexTheme,
 };
 
-export const darkTheme = {
-  typography: typographyTheme,
-  color: darkColorTheme,
-  zIndex: zIndexTheme,
-};
+export const lightTheme = { ...commonTheme, color: lightColorTheme };
+export const darkTheme = { ...commonTheme, color: darkColorTheme };
 
 export type EmotionTheme = typeof lightTheme;

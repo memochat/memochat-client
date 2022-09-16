@@ -3,14 +3,11 @@ import styled from '@emotion/styled';
 
 const HEADER_HEIGHT = 50;
 
-export const Wrapper = styled.div`
-  min-height: 100vh;
-`;
-
 export const Header = styled.header`
   background-color: white;
   position: fixed;
   top: 0;
+  left: 0;
   height: ${HEADER_HEIGHT + 'px'};
   width: 100%;
   text-align: center;
@@ -38,7 +35,7 @@ export const IconBox = styled.div`
   align-items: center;
 `;
 
-export const Main = styled.main`
+export const Wrapper = styled.div`
   padding-top: ${HEADER_HEIGHT + 'px'};
   display: flex;
   flex-direction: column;
