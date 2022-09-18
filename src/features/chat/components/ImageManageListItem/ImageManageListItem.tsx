@@ -17,7 +17,7 @@ const ImageManageListItem = ({
   };
 
   return (
-    <S.Wrapper showBorder={mode === 'edit' && !!isSelected}>
+    <S.Wrapper isSelected={mode === 'edit' && !!isSelected}>
       <Image
         src={imageSrc}
         alt={imageAlt}
@@ -25,6 +25,7 @@ const ImageManageListItem = ({
         width="100%"
         height="100%"
         objectFit="cover"
+        style={{ mixBlendMode: 'darken' }}
       />
       {mode === 'edit' && <S.Checkbox checked={isSelected} onChange={handleCheckboxChange} />}
     </S.Wrapper>
