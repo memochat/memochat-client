@@ -1,0 +1,11 @@
+#__next {
+  height: 100%;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:link:hover {
+  text-decoration: none;
+}
