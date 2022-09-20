@@ -12,7 +12,7 @@ const useConfirm = () => {
   const confirm = (payload: {
     headerTitle?: string;
     title: string;
-    description: string;
+    description?: string;
   }): Promise<boolean> => {
     dispatch({
       type: MODAL_REDUCER_ACTION.OPEN_CONFIRM,
