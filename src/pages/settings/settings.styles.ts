@@ -30,6 +30,7 @@ export const Divider = styled.hr`
   width: calc(100% - 32px);
   height: 1px;
   background-color: ${({ theme }) => theme.color.gray5};
+  border: none;
 `;
 
 export const Box = styled.div`

@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import * as S from './settings.styles';
 
-import settingImg from '@public/images/setting.png';
+import settingImg from '@public/images/settings.png';
 import { Header } from '@src/shared/components';
 import SettingDetailMenu from '@src/features/settings/components/SettingDetailMenu';
 import useConfirm from '@src/shared/hooks/useConfirm';
