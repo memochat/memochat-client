@@ -2,13 +2,13 @@ import { useForm, UseFormProps } from 'react-hook-form';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-export interface ChangePwFormType {
+export interface ChangePasswordFormType {
   currentPassword: string;
   password: string;
   password2: string;
 }
 
-const defaultValues: ChangePwFormType = {
+const defaultValues: ChangePasswordFormType = {
   currentPassword: '',
   password: '',
   password2: '',
@@ -33,13 +33,13 @@ const schema = z
     },
   );
 
-const useChangePwForm = (props?: UseFormProps<ChangePwFormType>) => {
-  return useForm<ChangePwFormType>({
+const useChangePasswordForm = (props?: UseFormProps<ChangePasswordFormType>) => {
+  return useForm<ChangePasswordFormType>({
     ...props,
-    defaultValues: props?.defaultValues || defaultValues,
+    defaultValues,
     mode: 'all',
     resolver: zodResolver(schema),
   });
 };
 
-export default useChangePwForm;
+export default useChangePasswordForm;

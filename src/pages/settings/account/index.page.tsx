@@ -16,12 +16,12 @@ const Account: NextPage = () => {
         </S.MenuListItem>
         <S.MenuListItem>
           <S.Title>비밀번호 변경</S.Title>
-          <Link href="/settings/account/change-pw" passHref>
+          <Link href="/settings/account/change-password" passHref>
             <S.Link>변경</S.Link>
           </Link>
         </S.MenuListItem>
         <S.MenuListItem>
-          <S.DeleteButton>계정삭제</S.DeleteButton>
+          <S.DeleteButton type="button">계정삭제</S.DeleteButton>
         </S.MenuListItem>
       </S.MenuList>
     </S.Wrapper>

@@ -11,12 +11,12 @@ import useConfirm from '@src/shared/hooks/useConfirm';
 const Settings: NextPage = () => {
   const { confirm } = useConfirm();
   const handleLogoutBtnClick = async () => {
-    const res = await confirm({
+    const result = await confirm({
       headerTitle: '알림',
       title: '로그아웃 하시겠습니까?',
       description: '메모 내용 백업이 일시 정지됩니다.',
     });
-    if (!res) {
+    if (!result) {
       return;
     }
     alert('로그아웃');

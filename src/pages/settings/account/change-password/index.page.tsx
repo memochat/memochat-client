@@ -2,15 +2,17 @@ import { NextPage } from 'next';
 import { useState } from 'react';
 import { Controller, SubmitHandler } from 'react-hook-form';
 
-import * as S from './changepw.styles';
+import * as S from './changepassword.styles';
 
-import useChangePwForm, { ChangePwFormType } from '@src/features/settings/hooks/useChangePwForm';
+import useChangePasswordForm, {
+  ChangePasswordFormType,
+} from '@src/features/settings/hooks/useChangePwForm';
 import { Button, Stepper, TextField } from '@src/shared/components';
 import useConfirm from '@src/shared/hooks/useConfirm';
 
-const SignUp: NextPage = () => {
+const ChangePassword: NextPage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const { control, handleSubmit, getFieldState, formState } = useChangePwForm();
+  const { control, handleSubmit, getFieldState, formState } = useChangePasswordForm();
   const { confirm } = useConfirm();
 
   const handleIdNextBtnClick = () => {
@@ -30,7 +32,7 @@ const SignUp: NextPage = () => {
     setActiveIndex((prev) => prev + 1);
   };
 
-  const onSubmit: SubmitHandler<ChangePwFormType> = (values) => {
+  const onSubmit: SubmitHandler<ChangePasswordFormType> = (values) => {
     alert(JSON.stringify(values, null, 2));
   };
 
@@ -120,4 +122,4 @@ const SignUp: NextPage = () => {
   );
 };
 
-export default SignUp;
+export default ChangePassword;
