@@ -1,11 +1,8 @@
 #__next {
   height: 100%;
 }
-
-a:link {
-  text-decoration: none;
-}
-
-a:link:hover {
+a,
+a:link:hover,
+a:-webkit-any-link {
   text-decoration: none;
 }

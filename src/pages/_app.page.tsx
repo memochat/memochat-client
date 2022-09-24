@@ -6,6 +6,7 @@ import { GlobalStyle, lightTheme } from '@src/themes';
 import { ModalReducerContextProvider } from '@src/shared/contexts/ModalReducerContext';
 import MainLayout from '@src/shared/components/MainLayout';
 import GlobalConfirmModal from '@src/shared/components/GlobalConfirmModal';
+import '@src/styles/global.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
