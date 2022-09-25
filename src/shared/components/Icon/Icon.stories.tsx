@@ -3,7 +3,6 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Icon from './index';
 
 export default {
-  title: 'Components/reusable/Icon',
   argTypes: {
     name: { control: 'text' },
     color: { control: 'text' },

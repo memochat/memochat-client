@@ -3,7 +3,6 @@ import { ComponentMeta, StoryObj } from '@storybook/react';
 import Checkbox from '.';
 
 export default {
-  title: 'Components/reusable/Checkbox',
   component: Checkbox,
   args: {
     checked: true,

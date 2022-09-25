@@ -4,7 +4,6 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import ChatInput from '.';
 
 export default {
-  title: 'Components/reusable/ChatInput',
   component: ChatInput,
   argTypes: {
     showSelectedRoomName: {

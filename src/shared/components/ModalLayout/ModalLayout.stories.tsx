@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 import ModalLayout from '.';
 
 export default {
-  title: 'Components/reusable/ModalLayout',
   component: ModalLayout,
   args: {
     open: true,

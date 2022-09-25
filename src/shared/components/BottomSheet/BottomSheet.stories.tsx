@@ -5,7 +5,6 @@ import Button from '../Button';
 import BottomSheet from '.';
 
 export default {
-  title: 'Components/reusable/BottomSheet',
   component: BottomSheet,
   args: {},
   argTypes: {},

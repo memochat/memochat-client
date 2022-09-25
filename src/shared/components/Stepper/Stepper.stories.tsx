@@ -4,7 +4,6 @@ import { useState } from 'react';
 import Stepper from './Stepper';
 
 export default {
-  title: 'Components/reusable/Stepper',
   component: Stepper,
   args: {},
 } as ComponentMeta<typeof Stepper>;

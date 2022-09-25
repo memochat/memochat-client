@@ -6,7 +6,6 @@ import ModalButtonGroup from './ModalButtonGroup';
 import ModalContents from './ModalContents';
 
 export default {
-  title: 'Components/reusable/Modal',
   component: Modal,
   args: {
     open: true,

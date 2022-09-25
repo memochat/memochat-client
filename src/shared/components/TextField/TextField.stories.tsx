@@ -4,7 +4,6 @@ import { useState } from 'react';
 import TextField from './index';
 
 export default {
-  title: 'Components/reusable/TextField',
   component: TextField,
   args: {
     id: 'test',

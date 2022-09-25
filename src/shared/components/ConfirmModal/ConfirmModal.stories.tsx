@@ -3,7 +3,6 @@ import { ComponentMeta, StoryObj } from '@storybook/react';
 import ConfirmModal from '.';
 
 export default {
-  title: 'Components/reusable/ConfirmModal',
   component: ConfirmModal,
   args: {
     open: true,

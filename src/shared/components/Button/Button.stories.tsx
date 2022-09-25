@@ -3,7 +3,6 @@ import { ComponentMeta, StoryObj } from '@storybook/react';
 import Button from '.';
 
 export default {
-  title: 'Components/reusable/Button',
   component: Button,
   args: {
     children: '확인',
