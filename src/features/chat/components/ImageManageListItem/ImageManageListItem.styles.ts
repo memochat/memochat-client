@@ -2,10 +2,11 @@ import styled from '@emotion/styled';
 
 import CheckboxComponent from '@src/shared/components/Checkbox';
 
-export const Wrapper = styled.div<{ isSelected: boolean }>`
+export const Wrapper = styled.div<{ isSelected: boolean; size?: string }>`
   position: relative;
-  width: 100%;
+  width: ${(p) => `calc(${p.size} - 2px)`};
   aspect-ratio: 1/1;
+  margin: 1px;
   ${(p) =>
     p.isSelected
       ? `

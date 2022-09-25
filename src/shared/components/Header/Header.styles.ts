@@ -38,3 +38,8 @@ export const IconButton = styled.button<{ align: 'right' | 'left' }>`
   width: 20px;
   height: 20px;
 `;
+
+export const VirtualSpace = styled.div`
+  width: 100%;
+  height: ${HEADER_HEIGHT}px;
+`;

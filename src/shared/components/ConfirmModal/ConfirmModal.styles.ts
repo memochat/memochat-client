@@ -13,10 +13,14 @@ export const ModalContents = styled(ModalContentsComponent)`
 export const Title = styled.strong`
   ${(p) => p.theme.typography.h2};
   color: ${(p) => p.theme.color.black1};
+  text-align: center;
+  white-space: pre-wrap;
 `;
 
 export const Description = styled.p`
   ${(p) => p.theme.typography.body4};
   color: ${(p) => p.theme.color.gray1};
   margin-top: 6px;
+  text-align: center;
+  white-space: pre-wrap;
 `;

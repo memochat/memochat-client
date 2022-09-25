@@ -8,19 +8,20 @@ import * as S from './ImageManageListItem.styles';
 const ImageManageListItem = ({
   mode = 'read',
   imageSrc,
-  imageAlt,
   isSelected,
   onSelectChange,
+  className,
+  size = '100%',
 }: ImageManageListItemProps) => {
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     onSelectChange?.(e.target.checked);
   };
 
   return (
-    <S.Wrapper isSelected={mode === 'edit' && !!isSelected}>
+    <S.Wrapper className={className} isSelected={mode === 'edit' && !!isSelected} size={size}>
       <Image
         src={imageSrc}
-        alt={imageAlt}
+        alt={imageSrc}
         layout="responsive"
         width="100%"
         height="100%"
