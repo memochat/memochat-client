@@ -1,10 +1,11 @@
-import { IconNameType } from '../Icon';
+import { ReactNode } from 'react';
 
 export type HeaderProps = {
   title?: string;
+  /** @default 'center' */
   titleAlign?: 'left' | 'center' | 'right';
-  leftIconName?: IconNameType | null;
-  onLeftIconClick?: () => void;
-  rightIconName?: IconNameType | null;
-  onRightIconClick?: () => void;
+  leftButtons?: ReactNode;
+  rightButtons?: ReactNode;
+  /** @default false */
+  hasBottomLine?: boolean;
 };
