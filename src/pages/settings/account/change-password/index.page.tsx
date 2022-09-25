@@ -6,7 +6,7 @@ import * as S from './changepassword.styles';
 
 import useChangePasswordForm, {
   ChangePasswordFormType,
-} from '@src/features/settings/hooks/useChangePwForm';
+} from '@src/features/settings/hooks/useChangePasswordForm';
 import { Button, Stepper, TextField } from '@src/shared/components';
 import useConfirm from '@src/shared/hooks/useConfirm';
 

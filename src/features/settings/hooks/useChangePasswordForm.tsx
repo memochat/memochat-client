@@ -8,7 +8,7 @@ export interface ChangePasswordFormType {
   password2: string;
 }
 
-const defaultValues: ChangePasswordFormType = {
+const initialValues: ChangePasswordFormType = {
   currentPassword: '',
   password: '',
   password2: '',
@@ -33,9 +33,12 @@ const schema = z
     },
   );
 
-const useChangePasswordForm = (props?: UseFormProps<ChangePasswordFormType>) => {
+const useChangePasswordForm = (
+  { defaultValues }: UseFormProps<ChangePasswordFormType> = {
+    defaultValues: initialValues,
+  },
+) => {
   return useForm<ChangePasswordFormType>({
-    ...props,
     defaultValues,
     mode: 'all',
     resolver: zodResolver(schema),
