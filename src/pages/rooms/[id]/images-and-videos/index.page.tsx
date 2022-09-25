@@ -51,11 +51,13 @@ const ImageAndVideoManageList: NextPage<ImageAndVideoManageListProps> = ({ id })
   };
 
   const selectImage = (id: string) => {
-    setSelectedImageIds([...selectedImageIds, id]);
+    setSelectedImageIds((previousSelectedImageIds) => [...previousSelectedImageIds, id]);
   };
 
   const unselectImage = (id: string) => {
-    setSelectedImageIds(selectedImageIds.filter((v) => v !== id));
+    setSelectedImageIds((previousSelectedImageIds) =>
+      previousSelectedImageIds.filter((v) => v !== id),
+    );
   };
 
   const handleSave = () => {
