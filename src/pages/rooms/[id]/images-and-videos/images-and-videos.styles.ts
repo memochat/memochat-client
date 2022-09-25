@@ -1,5 +1,10 @@
 import styled from '@emotion/styled';
 
+export const TextButton = styled.button`
+  ${(p) => p.theme.typography.h4};
+  color: ${(p) => p.theme.color.purple1};
+`;
+
 export const ListWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
