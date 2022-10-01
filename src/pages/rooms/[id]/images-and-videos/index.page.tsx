@@ -77,18 +77,24 @@ const ImageAndVideoManageList: NextPage<ImageAndVideoManageListProps> = ({ id })
 
   return (
     <>
-      {/** @todo mode==='edit'일때 체크 대신 '취소'텍스트로 수정 */}
       <Header
         title={`사진 & 동영상`}
-        leftIconName="Close"
-        rightIconName={mode === 'read' ? 'Check' : 'Close'}
-        onRightIconClick={() => {
-          if (mode === 'read') {
-            handleCheckButtonClick();
-          } else {
-            handleCancelButtonClick();
-          }
-        }}
+        leftButtons={
+          <button type="button">
+            <Icon name="Close" color="black1" size={20} />
+          </button>
+        }
+        rightButtons={
+          mode === 'read' ? (
+            <button type="button" onClick={handleCheckButtonClick}>
+              <Icon name="Check" color="black1" size={20} />
+            </button>
+          ) : (
+            <S.TextButton type="button" onClick={handleCancelButtonClick}>
+              취소
+            </S.TextButton>
+          )
+        }
       />
       <S.ListWrapper>
         {MOCK_IMAGES.map((image, index) => (

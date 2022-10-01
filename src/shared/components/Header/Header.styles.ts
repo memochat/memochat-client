@@ -6,7 +6,7 @@ import { ellipsis } from '@src/shared/styles';
 
 const HEADER_HEIGHT = 56;
 
-export const Wrapper = styled.header`
+export const Wrapper = styled.header<{ hasBottomLine?: boolean }>`
   background-color: white;
   position: fixed;
   top: 0;
@@ -14,9 +14,7 @@ export const Wrapper = styled.header`
   width: 100%;
   text-align: center;
   padding: 18px 52px;
-  border-bottom: 1px solid ${({ theme }) => theme.color.gray5};
-  gap: 16px;
-  display: flex;
+  ${(p) => (p.hasBottomLine ? `border-bottom: 1px solid ${p.theme.color.gray5};` : '')};
 
   z-index: ${({ theme }) => theme.zIndex.header};
 `;
@@ -30,13 +28,27 @@ export const Title = styled.h1<Pick<HeaderProps, 'titleAlign'>>`
   ${ellipsis(1)}
 `;
 
-export const IconButton = styled.button<{ align: 'right' | 'left' }>`
+export const ButtonsWrapper = styled.div<{ align: 'right' | 'left' }>`
+  display: flex;
+  align-items: center;
   position: absolute;
+  top: 50%;
   left: ${({ align }) => (align === 'left' ? '16px' : 'unset')};
   right: ${({ align }) => (align === 'right' ? '16px' : 'unset')};
-  cursor: pointer;
-  width: 20px;
-  height: 20px;
+  transform: translateY(-50%);
+
+  ${({ align }) =>
+    align === 'left'
+      ? `
+      > *:not(:first-child) {
+        margin-left: 4px;
+      }
+      `
+      : `
+      > *:not(:last-child) {
+        margin-right: 4px;
+      }
+      `};
 `;
 
 export const VirtualSpace = styled.div`
