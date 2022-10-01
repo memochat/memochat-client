@@ -3,23 +3,23 @@ import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 export interface SignUpFormType {
-  id: string;
+  email: string;
   password: string;
   password2: string;
 }
 
 const defaultValues: SignUpFormType = {
-  id: '',
+  email: '',
   password: '',
   password2: '',
 };
 
 const schema = z
   .object({
-    id: z
+    email: z
       .string({ required_error: '필수값입니다.' })
       .min(3, '최소 3자 이상 입력해주세요.')
-      .max(10, { message: '최대 10자까지 가능합니다.' }),
+      .max(30, { message: '최대 30자까지 가능합니다.' }),
     password: z
       .string({ required_error: '필수값입니다.' })
       .min(3, '최소 3자 이상 입력해주세요.')
