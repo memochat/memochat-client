@@ -1,28 +1,21 @@
+import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { Controller, SubmitHandler } from 'react-hook-form';
-import { NextPage } from 'next';
+import { SubmitHandler } from 'react-hook-form';
 
 import * as S from './signup.styles';
 
+import EmailSection from '@src/features/auth/components/EmailSection';
+import PasswordSection from '@src/features/auth/components/PasswordSection';
 import useSignupForm, { SignUpFormType } from '@src/features/auth/hooks/useSignupForm';
-import { Button, Stepper, TextField } from '@src/shared/components';
+import { Button, Stepper } from '@src/shared/components';
 
 const SignUp: NextPage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const { control, handleSubmit, getFieldState, formState } = useSignupForm();
-  const [isDuplicates, setIsDuplicates] = useState(false);
-
+  const { control, handleSubmit, formState } = useSignupForm();
   const router = useRouter();
 
-  const handleIdNextBtnClick = () => {
-    const { isDirty, error } = getFieldState('id');
-
-    if (isDirty && error) {
-      //TODO: 나중에 에러 Alert수정
-      alert(error.message);
-      return;
-    }
+  const handleEmailVerifyComplete = () => {
     setActiveIndex((prev) => prev + 1);
   };
 
@@ -48,70 +41,14 @@ const SignUp: NextPage = () => {
         }}
       >
         <S.Content>
-          <div style={{ flexGrow: 1 }}>
-            <Controller
-              control={control}
-              name="id"
-              render={({ field, fieldState }) => (
-                <TextField
-                  id={`id-textfield`}
-                  value={field.value}
-                  onChange={field.onChange}
-                  onBlur={field.onBlur}
-                  label="아이디(최대 10자)"
-                  error={Boolean(fieldState.error) || isDuplicates}
-                  errorMessage={isDuplicates ? '중복된 아이디입니다.' : fieldState.error?.message}
-                  success={fieldState.isDirty && !fieldState.error}
-                  successMessage="사용가능한 아이디입니다."
-                  helperMessage="최대 20자까지 입력 가능합니다."
-                  maxLength={20}
-                />
-              )}
-            />
-          </div>
-          <Button onClick={handleIdNextBtnClick}>계속</Button>
+          <EmailSection
+            handleEmailVerifyComplete={handleEmailVerifyComplete}
+            control={control}
+            name="email"
+          />
         </S.Content>
         <S.Content>
-          <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', gap: '30px' }}>
-            <Controller
-              control={control}
-              name="password"
-              render={({ field, fieldState }) => (
-                <TextField
-                  type="password"
-                  id={`password-textfield`}
-                  value={field.value}
-                  onChange={field.onChange}
-                  label="비밀번호"
-                  error={Boolean(fieldState.error)}
-                  errorMessage={fieldState.error?.message}
-                  success={fieldState.isDirty && !fieldState.error}
-                  successMessage="사용가능한 비밀번호입니다."
-                  helperMessage="최대 20자까지 입력 가능합니다."
-                  maxLength={20}
-                />
-              )}
-            />
-            <Controller
-              control={control}
-              name="password2"
-              render={({ field, fieldState }) => (
-                <TextField
-                  type="password"
-                  id={`password2-textfield`}
-                  value={field.value}
-                  onChange={field.onChange}
-                  label="비밀번호"
-                  error={Boolean(fieldState.error)}
-                  errorMessage={fieldState.error?.message}
-                  success={fieldState.isDirty && !fieldState.error}
-                  successMessage="사용가능한 비밀번호입니다."
-                  helperMessage="최대 20자까지 입력 가능합니다."
-                  maxLength={20}
-                />
-              )}
-            />
-          </div>
+          <PasswordSection control={control} name={['password', 'password2']} />
           <Button disabled={!formState.isValid} type="submit">
             제출
           </Button>

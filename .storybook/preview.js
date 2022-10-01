@@ -1,15 +1,17 @@
-import { useDarkMode } from 'storybook-dark-mode';
-import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { ThemeProvider } from '@emotion/react';
 import { RecoilRoot } from 'recoil';
 
-import { lightTheme, darkTheme } from '../src/shared/styles/themes';
-import GlobalStyle from '../src/shared/styles/GlobalStyle';
-import { ModalReducerContextProvider } from '../src/shared/contexts/ModalReducerContext';
+import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import { useDarkMode } from 'storybook-dark-mode';
 import GlobalConfirmModal from '../src/shared/components/GlobalConfirmModal';
 import MainLayout from '../src/shared/components/MainLayout';
 import ToastContainer from '../src/shared/components/ToastContainer';
 import '../src/shared/configs/i18n';
+import { ModalReducerContextProvider } from '../src/shared/contexts/ModalReducerContext';
+import GlobalStyle from '../src/shared/styles/GlobalStyle';
+import { darkTheme, lightTheme } from '../src/shared/styles/themes';
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -33,18 +35,20 @@ export const parameters = {
 
 export const decorators = [
   (Story) => (
-    <ThemeProvider theme={useDarkMode() ? darkTheme : lightTheme}>
-      <RecoilRoot>
-        <GlobalStyle />
-        <ToastContainer />
-        <MainLayout>
-          <ModalReducerContextProvider>
-            <Story />
-            <GlobalConfirmModal />
-            <div id="bottom-sheet"></div>
-          </ModalReducerContextProvider>
-        </MainLayout>
-      </RecoilRoot>
-    </ThemeProvider>
+    <RecoilRoot>
+      <QueryClientProvider client={new QueryClient()}>
+        <ThemeProvider theme={useDarkMode() ? darkTheme : lightTheme}>
+          <GlobalStyle />
+          <ToastContainer />
+          <MainLayout>
+            <ModalReducerContextProvider>
+              <Story />
+              <GlobalConfirmModal />
+              <div id="bottom-sheet"></div>
+            </ModalReducerContextProvider>
+          </MainLayout>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </RecoilRoot>
   ),
 ];

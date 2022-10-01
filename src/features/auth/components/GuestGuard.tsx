@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { ReactNode, useEffect, useState } from 'react';
 
-import useAuthContext from '../hooks/useAuthContext';
+import useAuth from '../hooks/useAuth';
 
 interface Props {
   children: ReactNode;
@@ -11,7 +11,7 @@ interface Props {
  * 인증이 없는 페이지 접근 시 사용
  */
 const GuestGuard = ({ children }: Props) => {
-  const { state } = useAuthContext();
+  const { authState } = useAuth();
   const router = useRouter();
   const [isChecked, setIsChecked] = useState(false);
 
@@ -20,13 +20,13 @@ const GuestGuard = ({ children }: Props) => {
       setIsChecked(false);
       return;
     }
-    if (state.isAuthenticated) {
+    if (authState.isAuthenticated) {
       setIsChecked(false);
-      router.replace('/rooms');
+      router.replace('/');
       return;
     }
     setIsChecked(true);
-  }, [router, state]);
+  }, [router, authState]);
 
   if (!isChecked) {
     return null;

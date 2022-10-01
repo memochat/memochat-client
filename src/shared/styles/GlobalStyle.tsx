@@ -1,5 +1,5 @@
+import { css, Global } from '@emotion/react';
 import emotionReset from 'emotion-reset';
-import { Global, css } from '@emotion/react';
 
 import { lightColorTheme } from './themes/color';
 
@@ -90,6 +90,16 @@ const global = css`
     font-size: 13px;
 
     font-family: 'Spoqa Han Sans Neo', 'M PLUS 1', 'sans-serif';
+  }
+
+  a,
+  a:link:hover,
+  a:-webkit-any-link {
+    text-decoration: none;
+  }
+
+  #__next {
+    height: 100%;
   }
 
   /** 작은 단말 대응 (iPhone SE, Galaxy Fold ) */
