@@ -3,7 +3,10 @@ export const AUTH_REDUCER_ACTIONS = {
   LOGOUT: 'logout',
 } as const;
 
-const login = () => ({
+const login = (user: any) => ({
+  payload: {
+    user,
+  },
   type: AUTH_REDUCER_ACTIONS.LOGIN,
 });
 
@@ -25,9 +28,10 @@ export const initialAuthReducerState: AuthReducerState = {
 
 const authReducer = (state: AuthReducerState, action: AuthReducerAction): AuthReducerState => {
   switch (action.type) {
-    case login().type:
+    case AUTH_REDUCER_ACTIONS.LOGIN:
+      console.log('유저 로그인 성공!');
       return { ...state, isAuthenticated: true };
-    case logout().type:
+    case AUTH_REDUCER_ACTIONS.LOGOUT:
       return { ...state, isAuthenticated: false };
     default:
       return initialAuthReducerState;

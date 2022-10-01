@@ -1,5 +1,6 @@
 import { createContext } from 'react';
 
+import { SigninFormType } from '../../hooks/useSigninForm';
 import {
   authContextActionsCreators,
   AuthReducerState,
@@ -7,13 +8,13 @@ import {
 } from './authReducer';
 
 export type AuthContextType = {
-  login: () => void;
+  login: (values: SigninFormType) => Promise<void>;
   logout: () => void;
   state: AuthReducerState;
 };
 
 const initialAuthContextValues: AuthContextType = {
-  login: authContextActionsCreators.login,
+  login: () => Promise.resolve(),
   logout: authContextActionsCreators.logout,
   state: initialAuthReducerState,
 };
