@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+const PADDING = 8;
+
 export const TextButton = styled.button`
   ${(p) => p.theme.typography.h4};
   color: ${(p) => p.theme.color.purple1};
@@ -8,13 +10,15 @@ export const TextButton = styled.button`
 export const ListWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   width: 100%;
-  padding: 0 0 100px;
+  padding: 0 ${PADDING}px 100px;
 `;
 
 export const Date = styled.span`
-  width: 100%;
+  width: ${`calc(100% + ${PADDING * 2}px)`};
   padding: 20px 16px 14px;
+  margin-left: -${PADDING}px;
   ${(p) => p.theme.typography.body6};
 `;
 
@@ -25,7 +29,6 @@ export const EditActionRow = styled.div`
   bottom: 0;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 
   width: 100%;
   height: 88px;
@@ -33,4 +36,8 @@ export const EditActionRow = styled.div`
 
   background-color: ${(p) => p.theme.color.white};
   box-shadow: 0px 4px 30px rgba(51, 51, 51, 0.12);
+`;
+
+export const DeleteButton = styled.button`
+  margin-left: auto;
 `;
