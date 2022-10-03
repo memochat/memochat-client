@@ -15,7 +15,7 @@ export const ListWrapper = styled.div`
 export const Date = styled.span`
   width: 100%;
   padding: 20px 16px 14px;
-  ${(p) => p.theme.typography.body6};
+  ${(p) => p.theme.typography.body3};
 `;
 
 export const EditActionRow = styled.div`

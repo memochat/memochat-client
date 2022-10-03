@@ -19,7 +19,7 @@ export const Date = styled.span`
   width: ${`calc(100% + ${PADDING * 2}px)`};
   padding: 20px 16px 14px;
   margin-left: -${PADDING}px;
-  ${(p) => p.theme.typography.body6};
+  ${(p) => p.theme.typography.body3};
 `;
 
 export const EditActionRow = styled.div`
