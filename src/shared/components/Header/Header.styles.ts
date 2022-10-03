@@ -10,6 +10,7 @@ export const Wrapper = styled.header<{ hasBottomLine?: boolean }>`
   background-color: white;
   position: fixed;
   top: 0;
+  left: 0;
   height: ${HEADER_HEIGHT + 'px'};
   width: 100%;
   text-align: center;
