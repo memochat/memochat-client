@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { ColorToken } from '@src/themes';
 
 export const Wrapper = styled.div`
-  padding-top: 78px;
+  padding-top: 22px;
   width: 100%;
   height: 100%;
   display: flex;

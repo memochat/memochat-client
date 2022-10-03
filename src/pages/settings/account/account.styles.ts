@@ -1,8 +1,6 @@
 import styled from '@emotion/styled';
-import NextLink from 'next/link';
 
 export const Wrapper = styled.div`
-  padding-top: 56px;
   display: flex;
   flex-direction: column;
   height: 100%;

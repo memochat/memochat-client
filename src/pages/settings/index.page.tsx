@@ -23,23 +23,25 @@ const Settings: NextPage = () => {
   };
 
   return (
-    <S.Wrapper>
+    <>
       <Header title="설정" titleAlign="center" />
-      <Image src={settingImg} alt="setting" />
-      <S.DetailMenuList>
-        <SettingDetailMenu iconName="Avatar" />
-        <SettingDetailMenu iconName="Chat" />
-        <SettingDetailMenu iconName="Lang" />
-        <S.TextButton onClick={handleLogoutBtnClick} color="red1">
-          로그아웃
-        </S.TextButton>
-      </S.DetailMenuList>
-      <S.Divider />
-      <S.Box>
-        <S.TextButton color="gray3">이용약관</S.TextButton>
-        <S.TextButton color="gray3">버전</S.TextButton>
-      </S.Box>
-    </S.Wrapper>
+      <S.Wrapper>
+        <Image src={settingImg} alt="setting" width={265} height={168} />
+        <S.DetailMenuList>
+          <SettingDetailMenu iconName="Avatar" />
+          <SettingDetailMenu iconName="Chat" />
+          <SettingDetailMenu iconName="Lang" />
+          <S.TextButton onClick={handleLogoutBtnClick} color="red1">
+            로그아웃
+          </S.TextButton>
+        </S.DetailMenuList>
+        <S.Divider />
+        <S.Box>
+          <S.TextButton color="gray3">이용약관</S.TextButton>
+          <S.TextButton color="gray3">버전</S.TextButton>
+        </S.Box>
+      </S.Wrapper>
+    </>
   );
 };
 
