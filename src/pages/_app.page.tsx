@@ -7,6 +7,7 @@ import { ModalReducerContextProvider } from '@src/shared/contexts/ModalReducerCo
 import MainLayout from '@src/shared/components/MainLayout';
 import GlobalConfirmModal from '@src/shared/components/GlobalConfirmModal';
 import '@src/styles/global.css';
+import ToastContainer from '@src/shared/components/ToastContainer';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -22,6 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider theme={lightTheme}>
         <GlobalStyle />
+        <ToastContainer />
         <MainLayout>
           <ModalReducerContextProvider>
             <Component {...pageProps} />

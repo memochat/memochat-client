@@ -1,6 +1,8 @@
 import emotionReset from 'emotion-reset';
 import { Global, css } from '@emotion/react';
 
+import { lightColorTheme } from './color';
+
 /** https://www.joshwcomeau.com/css/custom-css-reset/ */
 const customReset = css`
   *,
@@ -69,6 +71,14 @@ const customReset = css`
 const global = css`
   ${emotionReset}
   ${customReset}
+
+  /* react-toastify 커스텀 색상 사용 */
+  :root {
+    --toastify-color-info: ${lightColorTheme.blue1};
+    --toastify-color-success: ${lightColorTheme.green1};
+    --toastify-color-warning: ${lightColorTheme.yellow1};
+    --toastify-color-error: ${lightColorTheme.red1};
+  }
 
   html {
     font-size: 13px;
