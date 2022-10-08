@@ -19,7 +19,7 @@ const LinkManageListItem = ({
   return (
     <S.Container>
       <S.Wrapper isSelected={mode === 'edit' && !!isSelected}>
-        <S.Image src={imageSrc} alt={imageAlt} width="100%" />
+        <S.Image src={imageSrc} alt={imageAlt} width="100%" height="60%" />
         <S.InfoWrapper>
           <S.Title>{title}</S.Title>
         </S.InfoWrapper>

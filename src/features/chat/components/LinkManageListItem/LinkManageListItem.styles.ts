@@ -4,6 +4,9 @@ import CheckboxComponent from '@src/shared/components/Checkbox';
 import { ellipsis } from '@src/shared/styles';
 
 export const Container = styled.div`
+  width: calc(50% - 16px);
+  margin: 0 8px 20px;
+
   border-radius: 8px;
   box-shadow: 0px 4px 30px rgba(51, 51, 51, 0.12);
 `;
@@ -25,7 +28,7 @@ export const Wrapper = styled.div<{ isSelected: boolean }>`
 
 export const Image = styled.img`
   aspect-ratio: 2/1;
-  object-fit: contain;
+  object-fit: cover;
   border-bottom: 1px solid ${(p) => p.theme.color.gray6};
   mix-blend-mode: darken;
 `;
