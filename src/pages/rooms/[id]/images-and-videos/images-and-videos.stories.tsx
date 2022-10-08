@@ -3,7 +3,6 @@ import { ComponentMeta, StoryObj } from '@storybook/react';
 import ImageAndVideoManageList from './index.page';
 
 export default {
-  title: 'Pages/Rooms/Detail/ImageAndVideoManageList',
   component: ImageAndVideoManageList,
   args: {},
   argTypes: {},

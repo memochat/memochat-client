@@ -3,7 +3,6 @@ import { ComponentMeta, StoryObj } from '@storybook/react';
 import LinkManageList from './index.page';
 
 export default {
-  title: 'Pages/Rooms/Detail/LinkManageList',
   component: LinkManageList,
   args: {},
   argTypes: {},
