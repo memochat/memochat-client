@@ -16,6 +16,15 @@ const nextConfig = {
     });
     return config;
   },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/rooms',
+        permanent: true,
+      },
+    ]
+  },
 };
 
 const intercept = require('intercept-stdout');
