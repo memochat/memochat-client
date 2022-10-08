@@ -7,6 +7,7 @@ import { ModalReducerContextProvider } from '../src/shared/contexts/ModalReducer
 import GlobalConfirmModal from '../src/shared/components/GlobalConfirmModal';
 import MainLayout from '../src/shared/components/MainLayout';
 import ToastContainer from '../src/shared/components/ToastContainer';
+import { RecoilRoot } from 'recoil';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -31,15 +32,17 @@ export const parameters = {
 export const decorators = [
   (Story) => (
     <ThemeProvider theme={useDarkMode() ? darkTheme : lightTheme}>
-      <GlobalStyle />
-      <ToastContainer/>
-      <MainLayout>
-        <ModalReducerContextProvider>
-          <Story />
-          <GlobalConfirmModal/>
-          <div id='bottom-sheet'></div>
-        </ModalReducerContextProvider>
-      </MainLayout>
+      <RecoilRoot>
+        <GlobalStyle />
+        <ToastContainer />
+        <MainLayout>
+          <ModalReducerContextProvider>
+            <Story />
+            <GlobalConfirmModal />
+            <div id="bottom-sheet"></div>
+          </ModalReducerContextProvider>
+        </MainLayout>
+      </RecoilRoot>
     </ThemeProvider>
   ),
 ];

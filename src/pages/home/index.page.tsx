@@ -1,9 +1,9 @@
 import Lottie from 'lottie-web';
+import { NextPage } from 'next';
 import Image from 'next/image';
-import { MouseEventHandler, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { NextPage } from 'next';
+import { MouseEventHandler, useEffect, useRef } from 'react';
 
 import * as S from './home.styles';
 

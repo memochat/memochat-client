@@ -1,13 +1,14 @@
 import { ThemeProvider } from '@emotion/react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import { RecoilRoot } from 'recoil';
 
-import { GlobalStyle, lightTheme } from '@src/themes';
-import { ModalReducerContextProvider } from '@src/shared/contexts/ModalReducerContext';
-import MainLayout from '@src/shared/components/MainLayout';
 import GlobalConfirmModal from '@src/shared/components/GlobalConfirmModal';
-import '@src/styles/global.css';
+import MainLayout from '@src/shared/components/MainLayout';
 import ToastContainer from '@src/shared/components/ToastContainer';
+import { ModalReducerContextProvider } from '@src/shared/contexts/ModalReducerContext';
+import '@src/styles/global.css';
+import { GlobalStyle, lightTheme } from '@src/themes';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -22,14 +23,16 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
       <ThemeProvider theme={lightTheme}>
-        <GlobalStyle />
-        <ToastContainer />
-        <MainLayout>
-          <ModalReducerContextProvider>
-            <Component {...pageProps} />
-            <GlobalConfirmModal />
-          </ModalReducerContextProvider>
-        </MainLayout>
+        <RecoilRoot>
+          <GlobalStyle />
+          <ToastContainer />
+          <MainLayout>
+            <ModalReducerContextProvider>
+              <Component {...pageProps} />
+              <GlobalConfirmModal />
+            </ModalReducerContextProvider>
+          </MainLayout>
+        </RecoilRoot>
       </ThemeProvider>
     </>
   );
