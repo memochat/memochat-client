@@ -1,5 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { useState } from 'react';
+import { union } from 'lodash';
 
 import { LinkManageListProps, LinkManageMode } from './links.types';
 import * as S from './links.styles';
@@ -54,13 +55,21 @@ const LinkManageList: NextPage<LinkManageListProps> = ({ id }) => {
   };
 
   const selectLink = (id: string) => {
-    setSelectedLinkIds((previousSelectedLinkIds) => [...previousSelectedLinkIds, id]);
+    setSelectedLinkIds((previousSelectedLinkIds) => union(previousSelectedLinkIds, [id]));
   };
 
   const unselectLink = (id: string) => {
     setSelectedLinkIds((previousSelectedLinkIds) =>
       previousSelectedLinkIds.filter((v) => v !== id),
     );
+  };
+
+  const toggleSelect = (isSelected: boolean, selectedLinkId: string) => {
+    if (isSelected) {
+      selectLink(selectedLinkId);
+    } else {
+      unselectLink(selectedLinkId);
+    }
   };
 
   const handleDelete = async () => {
@@ -96,26 +105,25 @@ const LinkManageList: NextPage<LinkManageListProps> = ({ id }) => {
         }
       />
       <S.ListWrapper>
-        {MOCK_LINKS.map((link, index) => (
-          <>
-            {MOCK_LINKS[index - 1]?.date !== MOCK_LINKS[index].date && <S.Date>{link.date}</S.Date>}
-            <LinkManageListItem
-              key={link.id}
-              mode={mode}
-              imageSrc={link.imageSrc}
-              imageAlt={link.title}
-              title={link.title}
-              isSelected={selectedLinkIds.includes(link.id)}
-              onSelectChange={(isSelected) => {
-                if (isSelected) {
-                  selectLink(link.id);
-                } else {
-                  unselectLink(link.id);
-                }
-              }}
-            />
-          </>
-        ))}
+        {MOCK_LINKS.map((link, index) => {
+          const previousDate = MOCK_LINKS[index - 1]?.date;
+          const currentDate = MOCK_LINKS[index].date;
+
+          return (
+            <>
+              {previousDate !== currentDate && <S.Date>{link.date}</S.Date>}
+              <LinkManageListItem
+                key={link.id}
+                mode={mode}
+                imageSrc={link.imageSrc}
+                imageAlt={link.title}
+                title={link.title}
+                isSelected={selectedLinkIds.includes(link.id)}
+                onSelectChange={(isSelected) => toggleSelect(isSelected, link.id)}
+              />
+            </>
+          );
+        })}
       </S.ListWrapper>
       {mode === 'edit' && (
         <S.EditActionRow>

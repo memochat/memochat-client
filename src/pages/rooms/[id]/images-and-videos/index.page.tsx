@@ -1,5 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { useState } from 'react';
+import { union } from 'lodash';
 
 import { ImageAndVideoManageListProps, ImageAndVideoManageMode } from './images-and-videos.types';
 import * as S from './images-and-videos.styles';
@@ -50,13 +51,21 @@ const ImageAndVideoManageList: NextPage<ImageAndVideoManageListProps> = ({ id })
   };
 
   const selectImage = (id: string) => {
-    setSelectedImageIds((previousSelectedImageIds) => [...previousSelectedImageIds, id]);
+    setSelectedImageIds((previousSelectedImageIds) => union(previousSelectedImageIds, [id]));
   };
 
   const unselectImage = (id: string) => {
     setSelectedImageIds((previousSelectedImageIds) =>
       previousSelectedImageIds.filter((v) => v !== id),
     );
+  };
+
+  const toggleSelect = (isSelected: boolean, selectedLinkId: string) => {
+    if (isSelected) {
+      selectImage(selectedLinkId);
+    } else {
+      unselectImage(selectedLinkId);
+    }
   };
 
   const handleSave = () => {
@@ -96,27 +105,24 @@ const ImageAndVideoManageList: NextPage<ImageAndVideoManageListProps> = ({ id })
         }
       />
       <S.ListWrapper>
-        {MOCK_IMAGES.map((image, index) => (
-          <>
-            {MOCK_IMAGES[index - 1]?.date !== MOCK_IMAGES[index].date && (
-              <S.Date>{image.date}</S.Date>
-            )}
-            <ImageManageListItem
-              key={image.id}
-              mode={mode}
-              imageSrc={image.imageSrc}
-              size="33.3%"
-              isSelected={selectedImageIds.includes(image.id)}
-              onSelectChange={(isSelected) => {
-                if (isSelected) {
-                  selectImage(image.id);
-                } else {
-                  unselectImage(image.id);
-                }
-              }}
-            />
-          </>
-        ))}
+        {MOCK_IMAGES.map((image, index) => {
+          const previousDate = MOCK_IMAGES[index - 1]?.date;
+          const currentDate = MOCK_IMAGES[index].date;
+
+          return (
+            <>
+              {previousDate !== currentDate && <S.Date>{image.date}</S.Date>}
+              <ImageManageListItem
+                key={image.id}
+                mode={mode}
+                imageSrc={image.imageSrc}
+                size="33.3%"
+                isSelected={selectedImageIds.includes(image.id)}
+                onSelectChange={(isSelected) => toggleSelect(isSelected, image.id)}
+              />
+            </>
+          );
+        })}
       </S.ListWrapper>
       {mode === 'edit' && (
         <S.EditActionRow>
