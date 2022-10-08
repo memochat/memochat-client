@@ -8,8 +8,8 @@ import GlobalConfirmModal from '@src/shared/components/GlobalConfirmModal';
 import MainLayout from '@src/shared/components/MainLayout';
 import ToastContainer from '@src/shared/components/ToastContainer';
 import { ModalReducerContextProvider } from '@src/shared/contexts/ModalReducerContext';
-import '@src/styles/global.css';
-import { GlobalStyle, lightTheme } from '@src/themes';
+import { lightTheme } from '@src/themes';
+import GlobalStyle from '@src/shared/styles/GlobalStyle';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

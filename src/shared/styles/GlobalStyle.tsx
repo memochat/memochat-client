@@ -1,7 +1,7 @@
 import emotionReset from 'emotion-reset';
 import { Global, css } from '@emotion/react';
 
-import { lightColorTheme } from './color';
+import { lightColorTheme } from '../../themes/color';
 
 /** https://www.joshwcomeau.com/css/custom-css-reset/ */
 const customReset = css`
@@ -65,6 +65,12 @@ const customReset = css`
     background-color: transparent;
     -webkit-box-shadow: none;
     box-shadow: none;
+  }
+
+  a,
+  a:link:hover,
+  a:-webkit-any-link {
+    text-decoration: none;
   }
 `;
 

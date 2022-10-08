@@ -2,7 +2,8 @@ import { useDarkMode } from 'storybook-dark-mode';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { ThemeProvider } from '@emotion/react';
 
-import { lightTheme, darkTheme, GlobalStyle } from '../src/themes';
+import { lightTheme, darkTheme } from '../src/themes';
+import GlobalStyle from '../src/shared/styles/GlobalStyle';
 import { ModalReducerContextProvider } from '../src/shared/contexts/ModalReducerContext';
 import GlobalConfirmModal from '../src/shared/components/GlobalConfirmModal';
 import MainLayout from '../src/shared/components/MainLayout';
