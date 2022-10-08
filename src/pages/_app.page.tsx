@@ -1,8 +1,8 @@
 import { ThemeProvider } from '@emotion/react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import { RecoilRoot } from 'recoil';
 
-import { AuthContextProvider } from '@src/features/auth/contexts/AuthContext';
 import GlobalConfirmModal from '@src/shared/components/GlobalConfirmModal';
 import MainLayout from '@src/shared/components/MainLayout';
 import ToastContainer from '@src/shared/components/ToastContainer';
@@ -23,16 +23,16 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
       <ThemeProvider theme={lightTheme}>
-        <GlobalStyle />
-        <ToastContainer />
-        <MainLayout>
-          <AuthContextProvider>
+        <RecoilRoot>
+          <GlobalStyle />
+          <ToastContainer />
+          <MainLayout>
             <ModalReducerContextProvider>
               <Component {...pageProps} />
               <GlobalConfirmModal />
             </ModalReducerContextProvider>
-          </AuthContextProvider>
-        </MainLayout>
+          </MainLayout>
+        </RecoilRoot>
       </ThemeProvider>
     </>
   );
