@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import RoomCreateButtonComponent from '@src/features/room/components/RoomCreateButton';
+
 const HEADER_HEIGHT = 51;
 
 export const Wrapper = styled.div`
@@ -30,4 +32,18 @@ export const ProfileImg = styled.img`
   overflow: hidden;
 
   background-color: ${(p) => p.theme.color.gray6};
+`;
+
+export const FloatingBottomLayout = styled.div`
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+`;
+
+export const RoomCreateButton = styled(RoomCreateButtonComponent)`
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate3d(-20px, calc(-100% - 20px), 0);
 `;

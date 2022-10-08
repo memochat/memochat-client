@@ -1,10 +1,13 @@
-export interface UpsertRoomDialogProps {
+import { Room, RoomCategory } from '@src/shared/types/room';
+
+export type UpsertRoomDialogValue = {
+  name: Room['name'];
+  roomCategoryId: RoomCategory['id'];
+};
+
+export type UpsertRoomDialogProps = {
   type: 'create' | 'update';
-  defaultValue?: {
-    /** @todo api에 따라 변경될 여지 ㅇ */
-    roomName: string;
-    roomTypeId: number;
-  };
+  defaultValue?: UpsertRoomDialogValue;
   open: boolean;
   onClose: () => void;
-}
+};

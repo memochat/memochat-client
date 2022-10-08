@@ -1,55 +1,73 @@
-import { MouseEventHandler } from 'react';
-import { useEffectOnce } from 'react-use';
+import { ChangeEvent, MouseEventHandler } from 'react';
 
 import * as S from './RoomMemoForm.styles';
 import { RoomMemoFormProps } from './RoomMemoForm.types';
 
-import useRoomMemoForm from '@src/features/room/hooks/useMemoForm';
+import useRoomMemoForm, { RoomMemoFormType } from '@src/features/room/hooks/useMemoForm';
 import { Icon } from '@src/shared/components';
 
-const RoomMemoForm = ({}: RoomMemoFormProps) => {
+// TODO: alert -> 커스텀 alert로 변경
+// TODO: 앨범, 카메라 native 권한 요청
+const RoomMemoForm = ({ showSelectedRoom, selectedRoom }: RoomMemoFormProps) => {
   const {
     register,
     setValue,
-    setFocus,
     handleSubmit,
     formState: { isDirty },
   } = useRoomMemoForm();
 
-  const memoRegister = register('memo', {
-    onChange: (e) => {
-      e.currentTarget.style.height = 'auto';
-      e.currentTarget.style.height = `${64 + Math.round(e.currentTarget.scrollHeight - 64)}px`;
-    },
-  });
+  const autoGrow = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    e.currentTarget.style.height = 'auto';
+    e.currentTarget.style.height = `${64 + Math.round(e.currentTarget.scrollHeight - 64)}px`;
+  };
 
-  const onAlbumIconBtnClick: MouseEventHandler<HTMLButtonElement> = () => {
-    alert('album click');
+  const handleAlbumClick: MouseEventHandler<HTMLButtonElement> = () => {
+    if (!selectedRoom) {
+      alert('채팅방을 선택해주세요.');
+      return;
+    }
+
+    alert('앨범 클릭');
     setValue('images', []);
   };
 
-  const onCameraIconBtnClick: MouseEventHandler<HTMLButtonElement> = () => {
-    alert('camera click');
+  const handleCameraClick: MouseEventHandler<HTMLButtonElement> = () => {
+    if (!selectedRoom) {
+      alert('채팅방을 선택해주세요.');
+      return;
+    }
+
+    alert('카메라 클릭');
   };
 
-  useEffectOnce(() => {
-    setFocus('memo');
-  });
+  const handleTextAreaWrapperClick = () => {
+    if (!selectedRoom) {
+      alert('채팅방을 선택해주세요.');
+    }
+  };
+
+  const onSubmit = (v: RoomMemoFormType) => {
+    alert(JSON.stringify(v));
+  };
 
   return (
-    <S.Wrapper
-      onSubmit={handleSubmit((v) => {
-        alert(JSON.stringify(v, null, 2));
-      })}
-    >
-      <S.Textarea {...memoRegister} placeholder="채팅방 선택 후 메모작성." />
+    <S.Form onSubmit={handleSubmit((v) => onSubmit(v as RoomMemoFormType))}>
+      {showSelectedRoom && selectedRoom && (
+        <S.SelectedRoomName>{selectedRoom.name}</S.SelectedRoomName>
+      )}
+      <S.TextAreaWrapper onClick={handleTextAreaWrapperClick}>
+        {showSelectedRoom && selectedRoom && <Icon name="Reply" size={20} color="gray4" />}
+        <S.Textarea
+          {...register('memo', { onChange: autoGrow, disabled: !selectedRoom })}
+          placeholder={selectedRoom ? '메모를 입력하세요.' : '채팅방 선택 후 메모작성.'}
+        />
+      </S.TextAreaWrapper>
       <S.ToolBox>
         <S.ToolBoxIconBox>
-          <button type="button" onClick={onAlbumIconBtnClick} aria-label="앨범">
+          <button type="button" onClick={handleAlbumClick} aria-label="앨범">
             <Icon name="Album" size={32} />
           </button>
-          <button type="button" onClick={onCameraIconBtnClick} aria-label="카메라">
-            {/*TODO: native 권한 요청 */}
+          <button type="button" onClick={handleCameraClick} aria-label="카메라">
             <Icon name="Camera" size={32} />
           </button>
         </S.ToolBoxIconBox>
@@ -59,7 +77,7 @@ const RoomMemoForm = ({}: RoomMemoFormProps) => {
           </S.SubmitBtn>
         )}
       </S.ToolBox>
-    </S.Wrapper>
+    </S.Form>
   );
 };
 

@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 
 import RoomTypeRadioGroup from '../RoomTypeRadioGroup';
-import { UpsertRoomDialogProps } from './UpsertRoomDialog.types';
+import { UpsertRoomDialogProps, UpsertRoomDialogValue } from './UpsertRoomDialog.types';
 import * as S from './UpsertRoomDialog.styles';
 
 import Button from '@src/shared/components/Button';
@@ -10,10 +10,10 @@ import { Modal, ModalButtonGroup, ModalContents, TextField } from '@src/shared/c
 const UpsertRoomDialog = ({ type, defaultValue, open, onClose }: UpsertRoomDialogProps) => {
   const title = type === 'create' ? '룸 만들기' : '룸 수정하기';
 
-  const [value, setValue] = useState(
+  const [value, setValue] = useState<UpsertRoomDialogValue>(
     defaultValue || {
-      roomName: '',
-      roomTypeId: undefined,
+      name: '',
+      roomCategoryId: 1,
     },
   );
 
@@ -26,14 +26,14 @@ const UpsertRoomDialog = ({ type, defaultValue, open, onClose }: UpsertRoomDialo
   const handleRoomNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue((prevValue) => ({
       ...prevValue,
-      roomName: e.target.value,
+      name: e.target.value,
     }));
   };
 
   const handleRoomTypeChange = (id: number) => {
     setValue((prevValue) => ({
       ...prevValue,
-      roomTypeId: id,
+      roomCategoryId: id,
     }));
   };
 
@@ -42,22 +42,22 @@ const UpsertRoomDialog = ({ type, defaultValue, open, onClose }: UpsertRoomDialo
     onClose();
   };
 
-  const isInvalid = !value.roomName || !value.roomTypeId;
+  const isInvalid = !value.name || !value.roomCategoryId;
 
   return (
     <Modal title={title} open={open} onClose={onClose}>
       <ModalContents>
         <S.Wrapper>
           <TextField
-            id="roomName"
+            id="name"
             label="룸 이름 (최대 10자)"
-            value={value.roomName}
+            value={value.name}
             onChange={handleRoomNameChange}
             maxLength={10}
           />
           <RoomTypeRadioGroup
             label="룸 유형"
-            value={value.roomTypeId}
+            value={value.roomCategoryId}
             onChange={handleRoomTypeChange}
           />
         </S.Wrapper>

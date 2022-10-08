@@ -1,58 +1,105 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { SwipeableList, Type as ListType } from 'react-swipeable-list';
+import { useRouter } from 'next/router';
 
 import * as S from './rooms.styles';
 
 import { Icon } from '@src/shared/components';
 import RoomMemoForm from '@src/features/room/components/RoomMemoForm';
-import RoomListItem, { RoomListItemProps } from '@src/features/room/components/RoomListItem';
+import RoomListItem from '@src/features/room/components/RoomListItem';
 import UpsertRoomDialog from '@src/features/room/components/UpsertRoomDialog';
 import useConfirm from '@src/shared/hooks/useConfirm';
 import RoomListEmpty from '@src/features/room/components/RoomListEmpty';
+import { Room } from '@src/shared/types/room';
 
 import 'react-swipeable-list/dist/styles.css';
 
-const MOCK_ROOM_LIST: (Pick<RoomListItemProps, 'name' | 'roomType' | 'lastChat'> & {
-  id: number;
-})[] = [
+const MOCK_ROOM_LIST: Room[] = [
   {
     id: 1,
     name: '룸1',
-    roomType: {
-      name: '장바구니',
-      imageUrl: '/images/bell.png',
+    roomCategory: {
+      id: 1,
+      name: 'WISHLIST',
+      thumbnail: '/images/bell.png',
     },
-    lastChat: { type: 'image' },
   },
   {
     id: 2,
     name: '룸2',
-    roomType: {
-      name: '장바구니',
-      imageUrl: '/images/bell.png',
+    roomCategory: {
+      id: 1,
+      name: 'WISHLIST',
+      thumbnail: '/images/bell.png',
     },
-    lastChat: { type: 'text', text: '살것: 볼펜, 노트, 가위' },
   },
   {
     id: 3,
     name: '룸3',
-    roomType: {
-      name: '장바구니',
-      imageUrl: '/images/bell.png',
+    roomCategory: {
+      id: 1,
+      name: 'WISHLIST',
+      thumbnail: '/images/bell.png',
     },
   },
 ];
 
 const RoomList = () => {
-  const rooms = MOCK_ROOM_LIST;
-
+  const router = useRouter();
   const { confirm } = useConfirm();
 
-  const [selectedRoom, setSelectedRoom] = useState(rooms[0]);
-  const [selectedUpdateRoom, setSelectedUpdateRoom] = useState(rooms[0]);
+  const rooms = MOCK_ROOM_LIST;
 
-  const [isUpsertRoomDialogOpen, setIsUpsertRoomDialogOpen] = useState(false);
+  const [selectedRoom, setSelectedRoom] = useState<Room | undefined>(rooms?.[0]);
+  const [selectedUpdateRoom, setSelectedUpdateRoom] = useState<Room | undefined>(rooms?.[0]);
+
+  const [isCreateRoomDialogOpen, setIsCreateRoomDialogOpen] = useState(false);
+  const [isUpdateRoomDialogOpen, setIsUpdateRoomDialogOpen] = useState(false);
+
+  const handleRoomSelect = (room: Room) => {
+    const isSelected = room.id === selectedRoom?.id;
+    if (isSelected) {
+      setSelectedRoom(undefined);
+    } else {
+      setSelectedRoom(room);
+    }
+  };
+
+  const handleRoomClick = (room: Room) => {
+    router.push(`/rooms/${room.id}`);
+  };
+
+  const handleRoomEditClick = (room: Room) => {
+    setSelectedUpdateRoom(room);
+    setIsUpdateRoomDialogOpen(true);
+  };
+
+  const handleRoomDeleteClick = async (room: Room) => {
+    if (
+      await confirm({
+        headerTitle: '룸 삭제하기',
+        title: '메모룸을 삭제할까요?',
+        description: '메모 내용은 복구되지 않습니다.',
+      })
+    ) {
+      // TODO : 메모룸 삭제
+      alert(`${room.id} 메모룸 삭제`);
+    }
+  };
+
+  const handleUpdateRoomDialogClose = () => {
+    setIsUpdateRoomDialogOpen(false);
+    setSelectedUpdateRoom(undefined);
+  };
+
+  const handleRoomCreateClick = () => {
+    setIsCreateRoomDialogOpen(true);
+  };
+
+  const handleCreateRoomDialogClose = () => {
+    setIsCreateRoomDialogOpen(false);
+  };
 
   return (
     <>
@@ -73,40 +120,39 @@ const RoomList = () => {
               <RoomListItem
                 key={room.id}
                 name={room.name}
-                roomType={room.roomType}
-                lastChat={room.lastChat}
-                isSelected={selectedRoom.id === room.id}
-                onSelect={() => setSelectedRoom(room)}
-                onClick={() => alert('룸 클릭')}
-                onPin={() => alert('고정 클릭')}
-                onEdit={() => {
-                  setSelectedUpdateRoom(room);
-                  setIsUpsertRoomDialogOpen(true);
-                }}
-                onDelete={async () => {
-                  if (
-                    await confirm({
-                      headerTitle: '룸 삭제하기',
-                      title: '메모룸을 삭제할까요?',
-                      description: '메모 내용은 복구되지 않습니다.',
-                    })
-                  ) {
-                    alert('메모룸 삭제');
-                  }
-                }}
+                roomCategory={room.roomCategory}
+                // TODO
+                // lastChat={room.lastChat}
+                isSelected={selectedRoom?.id === room.id}
+                onSelect={() => handleRoomSelect(room)}
+                onClick={() => handleRoomClick(room)}
+                onEdit={() => handleRoomEditClick(room)}
+                onDelete={() => handleRoomDeleteClick(room)}
               />
             ))
           )}
         </SwipeableList>
       </S.Wrapper>
-      <RoomMemoForm />
+      <S.FloatingBottomLayout>
+        <S.RoomCreateButton onClick={handleRoomCreateClick} />
+        <RoomMemoForm selectedRoom={selectedRoom} showSelectedRoom />
+      </S.FloatingBottomLayout>
       <UpsertRoomDialog
-        type="update"
-        open={isUpsertRoomDialogOpen}
-        onClose={() => setIsUpsertRoomDialogOpen(false)}
-        /** @todo api 확정되면 반영 */
-        defaultValue={{ roomName: selectedUpdateRoom?.name, roomTypeId: 1 }}
+        type="create"
+        open={isCreateRoomDialogOpen}
+        onClose={handleCreateRoomDialogClose}
       />
+      {selectedUpdateRoom && (
+        <UpsertRoomDialog
+          type="update"
+          open={isUpdateRoomDialogOpen}
+          onClose={handleUpdateRoomDialogClose}
+          defaultValue={{
+            name: selectedUpdateRoom.name,
+            roomCategoryId: selectedUpdateRoom.roomCategory.id,
+          }}
+        />
+      )}
     </>
   );
 };
