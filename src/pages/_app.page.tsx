@@ -1,4 +1,5 @@
 import { ThemeProvider } from '@emotion/react';
+import '@src/modules/i18n';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
