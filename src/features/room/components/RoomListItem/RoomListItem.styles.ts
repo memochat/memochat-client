@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 import { ellipsis } from '@src/shared/styles';
-import { ColorToken } from '@src/themes';
+import { ColorToken } from '@src/shared/styles/themes';
 
 export const Wrapper = styled.div`
   display: flex;

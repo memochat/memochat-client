@@ -1,7 +1,7 @@
 import emotionReset from 'emotion-reset';
 import { Global, css } from '@emotion/react';
 
-import { lightColorTheme } from '../../themes/color';
+import { lightColorTheme } from './themes/color';
 
 /** https://www.joshwcomeau.com/css/custom-css-reset/ */
 const customReset = css`

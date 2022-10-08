@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 import { ButtonProps } from './Button.types';
 
-import { EmotionTheme } from '@src/themes';
+import { EmotionTheme } from '@src/shared/styles/themes';
 
 const getHeightBySize = (size: NonNullable<ButtonProps['size']>) => {
   return {

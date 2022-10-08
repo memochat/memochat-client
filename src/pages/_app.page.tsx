@@ -7,7 +7,7 @@ import GlobalConfirmModal from '@src/shared/components/GlobalConfirmModal';
 import MainLayout from '@src/shared/components/MainLayout';
 import ToastContainer from '@src/shared/components/ToastContainer';
 import { ModalReducerContextProvider } from '@src/shared/contexts/ModalReducerContext';
-import { lightTheme } from '@src/themes';
+import { lightTheme } from '@src/shared/styles/themes';
 import GlobalStyle from '@src/shared/styles/GlobalStyle';
 import '@src/shared/configs/i18n';
 

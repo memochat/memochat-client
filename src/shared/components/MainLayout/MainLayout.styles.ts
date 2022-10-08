@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { breakpoint } from '@src/themes';
+import { breakpoint } from '@src/shared/styles/themes';
 
 export const Main = styled.main`
   width: 100%;

@@ -3,7 +3,7 @@ import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { ThemeProvider } from '@emotion/react';
 import { RecoilRoot } from 'recoil';
 
-import { lightTheme, darkTheme } from '../src/themes';
+import { lightTheme, darkTheme } from '../src/shared/styles/themes';
 import GlobalStyle from '../src/shared/styles/GlobalStyle';
 import { ModalReducerContextProvider } from '../src/shared/contexts/ModalReducerContext';
 import GlobalConfirmModal from '../src/shared/components/GlobalConfirmModal';

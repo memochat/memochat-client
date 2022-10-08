@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { ColorToken } from '@src/themes';
+import { ColorToken } from '@src/shared/styles/themes';
 
 export const Wrapper = styled.div`
   padding-top: 22px;

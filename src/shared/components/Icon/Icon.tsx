@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { SvgIconProps } from './Icon.types';
 
 import * as icon from '@src/assets/icons';
-import { ColorToken } from '@src/themes';
+import { ColorToken } from '@src/shared/styles/themes';
 
 const DEFAULT_SIZE = 30;
 

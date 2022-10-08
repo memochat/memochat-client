@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { ColorTheme } from '@src/themes';
+import { ColorTheme } from '@src/shared/styles/themes';
 
 export const Wrapper = styled.section`
   background-color: ${({ theme }) => theme.color.white};

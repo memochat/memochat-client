@@ -1,7 +1,7 @@
 import { SVGProps } from 'react';
 
 import * as icon from '@src/assets/icons';
-import { ColorToken } from '@src/themes';
+import { ColorToken } from '@src/shared/styles/themes';
 
 export type IconNameType = keyof typeof icon;
 
