@@ -1,6 +1,6 @@
 import Axios, { AxiosError } from 'axios';
 
-import { MemoChatError } from '@src/types/api/base';
+import { MemoChatError } from '@src/shared/types/api';
 
 const axios = Axios.create({ baseURL: 'https://memochat-server.herokuapp.com/v1' });
 

@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useController } from 'react-hook-form';
 
+import { usePostSendEmailMutation } from '../../api/usePostSendEmailMutation';
 import { EmailSectionProps } from './EmailSection.types';
 
-import { useSendEmailMutation } from '@src/queries/auth';
 import { Button, TextField } from '@src/shared/components';
+import { MemoChatError } from '@src/shared/types/api';
+import { toast } from '@src/shared/utils/toast';
 
 const EmailSection = (props: EmailSectionProps) => {
   const { control, name, handleEmailVerifyComplete } = props;
@@ -12,7 +14,7 @@ const EmailSection = (props: EmailSectionProps) => {
   const [isEmailVerificationSent, setIsEmailVerificationSent] = useState(false);
   const { field, fieldState } = useController({ control, name });
 
-  const { mutate: mutateSendEmail } = useSendEmailMutation();
+  const { mutateAsync: mutateSendEmail } = usePostSendEmailMutation();
 
   const checkIfEmailDuplicates = async () => {
     try {
@@ -32,6 +34,10 @@ const EmailSection = (props: EmailSectionProps) => {
       return true;
     } catch (e) {
       console.error(e);
+      if (e instanceof MemoChatError) {
+        toast.error(e.message);
+        return;
+      }
       return false;
     }
   };

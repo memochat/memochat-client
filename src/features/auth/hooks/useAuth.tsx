@@ -1,15 +1,16 @@
 import { useRecoilState } from 'recoil';
 
-import { useSignInMutation } from '@src/queries/auth';
+import { usePostSignInMutation } from '../api/usePostSignInMutation';
+
 import { removeAccessToken, setAccessToken, setRefreshToken } from '@src/shared/configs/cookie';
 import { authStateAtom } from '@src/shared/configs/recoil/auth';
+import { MemoChatError } from '@src/shared/types/api';
+import { SignIn } from '@src/shared/types/api/auth';
 import { toast } from '@src/shared/utils/toast';
-import { SignIn } from '@src/types/api/auth';
-import { MemoChatError } from '@src/types/api/base';
 
 const useAuth = () => {
   const [authState, setAuthState] = useRecoilState(authStateAtom);
-  const { mutateAsync } = useSignInMutation();
+  const { mutateAsync } = usePostSignInMutation();
 
   const login = async (values: SignIn['param']) => {
     try {

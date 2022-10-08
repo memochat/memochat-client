@@ -1,4 +1,4 @@
-import { BaseRes } from './base';
+import { BaseRes } from '.';
 
 export type SendEmail = {
   param: { email: string };
