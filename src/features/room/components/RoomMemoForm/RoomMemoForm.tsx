@@ -46,21 +46,17 @@ const RoomMemoForm = ({}: RoomMemoFormProps) => {
       <S.ToolBox>
         <S.ToolBoxIconBox>
           <button type="button" onClick={onAlbumIconBtnClick} aria-label="앨범">
-            <Icon name="Album" width="100%" height="100%" />
+            <Icon name="Album" size={32} />
           </button>
           <button type="button" onClick={onCameraIconBtnClick} aria-label="카메라">
             {/*TODO: native 권한 요청 */}
-            <Icon name="Camera" width="100%" height="100%" />
+            <Icon name="Camera" size={32} />
           </button>
         </S.ToolBoxIconBox>
-        {isDirty ? (
+        {isDirty && (
           <S.SubmitBtn type="submit">
-            <Icon name="Send" width="100%" height="100%" />
+            <Icon name="Send" size={32} />
           </S.SubmitBtn>
-        ) : (
-          <span>
-            <Icon name="Pencil" width="100%" height="100%" />
-          </span>
         )}
       </S.ToolBox>
     </S.Wrapper>
