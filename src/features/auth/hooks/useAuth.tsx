@@ -1,6 +1,6 @@
 import { useRecoilState } from 'recoil';
 
-import { authStateAtom } from '@src/modules/recoil/auth';
+import { authStateAtom } from '@src/shared/configs/recoil/auth';
 
 const useAuth = () => {
   const [authState, setAuthState] = useRecoilState(authStateAtom);

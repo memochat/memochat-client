@@ -1,6 +1,7 @@
 import { useDarkMode } from 'storybook-dark-mode';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { ThemeProvider } from '@emotion/react';
+import { RecoilRoot } from 'recoil';
 
 import { lightTheme, darkTheme } from '../src/themes';
 import GlobalStyle from '../src/shared/styles/GlobalStyle';
@@ -8,7 +9,7 @@ import { ModalReducerContextProvider } from '../src/shared/contexts/ModalReducer
 import GlobalConfirmModal from '../src/shared/components/GlobalConfirmModal';
 import MainLayout from '../src/shared/components/MainLayout';
 import ToastContainer from '../src/shared/components/ToastContainer';
-import { RecoilRoot } from 'recoil';
+import '../src/shared/configs/i18n';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },

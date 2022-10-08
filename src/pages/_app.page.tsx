@@ -1,5 +1,4 @@
 import { ThemeProvider } from '@emotion/react';
-import '@src/modules/i18n';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
@@ -10,6 +9,7 @@ import ToastContainer from '@src/shared/components/ToastContainer';
 import { ModalReducerContextProvider } from '@src/shared/contexts/ModalReducerContext';
 import { lightTheme } from '@src/themes';
 import GlobalStyle from '@src/shared/styles/GlobalStyle';
+import '@src/shared/configs/i18n';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
