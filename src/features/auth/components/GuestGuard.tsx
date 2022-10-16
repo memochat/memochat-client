@@ -22,6 +22,8 @@ const GuestGuard = ({ children }: Props) => {
     }
     if (authState.isAuthenticated) {
       setIsChecked(false);
+      console.log(authState);
+
       router.replace('/');
       return;
     }

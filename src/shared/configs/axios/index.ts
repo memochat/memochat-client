@@ -1,11 +1,25 @@
 import Axios, { AxiosError } from 'axios';
 
+import { getAccessToken } from '../cookie';
+
 import { MemoChatError } from '@src/shared/types/api';
 
-const axios = Axios.create({ baseURL: 'https://memochat-server.herokuapp.com/v1' });
+const axios = Axios.create({
+  baseURL: 'https://memochat-server.herokuapp.com/v1',
+});
 
 axios.interceptors.request.use(
-  (config) => config,
+  (config) => {
+    const accessToken = getAccessToken();
+    if (accessToken) {
+      config.headers = {
+        Authorization: `Bearer ${accessToken}`,
+      };
+    } else {
+      delete config.headers.Authorization;
+    }
+    return config;
+  },
   (error) => Promise.resolve(error),
 );
 

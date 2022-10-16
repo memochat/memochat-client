@@ -4,10 +4,15 @@ import { AxiosResponse } from 'axios';
 import { SignIn } from '@src/shared/types/api/auth';
 import axios from '@src/shared/configs/axios';
 
-export const usePostSignInMutation = (
+export const postAuthSignin = (data: SignIn['param']) =>
+  axios.post<SignIn['res']>('/auth/signin', data);
+
+const usePostSignInMutation = (
   options?: UseMutationOptions<AxiosResponse<SignIn['res']>, unknown, SignIn['param'], unknown>,
 ) =>
   useMutation({
-    mutationFn: (data) => axios.post<SignIn['res']>('/auth/signin', data),
+    mutationFn: postAuthSignin,
     ...options,
   });
+
+export default usePostSignInMutation;

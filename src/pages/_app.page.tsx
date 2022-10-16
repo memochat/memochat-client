@@ -1,5 +1,4 @@
 import { ThemeProvider } from '@emotion/react';
-import '@src/modules/i18n';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { NextPage } from 'next';
@@ -12,10 +11,12 @@ import GlobalConfirmModal from '@src/shared/components/GlobalConfirmModal';
 import MainLayout from '@src/shared/components/MainLayout';
 import ToastContainer from '@src/shared/components/ToastContainer';
 import '@src/shared/configs/i18n';
+import { queryClient } from '@src/shared/configs/react-query';
 import { ModalReducerContextProvider } from '@src/shared/contexts/ModalReducerContext';
 import GlobalStyle from '@src/shared/styles/GlobalStyle';
 import { lightTheme } from '@src/shared/styles/themes';
-import { queryClient } from '@src/shared/configs/react-query';
+import InitializeContextProvider from '@src/shared/contexts/InitializeContext/provider';
+import InitializeContext from '@src/shared/contexts/InitializeContext';
 
 export type NextPageWithLayout<P = Record<string, unknown>, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -27,6 +28,7 @@ type AppPropsWithLayout = AppProps & {
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
+
   return (
     <>
       <Head>
@@ -46,7 +48,14 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             <ToastContainer />
             <MainLayout>
               <ModalReducerContextProvider>
-                {getLayout(<Component {...pageProps} />)}
+                <InitializeContextProvider>
+                  <InitializeContext.Consumer>
+                    {
+                      ({ isInitialized }) =>
+                        isInitialized ? getLayout(<Component {...pageProps} />) : null //TODO:splash 화면?
+                    }
+                  </InitializeContext.Consumer>
+                </InitializeContextProvider>
                 <GlobalConfirmModal />
               </ModalReducerContextProvider>
             </MainLayout>

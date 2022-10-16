@@ -4,10 +4,15 @@ import { AxiosResponse } from 'axios';
 import { SendEmail } from '@src/shared/types/api/auth';
 import axios from '@src/shared/configs/axios';
 
-export const usePostSendEmailMutation = (
+export const postAuthEmails = (data: SendEmail['param']) =>
+  axios.post<SendEmail['res']>('/auth/emails', data);
+
+const usePostSendEmailMutation = (
   options?: UseMutationOptions<AxiosResponse<SendEmail['res']>, unknown, SendEmail['param']>,
 ) =>
   useMutation({
-    mutationFn: (data) => axios.post<SendEmail['res']>('/auth/send-email', data),
+    mutationFn: postAuthEmails,
     ...options,
   });
+
+export default usePostSendEmailMutation;

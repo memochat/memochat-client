@@ -1,8 +1,15 @@
 import { useRecoilState } from 'recoil';
 
-import { usePostSignInMutation } from '../api/usePostSignInMutation';
+import usePostSignInMutation from '../api/usePostSignInMutation';
 
-import { removeAccessToken, setAccessToken, setRefreshToken } from '@src/shared/configs/cookie';
+import useUsersMeQuery from '@src/features/user/api/useUsersMeQuery';
+import {
+  getAccessToken,
+  removeAccessToken,
+  removeRefreshToken,
+  setAccessToken,
+  setRefreshToken,
+} from '@src/shared/configs/cookie';
 import { authStateAtom } from '@src/shared/configs/recoil/auth';
 import { MemoChatError } from '@src/shared/types/api';
 import { SignIn } from '@src/shared/types/api/auth';
@@ -10,25 +17,44 @@ import { toast } from '@src/shared/utils/toast';
 
 const useAuth = () => {
   const [authState, setAuthState] = useRecoilState(authStateAtom);
-  const { mutateAsync } = usePostSignInMutation();
-
-  const login = async (values: SignIn['param']) => {
-    try {
-      const { data } = await mutateAsync(values);
-      const { accessToken, refreshToken } = data?.data;
+  const { mutateAsync } = usePostSignInMutation({
+    onSuccess(data) {
+      const { accessToken, refreshToken } = data.data.data;
       setAccessToken(accessToken);
       setRefreshToken(refreshToken);
-      //TODO: GET 유저정보
-      const user = null;
-      return setAuthState((prev) => ({ ...prev, user, isAuthenticated: true }));
-    } catch (e) {
+    },
+    onError: (e) => {
       console.error(e);
-      setAuthState((prev) => ({ ...prev, user: null, isAuthenticated: false }));
       if (e instanceof MemoChatError) {
         toast.error(e.message);
         return;
       }
+    },
+  });
+  const { refetch: getUser } = useUsersMeQuery({
+    enabled: false,
+    retry: 0,
+    onSuccess: (data) => {
+      const user = data.data.data;
+      setAuthState({ ...authState, isAuthenticated: true, user });
+    },
+    onError: () => {
+      removeAccessToken();
+      removeRefreshToken();
+      setAuthState((prev) => ({ ...prev, user: null, isAuthenticated: false }));
+    },
+  });
+
+  const initializeUser = () => {
+    if (getAccessToken()) {
+      return getUser();
     }
+    return null;
+  };
+
+  const login = async (values: SignIn['param']) => {
+    await mutateAsync(values);
+    await getUser();
   };
 
   const logout = () => {
@@ -36,7 +62,7 @@ const useAuth = () => {
     return setAuthState((prev) => ({ ...prev, user: null, isAuthenticated: false }));
   };
 
-  return { login, logout, authState };
+  return { login, logout, initializeUser, authState };
 };
 
 export default useAuth;
