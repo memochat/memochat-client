@@ -1,16 +1,13 @@
 import { useRouter } from 'next/router';
-import { ReactNode, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import useAuth from '../hooks/useAuth';
-
-interface Props {
-  children: ReactNode;
-}
+import useAuth from '../../hooks/useAuth';
+import { GuestGuardProps } from './GuestGuard.types';
 
 /**
  * 인증이 없는 페이지 접근 시 사용
  */
-const GuestGuard = ({ children }: Props) => {
+const GuestGuard = ({ children }: GuestGuardProps) => {
   const { authState } = useAuth();
   const router = useRouter();
   const [isChecked, setIsChecked] = useState(false);
