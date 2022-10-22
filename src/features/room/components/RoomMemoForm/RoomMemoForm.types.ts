@@ -1,6 +1,6 @@
-import { Room } from '@src/shared/types/room';
+import { MemoRoom } from '@src/shared/types/memoRooms';
 
 export interface RoomMemoFormProps {
-  selectedRoom?: Room;
+  selectedRoom?: MemoRoom;
   showSelectedRoom?: boolean;
 }

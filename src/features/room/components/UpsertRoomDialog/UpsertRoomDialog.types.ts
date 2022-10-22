@@ -1,8 +1,8 @@
-import { Room, RoomCategory } from '@src/shared/types/room';
+import { MemoRoom, MemoRoomCategory } from '@src/shared/types/memoRooms';
 
 export type UpsertRoomDialogValue = {
-  name: Room['name'];
-  roomCategoryId: RoomCategory['id'];
+  name: MemoRoom['name'];
+  roomCategoryId: MemoRoomCategory['id'];
 };
 
 export type UpsertRoomDialogProps = {

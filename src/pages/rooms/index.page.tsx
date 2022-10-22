@@ -11,11 +11,11 @@ import RoomListItem from '@src/features/room/components/RoomListItem';
 import UpsertRoomDialog from '@src/features/room/components/UpsertRoomDialog';
 import useConfirm from '@src/shared/hooks/useConfirm';
 import RoomListEmpty from '@src/features/room/components/RoomListEmpty';
-import { Room } from '@src/shared/types/room';
+import { MemoRoom } from '@src/shared/types/memoRooms';
 
 import 'react-swipeable-list/dist/styles.css';
 
-const MOCK_ROOM_LIST: Room[] = [
+const MOCK_ROOM_LIST: MemoRoom[] = [
   {
     id: 1,
     name: '룸1',
@@ -51,13 +51,13 @@ const RoomList = () => {
 
   const rooms = MOCK_ROOM_LIST;
 
-  const [selectedRoom, setSelectedRoom] = useState<Room | undefined>(rooms?.[0]);
-  const [selectedUpdateRoom, setSelectedUpdateRoom] = useState<Room | undefined>(rooms?.[0]);
+  const [selectedRoom, setSelectedRoom] = useState<MemoRoom | undefined>(rooms?.[0]);
+  const [selectedUpdateRoom, setSelectedUpdateRoom] = useState<MemoRoom | undefined>(rooms?.[0]);
 
   const [isCreateRoomDialogOpen, setIsCreateRoomDialogOpen] = useState(false);
   const [isUpdateRoomDialogOpen, setIsUpdateRoomDialogOpen] = useState(false);
 
-  const handleRoomSelect = (room: Room) => {
+  const handleRoomSelect = (room: MemoRoom) => {
     const isSelected = room.id === selectedRoom?.id;
     if (isSelected) {
       setSelectedRoom(undefined);
@@ -66,16 +66,16 @@ const RoomList = () => {
     }
   };
 
-  const handleRoomClick = (room: Room) => {
+  const handleRoomClick = (room: MemoRoom) => {
     router.push(`/rooms/${room.id}`);
   };
 
-  const handleRoomEditClick = (room: Room) => {
+  const handleRoomEditClick = (room: MemoRoom) => {
     setSelectedUpdateRoom(room);
     setIsUpdateRoomDialogOpen(true);
   };
 
-  const handleRoomDeleteClick = async (room: Room) => {
+  const handleRoomDeleteClick = async (room: MemoRoom) => {
     if (
       await confirm({
         headerTitle: '룸 삭제하기',
