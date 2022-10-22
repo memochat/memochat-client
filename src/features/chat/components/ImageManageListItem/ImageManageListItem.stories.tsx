@@ -3,7 +3,6 @@ import { ComponentMeta, StoryObj } from '@storybook/react';
 import ImageManageListItem from '.';
 
 export default {
-  title: 'Components/chat/ImageManageListItem',
   component: ImageManageListItem,
   args: {
     imageSrc: '/images/bell.png',

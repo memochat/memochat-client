@@ -3,7 +3,6 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import RoomDetailMenu from '.';
 
 export default {
-  title: 'Components/roomDetail/RoomDetailMenu',
   component: RoomDetailMenu,
   args: {
     onClick: () => {

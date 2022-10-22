@@ -3,7 +3,6 @@ import { ComponentMeta, StoryObj } from '@storybook/react';
 import RoomListItem from '.';
 
 export default {
-  title: 'Components/room/RoomListItem',
   component: RoomListItem,
   args: {
     name: '빈 메모',
