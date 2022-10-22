@@ -7,7 +7,8 @@ export type UpsertRoomDialogValue = {
 
 export type UpsertRoomDialogProps = {
   type: 'create' | 'update';
-  defaultValue?: UpsertRoomDialogValue;
   open: boolean;
+  selectedRoomId?: number;
+  defaultValue?: UpsertRoomDialogValue;
   onClose: () => void;
 };

@@ -12,50 +12,26 @@ import UpsertRoomDialog from '@src/features/room/components/UpsertRoomDialog';
 import useConfirm from '@src/shared/hooks/useConfirm';
 import RoomListEmpty from '@src/features/room/components/RoomListEmpty';
 import { MemoRoom } from '@src/shared/types/memoRooms';
+import useMemoRoomsQuery from '@src/features/room/api/useMemoRoomsQuery';
+import useDeleteMemoRoomMutation from '@src/features/room/api/useDeleteMemoRoomMutation';
 
 import 'react-swipeable-list/dist/styles.css';
-
-const MOCK_ROOM_LIST: MemoRoom[] = [
-  {
-    id: 1,
-    name: '룸1',
-    roomCategory: {
-      id: 1,
-      name: 'WISHLIST',
-      thumbnail: '/images/bell.png',
-    },
-  },
-  {
-    id: 2,
-    name: '룸2',
-    roomCategory: {
-      id: 1,
-      name: 'WISHLIST',
-      thumbnail: '/images/bell.png',
-    },
-  },
-  {
-    id: 3,
-    name: '룸3',
-    roomCategory: {
-      id: 1,
-      name: 'WISHLIST',
-      thumbnail: '/images/bell.png',
-    },
-  },
-];
 
 const RoomList = () => {
   const router = useRouter();
   const { confirm } = useConfirm();
 
-  const rooms = MOCK_ROOM_LIST;
+  const { data, isLoading } = useMemoRoomsQuery();
+
+  const rooms: MemoRoom[] = data?.data?.data;
 
   const [selectedRoom, setSelectedRoom] = useState<MemoRoom | undefined>(rooms?.[0]);
   const [selectedUpdateRoom, setSelectedUpdateRoom] = useState<MemoRoom | undefined>(rooms?.[0]);
 
   const [isCreateRoomDialogOpen, setIsCreateRoomDialogOpen] = useState(false);
   const [isUpdateRoomDialogOpen, setIsUpdateRoomDialogOpen] = useState(false);
+
+  const { mutate: deleteMemoRoom } = useDeleteMemoRoomMutation();
 
   const handleRoomSelect = (room: MemoRoom) => {
     const isSelected = room.id === selectedRoom?.id;
@@ -83,8 +59,7 @@ const RoomList = () => {
         description: '메모 내용은 복구되지 않습니다.',
       })
     ) {
-      // TODO : 메모룸 삭제
-      alert(`${room.id} 메모룸 삭제`);
+      await deleteMemoRoom({ id: room.id });
     }
   };
 
@@ -112,11 +87,11 @@ const RoomList = () => {
         </Link>
       </S.Header>
       <S.Wrapper>
-        <SwipeableList fullSwipe={false} type={ListType.IOS}>
-          {!rooms?.length ? (
-            <RoomListEmpty />
-          ) : (
-            rooms.map((room) => (
+        {isLoading && <>{/* TODO: 로딩시 스피너 띄우기 */}</>}
+        {!isLoading && !rooms?.length && <RoomListEmpty />}
+        {!isLoading && rooms.length > 0 && (
+          <SwipeableList fullSwipe={false} type={ListType.IOS}>
+            {rooms.map((room) => (
               <RoomListItem
                 key={room.id}
                 name={room.name}
@@ -129,9 +104,9 @@ const RoomList = () => {
                 onEdit={() => handleRoomEditClick(room)}
                 onDelete={() => handleRoomDeleteClick(room)}
               />
-            ))
-          )}
-        </SwipeableList>
+            ))}
+          </SwipeableList>
+        )}
       </S.Wrapper>
       <S.FloatingBottomLayout>
         <S.RoomCreateButton onClick={handleRoomCreateClick} />
@@ -145,6 +120,7 @@ const RoomList = () => {
       {selectedUpdateRoom && (
         <UpsertRoomDialog
           type="update"
+          selectedRoomId={selectedUpdateRoom.id}
           open={isUpdateRoomDialogOpen}
           onClose={handleUpdateRoomDialogClose}
           defaultValue={{

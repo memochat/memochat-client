@@ -3,12 +3,23 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import RoomTypeRadioGroup from '../RoomTypeRadioGroup';
 import { UpsertRoomDialogProps, UpsertRoomDialogValue } from './UpsertRoomDialog.types';
 import * as S from './UpsertRoomDialog.styles';
+import useCreateMemoRoomMutation from '../../api/useCreateMemoRoomMutation';
+import useUpdateMemoRoomMutation from '../../api/useUpdateMemoRoomMutation';
 
 import Button from '@src/shared/components/Button';
 import { Modal, ModalButtonGroup, ModalContents, TextField } from '@src/shared/components';
 
-const UpsertRoomDialog = ({ type, defaultValue, open, onClose }: UpsertRoomDialogProps) => {
+const UpsertRoomDialog = ({
+  type,
+  selectedRoomId,
+  defaultValue,
+  open,
+  onClose,
+}: UpsertRoomDialogProps) => {
   const title = type === 'create' ? '룸 만들기' : '룸 수정하기';
+
+  const { mutate: createMemoRoom } = useCreateMemoRoomMutation();
+  const { mutate: updateRoom } = useUpdateMemoRoomMutation();
 
   const [value, setValue] = useState<UpsertRoomDialogValue>(
     defaultValue || {
@@ -37,8 +48,15 @@ const UpsertRoomDialog = ({ type, defaultValue, open, onClose }: UpsertRoomDialo
     }));
   };
 
-  const handleConfirm = () => {
-    /** @todo */
+  const handleConfirm = async () => {
+    if (type === 'create') {
+      await createMemoRoom(value);
+    } else {
+      await updateRoom({
+        id: selectedRoomId,
+        param: value,
+      });
+    }
     onClose();
   };
 
