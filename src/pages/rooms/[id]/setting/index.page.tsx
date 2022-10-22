@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { GetServerSideProps, NextPage } from 'next';
 
-import { RoomDetailProps } from './detail.types';
-import * as S from './detail.styles';
+import { RoomSettingProps } from './setting.types';
+import * as S from './setting.styles';
 
 import { Icon } from '@src/shared/components';
 import { RoomDetailMenu } from '@src/features/room/components';
@@ -34,7 +34,7 @@ const dummy = [
   { title: '링크', count: 4, onClick: () => alert('click') },
 ];
 
-const RoomDetail: NextPage<RoomDetailProps> = ({ id }) => {
+const RoomSetting: NextPage<RoomSettingProps> = ({ id }) => {
   const onModifyBtnClick = () => {
     alert('변경');
   };
@@ -71,9 +71,9 @@ const RoomDetail: NextPage<RoomDetailProps> = ({ id }) => {
   );
 };
 
-export default RoomDetail;
+export default RoomSetting;
 
-export const getServerSideProps: GetServerSideProps<RoomDetailProps> = async (ctx) => {
+export const getServerSideProps: GetServerSideProps<RoomSettingProps> = async (ctx) => {
   const {
     query: { id },
   } = ctx;
