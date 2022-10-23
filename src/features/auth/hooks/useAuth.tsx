@@ -34,7 +34,6 @@ const useAuth = () => {
 
   const { refetch: getUser } = useUsersMeQuery({
     enabled: false,
-    staleTime: 0,
     retry: 0,
     onSuccess: (data) => {
       const user = data.data.data;

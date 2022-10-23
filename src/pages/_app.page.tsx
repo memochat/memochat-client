@@ -1,11 +1,9 @@
 import { ThemeProvider } from '@emotion/react';
-import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Hydrate, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { useRef } from 'react';
 import { RecoilRoot } from 'recoil';
-import _ from 'lodash-es';
 
 import GlobalConfirmModal from '@src/shared/components/GlobalConfirmModal';
 import MainLayout from '@src/shared/components/MainLayout';
@@ -25,11 +23,6 @@ type AppPropsWithLayout = AppProps & {
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
-  const memochatQueryClient = useRef<QueryClient>(null);
-  if (!memochatQueryClient.current) {
-    memochatQueryClient.current = _.cloneDeep(queryClient);
-  }
-
   return (
     <>
       <Head>
@@ -42,11 +35,11 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         />
       </Head>
       <ThemeProvider theme={lightTheme}>
-        <QueryClientProvider client={queryClient /*>memochatQueryClient.current*/}>
+        <GlobalStyle />
+        <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools />
           <Hydrate state={pageProps.dehydratedState}>
             <RecoilRoot>
-              <GlobalStyle />
               <ToastContainer />
               <MainLayout>
                 <ModalReducerContextProvider>
