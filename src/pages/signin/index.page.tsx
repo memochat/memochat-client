@@ -1,18 +1,16 @@
-import { useRouter } from 'next/router';
 import { Controller, SubmitHandler } from 'react-hook-form';
 
 import * as S from './signin.styles';
 
 import GuestGuard from '@src/features/auth/components/GuestGuard';
+import useAuth from '@src/features/auth/hooks/useAuth';
 import useSigninForm, { SigninFormType } from '@src/features/auth/hooks/useSigninForm';
 import { Button, TextField } from '@src/shared/components';
-import useAuth from '@src/features/auth/hooks/useAuth';
 import { NextPageWithLayout } from '@src/shared/types/next';
 
 const SignIn: NextPageWithLayout = () => {
   const { control, formState, handleSubmit } = useSigninForm();
   const { login } = useAuth();
-  const router = useRouter();
 
   const onSubmit: SubmitHandler<SigninFormType> = async (values) => {
     await login(values);

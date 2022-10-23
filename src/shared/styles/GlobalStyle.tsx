@@ -102,6 +102,20 @@ const global = css`
     height: 100%;
   }
 
+  #nprogress {
+    pointer-events: none;
+  }
+
+  #nprogress .bar {
+    background-color: ${lightColorTheme.purple1};
+    height: 3px;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 2000;
+  }
+
   /** 작은 단말 대응 (iPhone SE, Galaxy Fold ) */
   @media (max-width: 360px) {
     html {

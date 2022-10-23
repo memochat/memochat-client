@@ -6,9 +6,9 @@ import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
 
 import GlobalConfirmModal from '@src/shared/components/GlobalConfirmModal';
+import Loading from '@src/shared/components/Loading';
 import MainLayout from '@src/shared/components/MainLayout';
 import ToastContainer from '@src/shared/components/ToastContainer';
-import '@src/shared/configs/i18n';
 import { queryClient } from '@src/shared/configs/react-query';
 import InitializeContext from '@src/shared/contexts/InitializeContext';
 import InitializeContextProvider from '@src/shared/contexts/InitializeContext/provider';
@@ -17,12 +17,15 @@ import GlobalStyle from '@src/shared/styles/GlobalStyle';
 import { lightTheme } from '@src/shared/styles/themes';
 import { NextPageWithLayout } from '@src/shared/types/next';
 
+import '@src/shared/configs/i18n';
+
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
+
   return (
     <>
       <Head>
@@ -36,6 +39,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       </Head>
       <ThemeProvider theme={lightTheme}>
         <GlobalStyle />
+        <Loading />
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools />
           <Hydrate state={pageProps.dehydratedState}>
@@ -45,9 +49,8 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
                 <ModalReducerContextProvider>
                   <InitializeContextProvider>
                     <InitializeContext.Consumer>
-                      {
-                        ({ isInitialized }) =>
-                          isInitialized ? getLayout(<Component {...pageProps} />) : null //TODO:splash 화면?
+                      {({ isInitialized }) =>
+                        isInitialized ? getLayout(<Component {...pageProps} />) : null
                       }
                     </InitializeContext.Consumer>
                   </InitializeContextProvider>
