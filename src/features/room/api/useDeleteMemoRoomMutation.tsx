@@ -4,6 +4,7 @@ import { AxiosResponse } from 'axios';
 import axios from '@src/shared/configs/axios';
 import { DeleteMemoRooms } from '@src/shared/types/api/memoRooms';
 import { queryClient } from '@src/shared/configs/react-query';
+import { memoRoomKeys } from '@src/shared/utils/queryKeys';
 
 const deleteMemoRoom = (id: number) => axios.delete<DeleteMemoRooms['res']>(`/memo-rooms/${id}`);
 
@@ -13,7 +14,7 @@ const useDeleteMemoRoomMutation = (
   return useMutation({
     mutationFn: ({ id }: { id: number }) => deleteMemoRoom(id),
     onSuccess: () => {
-      queryClient.invalidateQueries(['memo-rooms']);
+      queryClient.invalidateQueries(memoRoomKeys.list());
     },
     ...options,
   });
