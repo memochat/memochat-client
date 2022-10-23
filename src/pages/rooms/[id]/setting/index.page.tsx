@@ -1,11 +1,12 @@
+import { NextPage } from 'next';
 import Image from 'next/image';
-import { GetServerSideProps, NextPage } from 'next';
 
-import { RoomSettingProps } from './setting.types';
 import * as S from './setting.styles';
+import { RoomSettingProps } from './setting.types';
 
-import { Icon } from '@src/shared/components';
 import { RoomDetailMenu } from '@src/features/room/components';
+import { Icon } from '@src/shared/components';
+import { GetServerSidePropsWithState } from '@src/shared/types/next';
 
 const images = ['/images/alarm.png', '/images/bell.png', '/images/bell.png', '/images/bell.png'];
 //TODO:api나오면 변경
@@ -73,7 +74,7 @@ const RoomSetting: NextPage<RoomSettingProps> = ({ id }) => {
 
 export default RoomSetting;
 
-export const getServerSideProps: GetServerSideProps<RoomSettingProps> = async (ctx) => {
+export const getServerSideProps: GetServerSidePropsWithState<RoomSettingProps> = async (ctx) => {
   const {
     query: { id },
   } = ctx;

@@ -1,14 +1,15 @@
-import { GetServerSideProps, NextPage } from 'next';
+import { union } from 'lodash-es';
+import { NextPage } from 'next';
 import { useState } from 'react';
-import { union } from 'lodash';
 
-import { LinkManageListProps, LinkManageMode } from './links.types';
 import * as S from './links.styles';
+import { LinkManageListProps, LinkManageMode } from './links.types';
 
-import Header from '@src/shared/components/Header';
-import { Icon } from '@src/shared/components';
-import useConfirm from '@src/shared/hooks/useConfirm';
 import LinkManageListItem from '@src/features/chat/components/LinkManageListItem';
+import { Icon } from '@src/shared/components';
+import Header from '@src/shared/components/Header';
+import useConfirm from '@src/shared/hooks/useConfirm';
+import { GetServerSidePropsWithState } from '@src/shared/types/next';
 
 const mockImageSrc = '/images/big-chat.png';
 const MOCK_LINKS = [
@@ -142,7 +143,7 @@ const LinkManageList: NextPage<LinkManageListProps> = ({ id }) => {
 
 export default LinkManageList;
 
-export const getServerSideProps: GetServerSideProps<LinkManageListProps> = async (ctx) => {
+export const getServerSideProps: GetServerSidePropsWithState<LinkManageListProps> = async (ctx) => {
   const {
     query: { id },
   } = ctx;

@@ -31,6 +31,7 @@ const useAuth = () => {
       }
     },
   });
+
   const { refetch: getUser } = useUsersMeQuery({
     enabled: false,
     retry: 0,
