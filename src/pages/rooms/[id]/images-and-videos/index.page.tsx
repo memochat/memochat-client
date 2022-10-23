@@ -1,14 +1,15 @@
-import { GetServerSideProps, NextPage } from 'next';
+import { union } from 'lodash-es';
+import { NextPage } from 'next';
 import { useState } from 'react';
-import { union } from 'lodash';
 
-import { ImageAndVideoManageListProps, ImageAndVideoManageMode } from './images-and-videos.types';
 import * as S from './images-and-videos.styles';
+import { ImageAndVideoManageListProps, ImageAndVideoManageMode } from './images-and-videos.types';
 
-import Header from '@src/shared/components/Header';
 import ImageManageListItem from '@src/features/chat/components/ImageManageListItem';
 import { Icon } from '@src/shared/components';
+import Header from '@src/shared/components/Header';
 import useConfirm from '@src/shared/hooks/useConfirm';
+import { GetServerSidePropsWithState } from '@src/shared/types/next';
 
 const mockImageSrc = '/images/big-chat.png';
 const MOCK_IMAGES = [
@@ -148,7 +149,9 @@ const ImageAndVideoManageList: NextPage<ImageAndVideoManageListProps> = ({ id })
 
 export default ImageAndVideoManageList;
 
-export const getServerSideProps: GetServerSideProps<ImageAndVideoManageListProps> = async (ctx) => {
+export const getServerSideProps: GetServerSidePropsWithState<ImageAndVideoManageListProps> = async (
+  ctx,
+) => {
   const {
     query: { id },
   } = ctx;
