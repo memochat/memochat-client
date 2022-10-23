@@ -9,10 +9,16 @@ import useUpdateMemoRoomMutation from '../../api/useUpdateMemoRoomMutation';
 import Button from '@src/shared/components/Button';
 import { Modal, ModalButtonGroup, ModalContents, TextField } from '@src/shared/components';
 
+const DEFAULT_VALUE = {
+  name: '',
+  roomCategoryId: 1,
+};
+
+// TODO: react hook form 적용
 const UpsertRoomDialog = ({
   type,
   selectedRoomId,
-  defaultValue,
+  defaultValue = DEFAULT_VALUE,
   open,
   onClose,
 }: UpsertRoomDialogProps) => {
@@ -21,16 +27,11 @@ const UpsertRoomDialog = ({
   const { mutate: createMemoRoom } = useCreateMemoRoomMutation();
   const { mutate: updateRoom } = useUpdateMemoRoomMutation();
 
-  const [value, setValue] = useState<UpsertRoomDialogValue>(
-    defaultValue || {
-      name: '',
-      roomCategoryId: 1,
-    },
-  );
+  const [value, setValue] = useState<UpsertRoomDialogValue>(defaultValue);
 
   useEffect(() => {
     if (defaultValue) {
-      setValue(defaultValue);
+      setValue(defaultValue || DEFAULT_VALUE);
     }
   }, [defaultValue]);
 
@@ -48,9 +49,19 @@ const UpsertRoomDialog = ({
     }));
   };
 
+  const clearValue = () => {
+    setValue(DEFAULT_VALUE);
+  };
+
+  const handleCancel = () => {
+    clearValue();
+    onClose();
+  };
+
   const handleConfirm = async () => {
     if (type === 'create') {
       await createMemoRoom(value);
+      clearValue();
     } else {
       await updateRoom({
         id: selectedRoomId,
@@ -70,6 +81,7 @@ const UpsertRoomDialog = ({
             id="name"
             label="룸 이름 (최대 10자)"
             value={value.name}
+            placeholder="룸 이름을 입력하세요."
             onChange={handleRoomNameChange}
             maxLength={10}
           />
@@ -81,7 +93,7 @@ const UpsertRoomDialog = ({
         </S.Wrapper>
       </ModalContents>
       <ModalButtonGroup>
-        <Button variant="secondary" onClick={onClose}>
+        <Button variant="secondary" onClick={handleCancel}>
           취소
         </Button>
         <Button variant="primary" disabled={isInvalid} onClick={handleConfirm}>
