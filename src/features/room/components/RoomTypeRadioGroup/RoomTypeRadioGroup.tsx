@@ -8,7 +8,7 @@ const RoomTypeRadioGroup = ({ label, value, onChange, className }: RoomTypeRadio
   const [selectedRoomTypeId, setSelectedRoomTypeId] = useState(value);
 
   const { data, isLoading } = useMemoRoomCategoriesQuery();
-  const memoRoomCategories = data?.data?.data;
+  const memoRoomCategories = data?.data;
 
   useEffect(() => {
     setSelectedRoomTypeId(value);

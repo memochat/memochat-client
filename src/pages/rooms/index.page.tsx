@@ -22,8 +22,7 @@ const RoomList = () => {
   const { confirm } = useConfirm();
 
   const { data, isLoading } = useMemoRoomsQuery();
-
-  const rooms: MemoRoom[] = data?.data?.data;
+  const rooms = data?.data;
 
   const [selectedRoom, setSelectedRoom] = useState<MemoRoom | undefined>(rooms?.[0]);
   const [selectedUpdateRoom, setSelectedUpdateRoom] = useState<MemoRoom | undefined>(rooms?.[0]);

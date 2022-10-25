@@ -1,8 +1,8 @@
-import Axios, { AxiosError } from 'axios';
+import Axios, { AxiosError, AxiosResponse } from 'axios';
 
 import { getAccessToken } from '../cookie';
 
-import { MemoChatError } from '@src/shared/types/api';
+import { BaseRes, MemoChatError } from '@src/shared/types/api';
 
 const axios = Axios.create({
   baseURL: 'https://memochat-server.herokuapp.com/v1',
@@ -24,7 +24,11 @@ axios.interceptors.request.use(
 );
 
 axios.interceptors.response.use(
-  (res) => res,
+  (res: AxiosResponse<BaseRes<unknown>>) =>
+    ({
+      ...res,
+      data: res.data.data,
+    } as AxiosResponse<unknown>),
   (error) => {
     if (error instanceof AxiosError) {
       const { message, status } = error.response?.data;
