@@ -14,12 +14,16 @@ import RoomListEmpty from '@src/features/room/components/RoomListEmpty';
 import { MemoRoom } from '@src/shared/types/memoRooms';
 import useMemoRoomsQuery from '@src/features/room/api/useMemoRoomsQuery';
 import useDeleteMemoRoomMutation from '@src/features/room/api/useDeleteMemoRoomMutation';
+import useMemoRoomCategoriesQuery from '@src/features/room/api/useMemoRoomCategoriesQuery';
 
 import 'react-swipeable-list/dist/styles.css';
 
 const RoomList = () => {
   const router = useRouter();
   const { confirm } = useConfirm();
+
+  // NOTE: 메모룸 카테고리 prefetch
+  useMemoRoomCategoriesQuery();
 
   const { data, isLoading } = useMemoRoomsQuery();
   const rooms = data?.data;
