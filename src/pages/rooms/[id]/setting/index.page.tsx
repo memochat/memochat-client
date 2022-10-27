@@ -5,7 +5,7 @@ import * as S from './setting.styles';
 import { RoomSettingProps } from './setting.types';
 
 import { RoomDetailMenu } from '@src/features/room/components';
-import { Icon } from '@src/shared/components';
+import { Header } from '@src/shared/components';
 import { GetServerSidePropsWithState } from '@src/shared/types/next';
 
 const images = ['/images/alarm.png', '/images/bell.png', '/images/bell.png', '/images/bell.png'];
@@ -42,13 +42,7 @@ const RoomSetting: NextPage<RoomSettingProps> = ({ id }) => {
 
   return (
     <>
-      {/* TODO: 추후에 별도 header컴포넌트로 분리 */}
-      <S.Header>
-        <S.IconBox>
-          <Icon name="ArrowLeft" width="20px" height="20px" />
-        </S.IconBox>
-        <S.Title>글자수가 10글자 라면</S.Title>
-      </S.Header>
+      <Header title="글자수가 10글자 라면" hasBottomLine />
       <S.Wrapper>
         <S.RoomBaseInfo>
           <Image alt="ok" src="/images/alarm.png" layout="fixed" width={125} height={125} />
