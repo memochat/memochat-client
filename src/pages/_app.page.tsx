@@ -37,7 +37,6 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       <ThemeProvider theme={lightTheme}>
         <GlobalStyle />
         <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools />
           <Hydrate state={pageProps.dehydratedState}>
             <RecoilRoot>
               <ToastContainer />
@@ -55,8 +54,8 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
                 </ModalReducerContextProvider>
               </MainLayout>
             </RecoilRoot>
-            <GlobalStyle />
           </Hydrate>
+          <ReactQueryDevtools />
         </QueryClientProvider>
       </ThemeProvider>
     </>
