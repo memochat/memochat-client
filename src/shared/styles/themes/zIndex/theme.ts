@@ -5,4 +5,5 @@ export const zIndexTheme: ZIndexTheme = {
   bottomSheet: 1200,
   modal: 1300,
   alert: 1400,
+  loading: 2000,
 };
