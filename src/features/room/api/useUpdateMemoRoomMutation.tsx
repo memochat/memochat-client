@@ -20,8 +20,9 @@ const useUpdateMemoRoomMutation = (
   useMutation(
     ({ id, param }: { id: number; param: UpdateMemoRooms['param'] }) => updateMemoRoom(id, param),
     {
-      onSuccess: () => {
+      onSuccess: (_, { id }) => {
         queryClient.invalidateQueries(memoRoomKeys.list());
+        queryClient.invalidateQueries(memoRoomKeys.detail(id));
       },
       ...options,
     },

@@ -24,18 +24,24 @@ export const Wrapper = styled.div`
 `;
 
 export const RoomBaseInfo = styled.section`
-  padding-top: 40px;
+  padding-top: 18px;
   background-color: ${({ theme }) => theme.color.white};
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
+export const Thumbnail = styled(NextImage)`
+  border-radius: 24px;
+  background-color: ${(p) => p.theme.color.purple6};
+`;
+
 export const RoomTitleBox = styled.div`
-  padding-top: 8px;
   display: flex;
   padding: 16px;
   width: 100%;
+  margin-top: 18px;
+  padding-top: 8px;
 `;
 
 export const RoomTitle = styled.h3`

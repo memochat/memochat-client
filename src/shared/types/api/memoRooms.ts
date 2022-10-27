@@ -1,5 +1,9 @@
 import { MemoRoom, MemoRoomCategory } from '../memoRooms';
 
+export type GetMemoRoom = {
+  res: MemoRoom;
+};
+
 export type GetMemoRooms = {
   res: MemoRoom[];
 };

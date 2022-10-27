@@ -1,67 +1,113 @@
 import { NextPage } from 'next';
-import Image from 'next/image';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 import * as S from './setting.styles';
 import { RoomSettingProps } from './setting.types';
 
-import { RoomDetailMenu } from '@src/features/room/components';
+import { RoomDetailMenu, UpsertRoomDialog } from '@src/features/room/components';
 import { Header } from '@src/shared/components';
 import { GetServerSidePropsWithState } from '@src/shared/types/next';
+import useMemoRoomQuery, { getMemoRoom } from '@src/features/room/api/useMemoRoomQuery';
+import { memoRoomKeys } from '@src/shared/utils/queryKeys';
+import useConfirm from '@src/shared/hooks/useConfirm';
+import useDeleteMemoRoomMutation from '@src/features/room/api/useDeleteMemoRoomMutation';
 
 const images = ['/images/alarm.png', '/images/bell.png', '/images/bell.png', '/images/bell.png'];
-//TODO:api나오면 변경
-const dummy = [
-  {
-    title: '사진',
-    count: 124,
-    onClick: () => alert('click'),
-    children: (
-      <S.ImageBox>
-        {images.map((image) => (
-          <S.Image
-            key={image}
-            layout="responsive"
-            width="100%"
-            height="100%"
-            objectFit="cover"
-            src={image}
-            alt={image}
-          />
-        ))}
-      </S.ImageBox>
-    ),
-  },
-  { title: '파일', count: 14, onClick: () => alert('click') },
-  { title: '링크', count: 4, onClick: () => alert('click') },
-];
 
 const RoomSetting: NextPage<RoomSettingProps> = ({ id }) => {
-  const onModifyBtnClick = () => {
-    alert('변경');
+  const { confirm } = useConfirm();
+  const router = useRouter();
+
+  const { data: memoRoom } = useMemoRoomQuery(id);
+  const { mutate: deleteMemoRoom } = useDeleteMemoRoomMutation();
+
+  const [isUpdateRoomDialogOpen, setIsUpdateRoomDialogOpen] = useState(false);
+
+  if (!memoRoom) {
+    return null;
+  }
+
+  const openUpdateRoomDialog = () => {
+    setIsUpdateRoomDialogOpen(true);
   };
+
+  const closeUpdateRoomDialog = () => {
+    setIsUpdateRoomDialogOpen(false);
+  };
+
+  const handleDeleteClick = async () => {
+    // TODO: confirm 타입 danger로 수정하기 (버튼 빨강)
+    if (
+      await confirm({
+        title: '메모룸을 나가시겠습니까?',
+        description: '모든 메모 내용이 사라집니다.',
+      })
+    ) {
+      await deleteMemoRoom({ id: memoRoom.id });
+      router.replace('/');
+    }
+  };
+
+  //TODO: count api나오면 변경
+  const menuItems = [
+    {
+      title: '사진',
+      count: 124,
+      onClick: () => alert('click'),
+      children: (
+        <S.ImageBox>
+          {images.map((image) => (
+            <S.Image
+              key={image}
+              layout="responsive"
+              width="100%"
+              height="100%"
+              objectFit="cover"
+              src={image}
+              alt={image}
+            />
+          ))}
+        </S.ImageBox>
+      ),
+    },
+    { title: '파일', count: 14, onClick: () => alert('click') },
+    { title: '링크', count: 4, onClick: () => alert('click') },
+  ];
 
   return (
     <>
-      <Header title="글자수가 10글자 라면" hasBottomLine />
+      <Header title={memoRoom.name} hasBottomLine />
       <S.Wrapper>
         <S.RoomBaseInfo>
-          <Image alt="ok" src="/images/alarm.png" layout="fixed" width={125} height={125} />
+          <S.Thumbnail
+            alt="ok"
+            src={memoRoom.roomCategory.thumbnail}
+            layout="fixed"
+            width={120}
+            height={120}
+          />
           <S.RoomTitleBox>
-            <S.RoomTitle>나와의 번개챗</S.RoomTitle>
-            <S.RoomTitleChangeButton onClick={onModifyBtnClick}>변경</S.RoomTitleChangeButton>
+            <S.RoomTitle>{memoRoom.name}</S.RoomTitle>
+            <S.RoomTitleChangeButton onClick={openUpdateRoomDialog}>변경</S.RoomTitleChangeButton>
           </S.RoomTitleBox>
         </S.RoomBaseInfo>
-        {dummy.map((v, i) => (
-          <RoomDetailMenu key={`${v.title}-${i}`} {...v} />
+        {menuItems.map((menuItem, index) => (
+          <RoomDetailMenu key={`${menuItem.title}-${index}`} {...menuItem} />
         ))}
-        <RoomDetailMenu
-          onClick={() => {
-            alert('나가기');
-          }}
-          variant="danger"
-          title="메모룸 나가기"
-        />
+        <RoomDetailMenu onClick={handleDeleteClick} variant="danger" title="메모룸 나가기" />
       </S.Wrapper>
+      <UpsertRoomDialog
+        type="update"
+        selectedRoomId={memoRoom.id}
+        open={isUpdateRoomDialogOpen}
+        onClose={closeUpdateRoomDialog}
+        defaultValue={{
+          name: memoRoom.name,
+          roomCategoryId: memoRoom.roomCategory.id,
+        }}
+      />
     </>
   );
 };
@@ -69,13 +115,16 @@ const RoomSetting: NextPage<RoomSettingProps> = ({ id }) => {
 export default RoomSetting;
 
 export const getServerSideProps: GetServerSidePropsWithState<RoomSettingProps> = async (ctx) => {
-  const {
-    query: { id },
-  } = ctx;
+  const id = parseInt(ctx.query.id.toString());
+
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(memoRoomKeys.detail(id), () => getMemoRoom(id));
 
   return {
     props: {
-      id: String(id),
+      id,
+      dehydratedState: dehydrate(queryClient),
     },
   };
 };
