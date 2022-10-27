@@ -4,11 +4,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { MouseEventHandler, useEffect, useRef } from 'react';
 
-import { NextPageWithLayout } from '../_app.page';
 import * as S from './home.styles';
 
 import splashLottie from '@src/assets/lotti/splash.json';
 import GuestGuard from '@src/features/auth/components/GuestGuard';
+import { NextPageWithLayout } from '@src/shared/types/next';
 
 const Home: NextPageWithLayout = () => {
   const lottieRef = useRef<HTMLDivElement>(null);

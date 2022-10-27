@@ -7,7 +7,7 @@
 
   //ts
   "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.preferences.importModuleSpecifier": "shortest",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
 
   //style
   "css.validate": false,
