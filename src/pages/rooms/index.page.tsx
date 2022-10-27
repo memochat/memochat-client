@@ -1,7 +1,9 @@
-import Link from 'next/link';
 import { useState } from 'react';
-import { SwipeableList, Type as ListType } from 'react-swipeable-list';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
+import { SwipeableList, Type as ListType } from 'react-swipeable-list';
+import 'react-swipeable-list/dist/styles.css';
 
 import * as S from './rooms.styles';
 
@@ -12,21 +14,17 @@ import UpsertRoomDialog from '@src/features/room/components/UpsertRoomDialog';
 import useConfirm from '@src/shared/hooks/useConfirm';
 import RoomListEmpty from '@src/features/room/components/RoomListEmpty';
 import { MemoRoom } from '@src/shared/types/memoRooms';
-import useMemoRoomsQuery from '@src/features/room/api/useMemoRoomsQuery';
+import useMemoRoomsQuery, { getMemoRooms } from '@src/features/room/api/useMemoRoomsQuery';
 import useDeleteMemoRoomMutation from '@src/features/room/api/useDeleteMemoRoomMutation';
-import useMemoRoomCategoriesQuery from '@src/features/room/api/useMemoRoomCategoriesQuery';
-
-import 'react-swipeable-list/dist/styles.css';
+import { getMemoRoomCategories } from '@src/features/room/api/useMemoRoomCategoriesQuery';
+import { GetServerSidePropsWithState } from '@src/shared/types/next';
+import { memoRoomCategoryKeys, memoRoomKeys } from '@src/shared/utils/queryKeys';
 
 const RoomList = () => {
   const router = useRouter();
   const { confirm } = useConfirm();
 
-  // NOTE: 메모룸 카테고리 prefetch
-  useMemoRoomCategoriesQuery();
-
-  const { data, isLoading } = useMemoRoomsQuery();
-  const rooms = data?.data;
+  const { data: rooms, isLoading } = useMemoRoomsQuery();
 
   const [selectedRoom, setSelectedRoom] = useState<MemoRoom | undefined>(rooms?.[0]);
   const [selectedUpdateRoom, setSelectedUpdateRoom] = useState<MemoRoom | undefined>(rooms?.[0]);
@@ -137,3 +135,16 @@ const RoomList = () => {
 };
 
 export default RoomList;
+
+export const getServerSideProps: GetServerSidePropsWithState = async () => {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(memoRoomKeys.list(), getMemoRooms);
+  await queryClient.prefetchQuery(memoRoomCategoryKeys.list(), getMemoRoomCategories);
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+};

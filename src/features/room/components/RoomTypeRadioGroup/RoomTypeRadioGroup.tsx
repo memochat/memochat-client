@@ -7,8 +7,7 @@ import useMemoRoomCategoriesQuery from '../../api/useMemoRoomCategoriesQuery';
 const RoomTypeRadioGroup = ({ label, value, onChange, className }: RoomTypeRadioGroupProps) => {
   const [selectedRoomTypeId, setSelectedRoomTypeId] = useState(value);
 
-  const { data, isLoading } = useMemoRoomCategoriesQuery();
-  const memoRoomCategories = data?.data;
+  const { data: memoRoomCategories, isLoading } = useMemoRoomCategoriesQuery();
 
   useEffect(() => {
     setSelectedRoomTypeId(value);

@@ -1,23 +1,19 @@
 import { useMutation, UseMutationOptions } from '@tanstack/react-query';
-import { AxiosResponse } from 'axios';
 
 import { CreateMemoRooms } from '@src/shared/types/api/memoRooms';
 import axios from '@src/shared/configs/axios';
 import { queryClient } from '@src/shared/configs/react-query';
 import { memoRoomKeys } from '@src/shared/utils/queryKeys';
 
-export const createMemoRoom = (data: CreateMemoRooms['param']) =>
-  axios.post<CreateMemoRooms['res']>('/memo-rooms', data);
+export const createMemoRoom = async (data: CreateMemoRooms['param']) => {
+  const res = await axios.post<CreateMemoRooms['res']>('/memo-rooms', data);
+  return res.data;
+};
 
 const useCreateMemoRoomMutation = (
-  options?: UseMutationOptions<
-    AxiosResponse<CreateMemoRooms['res']>,
-    unknown,
-    CreateMemoRooms['param']
-  >,
+  options?: UseMutationOptions<CreateMemoRooms['res'], unknown, CreateMemoRooms['param']>,
 ) =>
-  useMutation({
-    mutationFn: createMemoRoom,
+  useMutation(createMemoRoom, {
     onSuccess: () => {
       queryClient.invalidateQueries(memoRoomKeys.list());
     },

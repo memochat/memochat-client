@@ -1,18 +1,19 @@
 import { useMutation, UseMutationOptions } from '@tanstack/react-query';
-import { AxiosResponse } from 'axios';
 
 import axios from '@src/shared/configs/axios';
 import { DeleteMemoRooms } from '@src/shared/types/api/memoRooms';
 import { queryClient } from '@src/shared/configs/react-query';
 import { memoRoomKeys } from '@src/shared/utils/queryKeys';
 
-const deleteMemoRoom = (id: number) => axios.delete<DeleteMemoRooms['res']>(`/memo-rooms/${id}`);
+export const deleteMemoRoom = async (id: number) => {
+  const res = await axios.delete<DeleteMemoRooms['res']>(`/memo-rooms/${id}`);
+  return res.data;
+};
 
 const useDeleteMemoRoomMutation = (
-  options?: UseMutationOptions<AxiosResponse<DeleteMemoRooms['res']>, unknown, { id: number }>,
+  options?: UseMutationOptions<DeleteMemoRooms['res'], unknown, { id: number }>,
 ) => {
-  return useMutation({
-    mutationFn: ({ id }: { id: number }) => deleteMemoRoom(id),
+  return useMutation(({ id }: { id: number }) => deleteMemoRoom(id), {
     onSuccess: () => {
       queryClient.invalidateQueries(memoRoomKeys.list());
     },

@@ -19,7 +19,7 @@ const useAuth = () => {
   const [authState, setAuthState] = useRecoilState(authStateAtom);
   const { mutateAsync } = usePostSignInMutation({
     onSuccess(data) {
-      const { accessToken, refreshToken } = data.data;
+      const { accessToken, refreshToken } = data;
       setAccessToken(accessToken);
       setRefreshToken(refreshToken);
     },
@@ -36,8 +36,7 @@ const useAuth = () => {
     enabled: false,
     retry: 0,
     onSuccess: (data) => {
-      const user = data.data;
-      setAuthState({ ...authState, isAuthenticated: true, user });
+      setAuthState({ ...authState, isAuthenticated: true, user: data });
     },
     onError: () => {
       removeAccessToken();
