@@ -9,10 +9,10 @@ import { LoadingProps } from './Loading.types';
 
 import loadingLottie from '@src/assets/lotti/loading.json';
 
-const Loading = ({ initialLoadingState }: LoadingProps) => {
+const Loading = ({ initialLoadingState = false }: LoadingProps) => {
   const router = useRouter();
   const lottieRef = useRef<HTMLDivElement>(null);
-  const [isLoading, setIsLoading] = useState(initialLoadingState ?? false);
+  const [isLoading, setIsLoading] = useState(initialLoadingState);
 
   useEffect(() => {
     if (lottieRef === null || !isLoading) {
@@ -51,16 +51,15 @@ const Loading = ({ initialLoadingState }: LoadingProps) => {
       router.events.off('routeChangeComplete', handleNprogressDone);
     };
   });
+  if (!isLoading) {
+    return null;
+  }
 
   return (
-    <>
-      {isLoading && (
-        <S.Wrapper>
-          <S.Dim open={isLoading} />
-          <S.Lottie ref={lottieRef} />
-        </S.Wrapper>
-      )}
-    </>
+    <S.Wrapper>
+      <S.Dim open={isLoading} />
+      <S.Lottie ref={lottieRef} />
+    </S.Wrapper>
   );
 };
 
