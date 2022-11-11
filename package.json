@@ -1,5 +1,5 @@
 {
-  "name": "memo-chat-client",
+  "name": "memochat-client",
   "version": "0.1.0",
   "description": "📝 memo chat client repository",
   "repository": "https://github.com/memochat/memochat-client.git",
@@ -17,9 +17,12 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "production:docker": "docker build -t memochat-client:latest . --network=host --build-arg NODE_ENV=production",
+    "development:docker": "docker build -t memochat-client-dev:latest . --network=host --build-arg NODE_ENV=development",
     "start": "next start",
     "lint": "next lint",
     "prettier": "prettier --write **/*.{ts,tsx}",
+    "analyze": "ANALYZE=true yarn build",
     "tsc": "tsc",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
@@ -31,6 +34,7 @@
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@hookform/resolvers": "^2.9.7",
+    "@next/bundle-analyzer": "^13.0.3",
     "@tanstack/react-query": "^4.6.0",
     "@tanstack/react-query-devtools": "^4.6.0",
     "@types/lodash-es": "^4.17.6",
