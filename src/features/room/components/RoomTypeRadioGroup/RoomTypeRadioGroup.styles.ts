@@ -14,6 +14,10 @@ export const Label = styled.label`
 export const RoomTypeList = styled.ul`
   display: flex;
   flex-wrap: wrap;
+
+  input {
+    display: none;
+  }
 `;
 
 export const RoomType = styled.li<{ isSelected: boolean }>`

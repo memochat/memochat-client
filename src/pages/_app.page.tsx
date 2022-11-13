@@ -41,7 +41,6 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <GlobalStyle />
         <Loading />
         <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools />
           <Hydrate state={pageProps.dehydratedState}>
             <RecoilRoot>
               <ToastContainer />
@@ -58,8 +57,8 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
                 </ModalReducerContextProvider>
               </MainLayout>
             </RecoilRoot>
-            <GlobalStyle />
           </Hydrate>
+          <ReactQueryDevtools />
         </QueryClientProvider>
       </ThemeProvider>
     </>

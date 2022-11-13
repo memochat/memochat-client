@@ -1,25 +1,6 @@
 import NextImage from 'next/image';
 import styled from '@emotion/styled';
 
-const HEADER_HEIGHT = 50;
-
-export const Header = styled.header`
-  background-color: white;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: ${HEADER_HEIGHT + 'px'};
-  width: 100%;
-  text-align: center;
-  padding: 15px 0;
-  border-bottom: 1px solid ${({ theme }) => theme.color.gray5};
-
-  display: grid;
-  grid-template-columns: 2fr 8fr 2fr;
-
-  z-index: ${({ theme }) => theme.zIndex.header};
-`;
-
 export const Title = styled.h1`
   ${({ theme }) => theme.typography.h3};
   color: ${({ theme }) => theme.color.black1};
@@ -36,7 +17,6 @@ export const IconBox = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  padding-top: ${HEADER_HEIGHT + 'px'};
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -44,18 +24,24 @@ export const Wrapper = styled.div`
 `;
 
 export const RoomBaseInfo = styled.section`
-  padding-top: 40px;
+  padding-top: 18px;
   background-color: ${({ theme }) => theme.color.white};
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
+export const Thumbnail = styled(NextImage)`
+  border-radius: 24px;
+  background-color: ${(p) => p.theme.color.purple6};
+`;
+
 export const RoomTitleBox = styled.div`
-  padding-top: 8px;
   display: flex;
   padding: 16px;
   width: 100%;
+  margin-top: 18px;
+  padding-top: 8px;
 `;
 
 export const RoomTitle = styled.h3`

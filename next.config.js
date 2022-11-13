@@ -2,6 +2,9 @@
 const nextConfig = {
   reactStrictMode: false,
   pageExtensions: ['page.tsx', 'page.ts'],
+  images: {
+    domains:['memochat-develop.s3.ap-northeast-2.amazonaws.com']
+  },
   /**@param {import("webpack").Configuration} config */
   webpack(config) {
     /**
@@ -15,6 +18,15 @@ const nextConfig = {
       use: ['@svgr/webpack', 'url-loader'],
     });
     return config;
+  },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/rooms',
+        permanent: true,
+      },
+    ]
   },
 };
 

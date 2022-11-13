@@ -1,10 +1,14 @@
-export interface UpsertRoomDialogProps {
+import { MemoRoom, MemoRoomCategory } from '@src/shared/types/memoRooms';
+
+export type UpsertRoomDialogValue = {
+  name: MemoRoom['name'];
+  roomCategoryId: MemoRoomCategory['id'];
+};
+
+export type UpsertRoomDialogProps = {
   type: 'create' | 'update';
-  defaultValue?: {
-    /** @todo api에 따라 변경될 여지 ㅇ */
-    roomName: string;
-    roomTypeId: number;
-  };
   open: boolean;
+  selectedRoomId?: number;
+  defaultValues?: UpsertRoomDialogValue;
   onClose: () => void;
-}
+};

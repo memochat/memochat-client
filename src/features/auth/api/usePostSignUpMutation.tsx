@@ -1,18 +1,15 @@
 import { useMutation, UseMutationOptions } from '@tanstack/react-query';
-import { AxiosResponse } from 'axios';
 
 import { SignUp } from '@src/shared/types/api/auth';
 import axios from '@src/shared/configs/axios';
 
-export const postAuthSignup = (data: SignUp['param']) =>
-  axios.post<SignUp['res']>('/auth/signup', data);
+export const postAuthSignup = async (data: SignUp['param']) => {
+  const res = await axios.post<SignUp['res']>('/auth/signup', data);
+  return res.data;
+};
 
 const usePostSignUpMutation = (
-  options?: UseMutationOptions<AxiosResponse<SignUp['res']>, unknown, SignUp['param']>,
-) =>
-  useMutation({
-    mutationFn: postAuthSignup,
-    ...options,
-  });
+  options?: UseMutationOptions<SignUp['res'], unknown, SignUp['param']>,
+) => useMutation(postAuthSignup, options);
 
 export default usePostSignUpMutation;

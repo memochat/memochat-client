@@ -1,72 +1,109 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 
 import RoomTypeRadioGroup from '../RoomTypeRadioGroup';
-import { UpsertRoomDialogProps } from './UpsertRoomDialog.types';
+import { UpsertRoomDialogProps, UpsertRoomDialogValue } from './UpsertRoomDialog.types';
 import * as S from './UpsertRoomDialog.styles';
+import useCreateMemoRoomMutation from '../../api/useCreateMemoRoomMutation';
+import useUpdateMemoRoomMutation from '../../api/useUpdateMemoRoomMutation';
 
 import Button from '@src/shared/components/Button';
 import { Modal, ModalButtonGroup, ModalContents, TextField } from '@src/shared/components';
+import { queryClient } from '@src/shared/configs/react-query';
+import { memoRoomKeys } from '@src/shared/utils/queryKeys';
 
-const UpsertRoomDialog = ({ type, defaultValue, open, onClose }: UpsertRoomDialogProps) => {
+const DEFAULT_VALUE = {
+  name: '',
+  roomCategoryId: 1,
+};
+
+const NAME_MAX = 10;
+
+const UpsertRoomDialog = ({
+  type,
+  selectedRoomId,
+  defaultValues = DEFAULT_VALUE,
+  open,
+  onClose,
+}: UpsertRoomDialogProps) => {
   const title = type === 'create' ? '룸 만들기' : '룸 수정하기';
 
-  const [value, setValue] = useState(
-    defaultValue || {
-      roomName: '',
-      roomTypeId: undefined,
+  const { mutate: createMemoRoom } = useCreateMemoRoomMutation({
+    onSuccess: () => {
+      queryClient.invalidateQueries(memoRoomKeys.list());
+      reset();
+      onClose();
     },
-  );
+  });
+  const { mutate: updateRoom } = useUpdateMemoRoomMutation({
+    onSuccess: (_, { id }) => {
+      queryClient.invalidateQueries(memoRoomKeys.list());
+      queryClient.invalidateQueries(memoRoomKeys.detail(id));
+      onClose();
+    },
+  });
 
-  useEffect(() => {
-    if (defaultValue) {
-      setValue(defaultValue);
-    }
-  }, [defaultValue]);
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { isDirty, isValid },
+  } = useForm<UpsertRoomDialogValue>({
+    defaultValues,
+    mode: 'all',
+  });
 
-  const handleRoomNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue((prevValue) => ({
-      ...prevValue,
-      roomName: e.target.value,
-    }));
-  };
-
-  const handleRoomTypeChange = (id: number) => {
-    setValue((prevValue) => ({
-      ...prevValue,
-      roomTypeId: id,
-    }));
-  };
-
-  const handleConfirm = () => {
-    /** @todo */
+  const handleCancel = () => {
+    reset();
     onClose();
   };
 
-  const isInvalid = !value.roomName || !value.roomTypeId;
+  const handleConfirm = handleSubmit((data) => {
+    if (type === 'create') {
+      createMemoRoom(data);
+    } else {
+      updateRoom({
+        id: selectedRoomId,
+        param: data,
+      });
+    }
+  });
 
   return (
     <Modal title={title} open={open} onClose={onClose}>
       <ModalContents>
-        <S.Wrapper>
-          <TextField
-            id="roomName"
-            label="룸 이름 (최대 10자)"
-            value={value.roomName}
-            onChange={handleRoomNameChange}
-            maxLength={10}
+        <S.Form onSubmit={handleConfirm}>
+          <Controller
+            name="name"
+            control={control}
+            rules={{ required: true, max: NAME_MAX }}
+            render={({ field }) => (
+              <TextField
+                id="name"
+                label={`룸 이름 (최대 ${NAME_MAX}자)`}
+                placeholder="룸 이름을 입력하세요."
+                maxLength={NAME_MAX}
+                {...field}
+              />
+            )}
           />
-          <RoomTypeRadioGroup
-            label="룸 유형"
-            value={value.roomTypeId}
-            onChange={handleRoomTypeChange}
+          <Controller
+            name="roomCategoryId"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => <RoomTypeRadioGroup label="룸 유형" {...field} />}
           />
-        </S.Wrapper>
+        </S.Form>
       </ModalContents>
       <ModalButtonGroup>
-        <Button variant="secondary" onClick={onClose}>
+        <Button variant="secondary" onClick={handleCancel}>
           취소
         </Button>
-        <Button variant="primary" disabled={isInvalid} onClick={handleConfirm}>
+        <Button
+          type="submit"
+          variant="primary"
+          disabled={!isDirty || !isValid}
+          onClick={handleConfirm}
+        >
           확인
         </Button>
       </ModalButtonGroup>

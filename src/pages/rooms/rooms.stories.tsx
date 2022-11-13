@@ -1,11 +1,10 @@
 import { ComponentMeta, StoryObj } from '@storybook/react';
 
-import RoomList from '.';
+import RoomList from './index.page';
 
 export default {
   component: RoomList,
-  args: {},
-  argTypes: {},
 } as ComponentMeta<typeof RoomList>;
 
 export const Default: StoryObj<typeof RoomList> = {};
+Default.args = {};

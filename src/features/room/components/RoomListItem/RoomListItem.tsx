@@ -11,15 +11,15 @@ import 'react-swipeable-list/dist/styles.css';
 import { ChatType, RoomListItemProps } from './RoomListItem.types';
 import * as S from './RoomListItem.styles';
 
+// TODO 고정 또는 순서 변경 기능 추가
 const RoomListItem = ({
   name,
-  roomType,
+  roomCategory,
   isSelected,
   lastChat,
   className,
   onSelect,
   onClick,
-  onPin,
   onEdit,
   onDelete,
 }: RoomListItemProps) => {
@@ -43,9 +43,6 @@ const RoomListItem = ({
       onSwipeEnd={handleSwipeEnd}
       trailingActions={
         <TrailingActions>
-          <SwipeAction onClick={onPin}>
-            <S.SwipeActionButton color="gray1">고정</S.SwipeActionButton>
-          </SwipeAction>
           <SwipeAction onClick={onEdit}>
             <S.SwipeActionButton color="blue1">수정</S.SwipeActionButton>
           </SwipeAction>
@@ -57,8 +54,8 @@ const RoomListItem = ({
     >
       <S.Wrapper className={className}>
         <S.SelectButton type="button" onClick={onSelect}>
-          <S.RoomType isSelected={isSelected} aria-label={roomType.name}>
-            <Image src={roomType.imageUrl} alt={roomType.name} width={24} height={24} />
+          <S.RoomType isSelected={isSelected} aria-label={roomCategory.name}>
+            <Image src={roomCategory.thumbnail} alt={roomCategory.name} width={24} height={24} />
           </S.RoomType>
           {isSelected && <S.SelectText>선택</S.SelectText>}
         </S.SelectButton>

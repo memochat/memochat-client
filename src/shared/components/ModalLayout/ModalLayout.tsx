@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import { ModalLayoutProps } from './ModalLayout.types';
 import * as S from './ModalLayout.styles';
 
+// TODO: modal open 시 dim 스크롤 방지
 const ModalLayout: React.FC<ModalLayoutProps> = ({ open, children, onClose }) => {
   const dimRef = useRef<HTMLDivElement>(null);
   const isVisible = useModalLayoutVisible(open, dimRef);

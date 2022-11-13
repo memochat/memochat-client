@@ -1,20 +1,42 @@
 import styled from '@emotion/styled';
 
-export const Wrapper = styled.form`
-  width: 100%;
+import { ellipsis } from '@src/shared/styles';
+
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
-`;
-export const Textarea = styled.textarea`
   width: 100%;
-  padding: 12px 16px;
-  height: 64px;
-  min-height: 2.4rem;
-  max-height: 9rem;
+  padding: 0 0 calc(env(safe-area-inset-bottom, 0));
   background-color: ${({ theme }) => theme.color.white};
+  box-shadow: 0px -10px 30px -10px rgb(51 51 51 / 12%);
+`;
+
+export const SelectedRoomName = styled.span`
+  padding: 12px 16px 0;
+  ${(p) => p.theme.typography.body2};
+  color: ${(p) => p.theme.color.purple1};
+
+  ${ellipsis(1)};
+`;
+
+export const TextAreaWrapper = styled.div`
+  padding: 12px 16px;
+  display: flex;
+  align-items: flex-start;
+
+  > svg {
+    margin: 2px 6px 0 0;
+  }
+`;
+
+export const Textarea = styled.textarea`
+  flex: 1;
+  height: 40px;
+  min-height: 40px;
+  max-height: 90px;
 
   ${({ theme }) => theme.typography.body1};
-  color: ${({ theme }) => theme.color.gray3};
+  color: ${({ theme }) => theme.color.black2};
 `;
 
 export const ToolBox = styled.div`
@@ -27,11 +49,12 @@ export const ToolBox = styled.div`
 `;
 
 export const ToolBoxIconBox = styled.div`
-  flex-grow: 1;
   display: flex;
   align-items: center;
   gap: 16px;
   min-height: 32px;
 `;
 
-export const SubmitBtn = styled.button``;
+export const SubmitBtn = styled.button`
+  margin-left: auto;
+`;
