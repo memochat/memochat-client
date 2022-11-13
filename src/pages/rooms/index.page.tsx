@@ -26,8 +26,8 @@ const RoomList = () => {
 
   const { data: rooms, isLoading } = useMemoRoomsQuery();
 
-  const [selectedRoom, setSelectedRoom] = useState<MemoRoom | undefined>(rooms?.[0]);
-  const [selectedUpdateRoom, setSelectedUpdateRoom] = useState<MemoRoom | undefined>(rooms?.[0]);
+  const [selectedRoom, setSelectedRoom] = useState<MemoRoom | null>(rooms?.[0]);
+  const [selectedUpdateRoom, setSelectedUpdateRoom] = useState<MemoRoom | null>(rooms?.[0]);
 
   const [isCreateRoomDialogOpen, setIsCreateRoomDialogOpen] = useState(false);
   const [isUpdateRoomDialogOpen, setIsUpdateRoomDialogOpen] = useState(false);
@@ -36,11 +36,7 @@ const RoomList = () => {
 
   const handleRoomSelect = (room: MemoRoom) => {
     const isSelected = room.id === selectedRoom?.id;
-    if (isSelected) {
-      setSelectedRoom(undefined);
-    } else {
-      setSelectedRoom(room);
-    }
+    setSelectedRoom(isSelected ? null : room);
   };
 
   const handleRoomClick = (room: MemoRoom) => {
@@ -66,7 +62,7 @@ const RoomList = () => {
 
   const handleUpdateRoomDialogClose = () => {
     setIsUpdateRoomDialogOpen(false);
-    setSelectedUpdateRoom(undefined);
+    setSelectedUpdateRoom(null);
   };
 
   const handleRoomCreateClick = () => {
