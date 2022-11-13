@@ -13,6 +13,7 @@ import useMemoRoomQuery, { getMemoRoom } from '@src/features/room/api/useMemoRoo
 import { memoRoomKeys } from '@src/shared/utils/queryKeys';
 import useConfirm from '@src/shared/hooks/useConfirm';
 import useDeleteMemoRoomMutation from '@src/features/room/api/useDeleteMemoRoomMutation';
+import { queryClient } from '@src/shared/configs/react-query';
 
 const images = ['/images/alarm.png', '/images/bell.png', '/images/bell.png', '/images/bell.png'];
 
@@ -21,7 +22,12 @@ const RoomSetting: NextPage<RoomSettingProps> = ({ id }) => {
   const router = useRouter();
 
   const { data: memoRoom } = useMemoRoomQuery(id);
-  const { mutate: deleteMemoRoom } = useDeleteMemoRoomMutation();
+  const { mutate: deleteMemoRoom } = useDeleteMemoRoomMutation({
+    onSuccess: () => {
+      queryClient.invalidateQueries(memoRoomKeys.list());
+      router.replace('/');
+    },
+  });
 
   const [isUpdateRoomDialogOpen, setIsUpdateRoomDialogOpen] = useState(false);
 
@@ -45,8 +51,7 @@ const RoomSetting: NextPage<RoomSettingProps> = ({ id }) => {
         description: '모든 메모 내용이 사라집니다.',
       })
     ) {
-      await deleteMemoRoom({ id: memoRoom.id });
-      router.replace('/');
+      deleteMemoRoom({ id: memoRoom.id });
     }
   };
 
