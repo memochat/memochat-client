@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const Wrapper = styled.div`
+export const Form = styled.form`
   padding: 16px;
 
   > *:not(:last-child) {

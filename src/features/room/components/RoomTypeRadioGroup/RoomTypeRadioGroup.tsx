@@ -4,7 +4,13 @@ import { RoomTypeRadioGroupProps } from './RoomTypeRadioGroup.types';
 import * as S from './RoomTypeRadioGroup.styles';
 import useMemoRoomCategoriesQuery from '../../api/useMemoRoomCategoriesQuery';
 
-const RoomTypeRadioGroup = ({ label, value, onChange, className }: RoomTypeRadioGroupProps) => {
+const RoomTypeRadioGroup = ({
+  name,
+  label,
+  value,
+  onChange,
+  className,
+}: RoomTypeRadioGroupProps) => {
   const [selectedRoomTypeId, setSelectedRoomTypeId] = useState(value);
 
   const { data: memoRoomCategories, isLoading } = useMemoRoomCategoriesQuery();
@@ -28,13 +34,18 @@ const RoomTypeRadioGroup = ({ label, value, onChange, className }: RoomTypeRadio
       <S.Label>{label}</S.Label>
       <S.RoomTypeList>
         {memoRoomCategories?.map((roomType) => (
-          <S.RoomType
-            key={roomType.id}
-            isSelected={roomType.id === selectedRoomTypeId}
-            onClick={() => handleRoomTypeClick(roomType.id)}
-          >
-            <img src={roomType.thumbnail} alt={roomType.name} />
-          </S.RoomType>
+          <label key={roomType.id}>
+            <input
+              type="radio"
+              name={name}
+              value={roomType.id}
+              checked={roomType.id === selectedRoomTypeId}
+              onChange={(e) => handleRoomTypeClick(parseInt(e.target.value))}
+            />
+            <S.RoomType isSelected={roomType.id === selectedRoomTypeId}>
+              <img src={roomType.thumbnail} alt={roomType.name} />
+            </S.RoomType>
+          </label>
         ))}
       </S.RoomTypeList>
     </S.Wrapper>

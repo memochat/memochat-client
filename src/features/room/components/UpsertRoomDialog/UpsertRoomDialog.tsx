@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 
 import RoomTypeRadioGroup from '../RoomTypeRadioGroup';
 import { UpsertRoomDialogProps, UpsertRoomDialogValue } from './UpsertRoomDialog.types';
@@ -14,7 +14,8 @@ const DEFAULT_VALUE = {
   roomCategoryId: 1,
 };
 
-// TODO: react hook form 적용
+const NAME_MAX = 10;
+
 const UpsertRoomDialog = ({
   type,
   selectedRoomId,
@@ -27,76 +28,70 @@ const UpsertRoomDialog = ({
   const { mutate: createMemoRoom } = useCreateMemoRoomMutation();
   const { mutate: updateRoom } = useUpdateMemoRoomMutation();
 
-  const [value, setValue] = useState<UpsertRoomDialogValue>(defaultValue);
-
-  useEffect(() => {
-    if (defaultValue) {
-      setValue(defaultValue || DEFAULT_VALUE);
-    }
-  }, [defaultValue]);
-
-  const handleRoomNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue((prevValue) => ({
-      ...prevValue,
-      name: e.target.value,
-    }));
-  };
-
-  const handleRoomTypeChange = (id: number) => {
-    setValue((prevValue) => ({
-      ...prevValue,
-      roomCategoryId: id,
-    }));
-  };
-
-  const clearValue = () => {
-    setValue(DEFAULT_VALUE);
-  };
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { isDirty, isValid },
+  } = useForm<UpsertRoomDialogValue>({
+    defaultValues: defaultValue,
+    mode: 'all',
+  });
 
   const handleCancel = () => {
-    clearValue();
+    reset();
     onClose();
   };
 
-  const handleConfirm = async () => {
+  const handleConfirm = handleSubmit(async (data) => {
     if (type === 'create') {
-      await createMemoRoom(value);
-      clearValue();
+      await createMemoRoom(data);
+      reset();
     } else {
       await updateRoom({
         id: selectedRoomId,
-        param: value,
+        param: data,
       });
     }
     onClose();
-  };
-
-  const isInvalid = !value.name || !value.roomCategoryId;
+  });
 
   return (
     <Modal title={title} open={open} onClose={onClose}>
       <ModalContents>
-        <S.Wrapper>
-          <TextField
-            id="name"
-            label="룸 이름 (최대 10자)"
-            value={value.name}
-            placeholder="룸 이름을 입력하세요."
-            onChange={handleRoomNameChange}
-            maxLength={10}
+        <S.Form onSubmit={handleConfirm}>
+          <Controller
+            name="name"
+            control={control}
+            rules={{ required: true, max: NAME_MAX }}
+            render={({ field }) => (
+              <TextField
+                id="name"
+                label={`룸 이름 (최대 ${NAME_MAX}자)`}
+                placeholder="룸 이름을 입력하세요."
+                maxLength={NAME_MAX}
+                {...field}
+              />
+            )}
           />
-          <RoomTypeRadioGroup
-            label="룸 유형"
-            value={value.roomCategoryId}
-            onChange={handleRoomTypeChange}
+          <Controller
+            name="roomCategoryId"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => <RoomTypeRadioGroup label="룸 유형" {...field} />}
           />
-        </S.Wrapper>
+        </S.Form>
       </ModalContents>
       <ModalButtonGroup>
         <Button variant="secondary" onClick={handleCancel}>
           취소
         </Button>
-        <Button variant="primary" disabled={isInvalid} onClick={handleConfirm}>
+        <Button
+          type="submit"
+          variant="primary"
+          disabled={!isDirty || !isValid}
+          onClick={handleConfirm}
+        >
           확인
         </Button>
       </ModalButtonGroup>
