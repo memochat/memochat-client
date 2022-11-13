@@ -19,7 +19,7 @@ const NAME_MAX = 10;
 const UpsertRoomDialog = ({
   type,
   selectedRoomId,
-  defaultValue = DEFAULT_VALUE,
+  defaultValues = DEFAULT_VALUE,
   open,
   onClose,
 }: UpsertRoomDialogProps) => {
@@ -34,7 +34,7 @@ const UpsertRoomDialog = ({
     reset,
     formState: { isDirty, isValid },
   } = useForm<UpsertRoomDialogValue>({
-    defaultValues: defaultValue,
+    defaultValues,
     mode: 'all',
   });
 

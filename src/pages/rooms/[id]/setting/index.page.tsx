@@ -108,7 +108,7 @@ const RoomSetting: NextPage<RoomSettingProps> = ({ id }) => {
         selectedRoomId={memoRoom.id}
         open={isUpdateRoomDialogOpen}
         onClose={closeUpdateRoomDialog}
-        defaultValue={{
+        defaultValues={{
           name: memoRoom.name,
           roomCategoryId: memoRoom.roomCategory.id,
         }}

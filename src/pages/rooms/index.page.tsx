@@ -120,7 +120,7 @@ const RoomList = () => {
           selectedRoomId={selectedUpdateRoom.id}
           open={isUpdateRoomDialogOpen}
           onClose={handleUpdateRoomDialogClose}
-          defaultValue={{
+          defaultValues={{
             name: selectedUpdateRoom.name,
             roomCategoryId: selectedUpdateRoom.roomCategory.id,
           }}
