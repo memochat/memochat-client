@@ -5,16 +5,18 @@ export interface RoomMemoFormType {
   images: File[];
 }
 
-const defaultValues: RoomMemoFormType = {
-  memo: '',
-  images: [],
-};
-
 // TODO: validator 추가
-const useRoomMemoForm = (
-  props: Omit<UseFormProps<RoomMemoFormType>, 'resolver'> = { defaultValues },
-) => {
-  return useForm(props);
+const useRoomMemoForm = ({
+  defaultValues = {
+    memo: '',
+    images: [],
+  },
+  ...props
+}: Omit<UseFormProps<RoomMemoFormType>, 'resolver'> = {}) => {
+  return useForm({
+    ...props,
+    defaultValues,
+  });
 };
 
 export default useRoomMemoForm;
