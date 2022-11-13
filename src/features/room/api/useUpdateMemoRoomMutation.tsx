@@ -2,8 +2,6 @@ import { useMutation, UseMutationOptions } from '@tanstack/react-query';
 
 import axios from '@src/shared/configs/axios';
 import { UpdateMemoRooms } from '@src/shared/types/api/memoRooms';
-import { queryClient } from '@src/shared/configs/react-query';
-import { memoRoomKeys } from '@src/shared/utils/queryKeys';
 
 export const updateMemoRoom = async (id: number, param: UpdateMemoRooms['param']) => {
   const res = await axios.put<UpdateMemoRooms['res']>(`/memo-rooms/${id}`, param);
@@ -19,13 +17,7 @@ const useUpdateMemoRoomMutation = (
 ) =>
   useMutation(
     ({ id, param }: { id: number; param: UpdateMemoRooms['param'] }) => updateMemoRoom(id, param),
-    {
-      onSuccess: (_, { id }) => {
-        queryClient.invalidateQueries(memoRoomKeys.list());
-        queryClient.invalidateQueries(memoRoomKeys.detail(id));
-      },
-      ...options,
-    },
+    options,
   );
 
 export default useUpdateMemoRoomMutation;
