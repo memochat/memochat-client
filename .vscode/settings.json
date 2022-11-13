@@ -13,7 +13,10 @@
   "css.validate": false,
   "less.validate": false,
   "scss.validate": false,
-  "cSpell.words": ["Signin"],
+  "cSpell.words": [
+    "memochat",
+    "Signin"
+  ],
   "conventionalCommits.promptBody": false,
   "conventionalCommits.promptFooter": false,
   "conventionalCommits.promptScopes": false,

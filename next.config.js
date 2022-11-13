@@ -1,5 +1,12 @@
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    outputStandalone: true,
+  },
   reactStrictMode: false,
   pageExtensions: ['page.tsx', 'page.ts'],
   images: {
@@ -43,4 +50,4 @@ function interceptStdout(text) {
 // Intercept in dev and prod
 intercept(interceptStdout);
 
-module.exports = nextConfig;
+module.exports = withBundleAnalyzer(nextConfig);
