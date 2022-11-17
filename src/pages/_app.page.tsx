@@ -1,4 +1,5 @@
 import { ThemeProvider } from '@emotion/react';
+import '@src/shared/configs/i18n';
 import { Hydrate, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { AppProps } from 'next/app';
@@ -16,8 +17,6 @@ import { ModalReducerContextProvider } from '@src/shared/contexts/ModalReducerCo
 import GlobalStyle from '@src/shared/styles/GlobalStyle';
 import { lightTheme } from '@src/shared/styles/themes';
 import { NextPageWithLayout } from '@src/shared/types/next';
-
-import '@src/shared/configs/i18n';
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
