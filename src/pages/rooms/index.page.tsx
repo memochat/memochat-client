@@ -54,6 +54,7 @@ const RoomList = () => {
         headerTitle: '룸 삭제하기',
         title: '메모룸을 삭제할까요?',
         description: '메모 내용은 복구되지 않습니다.',
+        okVariant: 'danger',
       })
     ) {
       await deleteMemoRoom({ id: room.id });
