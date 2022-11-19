@@ -8,6 +8,7 @@ const ConfirmModal = ({
   headerTitle = '알림',
   title,
   description,
+  okVariant = 'primary',
   onClose,
   onCancel,
   onOk,
@@ -22,7 +23,7 @@ const ConfirmModal = ({
         <Button variant="secondary" onClick={onCancel}>
           취소
         </Button>
-        <Button variant="primary" onClick={onOk}>
+        <Button variant={okVariant} onClick={onOk}>
           확인
         </Button>
       </ModalButtonGroup>

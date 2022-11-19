@@ -1,7 +1,10 @@
 import { ConfirmModalProps } from '@src/shared/components/ConfirmModal';
 
 export type ModalReducerState = {
-  confirmState: Pick<ConfirmModalProps, 'open' | 'headerTitle' | 'title' | 'description'>;
+  confirmState: Pick<
+    ConfirmModalProps,
+    'open' | 'headerTitle' | 'title' | 'description' | 'okVariant'
+  >;
 };
 
 export const MODAL_REDUCER_ACTION = {
@@ -14,7 +17,7 @@ export type ModalReducerActionType = typeof MODAL_REDUCER_ACTION[keyof typeof MO
 export type ModalReducerAction =
   | {
       type: 'OPEN_CONFIRM';
-      payload?: Pick<ConfirmModalProps, 'headerTitle' | 'title' | 'description'>;
+      payload?: Omit<ModalReducerState['confirmState'], 'open'>;
     }
   | {
       type: 'CLOSE_CONFIRM';
