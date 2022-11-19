@@ -10,7 +10,7 @@ const ConfirmModal = ({
   description,
   onClose,
   onCancel,
-  onConfirm,
+  onOk,
 }: ConfirmModalProps) => {
   return (
     <Modal open={open} onClose={onClose} title={headerTitle}>
@@ -22,7 +22,7 @@ const ConfirmModal = ({
         <Button variant="secondary" onClick={onCancel}>
           취소
         </Button>
-        <Button variant="primary" onClick={onConfirm}>
+        <Button variant="primary" onClick={onOk}>
           확인
         </Button>
       </ModalButtonGroup>

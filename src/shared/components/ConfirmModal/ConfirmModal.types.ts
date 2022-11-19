@@ -5,5 +5,5 @@ export interface ConfirmModalProps {
   description?: string;
   onClose: () => void;
   onCancel: () => void;
-  onConfirm: () => void;
+  onOk: () => void;
 }

@@ -29,7 +29,7 @@ const useConfirm = () => {
     });
   };
 
-  const onConfirm = () => {
+  const onOk = () => {
     closeConfirm();
     resolveCallback(true);
   };
@@ -39,7 +39,7 @@ const useConfirm = () => {
     resolveCallback(false);
   };
 
-  return { confirm, onConfirm, onCancel, confirmState };
+  return { confirm, onOk, onCancel, confirmState };
 };
 
 export default useConfirm;
