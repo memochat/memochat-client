@@ -40,6 +40,7 @@ const getBackgroundColorByStatus = ({
   return {
     primary: theme.color.purple1,
     secondary: theme.color.gray6,
+    danger: theme.color.red1,
   }[variant];
 };
 
@@ -51,10 +52,12 @@ const getColorByStatus = ({ disabled, variant, theme }: getColorByStatusProps) =
   return {
     primary: disabled ? theme.color.gray3 : theme.color.white,
     secondary: disabled ? theme.color.gray4 : theme.color.black1,
+    danger: disabled ? theme.color.gray3 : theme.color.white,
   }[variant];
 };
 
 const PRIMARY_HOVER_BACKGROUND_COLOR = '#5D61D3';
+const DANGER_HOVER_BACKGROUND_COLOR = '#D54C4C';
 
 interface getHoverColorByType extends Required<Pick<ButtonProps, 'variant'>> {
   theme: EmotionTheme;
@@ -64,6 +67,7 @@ const getHoverColorByType = ({ variant, theme }: getHoverColorByType) => {
   return {
     primary: PRIMARY_HOVER_BACKGROUND_COLOR,
     secondary: theme.color.gray5,
+    danger: DANGER_HOVER_BACKGROUND_COLOR,
   }[variant];
 };
 
