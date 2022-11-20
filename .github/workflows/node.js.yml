@@ -40,4 +40,4 @@ jobs:
         run: yarn lint
 
       - name: TS check
-        run: yarn tsc
+        run: yarn type-check
