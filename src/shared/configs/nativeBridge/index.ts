@@ -16,8 +16,8 @@ class NativeBridge {
   }
 
   test() {
-    const msg: MemochatWebViewMessage = { action: 'test' };
-    window.ReactNativeWebView.postMessage(JSON.stringify(msg));
+    const message: MemochatWebViewMessage = { action: 'test' };
+    window.ReactNativeWebView.postMessage(JSON.stringify(message));
   }
 }
 

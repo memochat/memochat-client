@@ -6,21 +6,20 @@ export interface MemochatNativeMessage {
   callbackId?: string;
 }
 
-class NativeMsgReceiver {
-  static instance: NativeMsgReceiver;
+class NativeMessageReceiver {
+  static instance: NativeMessageReceiver;
 
   constructor() {
-    if (!NativeMsgReceiver.instance) {
-      NativeMsgReceiver.instance = this;
-      return NativeMsgReceiver.instance;
+    if (!NativeMessageReceiver.instance) {
+      NativeMessageReceiver.instance = this;
+      return NativeMessageReceiver.instance;
     }
-    return NativeMsgReceiver.instance;
+    return NativeMessageReceiver.instance;
   }
 
-  back(msg: MemochatNativeMessage) {
-    alert(msg.action);
+  back(message: MemochatNativeMessage) {
     Router.back();
   }
 }
 
-export default NativeMsgReceiver;
+export default NativeMessageReceiver;
