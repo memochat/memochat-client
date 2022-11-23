@@ -3,7 +3,7 @@ import { ConfirmModalProps } from '@src/shared/components/ConfirmModal';
 export type ModalReducerState = {
   confirmState: Pick<
     ConfirmModalProps,
-    'open' | 'headerTitle' | 'title' | 'description' | 'okVariant'
+    'open' | 'headerTitle' | 'title' | 'description' | 'variant'
   >;
 };
 

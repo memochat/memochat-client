@@ -48,7 +48,7 @@ const RoomSetting: NextPage<RoomSettingProps> = ({ id }) => {
       await confirm({
         title: '메모룸을 나가시겠습니까?',
         description: '모든 메모 내용이 사라집니다.',
-        okVariant: 'danger',
+        variant: 'danger',
       })
     ) {
       deleteMemoRoom({ id: memoRoom.id });
