@@ -44,11 +44,11 @@ const RoomSetting: NextPage<RoomSettingProps> = ({ id }) => {
   };
 
   const handleDeleteClick = async () => {
-    // TODO: confirm 타입 danger로 수정하기 (버튼 빨강)
     if (
       await confirm({
         title: '메모룸을 나가시겠습니까?',
         description: '모든 메모 내용이 사라집니다.',
+        variant: 'danger',
       })
     ) {
       deleteMemoRoom({ id: memoRoom.id });

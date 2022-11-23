@@ -23,48 +23,61 @@ const getTypographyBySize = ({ size, theme }: getTypographyBySizeProps) => {
   }[size];
 };
 
-interface getBackgroundColorByStatusProps
-  extends Required<Pick<ButtonProps, 'disabled' | 'variant'>> {
-  theme: EmotionTheme;
-}
-
-const getBackgroundColorByStatus = ({
-  disabled,
-  variant,
-  theme,
-}: getBackgroundColorByStatusProps) => {
-  if (disabled) {
-    return theme.color.gray6;
-  }
-
-  return {
-    primary: theme.color.purple1,
-    secondary: theme.color.gray6,
-  }[variant];
-};
-
-interface getColorByStatusProps extends Required<Pick<ButtonProps, 'disabled' | 'variant'>> {
-  theme: EmotionTheme;
-}
-
-const getColorByStatus = ({ disabled, variant, theme }: getColorByStatusProps) => {
-  return {
-    primary: disabled ? theme.color.gray3 : theme.color.white,
-    secondary: disabled ? theme.color.gray4 : theme.color.black1,
-  }[variant];
-};
-
 const PRIMARY_HOVER_BACKGROUND_COLOR = '#5D61D3';
+const DANGER_HOVER_BACKGROUND_COLOR = '#D54C4C';
 
-interface getHoverColorByType extends Required<Pick<ButtonProps, 'variant'>> {
+type getColorsByVariantProps = Required<Pick<ButtonProps, 'disabled' | 'variant'>> & {
   theme: EmotionTheme;
-}
+};
 
-const getHoverColorByType = ({ variant, theme }: getHoverColorByType) => {
-  return {
-    primary: PRIMARY_HOVER_BACKGROUND_COLOR,
-    secondary: theme.color.gray5,
-  }[variant];
+const getColorsByVariant = ({
+  variant,
+  disabled,
+  theme,
+}: getColorsByVariantProps): {
+  color: string;
+  backgroundColor: string;
+  hoverColor: string;
+} => {
+  const { gray3, gray4, gray5, gray6, white, black1, purple1, red1 } = theme.color;
+
+  switch (variant) {
+    case 'primary':
+      return {
+        color: disabled ? gray3 : white,
+        backgroundColor: disabled ? gray6 : purple1,
+        hoverColor: PRIMARY_HOVER_BACKGROUND_COLOR,
+      };
+    case 'secondary':
+      return {
+        color: disabled ? gray4 : black1,
+        backgroundColor: gray6,
+        hoverColor: gray5,
+      };
+    case 'danger':
+      return {
+        color: disabled ? gray3 : white,
+        backgroundColor: disabled ? gray6 : red1,
+        hoverColor: DANGER_HOVER_BACKGROUND_COLOR,
+      };
+  }
+};
+
+const getColorCSS = (p: getColorsByVariantProps) => {
+  const { backgroundColor, color, hoverColor } = getColorsByVariant(p);
+
+  return `
+  background-color: ${backgroundColor};
+  color: ${color};
+
+  ${
+    p.disabled
+      ? ''
+      : `&:hover { 
+            background-color: ${hoverColor};
+        }`
+  }
+  `;
 };
 
 type StyledButtonProps = Required<Pick<ButtonProps, 'size' | 'disabled' | 'variant'>>;
@@ -80,13 +93,5 @@ export const Button = styled.button<StyledButtonProps>`
 
   ${(p) => getTypographyBySize(p)};
 
-  background-color: ${(p) => getBackgroundColorByStatus(p)};
-  color: ${(p) => getColorByStatus(p)};
-
-  ${(p) =>
-    p.disabled
-      ? ''
-      : `&:hover { 
-            background-color: ${getHoverColorByType(p)};
-          }`}
+  ${(p) => getColorCSS(p)}
 `;

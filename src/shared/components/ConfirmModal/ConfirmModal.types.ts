@@ -3,7 +3,8 @@ export interface ConfirmModalProps {
   headerTitle?: string;
   title: string;
   description?: string;
+  variant?: 'primary' | 'danger';
   onClose: () => void;
   onCancel: () => void;
-  onConfirm: () => void;
+  onOk: () => void;
 }

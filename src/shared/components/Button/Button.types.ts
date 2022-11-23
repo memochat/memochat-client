@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
 
-export type ButtonType = 'primary' | 'secondary';
+export type ButtonType = 'primary' | 'secondary' | 'danger';
 export type ButtonSize = 'small' | 'medium';
 
 type BaseButtonProps = DetailedHTMLProps<
