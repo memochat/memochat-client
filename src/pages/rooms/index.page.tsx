@@ -19,6 +19,7 @@ import useDeleteMemoRoomMutation from '@src/features/room/api/useDeleteMemoRoomM
 import { getMemoRoomCategories } from '@src/features/room/api/useMemoRoomCategoriesQuery';
 import { GetServerSidePropsWithState } from '@src/shared/types/next';
 import { memoRoomCategoryKeys, memoRoomKeys } from '@src/shared/utils/queryKeys';
+import { queryClient } from '@src/shared/configs/react-query';
 
 const RoomList = () => {
   const router = useRouter();
@@ -32,7 +33,11 @@ const RoomList = () => {
   const [isCreateRoomDialogOpen, setIsCreateRoomDialogOpen] = useState(false);
   const [isUpdateRoomDialogOpen, setIsUpdateRoomDialogOpen] = useState(false);
 
-  const { mutate: deleteMemoRoom } = useDeleteMemoRoomMutation();
+  const { mutate: deleteMemoRoom } = useDeleteMemoRoomMutation({
+    onSuccess: () => {
+      queryClient.invalidateQueries(memoRoomKeys.list());
+    },
+  });
 
   const handleRoomSelect = (room: MemoRoom) => {
     const isSelected = room.id === selectedRoom?.id;
