@@ -1,6 +1,6 @@
 import { ComponentMeta, StoryObj } from '@storybook/react';
 
-import Button from '.';
+import Button, { LinkButton as LinkButtonComponent } from '.';
 
 export default {
   component: Button,
@@ -34,5 +34,12 @@ export const Secondary: StoryObj<typeof Button> = {
 export const Danger: StoryObj<typeof Button> = {
   args: {
     variant: 'danger',
+  },
+};
+
+export const LinkButton: StoryObj<typeof LinkButtonComponent> = {
+  args: {
+    variant: 'primary',
+    href: '/',
   },
 };

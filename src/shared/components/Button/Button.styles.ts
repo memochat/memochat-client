@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
-import { ButtonProps } from './Button.types';
+import { BaseButtonProps } from './Button.types';
 
 import { EmotionTheme } from '@src/shared/styles/themes';
 
-const getHeightBySize = (size: NonNullable<ButtonProps['size']>) => {
+const getHeightBySize = (size: NonNullable<BaseButtonProps['size']>) => {
   return {
     small: '40px',
     medium: '52px',
@@ -12,7 +13,7 @@ const getHeightBySize = (size: NonNullable<ButtonProps['size']>) => {
 };
 
 interface getTypographyBySizeProps {
-  size: NonNullable<ButtonProps['size']>;
+  size: NonNullable<BaseButtonProps['size']>;
   theme: EmotionTheme;
 }
 
@@ -26,7 +27,7 @@ const getTypographyBySize = ({ size, theme }: getTypographyBySizeProps) => {
 const PRIMARY_HOVER_BACKGROUND_COLOR = '#5D61D3';
 const DANGER_HOVER_BACKGROUND_COLOR = '#D54C4C';
 
-type getColorsByVariantProps = Required<Pick<ButtonProps, 'disabled' | 'variant'>> & {
+type getColorsByVariantProps = Required<Pick<BaseButtonProps, 'disabled' | 'variant'>> & {
   theme: EmotionTheme;
 };
 
@@ -80,18 +81,28 @@ const getColorCSS = (p: getColorsByVariantProps) => {
   `;
 };
 
-type StyledButtonProps = Required<Pick<ButtonProps, 'size' | 'disabled' | 'variant'>>;
+type StyledButtonProps = Required<Pick<BaseButtonProps, 'size' | 'disabled' | 'variant'>>;
 
-export const Button = styled.button<StyledButtonProps>`
+const buttonStyles = (p: StyledButtonProps & { theme: EmotionTheme }) => css`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: ${(p) => getHeightBySize(p.size)};
+  height: ${getHeightBySize(p.size)};
   border-radius: 16px;
 
-  ${(p) => getTypographyBySize(p)};
+  ${getTypographyBySize(p)};
 
-  ${(p) => getColorCSS(p)}
+  ${getColorCSS(p)}
+`;
+
+export const Button = styled.button<StyledButtonProps>`
+  ${(p) => buttonStyles(p)}
+`;
+
+export const LinkButton = styled.a<StyledButtonProps>`
+  ${(p) => buttonStyles(p)}
+
+  ${(p) => p.disabled && `pointer-events: none;`}
 `;
