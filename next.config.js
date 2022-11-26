@@ -1,3 +1,4 @@
+const path = require('path');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
@@ -10,7 +11,14 @@ const nextConfig = {
   reactStrictMode: false,
   pageExtensions: ['page.tsx', 'page.ts'],
   images: {
-    domains:['memochat-develop.s3.ap-northeast-2.amazonaws.com']
+    domains: ['memochat-develop.s3.ap-northeast-2.amazonaws.com'],
+  },
+  typescript: {
+    tsconfigPath: path.resolve(__dirname, 'tsconfig.json'),
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
   },
   /**@param {import("webpack").Configuration} config */
   webpack(config) {
@@ -33,7 +41,7 @@ const nextConfig = {
         destination: '/rooms',
         permanent: true,
       },
-    ]
+    ];
   },
 };
 
