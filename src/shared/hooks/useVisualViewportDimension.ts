@@ -9,11 +9,10 @@ type Dimension = {
 };
 
 const useVisualViewportDimension = (enabled = true): Dimension => {
-  const initialDimension: Dimension = {
-    width: window.visualViewport.width,
-    height: window.visualViewport.height,
-  };
-  const [dimension, setDimension] = useState<Dimension>(initialDimension);
+  const [dimension, setDimension] = useState<Dimension>({
+    width: window?.visualViewport.width,
+    height: window?.visualViewport.height,
+  });
 
   useEffect(() => {
     if (!enabled || !window.visualViewport) return;
