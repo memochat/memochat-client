@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 
-const accessTokenName = 'memochat.session.a';
-const refreshTokenName = 'memochat.session.r';
+export const accessTokenName = 'msa' as const;
+export const refreshTokenName = 'msr' as const;
 
 export function setAccessToken(token: string) {
   return Cookies.set(accessTokenName, token);

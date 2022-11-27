@@ -1,15 +1,17 @@
-import { NextPage } from 'next';
 import Image from 'next/image';
 
 import * as S from './settings.styles';
 
 import settingImg from '@public/images/settings.png';
-import { Header } from '@src/shared/components';
+import AuthGuard from '@src/features/auth/components/AuthGuard';
 import SettingDetailMenu from '@src/features/settings/components/SettingDetailMenu';
+import { Header } from '@src/shared/components';
 import useConfirm from '@src/shared/hooks/useConfirm';
+import { NextPageWithLayout } from '@src/shared/types/next';
 
-const Settings: NextPage = () => {
+const Settings: NextPageWithLayout = () => {
   const { confirm } = useConfirm();
+
   const handleLogoutBtnClick = async () => {
     const result = await confirm({
       headerTitle: '알림',
@@ -44,5 +46,7 @@ const Settings: NextPage = () => {
     </>
   );
 };
+
+Settings.getLayout = (page) => <AuthGuard>{page}</AuthGuard>;
 
 export default Settings;

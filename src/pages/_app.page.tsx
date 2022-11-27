@@ -11,8 +11,6 @@ import Loading from '@src/shared/components/Loading';
 import MainLayout from '@src/shared/components/MainLayout';
 import ToastContainer from '@src/shared/components/ToastContainer';
 import { queryClient } from '@src/shared/configs/react-query';
-import InitializeContext from '@src/shared/contexts/InitializeContext';
-import InitializeContextProvider from '@src/shared/contexts/InitializeContext/provider';
 import { ModalReducerContextProvider } from '@src/shared/contexts/ModalReducerContext';
 import GlobalStyle from '@src/shared/styles/GlobalStyle';
 import { lightTheme } from '@src/shared/styles/themes';
@@ -45,13 +43,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
               <ToastContainer />
               <MainLayout>
                 <ModalReducerContextProvider>
-                  <InitializeContextProvider>
-                    <InitializeContext.Consumer>
-                      {({ isInitialized }) =>
-                        isInitialized ? getLayout(<Component {...pageProps} />) : null
-                      }
-                    </InitializeContext.Consumer>
-                  </InitializeContextProvider>
+                  {getLayout(<Component {...pageProps} />)}
                   <GlobalConfirmModal />
                 </ModalReducerContextProvider>
               </MainLayout>

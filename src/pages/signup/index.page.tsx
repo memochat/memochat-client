@@ -1,4 +1,3 @@
-import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
@@ -9,8 +8,10 @@ import EmailSection from '@src/features/auth/components/EmailSection';
 import PasswordSection from '@src/features/auth/components/PasswordSection';
 import useSignupForm, { SignUpFormType } from '@src/features/auth/hooks/useSignupForm';
 import { Button, Stepper } from '@src/shared/components';
+import { NextPageWithLayout } from '@src/shared/types/next';
+import AuthGuard from '@src/features/auth/components/AuthGuard';
 
-const SignUp: NextPage = () => {
+const SignUp: NextPageWithLayout = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const { control, handleSubmit, formState } = useSignupForm();
   const router = useRouter();
@@ -57,5 +58,7 @@ const SignUp: NextPage = () => {
     </S.Wrapper>
   );
 };
+
+SignUp.getLayout = (page) => <AuthGuard>{page}</AuthGuard>;
 
 export default SignUp;

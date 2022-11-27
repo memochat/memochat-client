@@ -10,6 +10,9 @@ export const getMemoRooms = async () => {
 };
 
 const useMemoRoomsQuery = (options?: UseQueryOptions<GetMemoRooms['res']>) =>
-  useQuery(memoRoomKeys.list(), getMemoRooms, options);
+  useQuery(memoRoomKeys.list(), getMemoRooms, {
+    staleTime: 1000 * 10,
+    ...options,
+  });
 
 export default useMemoRoomsQuery;

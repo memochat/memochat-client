@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import useAuth from '../../hooks/useAuth';
 import { GuestGuardProps } from './GuestGuard.types';
@@ -10,26 +10,16 @@ import { GuestGuardProps } from './GuestGuard.types';
 const GuestGuard = ({ children }: GuestGuardProps) => {
   const { authState } = useAuth();
   const router = useRouter();
-  const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
     if (!router.isReady) {
-      setIsChecked(false);
       return;
     }
     if (authState.isAuthenticated) {
-      setIsChecked(false);
-      console.log(authState);
-
       router.replace('/');
       return;
     }
-    setIsChecked(true);
   }, [router, authState]);
-
-  if (!isChecked) {
-    return null;
-  }
 
   return <>{children}</>;
 };
