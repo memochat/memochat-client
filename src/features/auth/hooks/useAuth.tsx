@@ -1,4 +1,5 @@
 import { useRecoilState } from 'recoil';
+import { useCallback } from 'react';
 
 import usePostSignInMutation from '../api/usePostSignInMutation';
 
@@ -24,10 +25,8 @@ const useAuth = () => {
       setRefreshToken(refreshToken);
     },
     onError: (e) => {
-      console.error(e);
       if (e instanceof MemoChatError) {
         toast.error(e.message);
-        return;
       }
     },
   });
@@ -45,22 +44,31 @@ const useAuth = () => {
     },
   });
 
-  const initializeUser = () => {
-    if (getAccessToken()) {
-      return getUser();
+  const initializeUser = useCallback(async () => {
+    if (!getAccessToken()) {
+      return false;
     }
-    return null;
-  };
+    try {
+      const { data: user } = await getUser();
+      setAuthState({ isAuthenticated: true, user });
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }, [getUser, setAuthState]);
 
-  const login = async (values: SignIn['param']) => {
-    await mutateAsync(values);
-    await getUser();
-  };
+  const login = useCallback(
+    async (values: SignIn['param']) => {
+      await mutateAsync(values);
+      await getUser();
+    },
+    [getUser, mutateAsync],
+  );
 
-  const logout = () => {
+  const logout = useCallback(() => {
     removeAccessToken();
     return setAuthState((prev) => ({ ...prev, user: null, isAuthenticated: false }));
-  };
+  }, [setAuthState]);
 
   return { login, logout, initializeUser, authState };
 };

@@ -5,6 +5,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  swcMinify: true,
   experimental: {
     outputStandalone: true,
   },
@@ -14,7 +15,6 @@ const nextConfig = {
     domains: ['memochat-develop.s3.ap-northeast-2.amazonaws.com'],
   },
   typescript: {
-    tsconfigPath: path.resolve(__dirname, 'tsconfig.json'),
     ignoreBuildErrors: true,
   },
   eslint: {

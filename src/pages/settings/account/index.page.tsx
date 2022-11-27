@@ -3,9 +3,11 @@ import Link from 'next/link';
 
 import * as S from './account.styles';
 
-import { Button, Header } from '@src/shared/components';
+import { Header } from '@src/shared/components';
+import { NextPageWithLayout } from '@src/shared/types/next';
+import AuthGuard from '@src/features/auth/components/AuthGuard';
 
-const Account: NextPage = () => {
+const Account: NextPageWithLayout = () => {
   return (
     <S.Wrapper>
       <Header title="계정관리" titleAlign="center" />
@@ -27,5 +29,7 @@ const Account: NextPage = () => {
     </S.Wrapper>
   );
 };
+
+Account.getLayout = (page) => <AuthGuard>{page}</AuthGuard>;
 
 export default Account;

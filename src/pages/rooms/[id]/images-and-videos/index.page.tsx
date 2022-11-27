@@ -9,7 +9,8 @@ import ImageManageListItem from '@src/features/chat/components/ImageManageListIt
 import { Icon } from '@src/shared/components';
 import Header from '@src/shared/components/Header';
 import useConfirm from '@src/shared/hooks/useConfirm';
-import { GetServerSidePropsWithState } from '@src/shared/types/next';
+import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/types/next';
+import AuthGuard from '@src/features/auth/components/AuthGuard';
 
 const mockImageSrc = '/images/big-chat.png';
 const MOCK_IMAGES = [
@@ -35,7 +36,7 @@ const MOCK_IMAGES = [
   })),
 ];
 
-const ImageAndVideoManageList: NextPage<ImageAndVideoManageListProps> = ({ id }) => {
+const ImageAndVideoManageList: NextPageWithLayout<ImageAndVideoManageListProps> = ({ id }) => {
   const { confirm } = useConfirm();
 
   const [mode, setMode] = useState<ImageAndVideoManageMode>('read');
@@ -147,8 +148,6 @@ const ImageAndVideoManageList: NextPage<ImageAndVideoManageListProps> = ({ id })
   );
 };
 
-export default ImageAndVideoManageList;
-
 export const getServerSideProps: GetServerSidePropsWithState<ImageAndVideoManageListProps> = async (
   ctx,
 ) => {
@@ -162,3 +161,7 @@ export const getServerSideProps: GetServerSidePropsWithState<ImageAndVideoManage
     },
   };
 };
+
+ImageAndVideoManageList.getLayout = (page) => <AuthGuard>{page}</AuthGuard>;
+
+export default ImageAndVideoManageList;

@@ -1,22 +1,41 @@
 import Axios, { AxiosError, AxiosResponse } from 'axios';
+import { GetServerSidePropsContext } from 'next';
 
-import { getAccessToken } from '../cookie';
+import { accessTokenName, getAccessToken } from '../cookie';
 
+import isServer from '@src/shared/utils/isServer';
 import { BaseRes, MemoChatError } from '@src/shared/types/api';
 
 const axios = Axios.create({
   baseURL: 'https://memochat-server.herokuapp.com/v1',
 });
 
+let serverSideCookies: GetServerSidePropsContext['req']['cookies'];
+
+export const setServerSideToken = (cookies: GetServerSidePropsContext['req']['cookies']) => {
+  serverSideCookies = cookies;
+};
+
 axios.interceptors.request.use(
   (config) => {
-    const accessToken = getAccessToken();
-    if (accessToken) {
-      config.headers = {
-        Authorization: `Bearer ${accessToken}`,
-      };
+    if (isServer()) {
+      const serverAccessToken = serverSideCookies[accessTokenName];
+      if (serverAccessToken) {
+        config.headers = {
+          Authorization: `Bearer ${serverAccessToken}`,
+        };
+      } else {
+        delete config.headers.Authorization;
+      }
     } else {
-      delete config.headers.Authorization;
+      const accessToken = getAccessToken();
+      if (accessToken) {
+        config.headers = {
+          Authorization: `Bearer ${accessToken}`,
+        };
+      } else {
+        delete config.headers.Authorization;
+      }
     }
     return config;
   },
@@ -32,7 +51,7 @@ axios.interceptors.response.use(
   (error) => {
     if (error instanceof AxiosError) {
       const { message, status } = error.response?.data;
-      return Promise.reject(new MemoChatError(message, status));
+      return Promise.reject(new MemoChatError(message, status, error.config.url));
     }
     return Promise.reject(error);
   },

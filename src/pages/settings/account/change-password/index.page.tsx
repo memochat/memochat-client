@@ -1,16 +1,17 @@
-import { NextPage } from 'next';
 import { useState } from 'react';
 import { Controller, SubmitHandler } from 'react-hook-form';
 
 import * as S from './changepassword.styles';
 
+import AuthGuard from '@src/features/auth/components/AuthGuard';
 import useChangePasswordForm, {
   ChangePasswordFormType,
 } from '@src/features/settings/hooks/useChangePasswordForm';
 import { Button, Stepper, TextField } from '@src/shared/components';
 import useConfirm from '@src/shared/hooks/useConfirm';
+import { NextPageWithLayout } from '@src/shared/types/next';
 
-const ChangePassword: NextPage = () => {
+const ChangePassword: NextPageWithLayout = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const { control, handleSubmit, getFieldState, formState } = useChangePasswordForm();
   const { confirm } = useConfirm();
@@ -121,5 +122,7 @@ const ChangePassword: NextPage = () => {
     </S.Wrapper>
   );
 };
+
+ChangePassword.getLayout = (page) => <AuthGuard>{page}</AuthGuard>;
 
 export default ChangePassword;
