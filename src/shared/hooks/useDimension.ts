@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, RefObject, useCallback } from 'react';
+import { useRef, useState, useEffect, RefObject } from 'react';
 import { debounce as _debounce } from 'lodash';
 
 const DEBOUNCE_WAIT_TIME = 300;
@@ -8,15 +8,15 @@ type Dimension = {
   height: number;
 };
 
-interface useElementSizeOptions {
+type UseElementSizeOptions = {
   debounce?: boolean;
   enabled?: boolean;
-}
+};
 
 const useElementDimension = <T extends HTMLElement>({
   debounce,
   enabled = true,
-}: useElementSizeOptions = {}): {
+}: UseElementSizeOptions = {}): {
   ref: RefObject<T>;
   dimension: Dimension;
 } => {
