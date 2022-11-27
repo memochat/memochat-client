@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, RefObject } from 'react';
-import { debounce as _debounce } from 'lodash';
+import { debounce as _debounce } from 'lodash-es';
 
 const DEBOUNCE_WAIT_TIME = 300;
 
