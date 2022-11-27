@@ -52,20 +52,15 @@ const RoomList = () => {
   const listWrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (os !== 'ios' || !listWrapperRef.current) return;
     // ios인 경우 스크롤 시 input이 키보드 아래로 내려가므로 input의 focus를 해제하여 이 현상을 방지한다.
-    if (os === 'ios') {
-      const listWrapper = listWrapperRef.current;
-      if (listWrapper) {
-        const onTouchMove = () => {
-          (document.activeElement as HTMLInputElement).blur();
-        };
-
-        listWrapper.addEventListener('touchmove', onTouchMove);
-
-        return () => listWrapper.removeEventListener('touchmove', onTouchMove);
-      }
-    }
-  }, []);
+    const onTouchMove = () => {
+      (document.activeElement as HTMLInputElement).blur();
+    };
+    const listWrapper = listWrapperRef.current;
+    listWrapper.addEventListener('touchmove', onTouchMove);
+    return () => listWrapper.removeEventListener('touchmove', onTouchMove);
+  }, [os]);
 
   const handleRoomSelect = (room: MemoRoom) => {
     const isSelected = room.id === selectedRoom?.id;

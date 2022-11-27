@@ -12,14 +12,13 @@ const KeyboardFloatingLayout = ({ children }: KeyboardFloatingLayoutProps) => {
   const { height: visualViewportHeight } = useVisualViewportDimension(os === 'ios');
 
   useEffect(() => {
-    if (os === 'ios') {
-      // 키보드 변경시 입력창이 가려지는 문제 수정
-      if (visualViewportHeight < window.outerHeight) {
-        const scrollHeight = window.document.scrollingElement.scrollHeight;
-        const scrollTop = scrollHeight - window.visualViewport.height;
+    if (os !== 'ios') return;
+    // 키보드 변경시 입력창이 가려지는 문제 수정
+    if (visualViewportHeight < window.outerHeight) {
+      const scrollHeight = window.document.scrollingElement.scrollHeight;
+      const scrollTop = scrollHeight - window.visualViewport.height;
 
-        window.scrollTo({ top: scrollTop });
-      }
+      window.scrollTo({ top: scrollTop });
     }
   }, [os, visualViewportHeight]);
 

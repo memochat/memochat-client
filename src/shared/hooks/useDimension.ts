@@ -27,26 +27,24 @@ const useElementDimension = <T extends HTMLElement>({
   });
 
   useEffect(() => {
-    if (enabled) {
-      if (!ref.current) return;
+    if (!enabled || !ref.current) return;
 
-      const resizeHandler: ResizeObserverCallback = (entries) => {
-        const entry = entries[0];
-        if (entry.contentRect) {
-          setDimension({
-            width: entry.contentRect.width,
-            height: entry.contentRect.height,
-          });
-        }
-      };
+    const resizeHandler: ResizeObserverCallback = (entries) => {
+      const entry = entries[0];
+      if (entry.contentRect) {
+        setDimension({
+          width: entry.contentRect.width,
+          height: entry.contentRect.height,
+        });
+      }
+    };
 
-      const debouncedResizeHandler = _debounce(resizeHandler, DEBOUNCE_WAIT_TIME);
-      const resizeObserver = new ResizeObserver(debounce ? debouncedResizeHandler : resizeHandler);
+    const debouncedResizeHandler = _debounce(resizeHandler, DEBOUNCE_WAIT_TIME);
+    const resizeObserver = new ResizeObserver(debounce ? debouncedResizeHandler : resizeHandler);
 
-      resizeObserver.observe(ref.current);
+    resizeObserver.observe(ref.current);
 
-      return () => resizeObserver.disconnect();
-    }
+    return () => resizeObserver.disconnect();
   }, [ref, debounce, enabled]);
 
   return { ref, dimension };

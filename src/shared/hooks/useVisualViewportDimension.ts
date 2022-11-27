@@ -16,16 +16,16 @@ const useVisualViewportDimension = (enabled = true): Dimension => {
   const [dimension, setDimension] = useState<Dimension>(initialDimension);
 
   useEffect(() => {
-    if (window.visualViewport && enabled) {
-      const resizeHandler = debounce(() => {
-        const { width, height } = window.visualViewport;
-        setDimension({ width, height });
-      }, DEBOUNCE_WAIT_TIME);
+    if (!enabled || !window.visualViewport) return;
 
-      window.visualViewport.addEventListener('resize', resizeHandler);
+    const resizeHandler = debounce(() => {
+      const { width, height } = window.visualViewport;
+      setDimension({ width, height });
+    }, DEBOUNCE_WAIT_TIME);
 
-      return () => window.visualViewport.removeEventListener('resize', resizeHandler);
-    }
+    window.visualViewport.addEventListener('resize', resizeHandler);
+
+    return () => window.visualViewport.removeEventListener('resize', resizeHandler);
   }, [enabled]);
 
   return dimension;
