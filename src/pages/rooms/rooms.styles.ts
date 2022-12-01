@@ -4,9 +4,9 @@ import RoomCreateButtonComponent from '@src/features/room/components/RoomCreateB
 
 const HEADER_HEIGHT = 51;
 
-export const Wrapper = styled.div`
+export const ListWrapper = styled.div<{ paddingBottom: number }>`
   min-height: 100vh;
-  padding: ${HEADER_HEIGHT + 12}px 0 calc(env(safe-area-inset-bottom, 0) + 120px);
+  ${(p) => `padding: ${HEADER_HEIGHT + 12}px 0 ${p.paddingBottom}px;`}
   -webkit-overflow-scrolling: touch;
 `;
 
@@ -32,13 +32,6 @@ export const ProfileImg = styled.img`
   overflow: hidden;
 
   background-color: ${(p) => p.theme.color.gray6};
-`;
-
-export const FloatingBottomLayout = styled.div`
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
 `;
 
 export const RoomCreateButton = styled(RoomCreateButtonComponent)`

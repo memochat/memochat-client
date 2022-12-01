@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
@@ -20,8 +20,13 @@ import { getMemoRoomCategories } from '@src/features/room/api/useMemoRoomCategor
 import { GetServerSidePropsWithState } from '@src/shared/types/next';
 import { memoRoomCategoryKeys, memoRoomKeys } from '@src/shared/utils/queryKeys';
 import { queryClient } from '@src/shared/configs/react-query';
+import KeyboardFloatingLayout from '@src/shared/components/KeyboardFloatingLayout';
+import useElementDimension from '@src/shared/hooks/useDimension';
+import { getOS } from '@src/shared/utils/getOS';
 
 const RoomList = () => {
+  const os = getOS();
+
   const router = useRouter();
   const { confirm } = useConfirm();
 
@@ -33,11 +38,29 @@ const RoomList = () => {
   const [isCreateRoomDialogOpen, setIsCreateRoomDialogOpen] = useState(false);
   const [isUpdateRoomDialogOpen, setIsUpdateRoomDialogOpen] = useState(false);
 
+  const {
+    ref: memoFormRef,
+    dimension: { height: memoFormHeight },
+  } = useElementDimension<HTMLFormElement>();
+
   const { mutate: deleteMemoRoom } = useDeleteMemoRoomMutation({
     onSuccess: () => {
       queryClient.invalidateQueries(memoRoomKeys.list());
     },
   });
+
+  const listWrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (os !== 'ios' || !listWrapperRef.current) return;
+    // ios인 경우 스크롤 시 input이 키보드 아래로 내려가므로 input의 focus를 해제하여 이 현상을 방지한다.
+    const onTouchMove = () => {
+      (document.activeElement as HTMLInputElement).blur();
+    };
+    const listWrapper = listWrapperRef.current;
+    listWrapper.addEventListener('touchmove', onTouchMove);
+    return () => listWrapper.removeEventListener('touchmove', onTouchMove);
+  }, [os]);
 
   const handleRoomSelect = (room: MemoRoom) => {
     const isSelected = room.id === selectedRoom?.id;
@@ -89,10 +112,10 @@ const RoomList = () => {
           </a>
         </Link>
       </S.Header>
-      <S.Wrapper>
+      <S.ListWrapper ref={listWrapperRef} paddingBottom={memoFormHeight}>
         {isLoading && <>{/* TODO: 로딩시 스피너 띄우기 */}</>}
         {!isLoading && !rooms?.length && <RoomListEmpty />}
-        {!isLoading && rooms.length > 0 && (
+        {!isLoading && rooms?.length > 0 && (
           <SwipeableList fullSwipe={false} type={ListType.IOS}>
             {rooms.map((room) => (
               <RoomListItem
@@ -110,11 +133,11 @@ const RoomList = () => {
             ))}
           </SwipeableList>
         )}
-      </S.Wrapper>
-      <S.FloatingBottomLayout>
+      </S.ListWrapper>
+      <KeyboardFloatingLayout>
         <S.RoomCreateButton onClick={handleRoomCreateClick} />
-        <RoomMemoForm selectedRoom={selectedRoom} showSelectedRoom />
-      </S.FloatingBottomLayout>
+        <RoomMemoForm ref={memoFormRef} selectedRoom={selectedRoom} showSelectedRoom />
+      </KeyboardFloatingLayout>
       <UpsertRoomDialog
         type="create"
         open={isCreateRoomDialogOpen}

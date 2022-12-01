@@ -22,8 +22,19 @@ const customReset = css`
   }
 
   body {
+    position: relative;
+    width: 100%;
+    overflow-y: auto;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+
+    > #make-scrollable {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1px;
+      height: calc(100% + 1px); // height를 100%보다 1px높게 잡아 실제로 scroll이 되도록 만듭니다.
+    }
   }
 
   img,

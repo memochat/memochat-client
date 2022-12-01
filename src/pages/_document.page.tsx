@@ -15,6 +15,7 @@ class MyDocument extends Document {
         <body>
           <Main />
           <div id="bottom-sheet" />
+          <div id="make-scrollable" />
           <NextScript />
         </body>
       </Html>
