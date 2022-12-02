@@ -13,7 +13,6 @@ import useMemoRoomQuery, { getMemoRoom } from '@src/features/room/api/useMemoRoo
 import { memoRoomKeys } from '@src/shared/utils/queryKeys';
 import useConfirm from '@src/shared/hooks/useConfirm';
 import useDeleteMemoRoomMutation from '@src/features/room/api/useDeleteMemoRoomMutation';
-import { queryClient } from '@src/shared/configs/react-query';
 
 const images = ['/images/alarm.png', '/images/bell.png', '/images/bell.png', '/images/bell.png'];
 
@@ -22,12 +21,7 @@ const RoomSetting: NextPage<RoomSettingProps> = ({ id }) => {
   const router = useRouter();
 
   const { data: memoRoom } = useMemoRoomQuery(id);
-  const { mutate: deleteMemoRoom } = useDeleteMemoRoomMutation({
-    onSuccess: () => {
-      queryClient.invalidateQueries(memoRoomKeys.list());
-      router.replace('/');
-    },
-  });
+  const { mutate: deleteMemoRoom } = useDeleteMemoRoomMutation();
 
   const [isUpdateRoomDialogOpen, setIsUpdateRoomDialogOpen] = useState(false);
 
@@ -51,7 +45,14 @@ const RoomSetting: NextPage<RoomSettingProps> = ({ id }) => {
         variant: 'danger',
       })
     ) {
-      deleteMemoRoom({ id: memoRoom.id });
+      deleteMemoRoom(
+        { id: memoRoom.id },
+        {
+          onSuccess: () => {
+            router.replace('/');
+          },
+        },
+      );
     }
   };
 

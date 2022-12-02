@@ -8,8 +8,6 @@ import useUpdateMemoRoomMutation from '../../api/useUpdateMemoRoomMutation';
 
 import Button from '@src/shared/components/Button';
 import { Modal, ModalButtonGroup, ModalContents, TextField } from '@src/shared/components';
-import { queryClient } from '@src/shared/configs/react-query';
-import { memoRoomKeys } from '@src/shared/utils/queryKeys';
 
 const DEFAULT_VALUE = {
   name: '',
@@ -27,20 +25,8 @@ const UpsertRoomDialog = ({
 }: UpsertRoomDialogProps) => {
   const title = type === 'create' ? '룸 만들기' : '룸 수정하기';
 
-  const { mutate: createMemoRoom } = useCreateMemoRoomMutation({
-    onSuccess: () => {
-      queryClient.invalidateQueries(memoRoomKeys.list());
-      reset();
-      onClose();
-    },
-  });
-  const { mutate: updateRoom } = useUpdateMemoRoomMutation({
-    onSuccess: (_, { id }) => {
-      queryClient.invalidateQueries(memoRoomKeys.list());
-      queryClient.invalidateQueries(memoRoomKeys.detail(id));
-      onClose();
-    },
-  });
+  const { mutate: createMemoRoom } = useCreateMemoRoomMutation();
+  const { mutate: updateRoom } = useUpdateMemoRoomMutation();
 
   const {
     handleSubmit,
@@ -59,12 +45,24 @@ const UpsertRoomDialog = ({
 
   const handleConfirm = handleSubmit((data) => {
     if (type === 'create') {
-      createMemoRoom(data);
-    } else {
-      updateRoom({
-        id: selectedRoomId,
-        param: data,
+      createMemoRoom(data, {
+        onSuccess: () => {
+          reset();
+          onClose();
+        },
       });
+    } else {
+      updateRoom(
+        {
+          id: selectedRoomId,
+          param: data,
+        },
+        {
+          onSuccess: () => {
+            onClose();
+          },
+        },
+      );
     }
   });
 
