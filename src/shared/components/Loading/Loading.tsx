@@ -7,26 +7,26 @@ import { useEffectOnce } from 'react-use';
 import * as S from './Loading.styles';
 import { LoadingProps } from './Loading.types';
 
-// import loadingLottie from '@src/assets/lotti/loading.json';
+import loadingLottie from '@src/assets/lotti/loading.json';
 
 const Loading = ({ initialLoadingState = false }: LoadingProps) => {
   const router = useRouter();
-  // const lottieRef = useRef<HTMLDivElement>(null);
+  const lottieRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(initialLoadingState);
 
-  // useEffect(() => {
-  //   if (lottieRef === null || !isLoading) {
-  //     return;
-  //   }
-  //   Lottie.loadAnimation({
-  //     container: lottieRef.current as HTMLDivElement,
-  //     renderer: 'svg',
-  //     loop: true,
-  //     autoplay: true,
-  //     animationData: loadingLottie,
-  //     path: '',
-  //   });
-  // }, [isLoading]);
+  useEffect(() => {
+    if (lottieRef === null || !isLoading) {
+      return;
+    }
+    Lottie.loadAnimation({
+      container: lottieRef.current as HTMLDivElement,
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      animationData: loadingLottie,
+      path: '',
+    });
+  }, [isLoading]);
 
   useEffectOnce(() => {
     if (!router.isReady) {

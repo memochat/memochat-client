@@ -18,24 +18,13 @@ export const setServerSideToken = (cookies: GetServerSidePropsContext['req']['co
 
 axios.interceptors.request.use(
   (config) => {
-    if (isServer()) {
-      const serverAccessToken = serverSideCookies[accessTokenName];
-      if (serverAccessToken) {
-        config.headers = {
-          Authorization: `Bearer ${serverAccessToken}`,
-        };
-      } else {
-        delete config.headers.Authorization;
-      }
+    const accessToken = isServer() ? serverSideCookies[accessTokenName] : getAccessToken();
+    if (accessToken) {
+      config.headers = {
+        Authorization: `Bearer ${accessToken}`,
+      };
     } else {
-      const accessToken = getAccessToken();
-      if (accessToken) {
-        config.headers = {
-          Authorization: `Bearer ${accessToken}`,
-        };
-      } else {
-        delete config.headers.Authorization;
-      }
+      delete config.headers.Authorization;
     }
     return config;
   },
@@ -50,8 +39,11 @@ axios.interceptors.response.use(
     } as AxiosResponse<unknown>),
   (error) => {
     if (error instanceof AxiosError) {
-      const { message, status } = error.response?.data;
-      return Promise.reject(new MemoChatError(message, status, error.config.url));
+      if (error.response?.data) {
+        const { message, status } = error.response?.data;
+        return Promise.reject(new MemoChatError(message, status, error.config.url));
+      }
+      return Promise.reject(new MemoChatError(error.message, error.status, error.config.url));
     }
     return Promise.reject(error);
   },

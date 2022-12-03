@@ -18,7 +18,7 @@ import { toast } from '@src/shared/utils/toast';
 
 const useAuth = () => {
   const [authState, setAuthState] = useRecoilState(authStateAtom);
-  const { mutateAsync } = usePostSignInMutation({
+  const { mutateAsync: postSignIn } = usePostSignInMutation({
     onSuccess(data) {
       const { accessToken, refreshToken } = data;
       setAccessToken(accessToken);
@@ -35,6 +35,7 @@ const useAuth = () => {
     enabled: false,
     retry: 0,
     onSuccess: (data) => {
+      console.log('onsuccess', data);
       setAuthState({ ...authState, isAuthenticated: true, user: data });
     },
     onError: () => {
@@ -59,10 +60,10 @@ const useAuth = () => {
 
   const login = useCallback(
     async (values: SignIn['param']) => {
-      await mutateAsync(values);
-      await getUser();
+      await postSignIn(values);
+      return getUser();
     },
-    [getUser, mutateAsync],
+    [getUser, postSignIn],
   );
 
   const logout = useCallback(() => {
