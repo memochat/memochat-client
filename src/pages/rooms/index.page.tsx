@@ -34,9 +34,6 @@ const RoomList: NextPageWithLayout = () => {
 
   const { data: rooms, isLoading } = useMemoRoomsQuery();
 
-  // const { data: h } = useMemoRoomCategoriesQuery();
-  // console.log(h);
-
   const [selectedRoom, setSelectedRoom] = useState<MemoRoom | null>(rooms?.[0]);
   const [selectedUpdateRoom, setSelectedUpdateRoom] = useState<MemoRoom | null>(rooms?.[0]);
 
