@@ -45,11 +45,7 @@ const RoomList: NextPageWithLayout = () => {
     dimension: { height: memoFormHeight },
   } = useElementDimension<HTMLFormElement>();
 
-  const { mutate: deleteMemoRoom } = useDeleteMemoRoomMutation({
-    onSuccess: () => {
-      queryClient.invalidateQueries(memoRoomKeys.list());
-    },
-  });
+  const { mutate: deleteMemoRoom } = useDeleteMemoRoomMutation();
 
   const listWrapperRef = useRef<HTMLDivElement>(null);
 

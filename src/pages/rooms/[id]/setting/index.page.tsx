@@ -7,10 +7,9 @@ import { RoomSettingProps } from './setting.types';
 
 import AuthGuard from '@src/features/auth/components/AuthGuard';
 import useDeleteMemoRoomMutation from '@src/features/room/api/useDeleteMemoRoomMutation';
-import useMemoRoomQuery, { getMemoRoom } from '@src/features/room/api/useMemoRoomQuery';
 import { RoomDetailMenu, UpsertRoomDialog } from '@src/features/room/components';
 import { Header } from '@src/shared/components';
-import { queryClient } from '@src/shared/configs/react-query';
+import useMemoRoomQuery, { getMemoRoom } from '@src/features/room/api/useMemoRoomQuery';
 import useConfirm from '@src/shared/hooks/useConfirm';
 import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/types/next';
 import { memoRoomKeys } from '@src/shared/utils/queryKeys';
@@ -22,12 +21,7 @@ const RoomSetting: NextPageWithLayout<RoomSettingProps> = ({ id }) => {
   const router = useRouter();
 
   const { data: memoRoom } = useMemoRoomQuery(id);
-  const { mutate: deleteMemoRoom } = useDeleteMemoRoomMutation({
-    onSuccess: () => {
-      queryClient.invalidateQueries(memoRoomKeys.list());
-      router.replace('/');
-    },
-  });
+  const { mutate: deleteMemoRoom } = useDeleteMemoRoomMutation();
 
   const [isUpdateRoomDialogOpen, setIsUpdateRoomDialogOpen] = useState(false);
 
@@ -51,7 +45,14 @@ const RoomSetting: NextPageWithLayout<RoomSettingProps> = ({ id }) => {
         variant: 'danger',
       })
     ) {
-      deleteMemoRoom({ id: memoRoom.id });
+      deleteMemoRoom(
+        { id: memoRoom.id },
+        {
+          onSuccess: () => {
+            router.replace('/');
+          },
+        },
+      );
     }
   };
 
