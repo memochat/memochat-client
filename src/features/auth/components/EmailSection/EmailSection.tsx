@@ -23,7 +23,6 @@ const EmailSection = (props: EmailSectionProps) => {
       setIsCodeSent(true);
     },
     onError: (e) => {
-      console.error(e);
       if (e instanceof MemoChatError) {
         toast.error(e.message);
         return;
@@ -40,7 +39,6 @@ const EmailSection = (props: EmailSectionProps) => {
         handleEmailVerifyComplete();
       },
       onError: (e) => {
-        console.error(e);
         if (e instanceof MemoChatError) {
           toast.error(e.message);
           return;

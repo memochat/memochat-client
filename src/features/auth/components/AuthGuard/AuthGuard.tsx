@@ -10,7 +10,7 @@ import { toast } from '@src/shared/utils/toast';
  * 인증이 필요한 page접근시 사용
  */
 const AuthGuard = ({ children }: AuthGuardProps) => {
-  const { authState } = useAuth();
+  const { authState, initializeUser } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
@@ -18,15 +18,20 @@ const AuthGuard = ({ children }: AuthGuardProps) => {
       return;
     }
     if (!authState.isAuthenticated) {
-      toast.error('로그인이 필요합니다.');
-      router.replace('/welcome');
+      initializeUser().then((initialized) => {
+        if (!initialized) {
+          toast.error('로그인이 필요합니다.');
+          router.push('/home');
+        }
+      });
       return;
     }
-  }, [router, authState.isAuthenticated]);
+  }, [router, authState.isAuthenticated, initializeUser]);
 
-  if (!authState.isAuthenticated) {
-    return null;
-  }
+  // if (!authState.isAuthenticated) {
+  //   return null;
+  // }
+
   return <>{children}</>;
 };
 

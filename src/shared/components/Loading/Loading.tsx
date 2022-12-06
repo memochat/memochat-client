@@ -57,8 +57,8 @@ const Loading = ({ initialLoadingState = false }: LoadingProps) => {
 
   return (
     <S.Wrapper>
-      <S.Dim open={isLoading} />
-      <S.Lottie ref={lottieRef} />
+      {/* <S.Dim open={isLoading} /> */}
+      {/* <S.Lottie ref={lottieRef} /> */}
     </S.Wrapper>
   );
 };

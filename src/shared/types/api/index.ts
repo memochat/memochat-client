@@ -12,9 +12,11 @@ export interface BaseError {
 export class MemoChatError implements BaseError {
   status: string;
   message: string;
+  url: string;
 
-  constructor(message: string, status: string) {
+  constructor(message: string, status: string, url?: string) {
     this.message = message;
     this.status = status;
+    this.url = url;
   }
 }

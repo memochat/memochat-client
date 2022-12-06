@@ -1,32 +1,34 @@
-import { useEffect, useState, useRef } from 'react';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { dehydrate, QueryClient } from '@tanstack/react-query';
+import { useEffect, useRef, useState } from 'react';
 import { SwipeableList, Type as ListType } from 'react-swipeable-list';
-import 'react-swipeable-list/dist/styles.css';
 
 import * as S from './rooms.styles';
 
-import { Icon } from '@src/shared/components';
-import RoomMemoForm from '@src/features/room/components/RoomMemoForm';
-import RoomListItem from '@src/features/room/components/RoomListItem';
-import UpsertRoomDialog from '@src/features/room/components/UpsertRoomDialog';
-import useConfirm from '@src/shared/hooks/useConfirm';
-import RoomListEmpty from '@src/features/room/components/RoomListEmpty';
-import { MemoRoom } from '@src/shared/types/memoRooms';
-import useMemoRoomsQuery, { getMemoRooms } from '@src/features/room/api/useMemoRoomsQuery';
+import AuthGuard from '@src/features/auth/components/AuthGuard';
 import useDeleteMemoRoomMutation from '@src/features/room/api/useDeleteMemoRoomMutation';
 import { getMemoRoomCategories } from '@src/features/room/api/useMemoRoomCategoriesQuery';
-import { GetServerSidePropsWithState } from '@src/shared/types/next';
-import { memoRoomCategoryKeys, memoRoomKeys } from '@src/shared/utils/queryKeys';
-import { queryClient } from '@src/shared/configs/react-query';
+import useMemoRoomsQuery, { getMemoRooms } from '@src/features/room/api/useMemoRoomsQuery';
+import RoomListEmpty from '@src/features/room/components/RoomListEmpty';
+import RoomListItem from '@src/features/room/components/RoomListItem';
+import RoomMemoForm from '@src/features/room/components/RoomMemoForm';
+import UpsertRoomDialog from '@src/features/room/components/UpsertRoomDialog';
+import { Icon } from '@src/shared/components';
 import KeyboardFloatingLayout from '@src/shared/components/KeyboardFloatingLayout';
+import { setServerSideToken as setServerSideCookies } from '@src/shared/configs/axios';
+import { queryClient } from '@src/shared/configs/react-query';
+import useConfirm from '@src/shared/hooks/useConfirm';
 import useElementDimension from '@src/shared/hooks/useDimension';
+import { MemoRoom } from '@src/shared/types/memoRooms';
+import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/types/next';
 import { getOS } from '@src/shared/utils/getOS';
+import { memoRoomCategoryKeys, memoRoomKeys } from '@src/shared/utils/queryKeys';
 
-const RoomList = () => {
+import 'react-swipeable-list/dist/styles.css';
+
+const RoomList: NextPageWithLayout = () => {
   const os = getOS();
-
   const router = useRouter();
   const { confirm } = useConfirm();
 
@@ -155,13 +157,13 @@ const RoomList = () => {
   );
 };
 
-export default RoomList;
-
-export const getServerSideProps: GetServerSidePropsWithState = async () => {
+export const getServerSideProps: GetServerSidePropsWithState = async (ctx) => {
   const queryClient = new QueryClient();
 
+  setServerSideCookies(ctx.req.cookies);
   await queryClient.prefetchQuery(memoRoomKeys.list(), getMemoRooms);
   await queryClient.prefetchQuery(memoRoomCategoryKeys.list(), getMemoRoomCategories);
+  setServerSideCookies({});
 
   return {
     props: {
@@ -169,3 +171,7 @@ export const getServerSideProps: GetServerSidePropsWithState = async () => {
     },
   };
 };
+
+RoomList.getLayout = (page) => <AuthGuard>{page}</AuthGuard>;
+
+export default RoomList;

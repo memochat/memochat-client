@@ -1,4 +1,5 @@
 import { useRecoilState } from 'recoil';
+import { useCallback } from 'react';
 
 import usePostSignInMutation from '../api/usePostSignInMutation';
 
@@ -17,17 +18,15 @@ import { toast } from '@src/shared/utils/toast';
 
 const useAuth = () => {
   const [authState, setAuthState] = useRecoilState(authStateAtom);
-  const { mutateAsync } = usePostSignInMutation({
+  const { mutateAsync: postSignIn } = usePostSignInMutation({
     onSuccess(data) {
       const { accessToken, refreshToken } = data;
       setAccessToken(accessToken);
       setRefreshToken(refreshToken);
     },
     onError: (e) => {
-      console.error(e);
       if (e instanceof MemoChatError) {
         toast.error(e.message);
-        return;
       }
     },
   });
@@ -36,6 +35,7 @@ const useAuth = () => {
     enabled: false,
     retry: 0,
     onSuccess: (data) => {
+      console.log('onsuccess', data);
       setAuthState({ ...authState, isAuthenticated: true, user: data });
     },
     onError: () => {
@@ -45,22 +45,31 @@ const useAuth = () => {
     },
   });
 
-  const initializeUser = () => {
-    if (getAccessToken()) {
-      return getUser();
+  const initializeUser = useCallback(async () => {
+    if (!getAccessToken()) {
+      return false;
     }
-    return null;
-  };
+    try {
+      const { data: user } = await getUser();
+      setAuthState({ isAuthenticated: true, user });
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }, [getUser, setAuthState]);
 
-  const login = async (values: SignIn['param']) => {
-    await mutateAsync(values);
-    await getUser();
-  };
+  const login = useCallback(
+    async (values: SignIn['param']) => {
+      await postSignIn(values);
+      return getUser();
+    },
+    [getUser, postSignIn],
+  );
 
-  const logout = () => {
+  const logout = useCallback(() => {
     removeAccessToken();
     return setAuthState((prev) => ({ ...prev, user: null, isAuthenticated: false }));
-  };
+  }, [setAuthState]);
 
   return { login, logout, initializeUser, authState };
 };

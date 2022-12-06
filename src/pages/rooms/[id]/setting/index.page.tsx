@@ -1,22 +1,22 @@
-import { NextPage } from 'next';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 import * as S from './setting.styles';
 import { RoomSettingProps } from './setting.types';
 
+import AuthGuard from '@src/features/auth/components/AuthGuard';
+import useDeleteMemoRoomMutation from '@src/features/room/api/useDeleteMemoRoomMutation';
 import { RoomDetailMenu, UpsertRoomDialog } from '@src/features/room/components';
 import { Header } from '@src/shared/components';
-import { GetServerSidePropsWithState } from '@src/shared/types/next';
 import useMemoRoomQuery, { getMemoRoom } from '@src/features/room/api/useMemoRoomQuery';
-import { memoRoomKeys } from '@src/shared/utils/queryKeys';
 import useConfirm from '@src/shared/hooks/useConfirm';
-import useDeleteMemoRoomMutation from '@src/features/room/api/useDeleteMemoRoomMutation';
+import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/types/next';
+import { memoRoomKeys } from '@src/shared/utils/queryKeys';
 
 const images = ['/images/alarm.png', '/images/bell.png', '/images/bell.png', '/images/bell.png'];
 
-const RoomSetting: NextPage<RoomSettingProps> = ({ id }) => {
+const RoomSetting: NextPageWithLayout<RoomSettingProps> = ({ id }) => {
   const { confirm } = useConfirm();
   const router = useRouter();
 
@@ -118,14 +118,16 @@ const RoomSetting: NextPage<RoomSettingProps> = ({ id }) => {
   );
 };
 
-export default RoomSetting;
-
 export const getServerSideProps: GetServerSidePropsWithState<RoomSettingProps> = async (ctx) => {
   const id = parseInt(ctx.query.id.toString());
 
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(memoRoomKeys.detail(id), () => getMemoRoom(id));
+  try {
+    await queryClient.prefetchQuery(memoRoomKeys.detail(id), () => getMemoRoom(id));
+  } catch (e) {
+    console.error(e);
+  }
 
   return {
     props: {
@@ -134,3 +136,7 @@ export const getServerSideProps: GetServerSidePropsWithState<RoomSettingProps> =
     },
   };
 };
+
+RoomSetting.getLayout = (page) => <AuthGuard>{page}</AuthGuard>;
+
+export default RoomSetting;
