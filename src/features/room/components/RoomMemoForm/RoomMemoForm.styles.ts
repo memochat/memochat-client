@@ -51,8 +51,11 @@ export const ToolBox = styled.div`
 export const ToolBoxIconBox = styled.div`
   display: flex;
   align-items: center;
-  gap: 16px;
   min-height: 32px;
+
+  > *:not(:last-child) {
+    margin-right: 16px;
+  }
 `;
 
 export const SubmitBtn = styled.button`
