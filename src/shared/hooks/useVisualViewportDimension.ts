@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { debounce } from 'lodash-es';
 
+import isServer from '@src/shared/utils/isServer';
+
 const DEBOUNCE_WAIT_TIME = 300;
 
 type Dimension = {
@@ -8,11 +10,12 @@ type Dimension = {
   height: number;
 };
 
+const defaultDimension = isServer()
+  ? { width: 0, height: 0 }
+  : { width: window.visualViewport.width, height: window.visualViewport.height };
+
 const useVisualViewportDimension = (enabled = true): Dimension => {
-  const [dimension, setDimension] = useState<Dimension>({
-    width: window?.visualViewport.width,
-    height: window?.visualViewport.height,
-  });
+  const [dimension, setDimension] = useState<Dimension>(defaultDimension);
 
   useEffect(() => {
     if (!enabled || !window.visualViewport) return;

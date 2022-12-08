@@ -1,7 +1,9 @@
+import isServer from '@src/shared/utils/isServer';
+
 type OS = 'web' | 'android' | 'ios';
 
 export const getOS = (): OS => {
-  if (typeof window === 'undefined') {
+  if (isServer()) {
     return 'web';
   }
 
