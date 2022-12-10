@@ -5,14 +5,13 @@ import { RoomMemoFormProps } from './RoomMemoForm.types';
 
 import useRoomMemoForm, { RoomMemoFormType } from '@src/features/room/hooks/useMemoForm';
 import { Icon } from '@src/shared/components';
+import NativeBridge from '@src/shared/utils/nativeBridge';
 
 // TODO: alert -> 커스텀 alert로 변경
-// TODO: 앨범, 카메라 native 권한 요청
 const RoomMemoForm = forwardRef(
   ({ showSelectedRoom, selectedRoom }: RoomMemoFormProps, ref: LegacyRef<HTMLFormElement>) => {
     const {
       register,
-      setValue,
       handleSubmit,
       formState: { isDirty },
     } = useRoomMemoForm();
@@ -28,8 +27,10 @@ const RoomMemoForm = forwardRef(
         return;
       }
 
-      alert('앨범 클릭');
-      setValue('images', []);
+      // TODO: 업로드한 이미지 url callback으로 전달 받기
+      NativeBridge.uploadImage({
+        type: 'gallery',
+      });
     };
 
     const handleCameraClick: MouseEventHandler<HTMLButtonElement> = () => {
@@ -38,7 +39,10 @@ const RoomMemoForm = forwardRef(
         return;
       }
 
-      alert('카메라 클릭');
+      // TODO: 업로드한 이미지 url callback으로 전달 받기
+      NativeBridge.uploadImage({
+        type: 'camera',
+      });
     };
 
     const handleTextAreaWrapperClick = () => {

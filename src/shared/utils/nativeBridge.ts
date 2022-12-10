@@ -13,7 +13,14 @@ type TestWebViewMessage = {
   action: 'test';
 };
 
-export type WebViewMessage = TestWebViewMessage;
+type UploadImageWebViewMessage = {
+  action: 'uploadImage';
+  data: {
+    type: 'camera' | 'gallery';
+  };
+};
+
+export type WebViewMessage = TestWebViewMessage | UploadImageWebViewMessage;
 
 class NativeBridge {
   private static postMessage(message: WebViewMessage) {
@@ -26,6 +33,10 @@ class NativeBridge {
 
   static test() {
     this.postMessage({ action: 'test' });
+  }
+
+  static uploadImage(data: UploadImageWebViewMessage['data']) {
+    this.postMessage({ action: 'uploadImage', data });
   }
 }
 
