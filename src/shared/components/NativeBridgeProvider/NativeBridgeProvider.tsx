@@ -2,33 +2,21 @@ import { useEffect } from 'react';
 
 import { NativeBridgeProviderProps } from '@src/shared/components/NativeBridgeProvider/types';
 import NativeBridge from '@src/shared/utils/nativeBridge';
-import NativeMessageReceiver, {
-  MemochatNativeMessage,
-} from '@src/shared/utils/nativeMessageReceiver';
+import NativeMessageReceiver, { NativeMessage } from '@src/shared/utils/nativeMessageReceiver';
 
 const NativeBridgeProvider = (props: NativeBridgeProviderProps) => {
   const { children } = props;
 
   useEffect(() => {
-    const nativeBridge = new NativeBridge();
-    nativeBridge.test();
+    NativeBridge.test();
   }, []);
 
   useEffect(() => {
     const handleMessageReceive = (e: Event) => {
       const event = e as MessageEvent;
-      const message = JSON.parse(event.data) as MemochatNativeMessage;
-      const nativeMessageReceiver = new NativeMessageReceiver();
+      const message = JSON.parse(event.data) as NativeMessage;
 
-      switch (message.action) {
-        case 'back': {
-          nativeMessageReceiver.back(message);
-          return;
-        }
-        default: {
-          console.log(message);
-        }
-      }
+      NativeMessageReceiver.execute(message);
     };
 
     document.addEventListener('message', handleMessageReceive);

@@ -1,23 +1,34 @@
 import Router from 'next/router';
 
-export interface MemochatNativeMessage {
+/**
+ NOTE: Native Message 구조
+ {
+   action: string;
+   data?: Record<string, unknown>;
+   callbackId?: string;
+ }
+ */
+
+type BackNativeMessage = {
   action: 'back';
-  data?: Record<string, unknown>;
-  callbackId?: string;
-}
+};
+
+export type NativeMessage = BackNativeMessage;
 
 class NativeMessageReceiver {
-  static instance: NativeMessageReceiver;
-
-  constructor() {
-    if (!NativeMessageReceiver.instance) {
-      NativeMessageReceiver.instance = this;
-      return NativeMessageReceiver.instance;
+  static execute(message: NativeMessage) {
+    switch (message.action) {
+      case 'back': {
+        this.back();
+        return;
+      }
+      default: {
+        console.log(message);
+      }
     }
-    return NativeMessageReceiver.instance;
   }
 
-  back(message: MemochatNativeMessage) {
+  static back() {
     Router.back();
   }
 }

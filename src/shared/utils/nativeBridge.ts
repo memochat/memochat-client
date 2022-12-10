@@ -1,23 +1,31 @@
-export interface MemochatWebViewMessage {
+import isServer from '@src/shared/utils/isServer';
+
+/**
+ NOTE: WebView Message 구조
+ {
+   action: string;
+   data?: Record<string, unknown>;
+   callbackId?: string;
+ }
+ */
+
+type TestWebViewMessage = {
   action: 'test';
-  data?: Record<string, unknown>;
-  callbackId?: string;
-}
+};
+
+export type WebViewMessage = TestWebViewMessage;
 
 class NativeBridge {
-  static instance: NativeBridge;
-
-  constructor() {
-    if (NativeBridge.instance) {
-      return NativeBridge.instance;
+  private static postMessage(message: WebViewMessage) {
+    if (isServer()) {
+      throw new Error('NativeBridge is server side');
     }
-    NativeBridge.instance = this;
-    return NativeBridge.instance;
+
+    window.ReactNativeWebView.postMessage(JSON.stringify(message));
   }
 
-  test() {
-    const message: MemochatWebViewMessage = { action: 'test' };
-    window.ReactNativeWebView.postMessage(JSON.stringify(message));
+  static test() {
+    this.postMessage({ action: 'test' });
   }
 }
 
