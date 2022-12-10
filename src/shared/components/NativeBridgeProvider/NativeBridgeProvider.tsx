@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 
 import { NativeBridgeProviderProps } from '@src/shared/components/NativeBridgeProvider/types';
-import NativeBridge from '@src/shared/configs/nativeBridge';
+import NativeBridge from '@src/shared/utils/nativeBridge';
 import NativeMessageReceiver, {
   MemochatNativeMessage,
-} from '@src/shared/configs/nativeMessageReceiver';
+} from '@src/shared/utils/nativeMessageReceiver';
 
 const NativeBridgeProvider = (props: NativeBridgeProviderProps) => {
   const { children } = props;
