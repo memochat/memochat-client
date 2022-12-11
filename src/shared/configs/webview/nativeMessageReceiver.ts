@@ -1,10 +1,6 @@
 import Router from 'next/router';
 
-export interface MemochatNativeMessage {
-  action: 'back';
-  data?: Record<string, unknown>;
-  callbackId?: string;
-}
+import { MemochatNativeToWebMessage } from '@src/shared/configs/webview/types';
 
 class NativeMessageReceiver {
   static instance: NativeMessageReceiver;
@@ -17,7 +13,7 @@ class NativeMessageReceiver {
     return NativeMessageReceiver.instance;
   }
 
-  back(message: MemochatNativeMessage) {
+  back(message: MemochatNativeToWebMessage) {
     Router.back();
   }
 }

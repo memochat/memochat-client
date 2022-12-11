@@ -1,23 +1,21 @@
 import { useEffect } from 'react';
 
 import { NativeBridgeProviderProps } from '@src/shared/components/NativeBridgeProvider/types';
-import NativeBridge from '@src/shared/configs/nativeBridge';
-import NativeMessageReceiver, {
-  MemochatNativeMessage,
-} from '@src/shared/configs/nativeMessageReceiver';
+import { NativeMessageReceiver, NativeMessageSender } from '@src/shared/configs/webview';
+import { MemochatNativeToWebMessage } from '@src/shared/configs/webview/types';
 
 const NativeBridgeProvider = (props: NativeBridgeProviderProps) => {
   const { children } = props;
 
   useEffect(() => {
-    const nativeBridge = new NativeBridge();
+    const nativeBridge = new NativeMessageSender();
     nativeBridge.test();
   }, []);
 
   useEffect(() => {
     const handleMessageReceive = (e: Event) => {
       const event = e as MessageEvent;
-      const message = JSON.parse(event.data) as MemochatNativeMessage;
+      const message = JSON.parse(event.data) as MemochatNativeToWebMessage;
       const nativeMessageReceiver = new NativeMessageReceiver();
 
       switch (message.action) {
