@@ -1,11 +1,5 @@
 import Router from 'next/router';
 
-export interface MemochatNativeMessage {
-  action: 'back';
-  data?: Record<string, unknown>;
-  callbackId?: string;
-}
-
 class NativeMessageReceiver {
   static instance: NativeMessageReceiver;
 
@@ -17,7 +11,7 @@ class NativeMessageReceiver {
     return NativeMessageReceiver.instance;
   }
 
-  back(message: MemochatNativeMessage) {
+  back() {
     Router.back();
   }
 }
