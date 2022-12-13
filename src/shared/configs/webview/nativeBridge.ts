@@ -1,8 +1,8 @@
 import {
-  MemochatNativeToWebMessage,
-  MemochatNativeToWebCallbackResponseMessage,
-  MemochatWebToNativeMessage,
-  MemochatWebToNativeRequestParams,
+  NativeToWebMessage,
+  NativeToWebCallbackMessage,
+  WebToNativeCallbackMessage,
+  WebToNativeMessage,
 } from '@src/shared/configs/webview/types';
 
 class NativeBridge {
@@ -22,20 +22,13 @@ class NativeBridge {
     return NativeBridge.instance;
   }
 
-  postWebToNativeMessage(req: MemochatWebToNativeRequestParams) {
+  postWebToNativeMessage(req: WebToNativeMessage) {
     console.log('web -> native', JSON.stringify(req, null, 2));
-    const message: MemochatWebToNativeMessage = {
-      action: req.action,
-      args: JSON.stringify(req.args),
-    };
-    if (!req.args) {
-      delete message['args'];
-    }
-    window.ReactNativeWebView.postMessage(JSON.stringify(message));
+    window.ReactNativeWebView.postMessage(JSON.stringify(req));
   }
 
   postWebToNativeCallbackMessage<T extends Record<string, unknown>>(
-    req: MemochatWebToNativeRequestParams,
+    req: WebToNativeCallbackMessage,
   ): Promise<T> {
     console.log('web -> native callback', JSON.stringify(req, null, 2));
     return new Promise<T>((resolve, reject) => {
@@ -46,19 +39,12 @@ class NativeBridge {
         action: req.action,
       });
 
-      const message: MemochatWebToNativeMessage = {
-        action: req.action,
-        args: JSON.stringify(req.args),
-        callbackId: callbackId,
-      };
-      if (!req.args) {
-        delete message['args'];
-      }
-      window.ReactNativeWebView.postMessage(JSON.stringify(message));
+      // TODO: timeout
+      window.ReactNativeWebView.postMessage(JSON.stringify({ ...req, callbackId }));
     });
   }
 
-  postNativeToWebCallbackMessage(params: MemochatNativeToWebCallbackResponseMessage): void {
+  postNativeToWebCallbackMessage(params: NativeToWebCallbackMessage): void {
     console.log('native -> web callback', JSON.stringify(params, null, 2));
     const callback = this.callbacks.get(params.callbackId);
 
@@ -68,9 +54,9 @@ class NativeBridge {
     }
 
     try {
-      if (Boolean(params.error)) {
+      if (Boolean(params?.error)) {
         callback.failure(params.error);
-      } else if (params?.data) {
+      } else if (Boolean(params?.data)) {
         callback.success(params.data);
       }
     } catch (e) {
@@ -83,7 +69,7 @@ class NativeBridge {
     }
   }
 
-  postNativeToWebMessage(params: MemochatNativeToWebMessage): void {
+  postNativeToWebMessage(params: NativeToWebMessage): void {
     console.log('native -> web', JSON.stringify(params, null, 2));
     const hostname = window.location.protocol + '//' + window.location.host;
     try {

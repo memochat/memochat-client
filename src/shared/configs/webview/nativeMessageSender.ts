@@ -1,5 +1,3 @@
-import { MemochatWebToNativeRequestParams } from '@src/shared/configs/webview/types';
-
 class NativeMessageSender {
   static instance: NativeMessageSender;
 
@@ -11,14 +9,16 @@ class NativeMessageSender {
     return NativeMessageSender.instance;
   }
 
+  //일반메시지
   test() {
-    const param: MemochatWebToNativeRequestParams = { action: 'test' };
-    return window.MemochatWebview.postWebToNativeMessage(param);
+    return window.MemochatWebview.postWebToNativeMessage({ action: 'test' });
   }
 
+  //콜백메시지
   callbackTest() {
-    const param: MemochatWebToNativeRequestParams = { action: 'callback-test' };
-    return window.MemochatWebview.postWebToNativeCallbackMessage(param);
+    return window.MemochatWebview.postWebToNativeCallbackMessage({
+      action: 'callback-test',
+    });
   }
 }
 

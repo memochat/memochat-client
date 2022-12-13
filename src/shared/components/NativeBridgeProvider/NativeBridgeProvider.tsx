@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { NativeBridgeProviderProps } from '@src/shared/components/NativeBridgeProvider/types';
 import { NativeMessageReceiver, NativeMessageSender } from '@src/shared/configs/webview';
-import { MemochatNativeToWebMessage } from '@src/shared/configs/webview/types';
+import { NativeToWebMessage } from '@src/shared/configs/webview/types';
 
 const NativeBridgeProvider = (props: NativeBridgeProviderProps) => {
   const { children } = props;
@@ -15,12 +15,12 @@ const NativeBridgeProvider = (props: NativeBridgeProviderProps) => {
   useEffect(() => {
     const handleMessageReceive = (e: Event) => {
       const event = e as MessageEvent;
-      const message = JSON.parse(event.data) as MemochatNativeToWebMessage;
+      const message = JSON.parse(event.data) as NativeToWebMessage;
       const nativeMessageReceiver = new NativeMessageReceiver();
 
       switch (message.action) {
         case 'back': {
-          nativeMessageReceiver.back(message);
+          nativeMessageReceiver.back();
           return;
         }
         default: {

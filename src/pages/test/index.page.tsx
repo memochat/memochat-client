@@ -13,9 +13,11 @@ const Page = () => {
     const a = await k.callbackTest();
     alert(JSON.stringify(a));
   };
+
   useEffect(() => {
     window.MemochatWebview = new NativeBridge();
   }, []);
+
   return (
     <div>
       <button type="button" onClick={s}>
