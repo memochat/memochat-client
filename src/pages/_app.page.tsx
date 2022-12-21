@@ -55,7 +55,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
               </MainLayout>
             </RecoilRoot>
           </Hydrate>
-          <ReactQueryDevtools position="bottom-right" />
+          <ReactQueryDevtools />
         </QueryClientProvider>
       </ThemeProvider>
     </>
