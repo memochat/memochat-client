@@ -3,6 +3,7 @@ import {
   NativeToWebCallbackMessage,
   WebToNativeCallbackMessage,
   WebToNativeMessage,
+  NativeToWebCallbackMessageError,
 } from '@src/shared/configs/webview/types';
 
 class NativeBridge {
@@ -27,9 +28,10 @@ class NativeBridge {
     window.ReactNativeWebView.postMessage(JSON.stringify(message));
   }
 
-  postWebToNativeCallbackMessage<TData = Record<string, unknown>, TError = Record<string, unknown>>(
-    message: Omit<WebToNativeCallbackMessage, 'callbackId'>,
-  ): Promise<TData> {
+  postWebToNativeCallbackMessage<
+    TData = Record<string, unknown>,
+    TError = NativeToWebCallbackMessageError,
+  >(message: Omit<WebToNativeCallbackMessage, 'callbackId'>): Promise<TData> {
     console.log('web -> native callback', JSON.stringify(message, null, 2));
     return new Promise<TData>((resolve, reject) => {
       const callbackId = `${this.callbackId++}`;

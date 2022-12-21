@@ -33,17 +33,22 @@ export type NativeToWebCallbackMessage =
   | UploadImageNativeToWebCallbackMessage;
 export type NativeToWebCallbackAction = NativeToWebCallbackMessage['action'];
 
+export type NativeToWebCallbackMessageError = {
+  type?: string;
+  message?: string;
+};
+
 export type CallbackTestNativeToWebCallbackMessage = {
   action: 'callback-test';
   data?: Record<string, unknown>;
-  error?: Record<string, unknown>;
+  error?: NativeToWebCallbackMessageError;
   callbackId?: string;
 };
 
 export type UploadImageNativeToWebCallbackMessage = {
   action: 'upload-image';
   data?: { imageUrl: string };
-  error?: Record<string, unknown>;
+  error?: NativeToWebCallbackMessageError;
   callbackId?: string;
 };
 
