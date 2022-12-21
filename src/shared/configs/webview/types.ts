@@ -3,26 +3,46 @@ export type WebToNativeMessage = TestWebToNativeMessage;
 
 export type WebToNativeAction = WebToNativeMessage['action'];
 
-type TestWebToNativeMessage = {
+export type TestWebToNativeMessage = {
   action: 'test';
 };
 
 // web to native callback message
-export type WebToNativeCallbackMessage = CallbackTestWebToNativeCallbackMessage;
+export type WebToNativeCallbackMessage =
+  | CallbackTestWebToNativeCallbackMessage
+  | UploadImageWebToNativeCallbackMessage;
 export type WebToNativeCallbackAction = WebToNativeCallbackMessage['action'];
 
-type CallbackTestWebToNativeCallbackMessage = {
+export type CallbackTestWebToNativeCallbackMessage = {
   action: 'callback-test';
   args?: Record<string, unknown>;
+  callbackId: string;
+};
+
+export type UploadImageWebToNativeCallbackMessage = {
+  action: 'upload-image';
+  args: {
+    type: 'camera' | 'gallery';
+  };
+  callbackId: string;
 };
 
 // native to web callback response message
-export type NativeToWebCallbackMessage = CallbackTestNativeToWebCallbackMessage;
+export type NativeToWebCallbackMessage =
+  | CallbackTestNativeToWebCallbackMessage
+  | UploadImageNativeToWebCallbackMessage;
 export type NativeToWebCallbackAction = NativeToWebCallbackMessage['action'];
 
 export type CallbackTestNativeToWebCallbackMessage = {
   action: 'callback-test';
   data?: Record<string, unknown>;
+  error?: Record<string, unknown>;
+  callbackId?: string;
+};
+
+export type UploadImageNativeToWebCallbackMessage = {
+  action: 'upload-image';
+  data?: { imageUrl: string };
   error?: Record<string, unknown>;
   callbackId?: string;
 };

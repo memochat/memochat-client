@@ -28,7 +28,7 @@ class NativeBridge {
   }
 
   postWebToNativeCallbackMessage<TData = Record<string, unknown>, TError = Record<string, unknown>>(
-    message: WebToNativeCallbackMessage,
+    message: Omit<WebToNativeCallbackMessage, 'callbackId'>,
   ): Promise<TData> {
     console.log('web -> native callback', JSON.stringify(message, null, 2));
     return new Promise<TData>((resolve, reject) => {

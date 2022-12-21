@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
+import { useEffect } from 'react';
 
 import GlobalConfirmModal from '@src/shared/components/GlobalConfirmModal';
 import Loading from '@src/shared/components/Loading';
@@ -15,6 +16,7 @@ import { ModalReducerContextProvider } from '@src/shared/contexts/ModalReducerCo
 import GlobalStyle from '@src/shared/styles/GlobalStyle';
 import { lightTheme } from '@src/shared/styles/themes';
 import { NextPageWithLayout } from '@src/shared/types/next';
+import { NativeBridge } from '@src/shared/configs/webview';
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
@@ -22,6 +24,10 @@ type AppPropsWithLayout = AppProps & {
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
+
+  useEffect(() => {
+    window.MemochatWebview = new NativeBridge();
+  }, []);
 
   return (
     <>
@@ -49,7 +55,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
               </MainLayout>
             </RecoilRoot>
           </Hydrate>
-          <ReactQueryDevtools />
+          <ReactQueryDevtools position="bottom-right" />
         </QueryClientProvider>
       </ThemeProvider>
     </>

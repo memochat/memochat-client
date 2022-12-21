@@ -5,9 +5,9 @@ import { RoomMemoFormProps } from './RoomMemoForm.types';
 
 import useRoomMemoForm, { RoomMemoFormType } from '@src/features/room/hooks/useMemoForm';
 import { Icon } from '@src/shared/components';
+import { NativeMessageSender } from '@src/shared/configs/webview';
 
 // TODO: alert -> 커스텀 alert로 변경
-// TODO: 앨범, 카메라 native 권한 요청
 const RoomMemoForm = forwardRef(
   ({ showSelectedRoom, selectedRoom }: RoomMemoFormProps, ref: LegacyRef<HTMLFormElement>) => {
     const {
@@ -22,23 +22,26 @@ const RoomMemoForm = forwardRef(
       e.currentTarget.style.height = `${64 + Math.round(e.currentTarget.scrollHeight - 64)}px`;
     };
 
-    const handleAlbumClick: MouseEventHandler<HTMLButtonElement> = () => {
+    const handleAlbumClick: MouseEventHandler<HTMLButtonElement> = async () => {
       if (!selectedRoom) {
         alert('채팅방을 선택해주세요.');
         return;
       }
 
-      alert('앨범 클릭');
-      setValue('images', []);
+      const nativeMessageSender = new NativeMessageSender();
+      const { imageUrl } = await nativeMessageSender.uploadImage({ type: 'gallery' });
+      alert(`갤러리 이미지: ${imageUrl}`);
     };
 
-    const handleCameraClick: MouseEventHandler<HTMLButtonElement> = () => {
+    const handleCameraClick: MouseEventHandler<HTMLButtonElement> = async () => {
       if (!selectedRoom) {
         alert('채팅방을 선택해주세요.');
         return;
       }
 
-      alert('카메라 클릭');
+      const nativeMessageSender = new NativeMessageSender();
+      const { imageUrl } = await nativeMessageSender.uploadImage({ type: 'camera' });
+      alert(`카메라 이미지: ${imageUrl}`);
     };
 
     const handleTextAreaWrapperClick = () => {
