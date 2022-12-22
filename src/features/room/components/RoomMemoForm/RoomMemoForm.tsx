@@ -6,6 +6,7 @@ import { RoomMemoFormProps } from './RoomMemoForm.types';
 import useRoomMemoForm, { RoomMemoFormType } from '@src/features/room/hooks/useMemoForm';
 import { Icon } from '@src/shared/components';
 import { NativeMessageSender } from '@src/shared/configs/webview';
+import { useOS } from '@src/shared/hooks/useOS';
 
 // TODO: alert -> 커스텀 alert로 변경
 const RoomMemoForm = forwardRef(
@@ -16,10 +17,20 @@ const RoomMemoForm = forwardRef(
       handleSubmit,
       formState: { isDirty },
     } = useRoomMemoForm();
+    const os = useOS();
 
     const autoGrow = (e: ChangeEvent<HTMLTextAreaElement>) => {
       e.currentTarget.style.height = 'auto';
       e.currentTarget.style.height = `${64 + Math.round(e.currentTarget.scrollHeight - 64)}px`;
+    };
+
+    const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (!selectedRoom) {
+        alert('채팅방을 선택해주세요.');
+        return;
+      }
+
+      // TODO: input에서 이미지 업로드
     };
 
     const handleAlbumClick: MouseEventHandler<HTMLButtonElement> = async () => {
@@ -68,12 +79,21 @@ const RoomMemoForm = forwardRef(
         </S.TextAreaWrapper>
         <S.ToolBox>
           <S.ToolBoxIconBox>
-            <button type="button" onClick={handleAlbumClick} aria-label="앨범">
-              <Icon name="Album" size={32} />
-            </button>
-            <button type="button" onClick={handleCameraClick} aria-label="카메라">
-              <Icon name="Camera" size={32} />
-            </button>
+            {os === 'web' ? (
+              <label aria-label="앨범">
+                <input type="file" accept="image/*" hidden onChange={uploadImage} />
+                <Icon name="Album" size={32} />
+              </label>
+            ) : (
+              <>
+                <button type="button" onClick={handleAlbumClick} aria-label="앨범">
+                  <Icon name="Album" size={32} />
+                </button>
+                <button type="button" onClick={handleCameraClick} aria-label="카메라">
+                  <Icon name="Camera" size={32} />
+                </button>
+              </>
+            )}
           </S.ToolBoxIconBox>
           {isDirty && (
             <S.SubmitBtn type="submit">
