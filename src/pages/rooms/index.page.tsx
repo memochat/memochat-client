@@ -22,13 +22,12 @@ import useConfirm from '@src/shared/hooks/useConfirm';
 import useElementDimension from '@src/shared/hooks/useDimension';
 import { MemoRoom } from '@src/shared/types/memoRooms';
 import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/types/next';
-import { getOS } from '@src/shared/utils/getOS';
 import { memoRoomCategoryKeys, memoRoomKeys } from '@src/shared/utils/queryKeys';
-
 import 'react-swipeable-list/dist/styles.css';
+import { useOS } from '@src/shared/hooks/useOS';
 
 const RoomList: NextPageWithLayout = () => {
-  const os = getOS();
+  const os = useOS();
   const router = useRouter();
   const { confirm } = useConfirm();
 

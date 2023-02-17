@@ -1,3 +1,8 @@
+import {
+  UploadImageNativeToWebCallbackMessage,
+  UploadImageWebToNativeCallbackMessage,
+} from '@src/shared/configs/webview/types';
+
 class NativeMessageSender {
   static instance: NativeMessageSender;
 
@@ -18,6 +23,15 @@ class NativeMessageSender {
   callbackTest() {
     return window.MemochatWebview.postWebToNativeCallbackMessage({
       action: 'callback-test',
+    });
+  }
+
+  uploadImage(args: UploadImageWebToNativeCallbackMessage['args']) {
+    return window.MemochatWebview.postWebToNativeCallbackMessage<
+      UploadImageNativeToWebCallbackMessage['data']
+    >({
+      action: 'upload-image',
+      args,
     });
   }
 }

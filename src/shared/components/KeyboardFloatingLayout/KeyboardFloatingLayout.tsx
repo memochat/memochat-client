@@ -4,10 +4,10 @@ import { KeyboardFloatingLayoutProps } from './KeyboardFloatingLayout.types';
 import * as S from './KeyboardFloatingLayout.styles';
 
 import useVisualViewportDimension from '@src/shared/hooks/useVisualViewportDimension';
-import { getOS } from '@src/shared/utils/getOS';
+import { useOS } from '@src/shared/hooks/useOS';
 
 const KeyboardFloatingLayout = ({ children }: KeyboardFloatingLayoutProps) => {
-  const os = getOS();
+  const os = useOS();
 
   const { height: visualViewportHeight } = useVisualViewportDimension(os === 'ios');
 

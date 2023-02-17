@@ -3,6 +3,7 @@ import {
   NativeToWebCallbackMessage,
   WebToNativeCallbackMessage,
   WebToNativeMessage,
+  NativeToWebCallbackMessageError,
 } from '@src/shared/configs/webview/types';
 
 class NativeBridge {
@@ -22,58 +23,57 @@ class NativeBridge {
     return NativeBridge.instance;
   }
 
-  postWebToNativeMessage(req: WebToNativeMessage) {
-    console.log('web -> native', JSON.stringify(req, null, 2));
-    window.ReactNativeWebView.postMessage(JSON.stringify(req));
+  postWebToNativeMessage(message: WebToNativeMessage) {
+    console.log('web -> native', JSON.stringify(message, null, 2));
+    window.ReactNativeWebView.postMessage(JSON.stringify(message));
   }
 
-  postWebToNativeCallbackMessage<T extends Record<string, unknown>>(
-    req: WebToNativeCallbackMessage,
-  ): Promise<T> {
-    console.log('web -> native callback', JSON.stringify(req, null, 2));
-    return new Promise<T>((resolve, reject) => {
+  postWebToNativeCallbackMessage<
+    TData = Record<string, unknown>,
+    TError = NativeToWebCallbackMessageError,
+  >(message: Omit<WebToNativeCallbackMessage, 'callbackId'>): Promise<TData> {
+    console.log('web -> native callback', JSON.stringify(message, null, 2));
+    return new Promise<TData>((resolve, reject) => {
       const callbackId = `${this.callbackId++}`;
       this.callbacks.set(callbackId, {
-        success: (args: T) => resolve(args),
-        failure: (args: T) => reject(args),
-        action: req.action,
+        success: (data: TData) => resolve(data),
+        failure: (error: TError) => reject(error),
+        action: message.action,
       });
 
       // TODO: timeout
-      window.ReactNativeWebView.postMessage(JSON.stringify({ ...req, callbackId }));
+      window.ReactNativeWebView.postMessage(JSON.stringify({ ...message, callbackId }));
     });
   }
 
-  postNativeToWebCallbackMessage(params: NativeToWebCallbackMessage): void {
-    console.log('native -> web callback', JSON.stringify(params, null, 2));
-    const callback = this.callbacks.get(params.callbackId);
+  postNativeToWebCallbackMessage(message: NativeToWebCallbackMessage): void {
+    console.log('native -> web callback', JSON.stringify(message, null, 2));
+    const callback = this.callbacks.get(message.callbackId);
 
     if (!callback) {
-      console.error('callback is not found', params);
+      console.error('callback is not found', message);
       return;
     }
 
     try {
-      if (Boolean(params?.error)) {
-        callback.failure(params.error);
-      } else if (Boolean(params?.data)) {
-        callback.success(params.data);
+      if (Boolean(message?.error)) {
+        callback.failure(message.error);
+      } else if (Boolean(message?.data)) {
+        callback.success(message.data);
       }
     } catch (e) {
       console.error(e);
-      if (Boolean(callback.failure)) {
-        callback.failure(params.error);
-      }
+      callback.failure(message.error);
     } finally {
-      this.callbacks.delete(params.callbackId);
+      this.callbacks.delete(message.callbackId);
     }
   }
 
-  postNativeToWebMessage(params: NativeToWebMessage): void {
-    console.log('native -> web', JSON.stringify(params, null, 2));
+  postNativeToWebMessage(message: NativeToWebMessage): void {
+    console.log('native -> web', JSON.stringify(message, null, 2));
     const hostname = window.location.protocol + '//' + window.location.host;
     try {
-      window.postMessage(params, hostname);
+      window.postMessage(message, hostname);
     } catch (e) {
       console.error(e);
     }

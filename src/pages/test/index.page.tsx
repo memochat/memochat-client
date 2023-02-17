@@ -1,6 +1,4 @@
-import { useEffect } from 'react';
-
-import { NativeBridge, NativeMessageSender } from '@src/shared/configs/webview';
+import { NativeMessageSender } from '@src/shared/configs/webview';
 
 const Page = () => {
   const s = () => {
@@ -13,10 +11,6 @@ const Page = () => {
     const a = await k.callbackTest();
     alert(JSON.stringify(a));
   };
-
-  useEffect(() => {
-    window.MemochatWebview = new NativeBridge();
-  }, []);
 
   return (
     <div>

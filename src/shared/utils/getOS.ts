@@ -1,6 +1,6 @@
 import isServer from '@src/shared/utils/isServer';
 
-type OS = 'web' | 'android' | 'ios';
+export type OS = 'web' | 'android' | 'ios';
 
 export const getOS = (): OS => {
   if (isServer()) {

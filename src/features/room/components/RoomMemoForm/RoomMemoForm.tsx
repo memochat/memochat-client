@@ -5,9 +5,10 @@ import { RoomMemoFormProps } from './RoomMemoForm.types';
 
 import useRoomMemoForm, { RoomMemoFormType } from '@src/features/room/hooks/useMemoForm';
 import { Icon } from '@src/shared/components';
+import { NativeMessageSender } from '@src/shared/configs/webview';
+import { useOS } from '@src/shared/hooks/useOS';
 
 // TODO: alert -> 커스텀 alert로 변경
-// TODO: 앨범, 카메라 native 권한 요청
 const RoomMemoForm = forwardRef(
   ({ showSelectedRoom, selectedRoom }: RoomMemoFormProps, ref: LegacyRef<HTMLFormElement>) => {
     const {
@@ -16,29 +17,42 @@ const RoomMemoForm = forwardRef(
       handleSubmit,
       formState: { isDirty },
     } = useRoomMemoForm();
+    const os = useOS();
 
     const autoGrow = (e: ChangeEvent<HTMLTextAreaElement>) => {
       e.currentTarget.style.height = 'auto';
       e.currentTarget.style.height = `${64 + Math.round(e.currentTarget.scrollHeight - 64)}px`;
     };
 
-    const handleAlbumClick: MouseEventHandler<HTMLButtonElement> = () => {
+    const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
       if (!selectedRoom) {
         alert('채팅방을 선택해주세요.');
         return;
       }
 
-      alert('앨범 클릭');
-      setValue('images', []);
+      // TODO: input에서 이미지 업로드
     };
 
-    const handleCameraClick: MouseEventHandler<HTMLButtonElement> = () => {
+    const handleAlbumClick: MouseEventHandler<HTMLButtonElement> = async () => {
       if (!selectedRoom) {
         alert('채팅방을 선택해주세요.');
         return;
       }
 
-      alert('카메라 클릭');
+      const nativeMessageSender = new NativeMessageSender();
+      const { imageUrl } = await nativeMessageSender.uploadImage({ type: 'gallery' });
+      alert(`갤러리 이미지: ${imageUrl}`);
+    };
+
+    const handleCameraClick: MouseEventHandler<HTMLButtonElement> = async () => {
+      if (!selectedRoom) {
+        alert('채팅방을 선택해주세요.');
+        return;
+      }
+
+      const nativeMessageSender = new NativeMessageSender();
+      const { imageUrl } = await nativeMessageSender.uploadImage({ type: 'camera' });
+      alert(`카메라 이미지: ${imageUrl}`);
     };
 
     const handleTextAreaWrapperClick = () => {
@@ -65,12 +79,21 @@ const RoomMemoForm = forwardRef(
         </S.TextAreaWrapper>
         <S.ToolBox>
           <S.ToolBoxIconBox>
-            <button type="button" onClick={handleAlbumClick} aria-label="앨범">
-              <Icon name="Album" size={32} />
-            </button>
-            <button type="button" onClick={handleCameraClick} aria-label="카메라">
-              <Icon name="Camera" size={32} />
-            </button>
+            {os === 'web' ? (
+              <label aria-label="앨범">
+                <input type="file" accept="image/*" hidden onChange={uploadImage} />
+                <Icon name="Album" size={32} />
+              </label>
+            ) : (
+              <>
+                <button type="button" onClick={handleAlbumClick} aria-label="앨범">
+                  <Icon name="Album" size={32} />
+                </button>
+                <button type="button" onClick={handleCameraClick} aria-label="카메라">
+                  <Icon name="Camera" size={32} />
+                </button>
+              </>
+            )}
           </S.ToolBoxIconBox>
           {isDirty && (
             <S.SubmitBtn type="submit">
