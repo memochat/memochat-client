@@ -28,9 +28,9 @@ const AuthGuard = ({ children }: AuthGuardProps) => {
     }
   }, [router, authState.isAuthenticated, initializeUser]);
 
-  // if (!authState.isAuthenticated) {
-  //   return null;
-  // }
+  if (!authState.isAuthenticated) {
+    return null;
+  }
 
   return <>{children}</>;
 };

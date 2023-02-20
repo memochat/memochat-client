@@ -28,6 +28,14 @@
         "newlines-between": "always"
       }
     ],
+    "no-restricted-imports": [
+      "error",
+      {
+        "name": "axios",
+        "message": "import 'axios' is not allowed. import axios from '@src/shared/configs/axios."
+      }
+    ],
+
     "no-relative-import-paths/no-relative-import-paths": [
       "off",
       { "rootDir": "src", "allowSameFolder": true }

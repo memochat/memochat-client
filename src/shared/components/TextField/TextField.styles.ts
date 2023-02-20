@@ -52,6 +52,8 @@ export const InputWrapper = styled.div<
 
 export const Input = styled.input`
   width: 100%;
+  user-select: text;
+  -webkit-user-select: text;
 
   color: ${(p) => p.theme.color.gray1};
   ${(p) => p.theme.typography.h4};

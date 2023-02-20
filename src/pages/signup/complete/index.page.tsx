@@ -28,8 +28,7 @@ const SignUpComplete: NextPage = () => {
   }, []);
 
   const handleOnStartBtnClick = () => {
-    //push home
-    router.push('/');
+    router.push('/signin');
   };
 
   return (
