@@ -6,7 +6,7 @@ import { queryClient } from '@src/shared/configs/react-query';
 import { memoRoomKeys } from '@src/shared/utils/queryKeys';
 
 export const createMemoRoom = async (data: CreateMemoRooms['param']) => {
-  const res = await axios.post<CreateMemoRooms['res']>('/memo-rooms', data);
+  const res = await axios.post<CreateMemoRooms['res']>('/rooms', data);
   return res.data;
 };
 

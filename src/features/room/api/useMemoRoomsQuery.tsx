@@ -5,7 +5,7 @@ import { GetMemoRooms } from '@src/shared/types/api/memoRooms';
 import { memoRoomKeys } from '@src/shared/utils/queryKeys';
 
 export const getMemoRooms = async () => {
-  const res = await axios.get<GetMemoRooms['res']>(`/memo-rooms`);
+  const res = await axios.get<GetMemoRooms['res']>(`/rooms`);
   return res.data;
 };
 

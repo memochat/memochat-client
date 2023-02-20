@@ -12,7 +12,7 @@ export const updateMemoRoom = async ({
   id: number;
   param: UpdateMemoRooms['param'];
 }) => {
-  const res = await axios.put<UpdateMemoRooms['res']>(`/memo-rooms/${id}`, param);
+  const res = await axios.put<UpdateMemoRooms['res']>(`/rooms/${id}`, param);
   return res.data;
 };
 

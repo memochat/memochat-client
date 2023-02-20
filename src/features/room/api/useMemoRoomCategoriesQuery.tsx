@@ -5,7 +5,7 @@ import { GetMemoRoomCategories } from '@src/shared/types/api/memoRooms';
 import { memoRoomCategoryKeys } from '@src/shared/utils/queryKeys';
 
 export const getMemoRoomCategories = async () => {
-  const res = await axios.get<GetMemoRoomCategories['res']>('/memo-rooms/categories');
+  const res = await axios.get<GetMemoRoomCategories['res']>('/rooms/categories');
   return res.data;
 };
 

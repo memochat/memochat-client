@@ -6,7 +6,7 @@ import { queryClient } from '@src/shared/configs/react-query';
 import { memoRoomKeys } from '@src/shared/utils/queryKeys';
 
 export const deleteMemoRoom = async ({ id }: { id: number }) => {
-  const res = await axios.delete<DeleteMemoRooms['res']>(`/memo-rooms/${id}`);
+  const res = await axios.delete<DeleteMemoRooms['res']>(`/rooms/${id}`);
   return res.data;
 };
 
