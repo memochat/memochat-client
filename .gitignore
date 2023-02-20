@@ -16,6 +16,9 @@ tsconfig.tsbuildinfo
 
 # env
 .env
+.env.local
+.env.development
+.env.production
 
 #misc
 .DS_Store

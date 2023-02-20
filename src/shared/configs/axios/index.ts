@@ -7,7 +7,7 @@ import isServer from '@src/shared/utils/isServer';
 import { BaseRes, MemoChatError } from '@src/shared/types/api';
 
 const axios = Axios.create({
-  baseURL: 'https://memochat-server.herokuapp.com/v1',
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
 let serverSideCookies: GetServerSidePropsContext['req']['cookies'];
