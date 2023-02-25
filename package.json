@@ -40,6 +40,7 @@
     "@types/lodash-es": "^4.17.6",
     "@types/nprogress": "^0.2.0",
     "axios": "^0.27.2",
+    "dayjs": "^1.11.7",
     "emotion-reset": "^3.0.1",
     "i18next": "^21.10.0",
     "intercept-stdout": "^0.1.2",
