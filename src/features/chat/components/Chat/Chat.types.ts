@@ -3,7 +3,7 @@ import { ChatType } from '@src/shared/types/api/chat';
 export type ChatProps = {
   /** default: 'Text' */
   type?: ChatType;
-  message: string;
+  message?: string;
   createdAt: Date;
   link?: {
     href: string;
@@ -11,4 +11,5 @@ export type ChatProps = {
     description?: string;
     thumbnail?: string;
   };
+  imageUrls?: string[];
 };

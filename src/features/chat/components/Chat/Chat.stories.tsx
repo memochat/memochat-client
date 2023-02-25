@@ -46,3 +46,13 @@ export const 링크_타입: StoryObj<typeof Chat> = {
     },
   },
 };
+
+export const 사진_타입: StoryObj<typeof Chat> = {
+  args: {
+    type: 'PHOTO',
+    imageUrls: [
+      'https://tractive.com/blog/wp-content/uploads/2016/04/puppy-care-guide-for-new-parents-550x450.jpg',
+      'https://tractive.com/blog/wp-content/uploads/2016/04/puppy-care-guide-for-new-parents-550x450.jpg',
+    ],
+  },
+};

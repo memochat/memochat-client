@@ -12,7 +12,7 @@ const Chat = ({ type = 'TEXT', message, createdAt, link }: ChatProps) => {
   };
 
   if (type === 'PHOTO') {
-    return <>photo chat</>;
+    return <>TODO: photo chat</>;
   }
 
   return (
