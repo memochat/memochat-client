@@ -17,6 +17,7 @@ type ParsedBlock = { type: 'text' | 'link'; content: string };
  ] 
  */
 export const parseUrls = (text: string): ParsedBlock[] | string => {
+  //매칭되는 url배열 리턴
   const urls = text.match(urlRegex);
 
   if (!urls?.length) {
@@ -25,7 +26,7 @@ export const parseUrls = (text: string): ParsedBlock[] | string => {
 
   let textIndex = 0;
   const parsedArr: ParsedBlock[] = [];
-  urls.map((url) => {
+  urls.forEach((url) => {
     const leftoverText = text.slice(textIndex);
     const urlStartIndex = textIndex + leftoverText.search(url);
     const urlEndIndex = urlStartIndex + url.length - 1;
