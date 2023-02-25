@@ -1,9 +1,16 @@
+import { MouseEvent } from 'react';
+
 import { LinkBlockProps } from './LinkBlock.types';
 import * as S from './LinkBlock.styles';
 
-const LinkBlock = ({ href, thumbnail, title, description, onClick }: LinkBlockProps) => {
+const LinkBlock = ({ href, thumbnail, title, description, onContextMenu }: LinkBlockProps) => {
+  const handleContextMenu = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    onContextMenu?.(e);
+  };
+
   return (
-    <S.Wrapper href={href} onClick={onClick}>
+    <S.Wrapper href={href} onContextMenu={handleContextMenu}>
       <S.ImageContainer>
         <img src={thumbnail} alt="" width="100%" />
       </S.ImageContainer>
