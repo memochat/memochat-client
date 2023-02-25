@@ -1,33 +1,28 @@
 import dayjs from 'dayjs';
 
 import { ChatProps } from './Chat.types';
-import * as S from './Chat.styles';
 
 import { highlightenLink } from '@src/shared/utils/highlightenLink';
+import BaseChat from '@src/features/chat/components/Chat/components/BaseChat';
+import LinkBlock from '@src/features/chat/components/Chat/components/LinkBlock';
 
 const Chat = ({ type = 'TEXT', message, createdAt, link }: ChatProps) => {
+  const showContextMenu = () => {
+    // TODO : 우 클릭, long press 시 챗 옵션 모달 띄우기 (LinkBlock에서도 똑같이)
+  };
+
+  if (type === 'PHOTO') {
+    return <>photo chat</>;
+  }
+
   return (
     <>
-      {/* TODO : 우 클릭시 챗 옵션 모달 띄우기 (LinkBlock에서도 똑같이) */}
-      <S.Wrapper>
-        <S.Message>{type === 'LINK' ? highlightenLink(message) : message}</S.Message>
-        <S.Date>{`${dayjs(createdAt).format('hh:mm A')}`}</S.Date>
-      </S.Wrapper>
-      {type === 'LINK' && link && (
-        <S.LinkBlock href={link.href}>
-          <S.LinkImageConatiner>
-            <img src={link.thumbnail} alt="" width="100%" />
-          </S.LinkImageConatiner>
-          <S.LinkContent>
-            {link.title && (
-              <S.LinkTitle hasDescription={!!link.description}>{link.title}</S.LinkTitle>
-            )}
-            {link.description && (
-              <S.LinkDescrition hasTitle={!!link.title}>{link.description}</S.LinkDescrition>
-            )}
-          </S.LinkContent>
-        </S.LinkBlock>
-      )}
+      <BaseChat
+        message={type === 'LINK' ? highlightenLink(message) : message}
+        createdAt={createdAt}
+        onContextMenu={showContextMenu}
+      />
+      {type === 'LINK' && link && <LinkBlock {...link} onContextMenu={showContextMenu} />}
     </>
   );
 };

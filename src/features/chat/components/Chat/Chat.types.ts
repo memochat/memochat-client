@@ -1,6 +1,6 @@
 import { ChatType } from '@src/shared/types/api/chat';
 
-export interface ChatProps {
+export type ChatProps = {
   /** default: 'Text' */
   type?: ChatType;
   message: string;
@@ -11,4 +11,4 @@ export interface ChatProps {
     description?: string;
     thumbnail?: string;
   };
-}
+};
