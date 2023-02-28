@@ -67,7 +67,7 @@ const RoomListItem = ({
             }
           }}
         >
-          <S.RoomName>{name}</S.RoomName>
+          <S.RoomName>{name || '-'}</S.RoomName>
           <S.RoomLastChat>
             {!lastChat
               ? '작성된 메모가 없습니다.'
