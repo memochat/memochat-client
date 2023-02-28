@@ -119,8 +119,7 @@ const RoomList: NextPageWithLayout = () => {
                 key={room.id}
                 name={room.name}
                 roomCategory={room.roomCategory}
-                // TODO
-                // lastChat={room.lastChat}
+                message={room.message}
                 isSelected={selectedRoom?.id === room.id}
                 onSelect={() => handleRoomSelect(room)}
                 onClick={() => handleRoomClick(room)}

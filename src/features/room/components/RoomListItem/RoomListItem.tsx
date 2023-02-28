@@ -8,15 +8,15 @@ import {
 } from 'react-swipeable-list';
 import 'react-swipeable-list/dist/styles.css';
 
-import { ChatType, RoomListItemProps } from './RoomListItem.types';
+import { RoomListItemProps } from './RoomListItem.types';
 import * as S from './RoomListItem.styles';
 
 // TODO 고정 또는 순서 변경 기능 추가
 const RoomListItem = ({
-  name,
+  name = '-',
   roomCategory,
   isSelected,
-  lastChat,
+  message = '작성된 메모가 없습니다.',
   className,
   onSelect,
   onClick,
@@ -67,12 +67,8 @@ const RoomListItem = ({
             }
           }}
         >
-          <S.RoomName>{name || '-'}</S.RoomName>
-          <S.RoomLastChat>
-            {!lastChat
-              ? '작성된 메모가 없습니다.'
-              : getLastChatByChatType(lastChat.type, lastChat.text)}
-          </S.RoomLastChat>
+          <S.RoomName>{name}</S.RoomName>
+          <S.RoomLastChat>{message}</S.RoomLastChat>
         </S.Preview>
       </S.Wrapper>
     </SwipeableListItem>
@@ -80,14 +76,3 @@ const RoomListItem = ({
 };
 
 export default RoomListItem;
-
-const getLastChatByChatType = (type: ChatType, text = ''): string => {
-  if (type === 'image') {
-    return '이미지 메모';
-  }
-  if (type === 'video') {
-    return '동영상 메모';
-  }
-
-  return text;
-};

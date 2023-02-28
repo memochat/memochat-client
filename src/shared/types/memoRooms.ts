@@ -16,5 +16,7 @@ export type MemoRoomCategory = {
 export type MemoRoom = {
   id: number;
   name: string;
+  /** 마지막 메시지 */
+  message?: string;
   roomCategory: MemoRoomCategory;
 };
