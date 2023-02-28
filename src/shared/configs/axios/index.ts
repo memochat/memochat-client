@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-restricted-imports
 import Axios, { AxiosError, AxiosResponse } from 'axios';
 import { GetServerSidePropsContext } from 'next';
 
