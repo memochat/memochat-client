@@ -9,13 +9,21 @@ export default {
   component: ChatContextMenu,
 } as ComponentMeta<typeof ChatContextMenu>;
 
-export const Default: StoryFn<typeof ChatContextMenu> = () => {
+export const Default: StoryFn<typeof ChatContextMenu> = (args) => {
   const [isShow, setShow] = useState(false);
 
   return (
     <>
       <Button onClick={() => setShow(true)}>Show ChatContextMenu</Button>
-      <ChatContextMenu isShow={isShow} onClose={() => setShow(false)} top={0} left={0} />
+      <ChatContextMenu
+        isShow={isShow}
+        onClose={() => setShow(false)}
+        top={0}
+        left={0}
+        onEdit={() => alert('수정')}
+        onCopy={() => alert('복사')}
+        onDelete={() => alert('삭제')}
+      />
     </>
   );
 };
