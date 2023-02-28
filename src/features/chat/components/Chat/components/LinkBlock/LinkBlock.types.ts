@@ -5,5 +5,5 @@ export interface LinkBlockProps {
   thumbnail?: string;
   title?: string;
   description?: string;
-  onContextMenu?: (e?: MouseEvent<HTMLAnchorElement>) => void;
+  onContextMenu?: (e?: MouseEvent<HTMLDivElement>) => void;
 }
