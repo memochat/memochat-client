@@ -7,6 +7,8 @@ import useRoomMemoForm, { RoomMemoFormType } from '@src/features/room/hooks/useM
 import { Icon } from '@src/shared/components';
 import { NativeMessageSender } from '@src/shared/configs/webview';
 import { useOS } from '@src/shared/hooks/useOS';
+import useCreateChatMutation from '@src/features/chat/api/useCreateChatMutation';
+import { urlRegex } from '@src/shared/utils/parseUrls';
 
 // TODO: alert -> 커스텀 alert로 변경
 const RoomMemoForm = forwardRef(
@@ -15,8 +17,10 @@ const RoomMemoForm = forwardRef(
       register,
       setValue,
       handleSubmit,
+      reset,
       formState: { isDirty },
     } = useRoomMemoForm();
+    const { mutate: createChat } = useCreateChatMutation();
     const os = useOS();
 
     const autoGrow = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -61,8 +65,35 @@ const RoomMemoForm = forwardRef(
       }
     };
 
-    const onSubmit = (v: RoomMemoFormType) => {
-      alert(JSON.stringify(v));
+    const onSubmit = (value: RoomMemoFormType) => {
+      if (!selectedRoom) {
+        alert('채팅방을 선택해주세요.');
+        return;
+      }
+
+      // NOTE: 빈 문자열인 경우 메시지를 보내지 않음 (카카오톡과 동일하게 구현)
+      if (!value.message.trim()) {
+        return;
+      }
+
+      const urls = value.message.match(urlRegex);
+      const link = urls?.[0];
+
+      createChat(
+        {
+          roomId: selectedRoom.id,
+          param: {
+            type: link ? 'LINK' : 'TEXT',
+            message: value.message,
+            ...(link ? { link } : {}),
+          },
+        },
+        {
+          onSuccess: () => {
+            reset();
+          },
+        },
+      );
     };
 
     return (
@@ -73,7 +104,7 @@ const RoomMemoForm = forwardRef(
         <S.TextAreaWrapper onClick={handleTextAreaWrapperClick}>
           {showSelectedRoom && selectedRoom && <Icon name="Reply" size={20} color="gray4" />}
           <S.Textarea
-            {...register('memo', { onChange: autoGrow, disabled: !selectedRoom })}
+            {...register('message', { onChange: autoGrow, disabled: !selectedRoom })}
             placeholder={selectedRoom ? '메모를 입력하세요.' : '채팅방 선택 후 메모작성.'}
           />
         </S.TextAreaWrapper>

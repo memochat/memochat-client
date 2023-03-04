@@ -1,6 +1,6 @@
 import { MouseEvent } from 'react';
 
-import { ChatType } from '@src/shared/types/api/chat';
+import { ChatType } from '@src/shared/types/chat';
 
 export type ChatProps = {
   /** default: 'Text' */

@@ -1,14 +1,14 @@
 import { useForm, UseFormProps } from 'react-hook-form';
 
 export interface RoomMemoFormType {
-  memo: string;
-  images: File[];
+  message: string;
+  images?: File[];
 }
 
 // TODO: validator 추가
 const useRoomMemoForm = ({
   defaultValues = {
-    memo: '',
+    message: '',
     images: [],
   },
   ...props
