@@ -6,6 +6,14 @@ export const Wrapper = styled.div`
   height: 100%;
 `;
 
+export const ImageWrapper = styled.div`
+  margin: 30px auto 36px auto;
+  position: relative;
+  width: 96px;
+  height: 96px;
+  padding: 30px 0 36px 0;
+`;
+
 export const MenuList = styled.ul`
   width: 100%;
   padding-bottom: 76px;
@@ -29,6 +37,8 @@ export const Title = styled.p`
 `;
 
 export const P = styled.p`
+  display: flex;
+  gap: 12px;
   ${({ theme }) => theme.typography.h4};
   color: ${({ theme }) => theme.color.black1};
 `;

@@ -18,3 +18,4 @@ export { ReactComponent as Send } from './send.svg';
 export { ReactComponent as Avatar } from './avatar.svg';
 export { ReactComponent as Chat } from './chat.svg';
 export { ReactComponent as Lang } from './lang.svg';
+export { ReactComponent as Pencil } from './pencil.svg';
