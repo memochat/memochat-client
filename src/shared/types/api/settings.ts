@@ -8,7 +8,14 @@ export type ChangeNickName = {
 };
 
 export type ChangePassword = {
-  req: {
+  param: {
+    password: string;
+  };
+  res: BaseRes<string>;
+};
+
+export type CheckPassword = {
+  param: {
     password: string;
   };
   res: BaseRes<string>;

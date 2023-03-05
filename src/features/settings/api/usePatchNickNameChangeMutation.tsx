@@ -4,7 +4,7 @@ import { ChangeNickName } from '@src/shared/types/api/settings';
 import axios from '@src/shared/configs/axios';
 import { MemoChatError } from '@src/shared/types/api';
 
-export const postAuthSignup = async (data: ChangeNickName['param']) => {
+export const patchChangeNicName = async (data: ChangeNickName['param']) => {
   const res = await axios.patch<ChangeNickName['res']>('/users/nickname', data);
   return res.data;
 };
@@ -12,7 +12,7 @@ export const postAuthSignup = async (data: ChangeNickName['param']) => {
 const usePatchNickNameChangeMutation = (
   options?: UseMutationOptions<ChangeNickName['res'], MemoChatError, ChangeNickName['param']>,
 ) => {
-  return useMutation(postAuthSignup, options);
+  return useMutation(patchChangeNicName, options);
 };
 
 export default usePatchNickNameChangeMutation;
