@@ -8,7 +8,9 @@ export const getUsersMe = async () => {
   return res.data;
 };
 
+export const getUsersMeQueryKey = () => ['users/me'];
+
 const useUsersMeQuery = (options?: UseQueryOptions<UsersMe['res'], unknown>) =>
-  useQuery(options?.queryKey ?? ['users/me'], getUsersMe, options);
+  useQuery(options?.queryKey ?? getUsersMeQueryKey(), getUsersMe, options);
 
 export default useUsersMeQuery;
