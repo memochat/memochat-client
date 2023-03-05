@@ -6,9 +6,9 @@ import * as S from './SettingDetailMenu.styles';
 import { Icon } from '@src/shared/components';
 
 const SettingDetailMenu = (props: SettingDetailMenuProps) => {
-  const { iconName, title, ...nextLinkProps } = props;
+  const { iconName, title, href } = props;
   return (
-    <Link {...nextLinkProps}>
+    <Link href={href} passHref>
       <S.Wrapper>
         <Icon name={iconName} width="20px" height="20px" />
         <S.Title>{title}</S.Title>
