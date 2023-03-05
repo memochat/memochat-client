@@ -41,7 +41,7 @@ export const ButtonsWrapper = styled.div<{ align: 'right' | 'left' }>`
   ${({ align }) =>
     align === 'left'
       ? `
-      > *:not(:first-child) {
+      > *:not(:first-of-type) {
         margin-left: 4px;
       }
       `
