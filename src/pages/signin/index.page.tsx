@@ -1,4 +1,5 @@
 import { Controller, SubmitHandler } from 'react-hook-form';
+import { useRouter } from 'next/router';
 
 import * as S from './signin.styles';
 
@@ -11,10 +12,11 @@ import { NextPageWithLayout } from '@src/shared/types/next';
 const SignIn: NextPageWithLayout = () => {
   const { control, formState, handleSubmit } = useSigninForm();
   const { login } = useAuth();
+  const router = useRouter();
 
-  const onSubmit: SubmitHandler<SigninFormType> = async (values) => {
-    await login(values);
-    // router.push('/signin/complete');
+  const onSubmit: SubmitHandler<SigninFormType> = (values) => {
+    login(values);
+    router.push('/signin/complete');
   };
 
   return (

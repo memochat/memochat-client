@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import * as S from './settings.styles';
 
@@ -6,22 +7,28 @@ import settingImg from '@public/images/settings.png';
 import AuthGuard from '@src/features/auth/components/AuthGuard';
 import SettingDetailMenu from '@src/features/settings/components/SettingDetailMenu';
 import { Header } from '@src/shared/components';
+import { removeAccessToken, removeRefreshToken } from '@src/shared/configs/cookie';
 import useConfirm from '@src/shared/hooks/useConfirm';
 import { NextPageWithLayout } from '@src/shared/types/next';
+import { toast } from '@src/shared/utils/toast';
+import useAuth from '@src/features/auth/hooks/useAuth';
 
 const Settings: NextPageWithLayout = () => {
   const { confirm } = useConfirm();
+  const { logout } = useAuth();
 
   const handleLogoutBtnClick = async () => {
     const result = await confirm({
       headerTitle: '알림',
       title: '로그아웃 하시겠습니까?',
       description: '메모 내용 백업이 일시 정지됩니다.',
+      variant: 'danger',
     });
     if (!result) {
       return;
     }
-    alert('로그아웃');
+    logout();
+    toast.success('로그아웃 되었습니다.');
   };
 
   return (
