@@ -28,7 +28,7 @@ const SignInComplete: NextPage = () => {
   }, []);
 
   const handleOnStartBtnClick = () => {
-    router.push('/room');
+    router.push('/rooms');
   };
 
   return (

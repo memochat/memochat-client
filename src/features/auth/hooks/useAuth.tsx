@@ -1,23 +1,22 @@
-import { useRecoilState } from 'recoil';
+import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 
 import usePostSignInMutation from '../api/usePostSignInMutation';
 
-import useUsersMeQuery from '@src/features/user/api/useUsersMeQuery';
+import useUsersMeQuery, { getUsersMeQueryKey } from '@src/features/user/api/useUsersMeQuery';
 import {
-  getAccessToken,
   removeAccessToken,
   removeRefreshToken,
   setAccessToken,
   setRefreshToken,
 } from '@src/shared/configs/cookie';
-import { authStateAtom } from '@src/shared/configs/recoil/auth';
+import { queryClient } from '@src/shared/configs/react-query';
 import { MemoChatError } from '@src/shared/types/api';
 import { SignIn } from '@src/shared/types/api/auth';
 import { toast } from '@src/shared/utils/toast';
 
 const useAuth = () => {
-  const [authState, setAuthState] = useRecoilState(authStateAtom);
+  const router = useRouter();
   const { mutateAsync: postSignIn } = usePostSignInMutation({
     onSuccess(data) {
       const { accessToken, refreshToken } = data;
@@ -25,53 +24,42 @@ const useAuth = () => {
       setRefreshToken(refreshToken);
     },
     onError: (e) => {
-      if (e instanceof MemoChatError) {
-        toast.error(e.message);
-      }
+      queryClient.removeQueries(getUsersMeQueryKey());
+      toast.error(e.message);
     },
   });
 
-  const { refetch: getUser } = useUsersMeQuery({
+  const { data, refetch } = useUsersMeQuery({
     enabled: false,
     retry: 0,
-    onSuccess: (data) => {
-      console.log('onsuccess', data);
-      setAuthState({ ...authState, isAuthenticated: true, user: data });
-    },
     onError: () => {
       removeAccessToken();
       removeRefreshToken();
-      setAuthState((prev) => ({ ...prev, user: null, isAuthenticated: false }));
+      queryClient.removeQueries(getUsersMeQueryKey());
     },
   });
 
-  const initializeUser = useCallback(async () => {
-    if (!getAccessToken()) {
-      return false;
-    }
-    try {
-      const { data: user } = await getUser();
-      setAuthState({ isAuthenticated: true, user });
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }, [getUser, setAuthState]);
+  const login = (values: SignIn['param']) => {
+    postSignIn(values);
+  };
 
-  const login = useCallback(
-    async (values: SignIn['param']) => {
-      await postSignIn(values);
-      return getUser();
-    },
-    [getUser, postSignIn],
-  );
-
-  const logout = useCallback(() => {
+  const logout = () => {
     removeAccessToken();
-    return setAuthState((prev) => ({ ...prev, user: null, isAuthenticated: false }));
-  }, [setAuthState]);
+    removeRefreshToken();
+    queryClient.removeQueries(getUsersMeQueryKey());
+    router.push('/home');
+  };
 
-  return { login, logout, initializeUser, authState };
+  const checkUserState = useCallback(async () => {
+    const { isSuccess } = await refetch();
+    if (!isSuccess) {
+      queryClient.removeQueries(getUsersMeQueryKey());
+      throw new MemoChatError('로그인이 필요합니다.', '401');
+    }
+    return true;
+  }, [refetch]);
+
+  return { login, logout, user: data, checkUserState };
 };
 
 export default useAuth;
