@@ -8,9 +8,9 @@ import usePatchNickNameChangeMutation from '@src/features/settings/api/usePatchN
 import useNickNameChangeForm, {
   NickNameChangeFormType,
 } from '@src/features/settings/hooks/useNicknameChangeForm';
-import { getUsersMeQueryKey } from '@src/features/user/api/useUsersMeQuery';
 import { Button, Modal, ModalButtonGroup, TextField } from '@src/shared/components';
 import { toast } from '@src/shared/utils/toast';
+import { getUsersMeKey } from '@src/shared/utils/queryKeys';
 
 const NicknameChangeModal = (props: NicknameChangeModalProps) => {
   const { onClose, open } = props;
@@ -22,7 +22,7 @@ const NicknameChangeModal = (props: NicknameChangeModalProps) => {
       toast.error(e.message);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(getUsersMeQueryKey());
+      queryClient.invalidateQueries(getUsersMeKey());
       onClose();
     },
   });

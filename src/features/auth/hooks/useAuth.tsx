@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 
 import usePostSignInMutation from '../api/usePostSignInMutation';
 
-import useUsersMeQuery, { getUsersMeQueryKey } from '@src/features/user/api/useUsersMeQuery';
+import useUsersMeQuery from '@src/features/user/api/useUsersMeQuery';
 import {
   removeAccessToken,
   removeRefreshToken,
@@ -14,6 +14,7 @@ import { queryClient } from '@src/shared/configs/react-query';
 import { MemoChatError } from '@src/shared/types/api';
 import { SignIn } from '@src/shared/types/api/auth';
 import { toast } from '@src/shared/utils/toast';
+import { getUsersMeKey } from '@src/shared/utils/queryKeys';
 
 const useAuth = () => {
   const router = useRouter();
@@ -24,7 +25,7 @@ const useAuth = () => {
       setRefreshToken(refreshToken);
     },
     onError: (e) => {
-      queryClient.removeQueries(getUsersMeQueryKey());
+      queryClient.removeQueries(getUsersMeKey());
       toast.error(e.message);
     },
   });
@@ -35,7 +36,7 @@ const useAuth = () => {
     onError: () => {
       removeAccessToken();
       removeRefreshToken();
-      queryClient.removeQueries(getUsersMeQueryKey());
+      queryClient.removeQueries(getUsersMeKey());
     },
   });
 
@@ -46,14 +47,14 @@ const useAuth = () => {
   const logout = () => {
     removeAccessToken();
     removeRefreshToken();
-    queryClient.removeQueries(getUsersMeQueryKey());
+    queryClient.removeQueries(getUsersMeKey());
     router.push('/home');
   };
 
   const checkUserState = useCallback(async () => {
     const { isSuccess } = await refetch();
     if (!isSuccess) {
-      queryClient.removeQueries(getUsersMeQueryKey());
+      queryClient.removeQueries(getUsersMeKey());
       throw new MemoChatError('로그인이 필요합니다.', '401');
     }
     return true;

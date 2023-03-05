@@ -1,4 +1,5 @@
 import { VerifyEmail } from '@src/shared/types/api/auth';
+import { CheckPassword } from '@src/shared/types/api/settings';
 
 export const memoRoomKeys = {
   all: ['rooms'] as const,
@@ -16,3 +17,9 @@ export const authKeys = {
   verification: (email: string) =>
     ['/auth', '/verifications', { email }] as [string, string, VerifyEmail['param']],
 };
+
+export const checkPasswordKeys = (
+  param: CheckPassword['param'],
+): [string, CheckPassword['param']] => ['/users/password', param];
+
+export const getUsersMeKey = () => ['users/me'] as const;

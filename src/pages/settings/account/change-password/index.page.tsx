@@ -4,41 +4,45 @@ import { Controller, SubmitHandler } from 'react-hook-form';
 import * as S from './changepassword.styles';
 
 import AuthGuard from '@src/features/auth/components/AuthGuard';
+import usePatchChangePasswordMutation from '@src/features/settings/api/usePatchPasswordMutation';
 import useChangePasswordForm, {
   ChangePasswordFormType,
 } from '@src/features/settings/hooks/useChangePasswordForm';
+import useCheckPasswordForm, {
+  CheckPasswordFormType,
+} from '@src/features/settings/hooks/useCheckPasswordForm';
 import { Button, Stepper, TextField } from '@src/shared/components';
-import useConfirm from '@src/shared/hooks/useConfirm';
+import { MemoChatError } from '@src/shared/types/api';
 import { NextPageWithLayout } from '@src/shared/types/next';
+import { toast } from '@src/shared/utils/toast';
 
 const ChangePassword: NextPageWithLayout = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const { control, handleSubmit, getFieldState, formState } = useChangePasswordForm();
-  const { confirm } = useConfirm();
 
-  const handleIdNextBtnClick = () => {
-    const { isDirty, error } = getFieldState('currentPassword');
+  const checkPasswordFormProps = useCheckPasswordForm();
+  const changePasswordFormProps = useChangePasswordForm();
+  const { isLoading, mutate } = usePatchChangePasswordMutation({
+    onSuccess: () => {
+      toast.success('변경에 성공했습니다');
+    },
+    onError: (e) => {
+      if (e instanceof MemoChatError) {
+        toast.error(e.message);
+        return;
+      }
+      toast.error('변경에 실패했습니다');
+    },
+  });
 
-    //TODO:패스워드 검증 필요
-
-    if (isDirty && error) {
-      //TODO: 나중에 에러 Alert수정
-      confirm({
-        headerTitle: '에러',
-        title: '문제가 발생했습니다!',
-        description: error.message || '',
-      });
-      return;
-    }
-    setActiveIndex((prev) => prev + 1);
+  const onCheckPasswordFormSubmit: SubmitHandler<CheckPasswordFormType> = async (data) => {
+    setActiveIndex((p) => p + 1);
   };
-
-  const onSubmit: SubmitHandler<ChangePasswordFormType> = (values) => {
-    alert(JSON.stringify(values, null, 2));
+  const onChangePasswordSubmit: SubmitHandler<ChangePasswordFormType> = async (data) => {
+    mutate(data);
   };
 
   return (
-    <S.Wrapper as="form" onSubmit={handleSubmit(onSubmit)}>
+    <S.Wrapper>
       <S.Title>
         비밀번호 변경을 위해
         <br /> 현재 비밀번호를 입력해주세요.
@@ -51,33 +55,43 @@ const ChangePassword: NextPageWithLayout = () => {
           },
         }}
       >
-        <S.Content>
+        <S.Content
+          as="form"
+          onSubmit={checkPasswordFormProps.handleSubmit(onCheckPasswordFormSubmit)}
+        >
           <div style={{ flexGrow: 1 }}>
             <Controller
-              control={control}
+              control={checkPasswordFormProps.control}
               name="currentPassword"
               render={({ field, fieldState }) => (
-                <TextField
-                  id={`currentPassword-textfield`}
-                  value={field.value}
-                  onChange={field.onChange}
-                  onBlur={field.onBlur}
-                  label="현재 비밀번호(최대 20자)"
-                  error={Boolean(fieldState.error)}
-                  errorMessage={fieldState.error?.message}
-                  success={fieldState.isDirty && !fieldState.error}
-                  successMessage="비밀번호가 일치합니다."
-                  maxLength={20}
-                />
+                <>
+                  <TextField
+                    id={`currentPassword-textfield`}
+                    value={field.value}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    label="현재 비밀번호(최대 20자)"
+                    error={Boolean(fieldState.error)}
+                    errorMessage={fieldState.error?.message}
+                    success={fieldState.isDirty && !fieldState.error}
+                    successMessage="비밀번호가 일치합니다."
+                    maxLength={20}
+                  />
+                </>
               )}
             />
           </div>
-          <Button onClick={handleIdNextBtnClick}>계속</Button>
+          <Button type="submit" disabled={!checkPasswordFormProps.formState.isValid}>
+            계속
+          </Button>
         </S.Content>
-        <S.Content>
+        <S.Content
+          as="form"
+          onSubmit={changePasswordFormProps.handleSubmit(onChangePasswordSubmit)}
+        >
           <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', gap: '30px' }}>
             <Controller
-              control={control}
+              control={changePasswordFormProps.control}
               name="password"
               render={({ field, fieldState }) => (
                 <TextField
@@ -96,7 +110,7 @@ const ChangePassword: NextPageWithLayout = () => {
               )}
             />
             <Controller
-              control={control}
+              control={changePasswordFormProps.control}
               name="password2"
               render={({ field, fieldState }) => (
                 <TextField
@@ -114,7 +128,7 @@ const ChangePassword: NextPageWithLayout = () => {
               )}
             />
           </div>
-          <Button disabled={!formState.isValid} type="submit">
+          <Button disabled={!changePasswordFormProps.formState.isValid && isLoading} type="submit">
             변경
           </Button>
         </S.Content>
