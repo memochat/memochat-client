@@ -30,9 +30,13 @@ const Settings: NextPageWithLayout = () => {
       <S.Wrapper>
         <Image src={settingImg} alt="setting" width={265} height={168} />
         <S.DetailMenuList>
-          <SettingDetailMenu iconName="Avatar" />
-          <SettingDetailMenu iconName="Chat" />
-          <SettingDetailMenu iconName="Lang" />
+          <SettingDetailMenu
+            href="/settings/account"
+            iconName="Avatar"
+            title="계정 및 프로필 관리"
+          />
+          <SettingDetailMenu href="/inquiry" iconName="Chat" title="문의하기" />
+          {/* <SettingDetailMenu href="" iconName="Lang" title="언어변경" /> */}
           <S.TextButton onClick={handleLogoutBtnClick} color="red1">
             로그아웃
           </S.TextButton>

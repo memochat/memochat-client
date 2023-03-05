@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const Wrapper = styled.button`
+export const Wrapper = styled.a`
   width: 100%;
   padding: 16px;
   display: flex;

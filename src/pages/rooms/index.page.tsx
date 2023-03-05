@@ -103,7 +103,7 @@ const RoomList: NextPageWithLayout = () => {
     <>
       <S.Header>
         <Icon name="Logo" width="134px" height="22px" />
-        <Link href="/setting">
+        <Link href="/settings">
           <a aria-label="설정페이지">
             <S.ProfileImg src="" alt="프로필" />
           </a>
