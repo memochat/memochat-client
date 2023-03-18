@@ -1,13 +1,20 @@
 import { ChatProps } from './Chat.types';
 import * as S from './Chat.styles';
 
-import { highlightenLink } from '@src/shared/utils/highlightenLink';
 import BaseChat from '@src/features/chat/components/Chat/components/BaseChat';
 import LinkBlock from '@src/features/chat/components/Chat/components/LinkBlock';
+import MemochatImage from '@src/features/chat/components/Chat/components/MemochatImage';
+import { highlightenLink } from '@src/shared/utils/highlightenLink';
 
-const Chat = ({ type = 'TEXT', message, createdAt, link, onContextMenu }: ChatProps) => {
+const Chat = ({ type = 'TEXT', message, createdAt, link, imageUrls, onContextMenu }: ChatProps) => {
   if (type === 'PHOTO') {
-    return <S.Wrapper>TODO: photo chat</S.Wrapper>;
+    return (
+      <>
+        {imageUrls.map((image, i) => (
+          <MemochatImage key={i} src={image} alt="img" />
+        ))}
+      </>
+    );
   }
 
   return (
