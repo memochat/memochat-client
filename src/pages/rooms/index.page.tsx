@@ -25,6 +25,8 @@ import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/typ
 import { memoRoomCategoryKeys, memoRoomKeys } from '@src/shared/utils/queryKeys';
 import 'react-swipeable-list/dist/styles.css';
 import { useOS } from '@src/shared/hooks/useOS';
+import { Chat } from '@src/shared/types/chat';
+import useCreateChatMutation from '@src/features/chat/api/useCreateChatMutation';
 
 const RoomList: NextPageWithLayout = () => {
   const os = useOS();
@@ -45,6 +47,7 @@ const RoomList: NextPageWithLayout = () => {
   } = useElementDimension<HTMLFormElement>();
 
   const { mutate: deleteMemoRoom } = useDeleteMemoRoomMutation();
+  const { mutate: createChat } = useCreateChatMutation();
 
   const listWrapperRef = useRef<HTMLDivElement>(null);
 
@@ -99,6 +102,33 @@ const RoomList: NextPageWithLayout = () => {
     setIsCreateRoomDialogOpen(false);
   };
 
+  const handleSubmit = (
+    {
+      roomId,
+      type,
+      message,
+      link,
+    }: Pick<Chat, 'type' | 'message'> & { link?: string; roomId: number },
+    reset: () => void,
+  ) => {
+    createChat(
+      {
+        roomId,
+        param: {
+          type,
+          message,
+          ...(link ? { link } : {}),
+        },
+      },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries(memoRoomKeys.list());
+          reset();
+        },
+      },
+    );
+  };
+
   return (
     <>
       <S.Header>
@@ -137,6 +167,7 @@ const RoomList: NextPageWithLayout = () => {
           roomId={selectedRoom.id}
           roomName={selectedRoom.name}
           showSelectedRoom
+          onSubmit={handleSubmit}
         />
       </KeyboardFloatingLayout>
       <UpsertRoomDialog

@@ -11,6 +11,10 @@ import useChatsQuery from '@src/features/chat/api/useChatsQuery';
 import ChatList from '@src/features/chat/components/ChatList';
 import AuthGuard from '@src/features/auth/components/AuthGuard';
 import useMemoRoomQuery from '@src/features/room/api/useMemoRoomQuery';
+import { queryClient } from '@src/shared/configs/react-query';
+import { chatKeys } from '@src/shared/utils/queryKeys';
+import { Chat } from '@src/shared/types/chat';
+import useCreateChatMutation from '@src/features/chat/api/useCreateChatMutation';
 
 type ChatListProps = {
   roomId: number;
@@ -21,13 +25,15 @@ type ChatListProps = {
 const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
   const chatContainerRef = useRef<HTMLDivElement>();
 
-  const { data } = useChatsQuery({
+  const filter = {
     roomId,
     offset: 1,
     limit: 20,
-  });
+  };
 
+  const { data: chats } = useChatsQuery(filter);
   const { data: room } = useMemoRoomQuery(roomId);
+  const { mutate: createChat } = useCreateChatMutation();
 
   const {
     ref,
@@ -39,10 +45,37 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
   }, []);
 
   useEffect(() => {
-    if (data && data.length > 0) {
+    if (chats && chats.length > 0) {
       scrollToBottom();
     }
-  }, [data, scrollToBottom]);
+  }, [chats, scrollToBottom]);
+
+  const handleSubmit = (
+    {
+      roomId,
+      type,
+      message,
+      link,
+    }: Pick<Chat, 'type' | 'message'> & { link?: string; roomId: number },
+    reset: () => void,
+  ) => {
+    createChat(
+      {
+        roomId,
+        param: {
+          type,
+          message,
+          ...(link ? { link } : {}),
+        },
+      },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries(chatKeys.list(filter));
+          reset();
+        },
+      },
+    );
+  };
 
   return (
     <S.Wrapper>
@@ -56,9 +89,9 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
         }
       />
       <S.ChatContainer ref={chatContainerRef} memoFormHeight={height}>
-        {data && (data.length === 0 ? <ChatListEmpty /> : <ChatList data={data} />)}
+        {chats && (chats.length === 0 ? <ChatListEmpty /> : <ChatList data={chats} />)}
       </S.ChatContainer>
-      <RoomMemoForm ref={ref} roomId={roomId} />
+      <RoomMemoForm ref={ref} roomId={roomId} onSubmit={handleSubmit} />
     </S.Wrapper>
   );
 };

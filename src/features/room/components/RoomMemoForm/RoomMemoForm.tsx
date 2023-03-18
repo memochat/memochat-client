@@ -7,20 +7,20 @@ import useRoomMemoForm, { RoomMemoFormType } from '@src/features/room/hooks/useM
 import { Icon } from '@src/shared/components';
 import { NativeMessageSender } from '@src/shared/configs/webview';
 import { useOS } from '@src/shared/hooks/useOS';
-import useCreateChatMutation from '@src/features/chat/api/useCreateChatMutation';
 import { urlRegex } from '@src/shared/utils/parseUrls';
 
 // TODO: alert -> 커스텀 alert로 변경
 const RoomMemoForm = forwardRef(
-  ({ roomId, roomName, showSelectedRoom }: RoomMemoFormProps, ref: LegacyRef<HTMLFormElement>) => {
+  (
+    { roomId, roomName, showSelectedRoom, onSubmit }: RoomMemoFormProps,
+    ref: LegacyRef<HTMLFormElement>,
+  ) => {
     const {
       register,
-      setValue,
       handleSubmit,
       reset,
       formState: { isDirty },
     } = useRoomMemoForm();
-    const { mutate: createChat } = useCreateChatMutation();
     const os = useOS();
 
     const autoGrow = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -65,7 +65,7 @@ const RoomMemoForm = forwardRef(
       }
     };
 
-    const onSubmit = (value: RoomMemoFormType) => {
+    const submit = (value: RoomMemoFormType) => {
       if (!roomId) {
         alert('채팅방을 선택해주세요.');
         return;
@@ -79,25 +79,19 @@ const RoomMemoForm = forwardRef(
       const urls = value.message.match(urlRegex);
       const link = urls?.[0];
 
-      createChat(
+      onSubmit?.(
         {
           roomId,
-          param: {
-            type: link ? 'LINK' : 'TEXT',
-            message: value.message,
-            ...(link ? { link } : {}),
-          },
+          type: link ? 'LINK' : 'TEXT',
+          message: value.message,
+          link,
         },
-        {
-          onSuccess: () => {
-            reset();
-          },
-        },
+        reset,
       );
     };
 
     return (
-      <S.Form ref={ref} onSubmit={handleSubmit((v) => onSubmit(v as RoomMemoFormType))}>
+      <S.Form ref={ref} onSubmit={handleSubmit((v) => submit(v as RoomMemoFormType))}>
         {showSelectedRoom && roomName && <S.SelectedRoomName>{roomName}</S.SelectedRoomName>}
         <S.TextAreaWrapper onClick={handleTextAreaWrapperClick}>
           {showSelectedRoom && roomName && <Icon name="Reply" size={20} color="gray4" />}
