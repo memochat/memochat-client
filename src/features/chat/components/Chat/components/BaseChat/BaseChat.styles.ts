@@ -6,7 +6,6 @@ export const Wrapper = styled.div`
   align-items: flex-end;
   max-width: 80%;
   padding: 14px;
-  margin-top: 9px;
   border-radius: 16px 0px 16px 16px;
   background-color: ${(p) => p.theme.color.white};
 `;

@@ -1,4 +1,4 @@
-import { ComponentMeta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 
 import Chat from '.';
 
@@ -19,7 +19,7 @@ export default {
       </div>
     ),
   ],
-} as ComponentMeta<typeof Chat>;
+} as Meta<typeof Chat>;
 
 export const 기본: StoryObj<typeof Chat> = {
   args: {
