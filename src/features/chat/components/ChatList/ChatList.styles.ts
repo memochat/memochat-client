@@ -3,9 +3,8 @@ import styled from '@emotion/styled';
 export const Wrapper = styled.div<{ memoFormHeight?: number }>`
   display: flex;
   flex-direction: column-reverse;
-  align-items: flex-end;
   width: 100%;
-  padding: 0 16px 16px;
+  padding: 0 0 16px;
 `;
 
 export const Date = styled.span`

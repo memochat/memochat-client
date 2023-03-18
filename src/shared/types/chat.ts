@@ -1,5 +1,6 @@
 export type ChatType = 'TEXT' | 'LINK' | 'PHOTO';
 
+// TODO: link 또는 href 속성 추가
 export type Chat = {
   id: number;
   memoRoomId: number;

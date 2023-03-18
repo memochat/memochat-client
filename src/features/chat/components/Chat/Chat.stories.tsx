@@ -12,10 +12,7 @@ export default {
         style={{
           backgroundColor: '#F3F6FF',
           height: '100vh',
-          padding: '16px',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-end',
+          padding: '16px 0',
         }}
       >
         <Story />

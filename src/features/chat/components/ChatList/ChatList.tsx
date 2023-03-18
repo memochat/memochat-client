@@ -19,9 +19,19 @@ const ChatList = ({ data, memoFormHeight }: ChatListProps) => {
 
   return (
     <S.Wrapper memoFormHeight={memoFormHeight}>
-      {data.map(({ id, type, message, createdAt }, index) => (
+      {data.map(({ id, type, message, createdAt, title, description, thumbnail }, index) => (
         <React.Fragment key={id}>
-          <Chat type={type} message={message} createdAt={dayjs(createdAt).toDate()} />
+          <Chat
+            type={type}
+            message={message}
+            createdAt={dayjs(createdAt).toDate()}
+            link={{
+              href: '',
+              title,
+              description,
+              thumbnail,
+            }}
+          />
           {checkIsDateVisible(index) && (
             <S.Date>{dayjs(createdAt).format('YYYY년 MM월 DD일 ddd요일')}</S.Date>
           )}
