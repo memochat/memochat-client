@@ -65,7 +65,7 @@ const RoomList: NextPageWithLayout = () => {
   };
 
   const handleRoomClick = (room: MemoRoom) => {
-    router.push(`/rooms/${room.id}`);
+    router.push(`/chats/${room.id}`);
   };
 
   const handleRoomEditClick = (room: MemoRoom) => {
@@ -132,7 +132,12 @@ const RoomList: NextPageWithLayout = () => {
       </S.ListWrapper>
       <KeyboardFloatingLayout>
         <S.RoomCreateButton onClick={handleRoomCreateClick} />
-        <RoomMemoForm ref={memoFormRef} selectedRoom={selectedRoom} showSelectedRoom />
+        <RoomMemoForm
+          ref={memoFormRef}
+          roomId={selectedRoom.id}
+          roomName={selectedRoom.name}
+          showSelectedRoom
+        />
       </KeyboardFloatingLayout>
       <UpsertRoomDialog
         type="create"

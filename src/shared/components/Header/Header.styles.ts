@@ -4,7 +4,7 @@ import { HeaderProps } from './Header.types';
 
 import { ellipsis } from '@src/shared/styles';
 
-const HEADER_HEIGHT = 56;
+export const HEADER_HEIGHT = 56;
 
 export const Wrapper = styled.header<{ hasBottomLine?: boolean }>`
   background-color: white;

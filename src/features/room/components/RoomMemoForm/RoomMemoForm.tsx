@@ -12,7 +12,7 @@ import { urlRegex } from '@src/shared/utils/parseUrls';
 
 // TODO: alert -> 커스텀 alert로 변경
 const RoomMemoForm = forwardRef(
-  ({ showSelectedRoom, selectedRoom }: RoomMemoFormProps, ref: LegacyRef<HTMLFormElement>) => {
+  ({ roomId, roomName, showSelectedRoom }: RoomMemoFormProps, ref: LegacyRef<HTMLFormElement>) => {
     const {
       register,
       setValue,
@@ -29,7 +29,7 @@ const RoomMemoForm = forwardRef(
     };
 
     const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (!selectedRoom) {
+      if (!roomId) {
         alert('채팅방을 선택해주세요.');
         return;
       }
@@ -38,7 +38,7 @@ const RoomMemoForm = forwardRef(
     };
 
     const handleAlbumClick: MouseEventHandler<HTMLButtonElement> = async () => {
-      if (!selectedRoom) {
+      if (!roomId) {
         alert('채팅방을 선택해주세요.');
         return;
       }
@@ -49,7 +49,7 @@ const RoomMemoForm = forwardRef(
     };
 
     const handleCameraClick: MouseEventHandler<HTMLButtonElement> = async () => {
-      if (!selectedRoom) {
+      if (!roomId) {
         alert('채팅방을 선택해주세요.');
         return;
       }
@@ -60,13 +60,13 @@ const RoomMemoForm = forwardRef(
     };
 
     const handleTextAreaWrapperClick = () => {
-      if (!selectedRoom) {
+      if (!roomId) {
         alert('채팅방을 선택해주세요.');
       }
     };
 
     const onSubmit = (value: RoomMemoFormType) => {
-      if (!selectedRoom) {
+      if (!roomId) {
         alert('채팅방을 선택해주세요.');
         return;
       }
@@ -81,7 +81,7 @@ const RoomMemoForm = forwardRef(
 
       createChat(
         {
-          roomId: selectedRoom.id,
+          roomId,
           param: {
             type: link ? 'LINK' : 'TEXT',
             message: value.message,
@@ -98,14 +98,12 @@ const RoomMemoForm = forwardRef(
 
     return (
       <S.Form ref={ref} onSubmit={handleSubmit((v) => onSubmit(v as RoomMemoFormType))}>
-        {showSelectedRoom && selectedRoom && (
-          <S.SelectedRoomName>{selectedRoom.name}</S.SelectedRoomName>
-        )}
+        {showSelectedRoom && roomName && <S.SelectedRoomName>{roomName}</S.SelectedRoomName>}
         <S.TextAreaWrapper onClick={handleTextAreaWrapperClick}>
-          {showSelectedRoom && selectedRoom && <Icon name="Reply" size={20} color="gray4" />}
+          {showSelectedRoom && roomName && <Icon name="Reply" size={20} color="gray4" />}
           <S.Textarea
-            {...register('message', { onChange: autoGrow, disabled: !selectedRoom })}
-            placeholder={selectedRoom ? '메모를 입력하세요.' : '채팅방 선택 후 메모작성.'}
+            {...register('message', { onChange: autoGrow, disabled: !roomId })}
+            placeholder={roomId ? '메모를 입력하세요.' : '채팅방 선택 후 메모작성.'}
           />
         </S.TextAreaWrapper>
         <S.ToolBox>
