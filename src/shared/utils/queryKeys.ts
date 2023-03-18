@@ -1,5 +1,11 @@
 import { VerifyEmail } from '@src/shared/types/api/auth';
 import { CheckPassword } from '@src/shared/types/api/settings';
+import { ChatListFilter } from '@src/shared/types/chat';
+
+export const chatKeys = {
+  all: ['chats'] as const,
+  list: (filters: ChatListFilter) => [...chatKeys.all, 'list', { filters }] as const,
+};
 
 export const memoRoomKeys = {
   all: ['rooms'] as const,

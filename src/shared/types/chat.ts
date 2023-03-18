@@ -9,7 +9,13 @@ export type Chat = {
   message: string;
   type: ChatType;
   // 링크 메타 데이터 (type='LINK')
-  title: string;
-  description: string;
-  thumbnail: string;
+  title?: string;
+  description?: string;
+  thumbnail?: string;
+};
+
+export type ChatListFilter = {
+  roomId: number;
+  limit: number;
+  offset: number;
 };
