@@ -6,6 +6,8 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
 import { useEffect } from 'react';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
 
 import GlobalConfirmModal from '@src/shared/components/GlobalConfirmModal';
 import Loading from '@src/shared/components/Loading';
@@ -17,6 +19,8 @@ import GlobalStyle from '@src/shared/styles/GlobalStyle';
 import { lightTheme } from '@src/shared/styles/themes';
 import { NextPageWithLayout } from '@src/shared/types/next';
 import { NativeBridge } from '@src/shared/configs/webview';
+
+dayjs.locale('ko');
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;

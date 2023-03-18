@@ -1,5 +1,7 @@
 import { ThemeProvider } from '@emotion/react';
 import { RecoilRoot } from 'recoil';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
 
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { useDarkMode } from 'storybook-dark-mode';
@@ -12,6 +14,9 @@ import GlobalStyle from '../src/shared/styles/GlobalStyle';
 import { darkTheme, lightTheme } from '../src/shared/styles/themes';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+dayjs.locale('ko');
+
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
