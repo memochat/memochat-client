@@ -1,9 +1,7 @@
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { createQuery } from 'react-query-kit';
 
 import axios from '@src/shared/configs/axios';
-import { MemoChatError } from '@src/shared/types/api';
 import { CheckPassword } from '@src/shared/types/api/settings';
-import { checkPasswordKeys } from '@src/shared/utils/queryKeys';
 
 export const getCheckPassword = async (param: CheckPassword['param']) => {
   const res = await axios.get<CheckPassword['res']>(`/users/password`, {
@@ -14,20 +12,10 @@ export const getCheckPassword = async (param: CheckPassword['param']) => {
   return res.data;
 };
 
-const useCheckPasswordQuery = (
-  password?: string,
-  options?: UseQueryOptions<
-    CheckPassword['res'],
-    MemoChatError,
-    CheckPassword['res'],
-    [string, CheckPassword['param']]
-  >,
-) =>
-  useQuery({
-    queryKey: checkPasswordKeys({ password }),
-    enabled: false,
-    queryFn: ({ queryKey: [, { password }] }) => getCheckPassword({ password }),
-    ...options,
-  });
+const useCheckPasswordQuery = createQuery<CheckPassword['res'], CheckPassword['param']>({
+  primaryKey: '/users/password',
+  queryFn: ({ queryKey: [, param] }) => getCheckPassword(param),
+  enabled: false,
+});
 
 export default useCheckPasswordQuery;
