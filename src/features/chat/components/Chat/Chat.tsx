@@ -7,12 +7,18 @@ import PhotoChat from '@src/features/chat/components/Chat/components/PhotoChat';
 import { highlightenLink } from '@src/shared/utils/highlightenLink';
 
 const Chat = ({ type = 'TEXT', message, createdAt, link, imageUrls, onContextMenu }: ChatProps) => {
+  console.log(type);
+
   if (type === 'PHOTO') {
-    return imageUrls.map((image, i) => (
-      <S.Wrapper key={`${image}-${i}`}>
-        <PhotoChat src={image} alt="img" />
-      </S.Wrapper>
-    ));
+    return (
+      <>
+        {imageUrls.map((image, i) => (
+          <S.Wrapper key={`${image}-${i}`}>
+            <PhotoChat src={image} alt="img" />
+          </S.Wrapper>
+        ))}
+      </>
+    );
   }
 
   return (

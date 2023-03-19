@@ -22,7 +22,7 @@ const ChatList = ({ data, memoFormHeight }: ChatListProps) => {
       {data.map(({ id, type, message, createdAt, title, description, thumbnail }, index) => (
         <React.Fragment key={id}>
           <Chat
-            type="PHOTO"
+            type={type}
             message={message}
             createdAt={dayjs(createdAt).toDate()}
             link={{
