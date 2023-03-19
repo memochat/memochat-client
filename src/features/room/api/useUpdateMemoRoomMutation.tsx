@@ -1,34 +1,31 @@
-import { useMutation, UseMutationOptions } from '@tanstack/react-query';
+import { createMutation } from 'react-query-kit';
 
+import useMemoRoomQuery from '@src/features/room/api/useMemoRoomQuery';
+import useMemoRoomsQuery from '@src/features/room/api/useMemoRoomsQuery';
 import axios from '@src/shared/configs/axios';
-import { UpdateMemoRooms } from '@src/shared/types/api/memoRooms';
-import { memoRoomKeys } from '@src/shared/utils/queryKeys';
 import { queryClient } from '@src/shared/configs/react-query';
+import { UpdateMemoRooms } from '@src/shared/types/api/memoRooms';
 
 export const updateMemoRoom = async ({
-  id,
+  roomId,
   param,
 }: {
-  id: number;
+  roomId: number;
   param: UpdateMemoRooms['param'];
 }) => {
-  const res = await axios.put<UpdateMemoRooms['res']>(`/rooms/${id}`, param);
+  const res = await axios.put<UpdateMemoRooms['res']>(`/rooms/${roomId}`, param);
   return res.data;
 };
 
-const useUpdateMemoRoomMutation = (
-  options?: UseMutationOptions<
-    UpdateMemoRooms['res'],
-    unknown,
-    { id: number; param: UpdateMemoRooms['param'] }
-  >,
-) =>
-  useMutation(updateMemoRoom, {
-    onSuccess: (_, { id }) => {
-      queryClient.invalidateQueries(memoRoomKeys.list());
-      queryClient.invalidateQueries(memoRoomKeys.detail(id));
-    },
-    ...options,
-  });
+const useUpdateMemoRoomMutation = createMutation<
+  UpdateMemoRooms['res'],
+  { roomId: number; param: UpdateMemoRooms['param'] }
+>({
+  mutationFn: updateMemoRoom,
+  onSuccess: (_, { roomId }) => {
+    queryClient.invalidateQueries(useMemoRoomsQuery.getKey());
+    queryClient.invalidateQueries(useMemoRoomQuery.getKey({ roomId }));
+  },
+});
 
 export default useUpdateMemoRoomMutation;

@@ -54,7 +54,7 @@ const UpsertRoomDialog = ({
     } else {
       updateRoom(
         {
-          id: selectedRoomId,
+          roomId: selectedRoomId,
           param: data,
         },
         {
