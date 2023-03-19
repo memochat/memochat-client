@@ -82,6 +82,7 @@ const customReset = css`
   a:link:hover,
   a:-webkit-any-link {
     text-decoration: none;
+    color: inherit;
   }
 `;
 

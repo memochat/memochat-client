@@ -21,7 +21,10 @@ export const DetailMenuList = styled.div`
 export const TextButton = styled.button<{ color: ColorToken }>`
   padding: 16px;
   text-align: left;
-  ${({ theme }) => theme.typography.body1};
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: -0.3px;
   color: ${({ theme, color }) => theme.color[color]};
 `;
 
