@@ -1,7 +1,7 @@
-import { useMutation, UseMutationOptions } from '@tanstack/react-query';
+import { createMutation } from 'react-query-kit';
 
-import { ChangeNickName } from '@src/shared/types/api/settings';
 import axios from '@src/shared/configs/axios';
+import { ChangeNickName } from '@src/shared/types/api/settings';
 import { MemoChatError } from '@src/shared/types/api';
 
 export const patchChangeNicName = async (data: ChangeNickName['param']) => {
@@ -9,10 +9,12 @@ export const patchChangeNicName = async (data: ChangeNickName['param']) => {
   return res.data;
 };
 
-const usePatchNickNameChangeMutation = (
-  options?: UseMutationOptions<ChangeNickName['res'], MemoChatError, ChangeNickName['param']>,
-) => {
-  return useMutation(patchChangeNicName, options);
-};
+const usePatchNickNameChangeMutation = createMutation<
+  ChangeNickName['res'],
+  ChangeNickName['param'],
+  MemoChatError
+>({
+  mutationFn: patchChangeNicName,
+});
 
 export default usePatchNickNameChangeMutation;

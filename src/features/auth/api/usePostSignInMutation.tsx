@@ -1,7 +1,7 @@
-import { useMutation, UseMutationOptions } from '@tanstack/react-query';
+import { createMutation } from 'react-query-kit';
 
-import { SignIn } from '@src/shared/types/api/auth';
 import axios from '@src/shared/configs/axios';
+import { SignIn } from '@src/shared/types/api/auth';
 import { MemoChatError } from '@src/shared/types/api';
 
 export const postAuthSignin = async (data: SignIn['param']) => {
@@ -9,8 +9,8 @@ export const postAuthSignin = async (data: SignIn['param']) => {
   return res.data;
 };
 
-const usePostSignInMutation = (
-  options?: UseMutationOptions<SignIn['res'], MemoChatError, SignIn['param'], unknown>,
-) => useMutation(postAuthSignin, options);
+const usePostSignInMutation = createMutation<SignIn['res'], SignIn['param'], MemoChatError>({
+  mutationFn: postAuthSignin,
+});
 
 export default usePostSignInMutation;

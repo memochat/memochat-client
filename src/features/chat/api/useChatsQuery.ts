@@ -1,9 +1,8 @@
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import queryString from 'query-string';
+import { createQuery } from 'react-query-kit';
 
 import axios from '@src/shared/configs/axios';
 import { GetChats } from '@src/shared/types/api/chat';
-import { chatKeys } from '@src/shared/utils/queryKeys';
 import { ChatListFilter } from '@src/shared/types/chat';
 
 export const getChats = async ({ roomId, offset, limit }: ChatListFilter) => {
@@ -16,7 +15,9 @@ export const getChats = async ({ roomId, offset, limit }: ChatListFilter) => {
   return res.data;
 };
 
-const useChatsQuery = (filter: ChatListFilter, options?: UseQueryOptions<GetChats['res']>) =>
-  useQuery(chatKeys.list(filter), () => getChats(filter), options);
+const useChatsQuery = createQuery<GetChats['res'], ChatListFilter>({
+  primaryKey: '/rooms/:id/chats',
+  queryFn: ({ queryKey: [, param] }) => getChats(param),
+});
 
 export default useChatsQuery;

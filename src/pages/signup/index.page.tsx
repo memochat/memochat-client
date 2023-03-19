@@ -13,9 +13,9 @@ import GuestGuard from '@src/features/auth/components/GuestGuard';
 import PasswordSection from '@src/features/auth/components/PasswordSection';
 import useSignupForm, { SignUpFormType } from '@src/features/auth/hooks/useSignupForm';
 import { Button, Stepper } from '@src/shared/components';
+import { MemoChatError } from '@src/shared/types/api';
 import { NextPageWithLayout } from '@src/shared/types/next';
 import { toast } from '@src/shared/utils/toast';
-import { MemoChatError } from '@src/shared/types/api';
 
 const SignUp: NextPageWithLayout = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -44,7 +44,8 @@ const SignUp: NextPageWithLayout = () => {
 
   const email = watch('email');
 
-  const { refetch: checkIsEmailVerified } = useVerificationsQuery(email, {
+  const { refetch: checkIsEmailVerified } = useVerificationsQuery({
+    variables: { email },
     enabled: false,
     onSuccess: () => {
       setActiveIndex((prev) => prev + 1);

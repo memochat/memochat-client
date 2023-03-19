@@ -7,12 +7,11 @@ import { RoomSettingProps } from './setting.types';
 
 import AuthGuard from '@src/features/auth/components/AuthGuard';
 import useDeleteMemoRoomMutation from '@src/features/room/api/useDeleteMemoRoomMutation';
+import useMemoRoomQuery from '@src/features/room/api/useMemoRoomQuery';
 import { RoomDetailMenu, UpsertRoomDialog } from '@src/features/room/components';
 import { Header } from '@src/shared/components';
-import useMemoRoomQuery, { getMemoRoom } from '@src/features/room/api/useMemoRoomQuery';
 import useConfirm from '@src/shared/hooks/useConfirm';
 import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/types/next';
-import { memoRoomKeys } from '@src/shared/utils/queryKeys';
 
 const images = ['/images/alarm.png', '/images/bell.png', '/images/bell.png', '/images/bell.png'];
 
@@ -20,7 +19,7 @@ const RoomSetting: NextPageWithLayout<RoomSettingProps> = ({ roomId }) => {
   const { confirm } = useConfirm();
   const router = useRouter();
 
-  const { data: memoRoom } = useMemoRoomQuery(roomId);
+  const { data: memoRoom } = useMemoRoomQuery({ variables: { roomId } });
   const { mutate: deleteMemoRoom } = useDeleteMemoRoomMutation();
 
   const [isUpdateRoomDialogOpen, setIsUpdateRoomDialogOpen] = useState(false);
@@ -124,7 +123,7 @@ export const getServerSideProps: GetServerSidePropsWithState<RoomSettingProps> =
   const queryClient = new QueryClient();
 
   try {
-    await queryClient.prefetchQuery(memoRoomKeys.detail(roomId), () => getMemoRoom(roomId));
+    await queryClient.prefetchQuery(useMemoRoomQuery.getKey({ roomId }), useMemoRoomQuery.queryFn);
   } catch (e) {
     console.error(e);
   }

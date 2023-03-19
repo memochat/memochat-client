@@ -1,21 +1,20 @@
-import { useCallback, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
+import { useCallback, useEffect, useRef } from 'react';
 
 import * as S from './chats.styles';
 
-import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/types/next';
-import { Header, Icon } from '@src/shared/components';
-import { RoomMemoForm } from '@src/features/room/components';
-import ChatListEmpty from '@src/features/chat/components/ChatListEmpty';
-import useElementDimension from '@src/shared/hooks/useDimension';
-import useChatsQuery from '@src/features/chat/api/useChatsQuery';
-import ChatList from '@src/features/chat/components/ChatList';
 import AuthGuard from '@src/features/auth/components/AuthGuard';
-import useMemoRoomQuery from '@src/features/room/api/useMemoRoomQuery';
-import { queryClient } from '@src/shared/configs/react-query';
-import { chatKeys } from '@src/shared/utils/queryKeys';
-import { Chat } from '@src/shared/types/chat';
+import useChatsQuery from '@src/features/chat/api/useChatsQuery';
 import useCreateChatMutation from '@src/features/chat/api/useCreateChatMutation';
+import ChatList from '@src/features/chat/components/ChatList';
+import ChatListEmpty from '@src/features/chat/components/ChatListEmpty';
+import useMemoRoomQuery from '@src/features/room/api/useMemoRoomQuery';
+import { RoomMemoForm } from '@src/features/room/components';
+import { Header, Icon } from '@src/shared/components';
+import { queryClient } from '@src/shared/configs/react-query';
+import useElementDimension from '@src/shared/hooks/useDimension';
+import { Chat } from '@src/shared/types/chat';
+import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/types/next';
 
 type ChatListProps = {
   roomId: number;
@@ -33,8 +32,8 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
     limit: 20,
   };
 
-  const { data: chats } = useChatsQuery(filter);
-  const { data: room } = useMemoRoomQuery(roomId);
+  const { data: chats } = useChatsQuery({ variables: filter });
+  const { data: room } = useMemoRoomQuery({ variables: { roomId } });
   const { mutate: createChat } = useCreateChatMutation();
 
   const {
@@ -72,7 +71,7 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
       },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries(chatKeys.list(filter));
+          queryClient.invalidateQueries(useChatsQuery.getKey(filter));
           reset();
         },
       },

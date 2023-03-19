@@ -1,8 +1,8 @@
-import { useMutation, UseMutationOptions } from '@tanstack/react-query';
+import { createMutation } from 'react-query-kit';
 
+import useChatsQuery from '@src/features/chat/api/useChatsQuery';
 import axios from '@src/shared/configs/axios';
 import { queryClient } from '@src/shared/configs/react-query';
-import { memoRoomKeys } from '@src/shared/utils/queryKeys';
 import { CreateChat } from '@src/shared/types/api/chat';
 
 export const createChat = async ({
@@ -16,18 +16,14 @@ export const createChat = async ({
   return res.data;
 };
 
-const useCreateChatMutation = (
-  options?: UseMutationOptions<
-    CreateChat['res'],
-    unknown,
-    { roomId: number; param: CreateChat['param'] }
-  >,
-) =>
-  useMutation(createChat, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(memoRoomKeys.list());
-    },
-    ...options,
-  });
+const useCreateChatMutation = createMutation<
+  CreateChat['res'],
+  { roomId: number; param: CreateChat['param'] }
+>({
+  mutationFn: createChat,
+  onSuccess: () => {
+    queryClient.invalidateQueries(useChatsQuery.getKey());
+  },
+});
 
 export default useCreateChatMutation;
