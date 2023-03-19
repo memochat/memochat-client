@@ -12,7 +12,12 @@ export const Wrapper = styled.a`
 `;
 
 export const Title = styled.p`
-  ${({ theme }) => theme.typography.body1};
   flex-grow: 1;
   text-align: left;
+  font-style: normal;
+  font-weight: 510;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: -0.3px;
+  color: #333333;
 `;
