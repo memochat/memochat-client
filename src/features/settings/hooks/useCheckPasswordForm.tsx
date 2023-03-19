@@ -2,7 +2,7 @@ import { useForm, UseFormProps } from 'react-hook-form';
 import z, { ZodError } from 'zod';
 
 import { MemoChatError } from '@src/shared/types/api';
-import { getCheckPassword } from '@src/features/settings/api/useCheckUserPasswordQuery';
+import { postCheckPassword } from '@src/features/settings/api/useCheckUserPasswordMutation';
 
 export type CheckPasswordFormType = z.infer<typeof schema>;
 
@@ -21,14 +21,13 @@ const useCheckPasswordForm = (
 ) => {
   return useForm<CheckPasswordFormType>({
     defaultValues,
-    mode: 'all',
+    mode: 'onSubmit',
     resolver: async (data) => {
       try {
         schema.parse(data);
-        await getCheckPassword({ password: data.currentPassword });
+        await postCheckPassword({ password: data.currentPassword });
         return { values: data, errors: {} };
       } catch (e) {
-        console.log(e);
         if (e instanceof ZodError) {
           return {
             values: data,
@@ -38,6 +37,8 @@ const useCheckPasswordForm = (
           };
         }
         if (e instanceof MemoChatError) {
+          console.log(e);
+
           return {
             values: data,
             errors: {
