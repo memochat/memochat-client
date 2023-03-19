@@ -39,7 +39,7 @@ const MOCK_LINKS = [
   })),
 ];
 
-const LinkManageList: NextPageWithLayout<LinkManageListProps> = ({ id }) => {
+const LinkManageList: NextPageWithLayout<LinkManageListProps> = ({ roomId }) => {
   const { confirm } = useConfirm();
 
   const [mode, setMode] = useState<LinkManageMode>('read');
@@ -142,13 +142,12 @@ const LinkManageList: NextPageWithLayout<LinkManageListProps> = ({ id }) => {
 };
 
 export const getServerSideProps: GetServerSidePropsWithState<LinkManageListProps> = async (ctx) => {
-  const {
-    query: { id },
-  } = ctx;
+  const query = ctx.query;
+  const roomId = Number(query.roomId);
 
   return {
     props: {
-      id: String(id),
+      roomId: Number(roomId),
     },
   };
 };

@@ -16,11 +16,11 @@ import { memoRoomKeys } from '@src/shared/utils/queryKeys';
 
 const images = ['/images/alarm.png', '/images/bell.png', '/images/bell.png', '/images/bell.png'];
 
-const RoomSetting: NextPageWithLayout<RoomSettingProps> = ({ id }) => {
+const RoomSetting: NextPageWithLayout<RoomSettingProps> = ({ roomId }) => {
   const { confirm } = useConfirm();
   const router = useRouter();
 
-  const { data: memoRoom } = useMemoRoomQuery(id);
+  const { data: memoRoom } = useMemoRoomQuery(roomId);
   const { mutate: deleteMemoRoom } = useDeleteMemoRoomMutation();
 
   const [isUpdateRoomDialogOpen, setIsUpdateRoomDialogOpen] = useState(false);
@@ -119,19 +119,19 @@ const RoomSetting: NextPageWithLayout<RoomSettingProps> = ({ id }) => {
 };
 
 export const getServerSideProps: GetServerSidePropsWithState<RoomSettingProps> = async (ctx) => {
-  const id = parseInt(ctx.query.id.toString());
-
+  const query = ctx.query;
+  const roomId = Number(query.roomId);
   const queryClient = new QueryClient();
 
   try {
-    await queryClient.prefetchQuery(memoRoomKeys.detail(id), () => getMemoRoom(id));
+    await queryClient.prefetchQuery(memoRoomKeys.detail(roomId), () => getMemoRoom(roomId));
   } catch (e) {
     console.error(e);
   }
 
   return {
     props: {
-      id,
+      roomId,
       dehydratedState: dehydrate(queryClient),
     },
   };

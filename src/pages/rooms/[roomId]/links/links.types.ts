@@ -1,5 +1,5 @@
 export interface LinkManageListProps {
-  id: string;
+  roomId: number;
 }
 
 export type LinkManageMode = 'read' | 'edit';

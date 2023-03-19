@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
+import { useRouter } from 'next/router';
 
 import * as S from './chats.styles';
 
@@ -24,6 +25,7 @@ type ChatListProps = {
 // TODO: 키보드 위에 RoomMemoForm 뜰 때 기기에서 깨지는지 테스트
 const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
   const chatContainerRef = useRef<HTMLDivElement>();
+  const router = useRouter();
 
   const filter = {
     roomId,
@@ -77,13 +79,25 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
     );
   };
 
+  useEffect(() => {
+    if (!router.isReady) {
+      return;
+    }
+
+    router.prefetch(`/rooms/${roomId}/setting`);
+  }, [roomId, router]);
+
+  const handleGoSetting = () => {
+    router.push(`/rooms/${roomId}/setting`);
+  };
+
   return (
     <S.Wrapper>
       <Header
         title={room?.name || '-'}
         titleAlign="left"
         rightButtons={
-          <button type="button">
+          <button type="button" onClick={handleGoSetting}>
             <Icon name="Hamburger" color="black1" size={20} />
           </button>
         }

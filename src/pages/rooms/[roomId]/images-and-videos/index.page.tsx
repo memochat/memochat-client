@@ -1,16 +1,15 @@
 import { union } from 'lodash-es';
-import { NextPage } from 'next';
 import { useState } from 'react';
 
 import * as S from './images-and-videos.styles';
 import { ImageAndVideoManageListProps, ImageAndVideoManageMode } from './images-and-videos.types';
 
+import AuthGuard from '@src/features/auth/components/AuthGuard';
 import ImageManageListItem from '@src/features/chat/components/ImageManageListItem';
 import { Icon } from '@src/shared/components';
 import Header from '@src/shared/components/Header';
 import useConfirm from '@src/shared/hooks/useConfirm';
 import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/types/next';
-import AuthGuard from '@src/features/auth/components/AuthGuard';
 
 const mockImageSrc = '/images/big-chat.png';
 const MOCK_IMAGES = [
@@ -36,7 +35,7 @@ const MOCK_IMAGES = [
   })),
 ];
 
-const ImageAndVideoManageList: NextPageWithLayout<ImageAndVideoManageListProps> = ({ id }) => {
+const ImageAndVideoManageList: NextPageWithLayout<ImageAndVideoManageListProps> = ({ roomId }) => {
   const { confirm } = useConfirm();
 
   const [mode, setMode] = useState<ImageAndVideoManageMode>('read');
@@ -151,13 +150,11 @@ const ImageAndVideoManageList: NextPageWithLayout<ImageAndVideoManageListProps> 
 export const getServerSideProps: GetServerSidePropsWithState<ImageAndVideoManageListProps> = async (
   ctx,
 ) => {
-  const {
-    query: { id },
-  } = ctx;
-
+  const query = ctx.query;
+  const roomId = Number(query.roomId);
   return {
     props: {
-      id: String(id),
+      roomId: String(roomId),
     },
   };
 };
