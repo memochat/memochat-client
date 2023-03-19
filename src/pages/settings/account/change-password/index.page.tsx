@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Controller, SubmitHandler } from 'react-hook-form';
+import { useRouter } from 'next/router';
 
 import * as S from './changepassword.styles';
 
@@ -18,12 +19,14 @@ import { toast } from '@src/shared/utils/toast';
 
 const ChangePassword: NextPageWithLayout = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const router = useRouter();
 
   const checkPasswordFormProps = useCheckPasswordForm();
   const changePasswordFormProps = useChangePasswordForm();
   const { isLoading, mutate } = usePatchChangePasswordMutation({
     onSuccess: () => {
       toast.success('변경에 성공했습니다');
+      router.replace('/settings/account');
     },
     onError: (e) => {
       if (e instanceof MemoChatError) {
@@ -74,16 +77,13 @@ const ChangePassword: NextPageWithLayout = () => {
                     error={Boolean(fieldState.error)}
                     errorMessage={fieldState.error?.message}
                     success={fieldState.isDirty && !fieldState.error}
-                    successMessage="비밀번호가 일치합니다."
                     maxLength={20}
                   />
                 </>
               )}
             />
           </div>
-          <Button type="submit" disabled={!checkPasswordFormProps.formState.isValid}>
-            계속
-          </Button>
+          <Button type="submit">계속</Button>
         </S.Content>
         <S.Content
           as="form"

@@ -183,6 +183,7 @@ const RoomList: NextPageWithLayout = () => {
           onClose={handleUpdateRoomDialogClose}
           defaultValues={{
             name: selectedUpdateRoom.name,
+
             roomCategoryId: selectedUpdateRoom.roomCategory.id,
           }}
         />
