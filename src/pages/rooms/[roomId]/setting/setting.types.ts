@@ -1,3 +1,3 @@
 export interface RoomSettingProps {
-  id: number;
+  roomId: number;
 }

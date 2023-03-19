@@ -68,7 +68,7 @@ const RoomList: NextPageWithLayout = () => {
   };
 
   const handleRoomClick = (room: MemoRoom) => {
-    router.push(`/chats/${room.id}`);
+    router.push(`/rooms/${room.id}/chats`);
   };
 
   const handleRoomEditClick = (room: MemoRoom) => {

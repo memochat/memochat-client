@@ -1,5 +1,5 @@
 export interface ImageAndVideoManageListProps {
-  id: string;
+  roomId: string;
 }
 
 export type ImageAndVideoManageMode = 'read' | 'edit';
