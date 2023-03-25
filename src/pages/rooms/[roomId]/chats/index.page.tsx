@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { VirtuosoHandle } from 'react-virtuoso';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
 
 import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/types/next';
 import { Header, Icon } from '@src/shared/components';
@@ -10,11 +11,10 @@ import useElementDimension from '@src/shared/hooks/useDimension';
 import ChatList from '@src/features/chat/components/ChatList';
 import AuthGuard from '@src/features/auth/components/AuthGuard';
 import useMemoRoomQuery from '@src/features/room/api/useMemoRoomQuery';
-import { queryClient } from '@src/shared/configs/react-query';
 import { Chat } from '@src/shared/types/chat';
 import useCreateChatMutation from '@src/features/chat/api/useCreateChatMutation';
 import { useChatsInfiniteQuery } from '@src/features/chat/api/useChatsInfiniteQuery';
-import useMemoRoomsQuery from '@src/features/room/api/useMemoRoomsQuery';
+import { setServerSideCookies } from '@src/shared/configs/axios';
 
 import * as S from './chats.styles';
 
@@ -66,7 +66,6 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
       },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries(useMemoRoomsQuery.getKey());
           reset();
           scrollToBottom();
         },
@@ -114,9 +113,22 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
 export const getServerSideProps: GetServerSidePropsWithState<ChatListProps> = async (ctx) => {
   const roomId = parseInt(ctx.query.roomId.toString());
 
+  setServerSideCookies(ctx.req.cookies);
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: useMemoRoomQuery.getKey({ roomId }),
+    queryFn: useMemoRoomQuery.queryFn,
+  });
+  await queryClient.prefetchInfiniteQuery({
+    queryKey: useChatsInfiniteQuery.getKey({ roomId }),
+    queryFn: useChatsInfiniteQuery.queryFn,
+  });
+  setServerSideCookies({});
+
   return {
     props: {
       roomId,
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
     },
   };
 };
