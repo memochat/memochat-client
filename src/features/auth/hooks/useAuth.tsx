@@ -10,14 +10,13 @@ import {
 } from '@src/shared/configs/cookie';
 import { queryClient } from '@src/shared/configs/react-query';
 import { MemoChatError } from '@src/shared/types/api';
-import { SignIn } from '@src/shared/types/api/auth';
 import { toast } from '@src/shared/utils/toast';
 
-import usePostSignInMutation from '../api/usePostSignInMutation';
+import useSignInMutation from '../api/useSignInMutation';
 
 const useAuth = () => {
   const router = useRouter();
-  const { mutateAsync: postSignIn } = usePostSignInMutation({
+  const { mutateAsync: signIn } = useSignInMutation({
     onSuccess(data) {
       const { accessToken, refreshToken } = data;
       setAccessToken(accessToken);
@@ -39,10 +38,6 @@ const useAuth = () => {
     },
   });
 
-  const login = (values: SignIn['param']) => {
-    postSignIn(values);
-  };
-
   const logout = () => {
     removeAccessToken();
     removeRefreshToken();
@@ -59,7 +54,7 @@ const useAuth = () => {
     return true;
   }, [refetch]);
 
-  return { login, logout, user: data, checkUserState };
+  return { login: signIn, logout, user: data, checkUserState };
 };
 
 export default useAuth;

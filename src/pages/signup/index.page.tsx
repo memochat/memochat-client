@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import usePostSendEmailMutation from '@src/features/auth/api/usePostSendEmailMutation';
-import usePostSignUpMutation from '@src/features/auth/api/usePostSignUpMutation';
+import useSendEmailMutation from '@src/features/auth/api/useSendEmailMutation';
+import useSignUpMutation from '@src/features/auth/api/useSignUpMutation';
 import useVerificationsQuery from '@src/features/auth/api/useVerifications';
 import EmailSection from '@src/features/auth/components/EmailSection';
 import GuestGuard from '@src/features/auth/components/GuestGuard';
@@ -24,7 +24,7 @@ const SignUp: NextPageWithLayout = () => {
 
   const { t } = useTranslation();
   const [isVerifyEmailSent, setIsVerifyEmailSent] = useState(false);
-  const { mutateAsync: mutateSendEmail } = usePostSendEmailMutation({
+  const { mutateAsync: mutateSendEmail } = useSendEmailMutation({
     onSuccess: () => {
       toast.success(t('emailLinkSent'));
       setIsVerifyEmailSent(true);
@@ -52,7 +52,7 @@ const SignUp: NextPageWithLayout = () => {
     },
   });
 
-  const { mutate: signup } = usePostSignUpMutation({
+  const { mutate: signUp } = useSignUpMutation({
     onSuccess: () => {
       toast.success('회원가입이 완료되었습니다. 로그인해주세요.');
       router.push('/signup/complete');
@@ -70,7 +70,7 @@ const SignUp: NextPageWithLayout = () => {
 
   const onSubmit: SubmitHandler<SignUpFormType> = (values) => {
     const { email, password } = values;
-    signup({ email, password });
+    signUp({ email, password });
   };
 
   return (
@@ -106,7 +106,5 @@ const SignUp: NextPageWithLayout = () => {
     </S.Wrapper>
   );
 };
-
-SignUp.getLayout = (page) => <GuestGuard>{page}</GuestGuard>;
 
 export default SignUp;
