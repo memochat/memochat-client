@@ -1,22 +1,22 @@
 import { forwardRef, useEffect, useState } from 'react';
 
-import useMemoRoomCategoriesQuery from '../../api/useMemoRoomCategoriesQuery';
+import useRoomCategoriesQuery from '../../api/useRoomCategoriesQuery';
 
 import * as S from './RoomTypeRadioGroup.styles';
 import { RoomTypeRadioGroupProps } from './RoomTypeRadioGroup.types';
 
 const RoomTypeRadioGroup = forwardRef<HTMLInputElement, RoomTypeRadioGroupProps>(
   ({ name, label, value, onChange, className }, ref) => {
-    const [selectedRoomTypeId, setSelectedRoomTypeId] = useState(value);
+    const [selectedCategoryId, setSelectedCategoryId] = useState(value);
 
-    const { data: memoRoomCategories, isLoading } = useMemoRoomCategoriesQuery();
+    const { data: roomCategories, isLoading } = useRoomCategoriesQuery();
 
     useEffect(() => {
-      setSelectedRoomTypeId(value);
+      setSelectedCategoryId(value);
     }, [value]);
 
     const handleRoomTypeClick = (id: number) => {
-      setSelectedRoomTypeId(id);
+      setSelectedCategoryId(id);
       onChange?.(id);
     };
 
@@ -29,18 +29,18 @@ const RoomTypeRadioGroup = forwardRef<HTMLInputElement, RoomTypeRadioGroupProps>
       <S.Wrapper className={className}>
         <S.Label>{label}</S.Label>
         <S.RoomTypeList>
-          {memoRoomCategories?.map((roomType) => (
-            <label key={roomType.id}>
+          {roomCategories?.map((roomCategory) => (
+            <label key={roomCategory.id}>
               <input
                 type="radio"
                 name={name}
                 ref={ref}
-                value={roomType.id}
-                checked={roomType.id === selectedRoomTypeId}
+                value={roomCategory.id}
+                checked={roomCategory.id === selectedCategoryId}
                 onChange={(e) => handleRoomTypeClick(parseInt(e.target.value))}
               />
-              <S.RoomType isSelected={roomType.id === selectedRoomTypeId}>
-                <img src={roomType.thumbnail} alt={roomType.name} />
+              <S.RoomType isSelected={roomCategory.id === selectedCategoryId}>
+                <img src={roomCategory.thumbnail} alt={roomCategory.name} />
               </S.RoomType>
             </label>
           ))}

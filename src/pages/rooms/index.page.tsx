@@ -6,9 +6,9 @@ import { SwipeableList, Type as ListType } from 'react-swipeable-list';
 
 import AuthGuard from '@src/features/auth/components/AuthGuard';
 import useCreateChatMutation from '@src/features/chat/api/useCreateChatMutation';
-import useDeleteMemoRoomMutation from '@src/features/room/api/useDeleteMemoRoomMutation';
-import useMemoRoomCategoriesQuery from '@src/features/room/api/useMemoRoomCategoriesQuery';
-import useMemoRoomsQuery from '@src/features/room/api/useMemoRoomsQuery';
+import useDeleteRoomMutation from '@src/features/room/api/useDeleteRoomMutation';
+import useRoomCategoriesQuery from '@src/features/room/api/useRoomCategoriesQuery';
+import useRoomsQuery from '@src/features/room/api/useRoomsQuery';
 import RoomListEmpty from '@src/features/room/components/RoomListEmpty';
 import RoomListItem from '@src/features/room/components/RoomListItem';
 import RoomMemoForm from '@src/features/room/components/RoomMemoForm';
@@ -32,7 +32,7 @@ const RoomList: NextPageWithLayout = () => {
   const router = useRouter();
   const { confirm } = useConfirm();
 
-  const { data: rooms, isLoading } = useMemoRoomsQuery();
+  const { data: rooms, isLoading } = useRoomsQuery();
 
   const [selectedRoom, setSelectedRoom] = useState<MemoRoom | null>(rooms?.[0]);
   const [selectedUpdateRoom, setSelectedUpdateRoom] = useState<MemoRoom | null>(rooms?.[0]);
@@ -45,7 +45,7 @@ const RoomList: NextPageWithLayout = () => {
     dimension: { height: memoFormHeight },
   } = useElementDimension<HTMLFormElement>();
 
-  const { mutate: deleteMemoRoom } = useDeleteMemoRoomMutation();
+  const { mutate: deleteRoom } = useDeleteRoomMutation();
   const { mutate: createChat } = useCreateChatMutation();
 
   const listWrapperRef = useRef<HTMLDivElement>(null);
@@ -84,7 +84,7 @@ const RoomList: NextPageWithLayout = () => {
         variant: 'danger',
       })
     ) {
-      await deleteMemoRoom({ id: room.id });
+      await deleteRoom({ id: room.id });
     }
   };
 
@@ -121,7 +121,7 @@ const RoomList: NextPageWithLayout = () => {
       },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries(useMemoRoomsQuery.getKey());
+          queryClient.invalidateQueries(useRoomsQuery.getKey());
           reset();
         },
       },
@@ -193,11 +193,8 @@ export const getServerSideProps: GetServerSidePropsWithState = async (ctx) => {
   const queryClient = new QueryClient();
 
   setServerSideCookies(ctx.req.cookies);
-  await queryClient.prefetchQuery(useMemoRoomsQuery.getKey(), useMemoRoomsQuery.queryFn);
-  await queryClient.prefetchQuery(
-    useMemoRoomCategoriesQuery.getKey(),
-    useMemoRoomCategoriesQuery.queryFn,
-  );
+  await queryClient.prefetchQuery(useRoomsQuery.getKey(), useRoomsQuery.queryFn);
+  await queryClient.prefetchQuery(useRoomCategoriesQuery.getKey(), useRoomCategoriesQuery.queryFn);
   setServerSideCookies({});
 
   return {

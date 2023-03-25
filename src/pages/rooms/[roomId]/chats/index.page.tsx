@@ -10,7 +10,7 @@ import ChatListEmpty from '@src/features/chat/components/ChatListEmpty';
 import useElementDimension from '@src/shared/hooks/useDimension';
 import ChatList from '@src/features/chat/components/ChatList';
 import AuthGuard from '@src/features/auth/components/AuthGuard';
-import useMemoRoomQuery from '@src/features/room/api/useMemoRoomQuery';
+import useRoomQuery from '@src/features/room/api/useRoomQuery';
 import { Chat } from '@src/shared/types/chat';
 import useCreateChatMutation from '@src/features/chat/api/useCreateChatMutation';
 import { useChatsInfiniteQuery } from '@src/features/chat/api/useChatsInfiniteQuery';
@@ -29,7 +29,7 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
   const chatListRef = useRef<VirtuosoHandle>();
 
   const { data, hasNextPage, fetchNextPage } = useChatsInfiniteQuery({ variables: { roomId } });
-  const { data: room } = useMemoRoomQuery({ variables: { roomId } });
+  const { data: room } = useRoomQuery({ variables: { roomId } });
   const { mutate: createChat } = useCreateChatMutation();
 
   const chats = data?.pages.reduce(
@@ -116,8 +116,8 @@ export const getServerSideProps: GetServerSidePropsWithState<ChatListProps> = as
   setServerSideCookies(ctx.req.cookies);
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
-    queryKey: useMemoRoomQuery.getKey({ roomId }),
-    queryFn: useMemoRoomQuery.queryFn,
+    queryKey: useRoomQuery.getKey({ roomId }),
+    queryFn: useRoomQuery.queryFn,
   });
   await queryClient.prefetchInfiniteQuery({
     queryKey: useChatsInfiniteQuery.getKey({ roomId }),
