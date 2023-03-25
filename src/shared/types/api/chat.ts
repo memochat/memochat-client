@@ -1,6 +1,11 @@
 import { Chat, ChatType } from '@src/shared/types/chat';
 
 export type GetChats = {
+  param: {
+    roomId: number;
+    limit: number;
+    offset: number;
+  };
   res: Chat[];
 };
 

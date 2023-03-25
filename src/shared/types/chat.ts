@@ -14,9 +14,3 @@ export type Chat = {
   description?: string;
   thumbnail?: string;
 };
-
-export type ChatListFilter = {
-  roomId: number;
-  limit: number;
-  offset: number;
-};

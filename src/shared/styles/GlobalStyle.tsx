@@ -110,6 +110,8 @@ const global = css`
     text-decoration: none;
   }
 
+  html,
+  body,
   #__next {
     height: 100%;
   }

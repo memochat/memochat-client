@@ -1,6 +1,5 @@
 import { createMutation } from 'react-query-kit';
 
-import useChatsQuery from '@src/features/chat/api/useChatsQuery';
 import axios from '@src/shared/configs/axios';
 import { queryClient } from '@src/shared/configs/react-query';
 import { CreateChat } from '@src/shared/types/api/chat';
@@ -22,7 +21,8 @@ const useCreateChatMutation = createMutation<
 >({
   mutationFn: createChat,
   onSuccess: () => {
-    queryClient.invalidateQueries(useChatsQuery.getKey());
+    // TODO: chat 목록 업데이트
+    // queryClient.invalidateQueries(useChatsQuery.getKey());
   },
 });
 

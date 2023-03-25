@@ -5,7 +5,7 @@ import { HEADER_HEIGHT } from '@src/shared/components/Header/Header.styles';
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100%;
   background-color: ${(p) => p.theme.color.slateGrey};
 `;
 

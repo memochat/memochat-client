@@ -10,6 +10,7 @@ import { useOS } from '@src/shared/hooks/useOS';
 import { urlRegex } from '@src/shared/utils/parseUrls';
 
 // TODO: alert -> 커스텀 alert로 변경
+// TODO: 채팅 두번 전송 방지
 const RoomMemoForm = forwardRef(
   (
     { roomId, roomName, showSelectedRoom, onSubmit }: RoomMemoFormProps,
