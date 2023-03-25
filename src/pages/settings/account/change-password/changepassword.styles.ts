@@ -5,7 +5,7 @@ export const Wrapper = styled.main`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 36px 18px;
+  padding: 36px 18px calc(36px + env(safe-area-inset-bottom, 0));
 `;
 export const Title = styled.h1`
   margin-bottom: 16px;
