@@ -13,7 +13,7 @@ const axios = Axios.create({
 
 let serverSideCookies: GetServerSidePropsContext['req']['cookies'];
 
-export const setServerSideToken = (cookies: GetServerSidePropsContext['req']['cookies']) => {
+export const setServerSideCookies = (cookies: GetServerSidePropsContext['req']['cookies']) => {
   serverSideCookies = cookies;
 };
 

@@ -8,7 +8,7 @@ import { ChatListProps } from './ChatList.types';
 import * as S from './ChatList.styles';
 
 // TODO: 전체 개수 -> api에서 전달받는 개수로 수정
-const totalCount = 25;
+const totalCount = 100;
 
 const ChatList = forwardRef(
   (

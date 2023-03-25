@@ -15,7 +15,7 @@ import RoomMemoForm from '@src/features/room/components/RoomMemoForm';
 import UpsertRoomDialog from '@src/features/room/components/UpsertRoomDialog';
 import { Icon } from '@src/shared/components';
 import KeyboardFloatingLayout from '@src/shared/components/KeyboardFloatingLayout';
-import { setServerSideToken as setServerSideCookies } from '@src/shared/configs/axios';
+import { setServerSideCookies } from '@src/shared/configs/axios';
 import { queryClient } from '@src/shared/configs/react-query';
 import useConfirm from '@src/shared/hooks/useConfirm';
 import useElementDimension from '@src/shared/hooks/useDimension';
