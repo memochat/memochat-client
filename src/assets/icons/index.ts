@@ -9,6 +9,7 @@ export { ReactComponent as Check } from './check.svg';
 export { ReactComponent as Close } from './close.svg';
 export { ReactComponent as Download } from './download.svg';
 export { ReactComponent as Delete } from './ic-delete.svg';
+export { ReactComponent as Logo } from './logo.svg';
 export { ReactComponent as Pin } from './pin.svg';
 export { ReactComponent as Plus } from './plus.svg';
 export { ReactComponent as Reply } from './reply.svg';
