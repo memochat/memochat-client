@@ -58,7 +58,7 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
     createChat(
       {
         roomId,
-        param: {
+        payload: {
           type,
           message,
           ...(link ? { link } : {}),

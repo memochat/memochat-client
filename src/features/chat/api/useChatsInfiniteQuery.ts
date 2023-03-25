@@ -2,16 +2,21 @@ import queryString from 'query-string';
 import { createInfiniteQuery } from 'react-query-kit';
 
 import axios from '@src/shared/configs/axios';
-import { GetChats } from '@src/shared/types/api/chat';
+import { Chat } from '@src/shared/types/chat';
+import { MemoChatError } from '@src/shared/types/api';
 
-type Response = GetChats['res'];
-type Variables = Pick<GetChats['param'], 'roomId'>;
+type Response = Chat[];
+type Variables = { roomId: number };
+type Query = {
+  limit: number;
+  offset: number;
+};
 
-export const getChats = async ({ roomId, offset, limit }: GetChats['param']) => {
-  const res = await axios.get<GetChats['res']>(
+export const getChats = async ({ roomId, query }: Variables & { query: Query }) => {
+  const res = await axios.get<Response>(
     queryString.stringifyUrl({
       url: `/rooms/${roomId}/chats`,
-      query: { limit, offset },
+      query,
     }),
   );
   return res.data;
@@ -19,10 +24,10 @@ export const getChats = async ({ roomId, offset, limit }: GetChats['param']) => 
 
 const limit = 20;
 
-export const useChatsInfiniteQuery = createInfiniteQuery<Response, Variables, Error>({
+export const useChatsInfiniteQuery = createInfiniteQuery<Response, Variables, MemoChatError>({
   primaryKey: '/rooms/:id/chats',
   queryFn: ({ queryKey: [, { roomId }], pageParam = 1 }) => {
-    return getChats({ roomId, offset: pageParam, limit });
+    return getChats({ roomId, query: { offset: pageParam, limit } });
   },
   getNextPageParam: (lastPage, pages) => {
     if (lastPage.length < limit) {
