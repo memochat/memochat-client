@@ -1,18 +1,11 @@
 import { useEffect, useRef } from 'react';
 import Lottie from 'lottie-web';
-import Link from 'next/link';
 
 import * as S from './home.styles';
 
 import splashLottie from '@src/assets/lotti/splash.json';
 import GuestGuard from '@src/features/auth/components/GuestGuard';
 import { NextPageWithLayout } from '@src/shared/types/next';
-
-export async function getStaticProps() {
-  return {
-    props: {},
-  };
-}
 
 const Home: NextPageWithLayout = () => {
   const lottieRef = useRef<HTMLDivElement>(null);
