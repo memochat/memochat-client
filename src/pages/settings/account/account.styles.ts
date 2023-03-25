@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import Link from 'next/link';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -43,7 +44,7 @@ export const P = styled.p`
   color: ${({ theme }) => theme.color.black1};
 `;
 
-export const Link = styled.a`
+export const TextLink = styled(Link)`
   ${({ theme }) => theme.typography.body1};
   color: ${({ theme }) => theme.color.purple1};
 `;

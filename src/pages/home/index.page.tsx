@@ -8,6 +8,12 @@ import splashLottie from '@src/assets/lotti/splash.json';
 import GuestGuard from '@src/features/auth/components/GuestGuard';
 import { NextPageWithLayout } from '@src/shared/types/next';
 
+export async function getStaticProps() {
+  return {
+    props: {},
+  };
+}
+
 const Home: NextPageWithLayout = () => {
   const lottieRef = useRef<HTMLDivElement>(null);
 
@@ -31,18 +37,16 @@ const Home: NextPageWithLayout = () => {
       <S.Title>내 메모를 채팅처럼</S.Title>
       <img src="/images/logo.png" alt="메모쳇" width={222} height={30} />
       <S.Lottie ref={lottieRef} />
-      <S.LoginBtn type="button" href="/signin">
-        로그인
-      </S.LoginBtn>
+      <S.LoginBtn href="/signin">로그인</S.LoginBtn>
       <S.Box>
-        <Link href="/signup" passHref>
-          <S.TextLink>회원가입</S.TextLink>
-        </Link>
+        <S.TextLink href="/signup" passHref>
+          회원가입
+        </S.TextLink>
         <S.Divider />
         {/* TODO: 약관 링크 달기 */}
-        <Link href="/" passHref>
-          <S.TextLink>이용약관 | 개인정보처리방침</S.TextLink>
-        </Link>
+        <S.TextLink href="/" passHref>
+          이용약관 | 개인정보처리방침
+        </S.TextLink>
       </S.Box>
     </S.Wrapper>
   );

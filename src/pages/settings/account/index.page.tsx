@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { useState } from 'react';
 
 import * as S from './account.styles';
@@ -39,9 +38,7 @@ const Account: NextPageWithLayout = () => {
           </S.MenuListItem>
           <S.MenuListItem>
             <S.Title>비밀번호 변경</S.Title>
-            <Link href="/settings/account/change-password" passHref>
-              <S.Link>변경</S.Link>
-            </Link>
+            <S.TextLink href="/settings/account/change-password">변경</S.TextLink>
           </S.MenuListItem>
           <S.MenuListItem>
             <S.DeleteButton type="button">계정삭제</S.DeleteButton>

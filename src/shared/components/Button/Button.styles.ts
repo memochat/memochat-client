@@ -101,7 +101,7 @@ export const Button = styled.button<StyledButtonProps>`
   ${(p) => buttonStyles(p)}
 `;
 
-export const LinkButton = styled.a<StyledButtonProps>`
+export const LinkButton = styled.span<StyledButtonProps>`
   ${(p) => buttonStyles(p)}
 
   ${(p) => p.disabled && `pointer-events: none;`}

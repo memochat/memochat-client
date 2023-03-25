@@ -132,10 +132,8 @@ const RoomList: NextPageWithLayout = () => {
     <>
       <S.Header>
         <Icon name="Logo" width="134px" height="22px" />
-        <Link href="/settings">
-          <a aria-label="설정페이지">
-            <S.ProfileImg src="" alt="프로필" />
-          </a>
+        <Link href="/settings" aria-label="설정페이지">
+          <S.ProfileImg src="" alt="프로필" />
         </Link>
       </S.Header>
       <S.ListWrapper ref={listWrapperRef} paddingBottom={memoFormHeight}>

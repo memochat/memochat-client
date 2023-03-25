@@ -1,4 +1,5 @@
-import { AnchorHTMLAttributes, ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
+import { LinkProps } from 'next/link';
+import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
 
 export type ButtonType = 'primary' | 'secondary' | 'danger';
 export type ButtonSize = 'small' | 'medium';
@@ -16,8 +17,4 @@ export type ButtonProps = DetailedHTMLProps<
 > &
   BaseButtonProps;
 
-export type LinkButtonProps = DetailedHTMLProps<
-  AnchorHTMLAttributes<HTMLAnchorElement>,
-  HTMLAnchorElement
-> &
-  BaseButtonProps;
+export type LinkButtonProps = BaseButtonProps & LinkProps;
