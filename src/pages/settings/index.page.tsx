@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 
 import * as S from './settings.styles';
 
@@ -7,7 +6,6 @@ import settingImg from '@public/images/settings.png';
 import AuthGuard from '@src/features/auth/components/AuthGuard';
 import SettingDetailMenu from '@src/features/settings/components/SettingDetailMenu';
 import { Header } from '@src/shared/components';
-import { removeAccessToken, removeRefreshToken } from '@src/shared/configs/cookie';
 import useConfirm from '@src/shared/hooks/useConfirm';
 import { NextPageWithLayout } from '@src/shared/types/next';
 import { toast } from '@src/shared/utils/toast';
@@ -50,6 +48,7 @@ const Settings: NextPageWithLayout = () => {
         </S.DetailMenuList>
         <S.Divider />
         <S.Box>
+          {/* TODO: 링크 걸기 */}
           <S.TextButton color="gray3">이용약관</S.TextButton>
           <S.TextButton color="gray3">버전</S.TextButton>
         </S.Box>
