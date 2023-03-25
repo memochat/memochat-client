@@ -6,9 +6,10 @@ export default {
   component: RoomListItem,
   args: {
     name: '빈 메모',
-    roomType: {
-      name: '장바구니',
-      imageUrl: '/images/bell.png',
+    roomCategory: {
+      id: 1,
+      name: 'DEFAULT',
+      thumbnail: '/images/bell.png',
     },
     isSelected: true,
     onSelect: () => alert('Select'),
@@ -22,10 +23,7 @@ export default {
 
 export const 메모타입_텍스트: StoryObj<typeof RoomListItem> = {
   args: {
-    lastChat: {
-      type: 'text',
-      text: '두부 장보기',
-    },
+    message: '두부 장보기',
   },
 };
 

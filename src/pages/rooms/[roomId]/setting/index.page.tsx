@@ -1,6 +1,7 @@
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import Image from 'next/image';
 
 import * as S from './setting.styles';
 import { RoomSettingProps } from './setting.types';
@@ -62,19 +63,23 @@ const RoomSetting: NextPageWithLayout<RoomSettingProps> = ({ roomId }) => {
       count: 124,
       onClick: () => alert('click'),
       children: (
-        <S.ImageBox>
+        <S.ImagePreviews>
           {images.map((image) => (
-            <S.Image
-              key={image}
-              layout="responsive"
-              width="100%"
-              height="100%"
-              objectFit="cover"
-              src={image}
-              alt={image}
-            />
+            <S.ImagePreviewWrapper key={image}>
+              <Image
+                src={image}
+                alt={image}
+                fill
+                style={{
+                  backgroundColor: '#ebeef6',
+                  borderRadius: '8px',
+                  objectFit: 'cover',
+                  aspectRatio: '1/1',
+                }}
+              />
+            </S.ImagePreviewWrapper>
           ))}
-        </S.ImageBox>
+        </S.ImagePreviews>
       ),
     },
     { title: '파일', count: 14, onClick: () => alert('click') },
@@ -86,13 +91,7 @@ const RoomSetting: NextPageWithLayout<RoomSettingProps> = ({ roomId }) => {
       <Header title={memoRoom.name} hasBottomLine />
       <S.Wrapper>
         <S.RoomBaseInfo>
-          <S.Thumbnail
-            alt="ok"
-            src={memoRoom.roomCategory.thumbnail}
-            layout="fixed"
-            width={120}
-            height={120}
-          />
+          <S.Thumbnail alt="ok" src={memoRoom.roomCategory.thumbnail} width={120} height={120} />
           <S.RoomTitleBox>
             <S.RoomTitle>{memoRoom.name}</S.RoomTitle>
             <S.RoomTitleChangeButton onClick={openUpdateRoomDialog}>변경</S.RoomTitleChangeButton>

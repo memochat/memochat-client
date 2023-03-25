@@ -7,16 +7,13 @@ const NotFound: NextPage = () => {
   return (
     <S.Wrapper>
       <S.Title>페이지를 찾을 수 없음</S.Title>
-      <S.ImageWrapper>
-        <Image
-          src="/images/404.png"
-          alt="404"
-          layout="responsive"
-          width="100%"
-          height="100%"
-          objectFit="contain"
-        />
-      </S.ImageWrapper>
+      <Image
+        src="/images/404.png"
+        alt="404"
+        width={292}
+        height={231}
+        style={{ objectFit: 'contain' }}
+      />
       <S.LinkButton href="/">홈으로</S.LinkButton>
     </S.Wrapper>
   );

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import Link from 'next/link';
 
 import { LinkButton } from '@src/shared/components';
 
@@ -37,7 +38,7 @@ export const Box = styled.div`
   ${({ theme }) => theme.typography.body3};
 `;
 
-export const TextLink = styled.a`
+export const TextLink = styled(Link)`
   ${(p) => p.theme.typography.body3};
   color: ${(p) => p.theme.color.gray2};
   margin-bottom: 4px;

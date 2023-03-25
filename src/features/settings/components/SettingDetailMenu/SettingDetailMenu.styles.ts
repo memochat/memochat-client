@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
+import Link from 'next/link';
 
-export const Wrapper = styled.a`
+export const Wrapper = styled(Link)`
   width: 100%;
   padding: 16px;
   display: flex;

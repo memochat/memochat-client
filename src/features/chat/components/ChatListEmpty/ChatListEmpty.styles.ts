@@ -10,9 +10,10 @@ export const Wrapper = styled.div`
 `;
 
 export const ImageWrapper = styled.div`
+  position: relative;
   width: calc(100% - 60px);
   max-width: 280px;
-  height: fit-content;
+  aspect-ratio: 314/194;
 `;
 
 export const Text = styled.p`

@@ -24,7 +24,6 @@ const Button = ({
 export default Button;
 
 export const LinkButton = ({
-  href,
   children,
   variant = DEFAULT_VARIANT,
   size = DEFAULT_SIZE,
@@ -32,8 +31,8 @@ export const LinkButton = ({
   ...props
 }: LinkButtonProps) => {
   return (
-    <Link href={href} passHref>
-      <S.LinkButton {...props} variant={variant} size={size} disabled={disabled}>
+    <Link passHref {...props}>
+      <S.LinkButton variant={variant} size={size} disabled={disabled}>
         {children}
       </S.LinkButton>
     </Link>
