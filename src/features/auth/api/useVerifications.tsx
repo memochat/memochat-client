@@ -1,17 +1,19 @@
 import { createQuery } from 'react-query-kit';
 
 import axios from '@src/shared/configs/axios';
-import { VerifyEmail } from '@src/shared/types/api/auth';
 
-export const getAuthVerifications = async (param: VerifyEmail['param']) => {
-  const res = await axios.get<VerifyEmail['res']>(`/auth/verifications/${param.email}`);
+type Response = string;
+type Variables = { email: string };
+
+export const getAuthVerifications = async (payload: Variables) => {
+  const res = await axios.get<Response>(`/auth/verifications/${payload.email}`);
   return res.data;
 };
 
-const useVerificationsQuery = createQuery<VerifyEmail['res'], VerifyEmail['param']>({
+const useVerificationsQuery = createQuery<Response, Variables>({
   primaryKey: '/auth/verifications',
   enabled: false,
-  queryFn: ({ queryKey: [, param] }) => getAuthVerifications(param),
+  queryFn: ({ queryKey: [, variables] }) => getAuthVerifications(variables),
 });
 
 export default useVerificationsQuery;
