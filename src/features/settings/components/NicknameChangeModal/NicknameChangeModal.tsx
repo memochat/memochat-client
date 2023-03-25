@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { Controller, SubmitHandler } from 'react-hook-form';
 
-import usePatchNickNameChangeMutation from '@src/features/settings/api/usePatchNickNameChangeMutation';
+import useUpdateNicknameMutation from '@src/features/settings/api/useUpdateNicknameMutation';
 import useNickNameChangeForm, {
   NickNameChangeFormType,
 } from '@src/features/settings/hooks/useNicknameChangeForm';
@@ -17,7 +17,7 @@ const NicknameChangeModal = (props: NicknameChangeModalProps) => {
   const { handleSubmit, reset, control } = useNickNameChangeForm();
 
   const queryClient = useQueryClient();
-  const { mutate } = usePatchNickNameChangeMutation({
+  const { mutate: updateNickname } = useUpdateNicknameMutation({
     onError: (e) => {
       toast.error(e.message);
     },
@@ -29,7 +29,7 @@ const NicknameChangeModal = (props: NicknameChangeModalProps) => {
 
   const onSubmit: SubmitHandler<NickNameChangeFormType> = (data) => {
     const { nickname } = data;
-    mutate({ nickname });
+    updateNickname({ nickname });
   };
 
   const handleClose = () => {
