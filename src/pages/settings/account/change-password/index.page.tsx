@@ -3,7 +3,7 @@ import { Controller, SubmitHandler } from 'react-hook-form';
 import { useRouter } from 'next/router';
 
 import AuthGuard from '@src/features/auth/components/AuthGuard';
-import usePatchChangePasswordMutation from '@src/features/settings/api/usePatchPasswordMutation';
+import useUpdatePasswordMutation from '@src/features/settings/api/useUpdatePasswordMutation';
 import useChangePasswordForm, {
   ChangePasswordFormType,
 } from '@src/features/settings/hooks/useChangePasswordForm';
@@ -23,7 +23,7 @@ const ChangePassword: NextPageWithLayout = () => {
 
   const checkPasswordFormProps = useCheckPasswordForm();
   const changePasswordFormProps = useChangePasswordForm();
-  const { isLoading, mutate } = usePatchChangePasswordMutation({
+  const { isLoading, mutate: updatePassword } = useUpdatePasswordMutation({
     onSuccess: () => {
       toast.success('변경에 성공했습니다');
       router.replace('/settings/account');
@@ -37,11 +37,11 @@ const ChangePassword: NextPageWithLayout = () => {
     },
   });
 
-  const onCheckPasswordFormSubmit: SubmitHandler<CheckPasswordFormType> = async (data) => {
+  const onCheckPasswordFormSubmit: SubmitHandler<CheckPasswordFormType> = async () => {
     setActiveIndex((p) => p + 1);
   };
   const onChangePasswordSubmit: SubmitHandler<ChangePasswordFormType> = async (data) => {
-    mutate(data);
+    updatePassword(data);
   };
 
   return (

@@ -2,7 +2,7 @@ import { useForm, UseFormProps } from 'react-hook-form';
 import z, { ZodError } from 'zod';
 
 import { MemoChatError } from '@src/shared/types/api';
-import { postCheckPassword } from '@src/features/settings/api/useCheckUserPasswordMutation';
+import { checkPassword } from '@src/features/settings/api/useCheckPasswordMutation';
 
 export type CheckPasswordFormType = z.infer<typeof schema>;
 
@@ -25,7 +25,7 @@ const useCheckPasswordForm = (
     resolver: async (data) => {
       try {
         schema.parse(data);
-        await postCheckPassword({ password: data.currentPassword });
+        await checkPassword({ password: data.currentPassword });
         return { values: data, errors: {} };
       } catch (e) {
         if (e instanceof ZodError) {

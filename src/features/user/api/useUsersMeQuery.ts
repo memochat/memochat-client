@@ -1,14 +1,16 @@
 import { createQuery } from 'react-query-kit';
 
 import axios from '@src/shared/configs/axios';
-import { UsersMe } from '@src/shared/types/api/user';
+import { User } from '@src/shared/types/user';
+
+type Response = User;
 
 export const getUsersMe = async () => {
-  const res = await axios.get<UsersMe['res']>('/users/me');
+  const res = await axios.get<Response>('/users/me');
   return res.data;
 };
 
-const useUsersMeQuery = createQuery({
+const useUsersMeQuery = createQuery<Response>({
   primaryKey: '/users/me',
   queryFn: getUsersMe,
 });
