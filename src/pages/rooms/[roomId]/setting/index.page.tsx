@@ -4,8 +4,8 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 import AuthGuard from '@src/features/auth/components/AuthGuard';
-import useDeleteMemoRoomMutation from '@src/features/room/api/useDeleteMemoRoomMutation';
-import useMemoRoomQuery from '@src/features/room/api/useMemoRoomQuery';
+import useDeleteRoomMutation from '@src/features/room/api/useDeleteRoomMutation';
+import useRoomQuery from '@src/features/room/api/useRoomQuery';
 import { RoomDetailMenu, UpsertRoomDialog } from '@src/features/room/components';
 import { Header } from '@src/shared/components';
 import useConfirm from '@src/shared/hooks/useConfirm';
@@ -20,12 +20,12 @@ const RoomSetting: NextPageWithLayout<RoomSettingProps> = ({ roomId }) => {
   const { confirm } = useConfirm();
   const router = useRouter();
 
-  const { data: memoRoom } = useMemoRoomQuery({ variables: { roomId } });
-  const { mutate: deleteMemoRoom } = useDeleteMemoRoomMutation();
+  const { data: room } = useRoomQuery({ variables: { roomId } });
+  const { mutate: deleteRoom } = useDeleteRoomMutation();
 
   const [isUpdateRoomDialogOpen, setIsUpdateRoomDialogOpen] = useState(false);
 
-  if (!memoRoom) {
+  if (!room) {
     return null;
   }
 
@@ -45,8 +45,8 @@ const RoomSetting: NextPageWithLayout<RoomSettingProps> = ({ roomId }) => {
         variant: 'danger',
       })
     ) {
-      deleteMemoRoom(
-        { id: memoRoom.id },
+      deleteRoom(
+        { id: room.id },
         {
           onSuccess: () => {
             router.replace('/');
@@ -88,12 +88,12 @@ const RoomSetting: NextPageWithLayout<RoomSettingProps> = ({ roomId }) => {
 
   return (
     <>
-      <Header title={memoRoom.name} hasBottomLine />
+      <Header title={room.name} hasBottomLine />
       <S.Wrapper>
         <S.RoomBaseInfo>
-          <S.Thumbnail alt="ok" src={memoRoom.roomCategory.thumbnail} width={120} height={120} />
+          <S.Thumbnail alt="ok" src={room.roomCategory.thumbnail} width={120} height={120} />
           <S.RoomTitleBox>
-            <S.RoomTitle>{memoRoom.name}</S.RoomTitle>
+            <S.RoomTitle>{room.name}</S.RoomTitle>
             <S.RoomTitleChangeButton onClick={openUpdateRoomDialog}>변경</S.RoomTitleChangeButton>
           </S.RoomTitleBox>
         </S.RoomBaseInfo>
@@ -104,12 +104,12 @@ const RoomSetting: NextPageWithLayout<RoomSettingProps> = ({ roomId }) => {
       </S.Wrapper>
       <UpsertRoomDialog
         type="update"
-        selectedRoomId={memoRoom.id}
+        selectedRoomId={room.id}
         open={isUpdateRoomDialogOpen}
         onClose={closeUpdateRoomDialog}
         defaultValues={{
-          name: memoRoom.name,
-          roomCategoryId: memoRoom.roomCategory.id,
+          name: room.name,
+          roomCategoryId: room.roomCategory.id,
         }}
       />
     </>
@@ -122,7 +122,7 @@ export const getServerSideProps: GetServerSidePropsWithState<RoomSettingProps> =
   const queryClient = new QueryClient();
 
   try {
-    await queryClient.prefetchQuery(useMemoRoomQuery.getKey({ roomId }), useMemoRoomQuery.queryFn);
+    await queryClient.prefetchQuery(useRoomQuery.getKey({ roomId }), useRoomQuery.queryFn);
   } catch (e) {
     console.error(e);
   }

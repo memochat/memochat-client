@@ -4,8 +4,8 @@ import Button from '@src/shared/components/Button';
 import { Modal, ModalButtonGroup, ModalContents, TextField } from '@src/shared/components';
 
 import RoomTypeRadioGroup from '../RoomTypeRadioGroup';
-import useCreateMemoRoomMutation from '../../api/useCreateMemoRoomMutation';
-import useUpdateMemoRoomMutation from '../../api/useUpdateMemoRoomMutation';
+import useCreateRoomMutation from '../../api/useCreateRoomMutation';
+import useUpdateRoomMutation from '../../api/useUpdateRoomMutation';
 
 import { UpsertRoomDialogProps, UpsertRoomDialogValue } from './UpsertRoomDialog.types';
 import * as S from './UpsertRoomDialog.styles';
@@ -26,8 +26,8 @@ const UpsertRoomDialog = ({
 }: UpsertRoomDialogProps) => {
   const title = type === 'create' ? '룸 만들기' : '룸 수정하기';
 
-  const { mutate: createMemoRoom } = useCreateMemoRoomMutation();
-  const { mutate: updateRoom } = useUpdateMemoRoomMutation();
+  const { mutate: createRoom } = useCreateRoomMutation();
+  const { mutate: updateRoom } = useUpdateRoomMutation();
 
   const {
     handleSubmit,
@@ -46,7 +46,7 @@ const UpsertRoomDialog = ({
 
   const handleConfirm = handleSubmit((data) => {
     if (type === 'create') {
-      createMemoRoom(data, {
+      createRoom(data, {
         onSuccess: () => {
           reset();
           onClose();
@@ -56,7 +56,7 @@ const UpsertRoomDialog = ({
       updateRoom(
         {
           roomId: selectedRoomId,
-          param: data,
+          payload: data,
         },
         {
           onSuccess: () => {
