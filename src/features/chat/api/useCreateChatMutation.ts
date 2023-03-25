@@ -2,24 +2,25 @@ import { createMutation } from 'react-query-kit';
 
 import axios from '@src/shared/configs/axios';
 import { queryClient } from '@src/shared/configs/react-query';
-import { CreateChat } from '@src/shared/types/api/chat';
 import useChatsInfiniteQuery from '@src/features/chat/api/useChatsInfiniteQuery';
+import { Chat, ChatType } from '@src/shared/types/chat';
 
-export const createChat = async ({
-  roomId,
-  param,
-}: {
+type Response = Chat;
+type Variables = {
   roomId: number;
-  param: CreateChat['param'];
-}) => {
-  const res = await axios.post<CreateChat['res']>(`/rooms/${roomId}/chats`, param);
+  payload: {
+    type: ChatType;
+    message: string;
+    link?: string;
+  };
+};
+
+export const createChat = async ({ roomId, payload }: Variables) => {
+  const res = await axios.post<Response>(`/rooms/${roomId}/chats`, payload);
   return res.data;
 };
 
-const useCreateChatMutation = createMutation<
-  CreateChat['res'],
-  { roomId: number; param: CreateChat['param'] }
->({
+const useCreateChatMutation = createMutation<Response, Variables>({
   mutationFn: createChat,
   onSuccess: () => {
     queryClient.invalidateQueries(useChatsInfiniteQuery.getKey());
