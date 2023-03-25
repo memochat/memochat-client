@@ -28,9 +28,14 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
   const router = useRouter();
   const chatListRef = useRef<VirtuosoHandle>();
 
-  const { chats, hasNextPage, fetchNextPage } = useChatsInfiniteQuery({ roomId });
+  const { data, hasNextPage, fetchNextPage } = useChatsInfiniteQuery({ variables: { roomId } });
   const { data: room } = useMemoRoomQuery({ variables: { roomId } });
   const { mutate: createChat } = useCreateChatMutation();
+
+  const chats = data?.pages.reduce(
+    (mergedContents, currentContents) => [...mergedContents, ...(currentContents || [])],
+    [],
+  );
 
   const {
     ref,
