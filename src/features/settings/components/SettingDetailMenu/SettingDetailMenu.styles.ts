@@ -4,7 +4,7 @@ export const Wrapper = styled.a`
   width: 100%;
   padding: 16px;
   display: flex;
-  gap: 6px;
+
   background-color: ${({ theme }) => theme.color.white};
   &:active {
     background-color: ${({ theme }) => theme.color.gray6};
@@ -12,12 +12,10 @@ export const Wrapper = styled.a`
 `;
 
 export const Title = styled.p`
+  margin: 0 6px;
   flex-grow: 1;
   text-align: left;
   font-style: normal;
-  font-weight: 510;
-  font-size: 16px;
-  line-height: 19px;
-  letter-spacing: -0.3px;
-  color: #333333;
+  ${(p) => p.theme.typography.h4};
+  color: ${(p) => p.theme.color.gray1};
 `;

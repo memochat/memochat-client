@@ -1,11 +1,13 @@
 import styled from '@emotion/styled';
 
-import { Button, Icon } from '@src/shared/components';
+import { LinkButton } from '@src/shared/components';
 
 export const Wrapper = styled.div`
-  padding: 48px 32px 0 32px;
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  min-height: 100vh;
+  padding: 48px 32px calc(48px + env(safe-area-inset-bottom, 0));
 `;
 
 export const Title = styled.h1`
@@ -16,25 +18,29 @@ export const Title = styled.h1`
   color: ${({ theme }) => theme.color.gray1};
 `;
 
-export const LogoIcon = styled(Icon)`
-  padding-top: 8px;
-`;
-
 export const Lottie = styled.div`
   padding: 50px 18px 0 18px;
+  max-height: 50vh;
 `;
 
-export const LoginBtn = styled(Button)`
+export const LoginBtn = styled(LinkButton)`
   margin-top: 64px;
+  flex-shrink: 0;
 `;
 
 export const Box = styled.div`
-  padding: 32px 18px 0 40px;
+  padding: 32px 0 0 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
 
   ${({ theme }) => theme.typography.body3};
+`;
+
+export const TextLink = styled.a`
+  ${(p) => p.theme.typography.body3};
+  color: ${(p) => p.theme.color.gray2};
+  margin-bottom: 4px;
 `;
 
 export const Divider = styled.span`

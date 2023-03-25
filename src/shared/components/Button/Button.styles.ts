@@ -69,7 +69,7 @@ const getColorCSS = (p: getColorsByVariantProps) => {
 
   return `
   background-color: ${backgroundColor};
-  color: ${color};
+  color: ${color}; 
 
   ${
     p.disabled

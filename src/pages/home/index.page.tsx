@@ -1,8 +1,6 @@
+import { useEffect, useRef } from 'react';
 import Lottie from 'lottie-web';
-import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { MouseEventHandler, useEffect, useRef } from 'react';
 
 import * as S from './home.styles';
 
@@ -12,7 +10,6 @@ import { NextPageWithLayout } from '@src/shared/types/next';
 
 const Home: NextPageWithLayout = () => {
   const lottieRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
 
   useEffect(() => {
     if (lottieRef === null) {
@@ -20,7 +17,7 @@ const Home: NextPageWithLayout = () => {
     }
 
     Lottie.loadAnimation({
-      container: lottieRef.current as HTMLDivElement,
+      container: lottieRef.current,
       renderer: 'svg',
       loop: false,
       autoplay: true,
@@ -29,26 +26,22 @@ const Home: NextPageWithLayout = () => {
     });
   }, []);
 
-  const handleLoginBtnClick: MouseEventHandler<HTMLButtonElement> = () => {
-    router.push('/signin');
-  };
-
   return (
     <S.Wrapper>
       <S.Title>내 메모를 채팅처럼</S.Title>
-      <Image src="/images/logo.png" alt="logo" layout="fixed" width="222px" height="30px" />
+      <img src="/images/logo.png" alt="메모쳇" width={222} height={30} />
       <S.Lottie ref={lottieRef} />
-      <S.LoginBtn type="button" onClick={handleLoginBtnClick}>
+      <S.LoginBtn type="button" href="/signin">
         로그인
       </S.LoginBtn>
       <S.Box>
         <Link href="/signup" passHref>
-          <span>회원가입</span>
+          <S.TextLink>회원가입</S.TextLink>
         </Link>
         <S.Divider />
-        {/* 약관 링크 달기 */}
+        {/* TODO: 약관 링크 달기 */}
         <Link href="/" passHref>
-          <span>이용약관|개인정보처리방침</span>
+          <S.TextLink>이용약관 | 개인정보처리방침</S.TextLink>
         </Link>
       </S.Box>
     </S.Wrapper>
