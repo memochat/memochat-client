@@ -1,55 +1,50 @@
+import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useRef } from 'react';
+import { VirtuosoHandle } from 'react-virtuoso';
 
 import * as S from './chats.styles';
 
-import AuthGuard from '@src/features/auth/components/AuthGuard';
-import useChatsQuery from '@src/features/chat/api/useChatsQuery';
-import useCreateChatMutation from '@src/features/chat/api/useCreateChatMutation';
-import ChatList from '@src/features/chat/components/ChatList';
-import ChatListEmpty from '@src/features/chat/components/ChatListEmpty';
-import useMemoRoomQuery from '@src/features/room/api/useMemoRoomQuery';
-import { RoomMemoForm } from '@src/features/room/components';
-import { Header, Icon } from '@src/shared/components';
-import { queryClient } from '@src/shared/configs/react-query';
-import useElementDimension from '@src/shared/hooks/useDimension';
-import { Chat } from '@src/shared/types/chat';
 import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/types/next';
+import { Header, Icon } from '@src/shared/components';
+import { RoomMemoForm } from '@src/features/room/components';
+import ChatListEmpty from '@src/features/chat/components/ChatListEmpty';
+import useElementDimension from '@src/shared/hooks/useDimension';
+import ChatList from '@src/features/chat/components/ChatList';
+import AuthGuard from '@src/features/auth/components/AuthGuard';
+import useMemoRoomQuery from '@src/features/room/api/useMemoRoomQuery';
+import { queryClient } from '@src/shared/configs/react-query';
+import { Chat } from '@src/shared/types/chat';
+import useCreateChatMutation from '@src/features/chat/api/useCreateChatMutation';
+import { useChatsInfiniteQuery } from '@src/features/chat/api/useChatsInfiniteQuery';
+import useMemoRoomsQuery from '@src/features/room/api/useMemoRoomsQuery';
 
 type ChatListProps = {
   roomId: number;
 };
 
-// TODO: 무한스크롤 구현
 // TODO: 키보드 위에 RoomMemoForm 뜰 때 기기에서 깨지는지 테스트
 const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
   const chatContainerRef = useRef<HTMLDivElement>();
   const router = useRouter();
+  const chatListRef = useRef<VirtuosoHandle>();
 
-  const filter = {
-    roomId,
-    offset: 1,
-    limit: 20,
-  };
-
-  const { data: chats } = useChatsQuery({ variables: filter });
+  const { data, hasNextPage, fetchNextPage } = useChatsInfiniteQuery({ variables: { roomId } });
   const { data: room } = useMemoRoomQuery({ variables: { roomId } });
   const { mutate: createChat } = useCreateChatMutation();
+
+  const chats = data?.pages.reduce(
+    (mergedContents, currentContents) => [...mergedContents, ...(currentContents || [])],
+    [],
+  );
 
   const {
     ref,
     dimension: { height },
   } = useElementDimension<HTMLFormElement>();
 
-  const scrollToBottom = useCallback(() => {
-    chatContainerRef.current.scrollTo(0, chatContainerRef.current.scrollHeight);
-  }, []);
-
-  useEffect(() => {
-    if (chats && chats.length > 0) {
-      scrollToBottom();
-    }
-  }, [chats, scrollToBottom]);
+  const scrollToBottom = () => {
+    chatListRef.current?.scrollToIndex(chats.length - 1);
+  };
 
   const handleSubmit = (
     {
@@ -71,8 +66,9 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
       },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries(useChatsQuery.getKey(filter));
+          queryClient.invalidateQueries(useMemoRoomsQuery.getKey());
           reset();
+          scrollToBottom();
         },
       },
     );
@@ -102,7 +98,13 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
         }
       />
       <S.ChatContainer ref={chatContainerRef} memoFormHeight={height}>
-        {chats && (chats.length === 0 ? <ChatListEmpty /> : <ChatList data={chats} />)}
+        <ChatList
+          ref={chatListRef}
+          data={chats}
+          emptyComponent={<ChatListEmpty />}
+          hasNextPage={hasNextPage}
+          fetchNextPage={fetchNextPage}
+        />
       </S.ChatContainer>
       <RoomMemoForm ref={ref} roomId={roomId} onSubmit={handleSubmit} />
     </S.Wrapper>

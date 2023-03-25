@@ -61,6 +61,7 @@
     "react-swipeable-list": "^1.6.0",
     "react-toastify": "^9.0.8",
     "react-use": "^17.4.0",
+    "react-virtuoso": "^4.1.0",
     "recoil": "^0.7.5",
     "zod": "^3.21.0"
   },
