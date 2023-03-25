@@ -58,19 +58,14 @@ export const RoomTitleChangeButton = styled.button`
 
 //RoomDetailMenu children 스타일
 
-export const ImageBox = styled.div`
+export const ImagePreviews = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   column-gap: 8px;
   width: 100%;
-
-  //next/image 컴포넌트
-  & > span {
-    aspect-ratio: 1/1;
-  }
 `;
 
-export const Image = styled(NextImage)`
-  border-radius: 8px;
-  background-color: #ebeef6;
+export const ImagePreviewWrapper = styled.div`
+  position: relative;
+  aspect-ratio: 1/1;
 `;

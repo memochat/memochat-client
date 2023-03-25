@@ -8,11 +8,10 @@ export const Wrapper = styled.div`
 `;
 
 export const ImageWrapper = styled.div`
-  margin: 30px auto 36px auto;
-  position: relative;
-  width: 96px;
-  height: 96px;
-  padding: 30px 0 36px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 0 36px;
 `;
 
 export const MenuList = styled.ul`

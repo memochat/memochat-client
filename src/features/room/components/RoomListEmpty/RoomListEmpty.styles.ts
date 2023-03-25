@@ -9,9 +9,11 @@ export const Wrapper = styled.div`
 `;
 
 export const ImageWrapper = styled.div`
+  position: relative;
   width: calc(100% - 96px);
   max-width: 280px;
   height: fit-content;
+  aspect-ratio: 279/231;
 `;
 
 export const Text = styled.p`

@@ -26,7 +26,7 @@ const Account: NextPageWithLayout = () => {
       <S.Wrapper>
         <Header title="계정 및 프로필 관리" titleAlign="center" />
         <S.ImageWrapper>
-          <Image src={ProfileImg} alt="setting" layout="fill" />
+          <Image src={ProfileImg} alt="setting" width={96} height={96} />
         </S.ImageWrapper>
         <S.MenuList>
           <S.MenuListItem>

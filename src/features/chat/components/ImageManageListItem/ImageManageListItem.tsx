@@ -22,11 +22,8 @@ const ImageManageListItem = ({
       <Image
         src={imageSrc}
         alt={imageSrc}
-        layout="responsive"
-        width="100%"
-        height="100%"
-        objectFit="cover"
-        style={{ mixBlendMode: 'darken' }}
+        fill
+        style={{ mixBlendMode: 'darken', objectFit: 'cover' }}
       />
       {mode === 'edit' && <S.Checkbox checked={isSelected} onChange={handleCheckboxChange} />}
     </S.Wrapper>

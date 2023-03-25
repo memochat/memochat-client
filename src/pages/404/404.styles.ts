@@ -15,10 +15,6 @@ export const Title = styled.h1`
   ${(p) => p.theme.typography.h1}
 `;
 
-export const ImageWrapper = styled.div`
-  width: 292px;
-`;
-
 export const LinkButton = styled(LinkButtonComponent)`
   margin: 40px 36px;
   width: calc(100% - 72px);
