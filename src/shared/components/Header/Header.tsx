@@ -1,6 +1,7 @@
+import BackButton from '../BackButton';
+
 import { HeaderProps } from './Header.types';
 import * as S from './Header.styles';
-import BackButton from '../BackButton';
 
 const Header = ({
   leftButtons = <BackButton />,

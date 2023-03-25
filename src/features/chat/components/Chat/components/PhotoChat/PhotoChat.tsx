@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 
+import { blankDataUriImage } from '@src/shared/constants/image';
+
 import * as S from './PhotoChat.styles';
 import { PhotoChatProps } from './PhotoChat.types';
-
-import { blankDataUriImage } from '@src/shared/constants/image';
 
 //기획에 width는 70%로 고정되어있음, 하지만 나중에는 다른 width도 대응해야할 상황이 있을것 같아 optional처리함
 const PhotoChat = ({ src, alt, width = '70%' }: PhotoChatProps) => {

@@ -1,15 +1,15 @@
 import { union } from 'lodash-es';
 import { useState } from 'react';
 
-import * as S from './links.styles';
-import { LinkManageListProps, LinkManageMode } from './links.types';
-
 import AuthGuard from '@src/features/auth/components/AuthGuard';
 import LinkManageListItem from '@src/features/chat/components/LinkManageListItem';
 import { Icon } from '@src/shared/components';
 import Header from '@src/shared/components/Header';
 import useConfirm from '@src/shared/hooks/useConfirm';
 import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/types/next';
+
+import { LinkManageListProps, LinkManageMode } from './links.types';
+import * as S from './links.styles';
 
 const mockImageSrc = '/images/big-chat.png';
 const MOCK_LINKS = [

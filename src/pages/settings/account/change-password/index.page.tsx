@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { Controller, SubmitHandler } from 'react-hook-form';
 import { useRouter } from 'next/router';
 
-import * as S from './changepassword.styles';
-
 import AuthGuard from '@src/features/auth/components/AuthGuard';
 import usePatchChangePasswordMutation from '@src/features/settings/api/usePatchPasswordMutation';
 import useChangePasswordForm, {
@@ -16,6 +14,8 @@ import { Button, Stepper, TextField } from '@src/shared/components';
 import { MemoChatError } from '@src/shared/types/api';
 import { NextPageWithLayout } from '@src/shared/types/next';
 import { toast } from '@src/shared/utils/toast';
+
+import * as S from './changepassword.styles';
 
 const ChangePassword: NextPageWithLayout = () => {
   const [activeIndex, setActiveIndex] = useState(0);

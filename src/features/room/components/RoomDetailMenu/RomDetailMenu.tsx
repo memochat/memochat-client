@@ -1,7 +1,7 @@
+import { Icon } from '@src/shared/components';
+
 import { RoomDetailMenuProps } from './RoomDetailMenu.types';
 import * as S from './RoomDetailMenu.styles';
-
-import { Icon } from '@src/shared/components';
 
 const RoomDetailMenuItem = (props: RoomDetailMenuProps) => {
   const { count, title, onClick, children, variant } = props;

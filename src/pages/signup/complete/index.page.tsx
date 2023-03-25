@@ -3,10 +3,10 @@ import Lottie from 'lottie-web';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 
-import * as S from './complete.styles';
-
 import signupLottie from '@src/assets/lotti/signup.json';
 import { Button } from '@src/shared/components';
+
+import * as S from './complete.styles';
 
 const SignUpComplete: NextPage = () => {
   const lottieRef = useRef<HTMLDivElement>(null);

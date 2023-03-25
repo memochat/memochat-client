@@ -1,10 +1,10 @@
 import { ComponentMeta } from '@storybook/react';
 
+import useConfirm from '@src/shared/hooks/useConfirm';
+
 import Button from '../Button';
 
 import GlobalConfirmModal from '.';
-
-import useConfirm from '@src/shared/hooks/useConfirm';
 
 export default {
   component: GlobalConfirmModal,

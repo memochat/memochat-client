@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { lightTheme } from '../theme';
+
 import { GlobalTypographyGroup, globalTypographyGroupNames } from './types';
 
 export default {

@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 
-import { TextFieldProps } from './TextField.types';
-
 import { EmotionTheme } from '@src/shared/styles/themes';
+
+import { TextFieldProps } from './TextField.types';
 
 export const Wrapper = styled.div`
   display: flex;

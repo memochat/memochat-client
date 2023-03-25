@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 import useAuth from '../../hooks/useAuth';
+
 import { GuestGuardProps } from './GuestGuard.types';
 
 /**

@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 
-import { HeaderProps } from './Header.types';
-
 import { ellipsis } from '@src/shared/styles';
+
+import { HeaderProps } from './Header.types';
 
 export const HEADER_HEIGHT = 56;
 

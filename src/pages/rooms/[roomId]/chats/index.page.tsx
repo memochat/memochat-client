@@ -2,8 +2,6 @@ import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { VirtuosoHandle } from 'react-virtuoso';
 
-import * as S from './chats.styles';
-
 import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/types/next';
 import { Header, Icon } from '@src/shared/components';
 import { RoomMemoForm } from '@src/features/room/components';
@@ -17,6 +15,8 @@ import { Chat } from '@src/shared/types/chat';
 import useCreateChatMutation from '@src/features/chat/api/useCreateChatMutation';
 import { useChatsInfiniteQuery } from '@src/features/chat/api/useChatsInfiniteQuery';
 import useMemoRoomsQuery from '@src/features/room/api/useMemoRoomsQuery';
+
+import * as S from './chats.styles';
 
 type ChatListProps = {
   roomId: number;

@@ -1,8 +1,8 @@
 import { useController } from 'react-hook-form';
 
-import { EmailSectionProps } from './EmailSection.types';
-
 import { Button, TextField } from '@src/shared/components';
+
+import { EmailSectionProps } from './EmailSection.types';
 
 const EmailSection = (props: EmailSectionProps) => {
   const { onEmailVerify, onCheckIsEmailVerified, isVerifyEmailSent, control, name } = props;

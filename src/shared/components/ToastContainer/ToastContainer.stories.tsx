@@ -1,11 +1,11 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import styled from '@emotion/styled';
 
+import { toast } from '@src/shared/utils/toast';
+
 import Button from '../Button';
 
 import ToastContainer from './index';
-
-import { toast } from '@src/shared/utils/toast';
 
 export default {
   argTypes: {},

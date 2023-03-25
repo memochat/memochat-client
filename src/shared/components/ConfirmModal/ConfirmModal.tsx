@@ -1,5 +1,6 @@
 import Modal, { ModalButtonGroup } from '../Modal';
 import Button from '../Button';
+
 import { ConfirmModalProps } from './ConfirmModal.types';
 import * as S from './ConfirmModal.styles';
 

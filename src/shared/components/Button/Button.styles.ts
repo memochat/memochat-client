@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
-import { BaseButtonProps } from './Button.types';
-
 import { EmotionTheme } from '@src/shared/styles/themes';
+
+import { BaseButtonProps } from './Button.types';
 
 const getHeightBySize = (size: NonNullable<BaseButtonProps['size']>) => {
   return {

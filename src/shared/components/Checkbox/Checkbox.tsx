@@ -1,9 +1,9 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 
+import { Icon } from '@src/shared/components';
+
 import { CheckboxProps } from './Checkbox.types';
 import * as S from './Checkbox.styles';
-
-import { Icon } from '@src/shared/components';
 
 const Checkbox = ({ className, checked: outerChecked, onChange, ...inputProps }: CheckboxProps) => {
   const [checked, setChecked] = useState(outerChecked);

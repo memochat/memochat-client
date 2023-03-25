@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 
-import { KeyboardFloatingLayoutProps } from './KeyboardFloatingLayout.types';
-import * as S from './KeyboardFloatingLayout.styles';
-
 import useVisualViewportDimension from '@src/shared/hooks/useVisualViewportDimension';
 import { useOS } from '@src/shared/hooks/useOS';
+
+import { KeyboardFloatingLayoutProps } from './KeyboardFloatingLayout.types';
+import * as S from './KeyboardFloatingLayout.styles';
 
 const KeyboardFloatingLayout = ({ children }: KeyboardFloatingLayoutProps) => {
   const os = useOS();

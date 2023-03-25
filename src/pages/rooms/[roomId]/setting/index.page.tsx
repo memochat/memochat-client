@@ -3,9 +3,6 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Image from 'next/image';
 
-import * as S from './setting.styles';
-import { RoomSettingProps } from './setting.types';
-
 import AuthGuard from '@src/features/auth/components/AuthGuard';
 import useDeleteMemoRoomMutation from '@src/features/room/api/useDeleteMemoRoomMutation';
 import useMemoRoomQuery from '@src/features/room/api/useMemoRoomQuery';
@@ -13,6 +10,9 @@ import { RoomDetailMenu, UpsertRoomDialog } from '@src/features/room/components'
 import { Header } from '@src/shared/components';
 import useConfirm from '@src/shared/hooks/useConfirm';
 import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/types/next';
+
+import { RoomSettingProps } from './setting.types';
+import * as S from './setting.styles';
 
 const images = ['/images/alarm.png', '/images/bell.png', '/images/bell.png', '/images/bell.png'];
 

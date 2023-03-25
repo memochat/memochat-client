@@ -1,6 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import Button from '../Button';
+
 import Modal from './Modal';
 import ModalButtonGroup from './ModalButtonGroup';
 import ModalContents from './ModalContents';

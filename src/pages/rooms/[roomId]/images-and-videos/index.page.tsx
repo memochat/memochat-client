@@ -1,15 +1,15 @@
 import { union } from 'lodash-es';
 import { useState } from 'react';
 
-import * as S from './images-and-videos.styles';
-import { ImageAndVideoManageListProps, ImageAndVideoManageMode } from './images-and-videos.types';
-
 import AuthGuard from '@src/features/auth/components/AuthGuard';
 import ImageManageListItem from '@src/features/chat/components/ImageManageListItem';
 import { Icon } from '@src/shared/components';
 import Header from '@src/shared/components/Header';
 import useConfirm from '@src/shared/hooks/useConfirm';
 import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/types/next';
+
+import { ImageAndVideoManageListProps, ImageAndVideoManageMode } from './images-and-videos.types';
+import * as S from './images-and-videos.styles';
 
 const mockImageSrc = '/images/big-chat.png';
 const MOCK_IMAGES = [

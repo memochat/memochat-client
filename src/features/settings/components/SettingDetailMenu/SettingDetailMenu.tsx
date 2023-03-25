@@ -1,7 +1,7 @@
+import { Icon } from '@src/shared/components';
+
 import { SettingDetailMenuProps } from './SettingDetailMenu.types';
 import * as S from './SettingDetailMenu.styles';
-
-import { Icon } from '@src/shared/components';
 
 const SettingDetailMenu = (props: SettingDetailMenuProps) => {
   const { iconName, title, href } = props;

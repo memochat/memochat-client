@@ -2,10 +2,10 @@ import dayjs from 'dayjs';
 import { ForwardedRef, forwardRef, useCallback } from 'react';
 import { Virtuoso, VirtuosoHandle } from 'react-virtuoso';
 
+import Chat from '@src/features/chat/components/Chat/Chat';
+
 import { ChatListProps } from './ChatList.types';
 import * as S from './ChatList.styles';
-
-import Chat from '@src/features/chat/components/Chat/Chat';
 
 // TODO: 전체 개수 -> api에서 전달받는 개수로 수정
 const totalCount = 25;

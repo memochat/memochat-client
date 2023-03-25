@@ -1,4 +1,5 @@
 import ModalLayout from '../ModalLayout';
+
 import { ModalProps } from './Modal.types';
 import * as S from './Modal.styles';
 

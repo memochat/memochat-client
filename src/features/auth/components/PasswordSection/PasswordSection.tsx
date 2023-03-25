@@ -1,8 +1,8 @@
 import { useController } from 'react-hook-form';
 
-import { PasswordSectionProps } from './PasswordSection.types';
-
 import { TextField } from '@src/shared/components';
+
+import { PasswordSectionProps } from './PasswordSection.types';
 
 const PasswordSection = (props: PasswordSectionProps) => {
   const { control, name } = props;

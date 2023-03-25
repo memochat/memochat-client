@@ -1,9 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { Controller, SubmitHandler } from 'react-hook-form';
 
-import * as S from './NicknameChangeModal.styles';
-import { NicknameChangeModalProps } from './NicknameChangeModal.types';
-
 import usePatchNickNameChangeMutation from '@src/features/settings/api/usePatchNickNameChangeMutation';
 import useNickNameChangeForm, {
   NickNameChangeFormType,
@@ -11,6 +8,9 @@ import useNickNameChangeForm, {
 import useUsersMeQuery from '@src/features/user/api/useUsersMeQuery';
 import { Button, Modal, ModalButtonGroup, TextField } from '@src/shared/components';
 import { toast } from '@src/shared/utils/toast';
+
+import { NicknameChangeModalProps } from './NicknameChangeModal.types';
+import * as S from './NicknameChangeModal.styles';
 
 const NicknameChangeModal = (props: NicknameChangeModalProps) => {
   const { onClose, open } = props;

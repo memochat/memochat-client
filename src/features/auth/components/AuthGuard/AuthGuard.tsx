@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-import useAuth from '../../hooks/useAuth';
-import { AuthGuardProps } from './AuthGuard.types';
-
 import { toast } from '@src/shared/utils/toast';
+
+import useAuth from '../../hooks/useAuth';
+
+import { AuthGuardProps } from './AuthGuard.types';
 
 /**
  * 인증이 필요한 page접근시 사용

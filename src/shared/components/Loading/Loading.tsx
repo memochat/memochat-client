@@ -4,10 +4,10 @@ import nProgress from 'nprogress';
 import { useEffect, useRef, useState } from 'react';
 import { useEffectOnce } from 'react-use';
 
+import loadingLottie from '@src/assets/lotti/loading.json';
+
 import * as S from './Loading.styles';
 import { LoadingProps } from './Loading.types';
-
-import loadingLottie from '@src/assets/lotti/loading.json';
 
 const Loading = ({ initialLoadingState = false }: LoadingProps) => {
   const router = useRouter();

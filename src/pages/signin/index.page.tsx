@@ -1,13 +1,13 @@
 import { Controller, SubmitHandler } from 'react-hook-form';
 import { useRouter } from 'next/router';
 
-import * as S from './signin.styles';
-
 import GuestGuard from '@src/features/auth/components/GuestGuard';
 import useAuth from '@src/features/auth/hooks/useAuth';
 import useSigninForm, { SigninFormType } from '@src/features/auth/hooks/useSigninForm';
 import { Button, TextField } from '@src/shared/components';
 import { NextPageWithLayout } from '@src/shared/types/next';
+
+import * as S from './signin.styles';
 
 const SignIn: NextPageWithLayout = () => {
   const { control, formState, handleSubmit } = useSigninForm();

@@ -3,8 +3,6 @@ import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import * as S from './signup.styles';
-
 import usePostSendEmailMutation from '@src/features/auth/api/usePostSendEmailMutation';
 import usePostSignUpMutation from '@src/features/auth/api/usePostSignUpMutation';
 import useVerificationsQuery from '@src/features/auth/api/useVerifications';
@@ -16,6 +14,8 @@ import { Button, Stepper } from '@src/shared/components';
 import { MemoChatError } from '@src/shared/types/api';
 import { NextPageWithLayout } from '@src/shared/types/next';
 import { toast } from '@src/shared/utils/toast';
+
+import * as S from './signup.styles';
 
 const SignUp: NextPageWithLayout = () => {
   const [activeIndex, setActiveIndex] = useState(0);

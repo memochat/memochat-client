@@ -1,13 +1,13 @@
 import { ChangeEvent, forwardRef, LegacyRef, MouseEventHandler } from 'react';
 
-import * as S from './RoomMemoForm.styles';
-import { RoomMemoFormProps } from './RoomMemoForm.types';
-
 import useRoomMemoForm, { RoomMemoFormType } from '@src/features/room/hooks/useMemoForm';
 import { Icon } from '@src/shared/components';
 import { NativeMessageSender } from '@src/shared/configs/webview';
 import { useOS } from '@src/shared/hooks/useOS';
 import { urlRegex } from '@src/shared/utils/parseUrls';
+
+import { RoomMemoFormProps } from './RoomMemoForm.types';
+import * as S from './RoomMemoForm.styles';
 
 // TODO: alert -> 커스텀 alert로 변경
 // TODO: 채팅 두번 전송 방지

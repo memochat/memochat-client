@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-import * as S from './account.styles';
-
 import ProfileImg from '@public/images/ProfileImg.png';
 import { Pencil } from '@src/assets/icons';
 import AuthGuard from '@src/features/auth/components/AuthGuard';
@@ -10,6 +8,8 @@ import NicknameChangeModal from '@src/features/settings/components/NicknameChang
 import useUsersMeQuery from '@src/features/user/api/useUsersMeQuery';
 import { Header } from '@src/shared/components';
 import { NextPageWithLayout } from '@src/shared/types/next';
+
+import * as S from './account.styles';
 
 const Account: NextPageWithLayout = () => {
   const [isNicknameChangeModalOpen, setIsNicknameChangeModalOpen] = useState(false);

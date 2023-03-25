@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 
-import { SvgIconProps } from './Icon.types';
-
 import * as icon from '@src/assets/icons';
 import { ColorToken } from '@src/shared/styles/themes';
+
+import { SvgIconProps } from './Icon.types';
 
 const DEFAULT_SIZE = 30;
 

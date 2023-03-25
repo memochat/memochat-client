@@ -2,10 +2,10 @@
 import Axios, { AxiosError, AxiosResponse } from 'axios';
 import { GetServerSidePropsContext } from 'next';
 
-import { accessTokenName, getAccessToken } from '../cookie';
-
 import isServer from '@src/shared/utils/isServer';
 import { BaseRes, MemoChatError } from '@src/shared/types/api';
+
+import { accessTokenName, getAccessToken } from '../cookie';
 
 const axios = Axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,

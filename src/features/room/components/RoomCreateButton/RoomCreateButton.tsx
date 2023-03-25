@@ -1,7 +1,7 @@
+import { Icon } from '@src/shared/components';
+
 import { RoomCreateButtonProps } from './RoomCreateButton.types';
 import * as S from './RoomCreateButton.styles';
-
-import { Icon } from '@src/shared/components';
 
 const RoomCreateButton = ({ className, onClick }: RoomCreateButtonProps) => {
   return (

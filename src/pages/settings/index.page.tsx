@@ -1,7 +1,5 @@
 import Image from 'next/image';
 
-import * as S from './settings.styles';
-
 import settingImg from '@public/images/settings.png';
 import AuthGuard from '@src/features/auth/components/AuthGuard';
 import SettingDetailMenu from '@src/features/settings/components/SettingDetailMenu';
@@ -10,6 +8,8 @@ import useConfirm from '@src/shared/hooks/useConfirm';
 import { NextPageWithLayout } from '@src/shared/types/next';
 import { toast } from '@src/shared/utils/toast';
 import useAuth from '@src/features/auth/hooks/useAuth';
+
+import * as S from './settings.styles';
 
 const Settings: NextPageWithLayout = () => {
   const { confirm } = useConfirm();

@@ -1,8 +1,6 @@
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 
-import usePostSignInMutation from '../api/usePostSignInMutation';
-
 import useUsersMeQuery from '@src/features/user/api/useUsersMeQuery';
 import {
   removeAccessToken,
@@ -14,6 +12,8 @@ import { queryClient } from '@src/shared/configs/react-query';
 import { MemoChatError } from '@src/shared/types/api';
 import { SignIn } from '@src/shared/types/api/auth';
 import { toast } from '@src/shared/utils/toast';
+
+import usePostSignInMutation from '../api/usePostSignInMutation';
 
 const useAuth = () => {
   const router = useRouter();

@@ -4,8 +4,6 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { SwipeableList, Type as ListType } from 'react-swipeable-list';
 
-import * as S from './rooms.styles';
-
 import AuthGuard from '@src/features/auth/components/AuthGuard';
 import useCreateChatMutation from '@src/features/chat/api/useCreateChatMutation';
 import useDeleteMemoRoomMutation from '@src/features/room/api/useDeleteMemoRoomMutation';
@@ -25,6 +23,8 @@ import { useOS } from '@src/shared/hooks/useOS';
 import { Chat } from '@src/shared/types/chat';
 import { MemoRoom } from '@src/shared/types/memoRooms';
 import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/types/next';
+
+import * as S from './rooms.styles';
 import 'react-swipeable-list/dist/styles.css';
 
 const RoomList: NextPageWithLayout = () => {

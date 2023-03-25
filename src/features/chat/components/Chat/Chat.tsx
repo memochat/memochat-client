@@ -1,10 +1,10 @@
-import { ChatProps } from './Chat.types';
-import * as S from './Chat.styles';
-
 import BaseChat from '@src/features/chat/components/Chat/components/BaseChat';
 import LinkBlock from '@src/features/chat/components/Chat/components/LinkBlock';
 import PhotoChat from '@src/features/chat/components/Chat/components/PhotoChat';
 import { highlightenLink } from '@src/shared/utils/highlightenLink';
+
+import * as S from './Chat.styles';
+import { ChatProps } from './Chat.types';
 
 const Chat = ({ type = 'TEXT', message, createdAt, link, imageUrls, onContextMenu }: ChatProps) => {
   if (type === 'PHOTO') {
