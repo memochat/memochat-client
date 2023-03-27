@@ -14,8 +14,6 @@ export const Title = styled.h1`
   ${({ theme }) => theme.typography.h1};
 `;
 
-export const Content = styled.div``;
-
 export const ButtonContainer = styled.div`
   padding: 0 18px 80px 18px;
 `;

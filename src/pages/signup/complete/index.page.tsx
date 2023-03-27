@@ -1,31 +1,14 @@
-import { useEffect, useRef } from 'react';
-import Lottie from 'lottie-web';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 
-import signupLottie from '@src/assets/lotti/signup.json';
 import { Button } from '@src/shared/components';
+import { signupLottie } from '@src/assets/lottie';
+import Lottie from '@src/shared/components/Lottie';
 
 import * as S from './complete.styles';
 
 const SignUpComplete: NextPage = () => {
-  const lottieRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-
-  useEffect(() => {
-    if (lottieRef === null) {
-      return;
-    }
-
-    Lottie.loadAnimation({
-      container: lottieRef.current as HTMLDivElement,
-      renderer: 'svg',
-      loop: false,
-      autoplay: true,
-      animationData: signupLottie,
-      path: '',
-    });
-  }, []);
 
   const handleOnStartBtnClick = () => {
     router.push('/signin');
@@ -36,7 +19,7 @@ const SignUpComplete: NextPage = () => {
       <S.Header>
         <S.Title>회원가입을 완료하였습니다!</S.Title>
       </S.Header>
-      <S.Content ref={lottieRef} />
+      <Lottie animationData={signupLottie} autoplay />
       <S.ButtonContainer>
         <Button onClick={handleOnStartBtnClick}>시작하기</Button>
       </S.ButtonContainer>

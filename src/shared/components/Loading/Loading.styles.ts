@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import LottieComponent from '@src/shared/components/Lottie';
 import { fadeIn, fadeOut } from '@src/shared/components/ModalLayout/ModalLayout.styles';
 
 export const Wrapper = styled.div`
@@ -29,7 +30,7 @@ export const Dim = styled.div<{ open: boolean }>`
     `}
 `;
 
-export const Lottie = styled.div`
+export const Lottie = styled(LottieComponent)`
   width: 100%;
   height: 100%;
   z-index: ${({ theme }) => theme.zIndex.loading};
