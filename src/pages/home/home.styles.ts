@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import Link from 'next/link';
 
 import { LinkButton } from '@src/shared/components';
+import LottieComponent from '@src/shared/components/Lottie';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -19,7 +20,7 @@ export const Title = styled.h1`
   color: ${({ theme }) => theme.color.gray1};
 `;
 
-export const Lottie = styled.div`
+export const Lottie = styled(LottieComponent)`
   padding: 50px 18px 0 18px;
   max-height: 50vh;
 `;
