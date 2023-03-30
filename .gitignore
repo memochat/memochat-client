@@ -23,3 +23,9 @@ tsconfig.tsbuildinfo
 #misc
 .DS_Store
 
+
+# Sentry
+.sentryclirc
+
+# Sentry
+next.config.original.js
