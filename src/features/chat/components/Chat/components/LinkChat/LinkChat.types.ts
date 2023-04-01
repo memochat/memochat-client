@@ -5,9 +5,9 @@ export interface LinkChatProps {
   createdAt: Date;
   onContextMenu?: (e?: MouseEvent<HTMLDivElement>) => void;
   link: {
-    href?: string;
-    title?: string;
-    description?: string;
-    thumbnail?: string;
+    href: string;
+    title: string;
+    description: string;
+    thumbnail: string;
   };
 }

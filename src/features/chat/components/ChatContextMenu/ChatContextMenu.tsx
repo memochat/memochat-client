@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useClickAway } from 'react-use';
 
 import * as S from './ChatContextMenu.styles';
@@ -33,6 +33,46 @@ const ChatContextMenu = ({
     onDelete();
     onClose();
   };
+
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+    const chatContextRef = ref.current;
+
+    const focusableEls = Array.from<HTMLElement>(
+      chatContextRef.querySelectorAll(
+        "select,input:not([disabled]),textarea,[role='button'],button",
+      ),
+    );
+
+    const firstFocusableEl = focusableEls[0];
+    let currentFocus: HTMLElement;
+    firstFocusableEl.focus();
+    currentFocus = firstFocusableEl;
+
+    const handleFocus = (e: FocusEvent) => {
+      e.preventDefault();
+      const target = e.target as HTMLElement;
+
+      if (focusableEls.length === 0) {
+        return;
+      } else if (focusableEls.includes(target)) {
+        currentFocus = target;
+      } else if (currentFocus === firstFocusableEl) {
+        focusableEls[focusableEls.length - 1].focus();
+      } else {
+        firstFocusableEl.focus();
+      }
+      currentFocus = document.activeElement as HTMLElement;
+    };
+    document.addEventListener('focus', handleFocus, true);
+    return () => {
+      currentFocus = null;
+      document.body.focus();
+      document.removeEventListener('focus', handleFocus, true);
+    };
+  }, [isOpen]);
 
   if (!isOpen) {
     return null;

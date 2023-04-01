@@ -22,7 +22,7 @@ export const MenuItem = styled.li`
     padding: 8px;
     text-align: left;
 
-    &:hover,
+    &:focus,
     &:active {
       color: ${(p) => p.theme.color.white};
       background-color: ${(p) => p.theme.color.purple1};

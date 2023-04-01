@@ -37,20 +37,7 @@ const ChatList = forwardRef(
                 <S.Date>{dayjs(chat.createdAt).format('YYYY년 MM월 DD일 ddd요일')}</S.Date>
               </S.DateWrapper>
             )}
-            <Chat
-              type={chat.type}
-              message={chat.message}
-              createdAt={dayjs(chat.createdAt).toDate()}
-              link={{
-                href: chat.link,
-                title: chat.title,
-                description: chat.description,
-                thumbnail: chat.thumbnail,
-              }}
-              imageUrls={[
-                'https://images.unsplash.com/photo-1628015081036-0747ec8f077a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1587&q=80',
-              ]}
-            />
+            <Chat chat={chat} />
           </>
         );
       },

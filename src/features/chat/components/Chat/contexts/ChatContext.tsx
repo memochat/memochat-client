@@ -2,22 +2,24 @@ import { FC, ReactNode, createContext, useCallback, useMemo, useRef, useState } 
 import { createPortal } from 'react-dom';
 
 import ChatContextMenu from '@src/features/chat/components/ChatContextMenu/ChatContextMenu';
+import { Chat } from '@src/shared/types/chat';
 
 type ChatContextMenuContextType = {
-  renderContextMenu: ({ x, y }: { x: number; y: number }) => Promise<boolean>;
+  renderContextMenu: ({ x, y }: { x: number; y: number }, chat: Chat) => Promise<boolean>;
   closeContextMenu: () => void;
 };
 const ChatContextMenuContext = createContext<ChatContextMenuContextType>(null);
 
 export const ChatContextMenuContextProvider: FC<{
-  onCopy: () => void;
-  onEdit: () => void;
-  onDelete: () => void;
+  onCopy: (chat: Chat) => void;
+  onEdit: (chat: Chat) => void;
+  onDelete: (chat: Chat) => void;
   children: ReactNode;
 }> = (props) => {
   const { onCopy, onEdit, onDelete, children } = props;
   const promiseRef = useRef<(v: boolean) => void>(null);
   const contextPos = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [currentChat, setCurrentChat] = useState<Chat>(null);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -31,20 +33,20 @@ export const ChatContextMenuContextProvider: FC<{
 
   const closeContextMenu = useCallback(() => {
     if (!promiseRef.current) {
-      throw new Error('modal not opened');
+      throw new Error('menu not opened');
     }
 
     promiseRef.current(true);
     handleClose();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [handleClose]);
 
   const renderContextMenu = useCallback(
-    ({ x, y }: { x: number; y: number }) => {
+    ({ x, y }: { x: number; y: number }, currentChat: Chat) => {
       if (isOpen) {
         closeContextMenu();
       }
 
+      setCurrentChat(currentChat);
       const menuWidth = 262;
 
       if (x + menuWidth > window.innerWidth) {
@@ -60,8 +62,7 @@ export const ChatContextMenuContextProvider: FC<{
         promiseRef.current = resolve;
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [closeContextMenu, isOpen],
+    [closeContextMenu, handleOpen, isOpen],
   );
 
   const value: ChatContextMenuContextType = useMemo(
@@ -80,9 +81,9 @@ export const ChatContextMenuContextProvider: FC<{
               top={contextPos.current.y}
               left={contextPos.current.x}
               onClose={closeContextMenu}
-              onCopy={onCopy}
-              onEdit={onEdit}
-              onDelete={onDelete}
+              onCopy={() => onCopy(currentChat)}
+              onEdit={() => onEdit(currentChat)}
+              onDelete={() => onDelete(currentChat)}
             />
           )}
         </>,
