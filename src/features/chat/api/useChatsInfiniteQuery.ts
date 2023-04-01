@@ -41,10 +41,11 @@ export const useChatsInfiniteQuery = createInfiniteQuery<Response, Variables, Me
     return getChats({ roomId, query: { offset: pageParam, limit } });
   },
   getNextPageParam: (lastPage, pages) => {
-    //TODO:이부분 api응답이 변경되서 수정했는데 한번 확인해주십셔
-    if (lastPage.data.length <= lastPage.meta.total) {
+    // //TODO:이부분 api응답이 변경되서 수정했는데 한번 확인부탁드립니다.
+    if (!lastPage.meta.hasNextPage) {
       return;
     }
+
     return pages.length + 1;
   },
 });
