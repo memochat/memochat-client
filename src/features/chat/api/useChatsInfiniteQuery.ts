@@ -5,7 +5,18 @@ import axios from '@src/shared/configs/axios';
 import { Chat } from '@src/shared/types/chat';
 import { MemoChatError } from '@src/shared/types/api';
 
-type Response = Chat[];
+type Response = {
+  data: Chat[];
+  //TODO:확인해주세요
+  meta: {
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+    page: number;
+    pageCount: number;
+    take: number;
+    total: number;
+  };
+};
 type Variables = { roomId: number };
 type Query = {
   limit: number;
@@ -30,10 +41,10 @@ export const useChatsInfiniteQuery = createInfiniteQuery<Response, Variables, Me
     return getChats({ roomId, query: { offset: pageParam, limit } });
   },
   getNextPageParam: (lastPage, pages) => {
-    if (lastPage.length < limit) {
+    //TODO:이부분 api응답이 변경되서 수정했는데 한번 확인해주십셔
+    if (lastPage.data.length <= lastPage.meta.total) {
       return;
     }
-
     return pages.length + 1;
   },
 });

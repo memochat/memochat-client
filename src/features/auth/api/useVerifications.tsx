@@ -13,6 +13,9 @@ export const getAuthVerifications = async (payload: Variables) => {
 const useVerificationsQuery = createQuery<Response, Variables>({
   primaryKey: '/auth/verifications',
   enabled: false,
+  retry: 0,
+  cacheTime: 0,
+  staleTime: 0,
   queryFn: ({ queryKey: [, variables] }) => getAuthVerifications(variables),
 });
 

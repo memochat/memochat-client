@@ -33,7 +33,7 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
   const { mutate: createChat } = useCreateChatMutation();
 
   const chats = data?.pages.reduce(
-    (mergedContents, currentContents) => [...mergedContents, ...(currentContents || [])],
+    (mergedContents, currentContents) => [...mergedContents, ...(currentContents.data || [])],
     [],
   );
 

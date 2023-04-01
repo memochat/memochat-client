@@ -14,9 +14,13 @@ const SignIn: NextPageWithLayout = () => {
   const { login } = useAuth();
   const router = useRouter();
 
-  const onSubmit: SubmitHandler<SigninFormType> = (values) => {
-    login(values);
-    router.push('/signin/complete');
+  const onSubmit: SubmitHandler<SigninFormType> = async (values) => {
+    try {
+      await login(values);
+      router.push('/signin/complete');
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
