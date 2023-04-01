@@ -16,7 +16,7 @@ import useSignInMutation from '../api/useSignInMutation';
 
 const useAuth = () => {
   const router = useRouter();
-  const { mutateAsync: signIn } = useSignInMutation({
+  const { mutateAsync: login } = useSignInMutation({
     onSuccess(data) {
       const { accessToken, refreshToken } = data;
       setAccessToken(accessToken);
@@ -54,7 +54,7 @@ const useAuth = () => {
     return true;
   }, [refetch]);
 
-  return { login: signIn, logout, user: data, checkUserState };
+  return { login, logout, user: data, checkUserState };
 };
 
 export default useAuth;
