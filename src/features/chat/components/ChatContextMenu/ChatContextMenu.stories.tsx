@@ -16,7 +16,7 @@ export const Default: StoryFn<typeof ChatContextMenu> = (args) => {
     <>
       <Button onClick={() => setShow(true)}>Show ChatContextMenu</Button>
       <ChatContextMenu
-        isShow={isShow}
+        isOpen={isShow}
         onClose={() => setShow(false)}
         top={0}
         left={0}

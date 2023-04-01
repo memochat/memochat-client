@@ -1,5 +1,3 @@
-import { MouseEvent } from 'react';
-
 import { ChatType } from '@src/shared/types/chat';
 
 export type ChatProps = {
@@ -14,5 +12,4 @@ export type ChatProps = {
     thumbnail?: string;
   };
   imageUrls?: string[];
-  onContextMenu?: (e?: MouseEvent<HTMLDivElement>) => void;
 };

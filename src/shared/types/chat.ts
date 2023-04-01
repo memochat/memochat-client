@@ -10,6 +10,7 @@ export type Chat = {
   message: string;
   type: ChatType;
   // 링크 메타 데이터 (type='LINK')
+  link?: string;
   title?: string;
   description?: string;
   thumbnail?: string;

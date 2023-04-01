@@ -42,7 +42,7 @@ const ChatList = forwardRef(
               message={chat.message}
               createdAt={dayjs(chat.createdAt).toDate()}
               link={{
-                href: '',
+                href: chat.link,
                 title: chat.title,
                 description: chat.description,
                 thumbnail: chat.thumbnail,

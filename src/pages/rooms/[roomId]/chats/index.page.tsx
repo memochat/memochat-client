@@ -15,6 +15,8 @@ import { Chat } from '@src/shared/types/chat';
 import useCreateChatMutation from '@src/features/chat/api/useCreateChatMutation';
 import { useChatsInfiniteQuery } from '@src/features/chat/api/useChatsInfiniteQuery';
 import { setServerSideCookies } from '@src/shared/configs/axios';
+import ChatContextMenu from '@src/features/chat/components/ChatContextMenu/ChatContextMenu';
+import { ChatContextMenuContextProvider } from '@src/features/chat/components/Chat/contexts/ChatContext';
 
 import * as S from './chats.styles';
 
@@ -46,24 +48,13 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
     chatListRef.current?.scrollToIndex(chats.length - 1);
   };
 
-  const handleSubmit = (
-    {
-      roomId,
-      type,
-      message,
-      link,
-    }: Pick<Chat, 'type' | 'message'> & { link?: string; roomId: number },
+  const handleCreateChat = (
+    param: Pick<Chat, 'type' | 'message'> & { link?: string; roomId: number },
     reset: () => void,
   ) => {
+    const { roomId, type, message, link } = param;
     createChat(
-      {
-        roomId,
-        payload: {
-          type,
-          message,
-          ...(link ? { link } : {}),
-        },
-      },
+      { roomId, payload: { type, message, ...(link ? { link } : {}) } },
       {
         onSuccess: () => {
           reset();
@@ -73,6 +64,22 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
     );
   };
 
+  const handleCopyChat = () => {
+    alert('현재 개발중에 있습니다.');
+  };
+
+  const handleEditChat = () => {
+    alert('edit');
+  };
+
+  const handleDeleteChat = () => {
+    alert('delete');
+  };
+
+  const handleGoSetting = () => {
+    router.push(`/rooms/${roomId}/setting`);
+  };
+
   useEffect(() => {
     if (!router.isReady) {
       return;
@@ -80,10 +87,6 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
 
     router.prefetch(`/rooms/${roomId}/setting`);
   }, [roomId, router]);
-
-  const handleGoSetting = () => {
-    router.push(`/rooms/${roomId}/setting`);
-  };
 
   return (
     <S.Wrapper>
@@ -97,15 +100,21 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
         }
       />
       <S.ChatContainer ref={chatContainerRef} memoFormHeight={height}>
-        <ChatList
-          ref={chatListRef}
-          data={chats}
-          emptyComponent={<ChatListEmpty />}
-          hasNextPage={hasNextPage}
-          fetchNextPage={fetchNextPage}
-        />
+        <ChatContextMenuContextProvider
+          onCopy={handleCopyChat}
+          onEdit={handleEditChat}
+          onDelete={handleDeleteChat}
+        >
+          <ChatList
+            ref={chatListRef}
+            data={chats}
+            emptyComponent={<ChatListEmpty />}
+            hasNextPage={hasNextPage}
+            fetchNextPage={fetchNextPage}
+          />
+        </ChatContextMenuContextProvider>
       </S.ChatContainer>
-      <RoomMemoForm ref={ref} roomId={roomId} onSubmit={handleSubmit} />
+      <RoomMemoForm ref={ref} roomId={roomId} onSubmit={handleCreateChat} />
     </S.Wrapper>
   );
 };
