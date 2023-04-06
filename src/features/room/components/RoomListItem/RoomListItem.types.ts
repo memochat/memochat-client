@@ -6,8 +6,8 @@ export type RoomListItemProps = {
   isSelected: boolean;
   message?: string;
   className?: string;
-  onSelect: () => void;
-  onClick: () => void;
-  onEdit: () => void;
-  onDelete: () => void;
+  onSelect: VoidFunction;
+  onClick: VoidFunction;
+  onEdit: VoidFunction;
+  onDelete: VoidFunction;
 };
