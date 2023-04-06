@@ -6,4 +6,7 @@ export const Wrapper = styled.div<{ memoFormHeight?: number }>`
   flex-direction: column;
   align-items: flex-end;
   padding: 0 16px 9px;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 `;

@@ -1,9 +1,9 @@
 export interface ChatContextMenuProps {
-  isShow: boolean;
+  isOpen: boolean;
   top: number;
   left: number;
-  onEdit: VoidFunction;
-  onCopy: VoidFunction;
-  onDelete: VoidFunction;
   onClose: VoidFunction;
+  onEdit?: VoidFunction;
+  onCopy?: VoidFunction;
+  onDelete?: VoidFunction;
 }

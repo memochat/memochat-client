@@ -28,7 +28,7 @@ const Icon = ({
     }
   `;
 
-  return <StyledSvgIcon {...props} colorname={colorname} />;
+  return <StyledSvgIcon width={size} height={size} {...props} colorname={colorname} />;
 };
 
 export default Icon;

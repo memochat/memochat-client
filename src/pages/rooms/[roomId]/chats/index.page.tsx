@@ -1,20 +1,28 @@
-import { useEffect, useRef } from 'react';
+import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
 import { VirtuosoHandle } from 'react-virtuoso';
-import { dehydrate, QueryClient } from '@tanstack/react-query';
+import { useCopyToClipboard } from 'react-use';
+import { SubmitHandler } from 'react-hook-form';
 
-import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/types/next';
-import { Header, Icon } from '@src/shared/components';
-import { RoomMemoForm } from '@src/features/room/components';
-import ChatListEmpty from '@src/features/chat/components/ChatListEmpty';
-import useElementDimension from '@src/shared/hooks/useDimension';
-import ChatList from '@src/features/chat/components/ChatList';
 import AuthGuard from '@src/features/auth/components/AuthGuard';
-import useRoomQuery from '@src/features/room/api/useRoomQuery';
-import { Chat } from '@src/shared/types/chat';
-import useCreateChatMutation from '@src/features/chat/api/useCreateChatMutation';
 import { useChatsInfiniteQuery } from '@src/features/chat/api/useChatsInfiniteQuery';
+import useCreateChatMutation from '@src/features/chat/api/useCreateChatMutation';
+import useDeleteChatMutation from '@src/features/chat/api/useDeleteChatMutation';
+import { ChatContextMenuContextProvider } from '@src/features/chat/components/Chat/contexts/ChatContext';
+import ChatList from '@src/features/chat/components/ChatList';
+import ChatListEmpty from '@src/features/chat/components/ChatListEmpty';
+import useRoomQuery from '@src/features/room/api/useRoomQuery';
+import { RoomMemoForm } from '@src/features/room/components';
+import { Header, Icon } from '@src/shared/components';
 import { setServerSideCookies } from '@src/shared/configs/axios';
+import useConfirm from '@src/shared/hooks/useConfirm';
+import useElementDimension from '@src/shared/hooks/useDimension';
+import { Chat } from '@src/shared/types/chat';
+import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/types/next';
+import { toast } from '@src/shared/utils/toast';
+import RoomMemoEditForm from '@src/features/room/components/RoomMemoEditForm/RoomMemoEditForm';
+import useUpdateChatMutation from '@src/features/chat/api/useUpdateChatMutation';
 
 import * as S from './chats.styles';
 
@@ -27,50 +35,105 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
   const chatContainerRef = useRef<HTMLDivElement>();
   const router = useRouter();
   const chatListRef = useRef<VirtuosoHandle>();
+  const [, copy] = useCopyToClipboard();
 
-  const { data, hasNextPage, fetchNextPage } = useChatsInfiniteQuery({ variables: { roomId } });
+  const { data, hasNextPage, fetchNextPage } = useChatsInfiniteQuery({
+    variables: { roomId },
+  });
+  const { ref, dimension } = useElementDimension<HTMLFormElement>();
   const { data: room } = useRoomQuery({ variables: { roomId } });
   const { mutate: createChat } = useCreateChatMutation();
+  const { mutate: updateChat } = useUpdateChatMutation();
+
+  const { confirm } = useConfirm();
+  const { mutate: deleteChat } = useDeleteChatMutation();
+
+  const [editFormInfo, setEditFormInfo] = useState<{
+    message: string;
+    roomId: number;
+    id: number;
+  }>(null);
 
   const chats = data?.pages.reduce(
     (mergedContents, currentContents) => [...mergedContents, ...(currentContents.data || [])],
     [],
   );
 
-  const {
-    ref,
-    dimension: { height },
-  } = useElementDimension<HTMLFormElement>();
-
   const scrollToBottom = () => {
     chatListRef.current?.scrollToIndex(chats.length - 1);
   };
 
-  const handleSubmit = (
-    {
-      roomId,
-      type,
-      message,
-      link,
-    }: Pick<Chat, 'type' | 'message'> & { link?: string; roomId: number },
-    reset: () => void,
+  const handleCloseEditForm = () => {
+    setEditFormInfo(null);
+  };
+
+  const handleUpdateChat = (
+    param: Pick<Chat, 'type' | 'message' | 'id'> & { link?: string; roomId: number },
   ) => {
-    createChat(
+    const { message, id, roomId, type, link } = param;
+    updateChat(
+      { roomId, chatId: id, link, type, message },
       {
-        roomId,
-        payload: {
-          type,
-          message,
-          ...(link ? { link } : {}),
+        onSuccess: () => {
+          toast.success('수정되었습니다.');
+          handleCloseEditForm();
         },
       },
+    );
+  };
+
+  const handleCreateChat = (
+    param: Pick<Chat, 'type' | 'message'> & { link?: string; roomId: number },
+    reset: () => void,
+  ) => {
+    const { roomId, type, message, link } = param;
+    createChat(
+      { roomId, payload: { type, message, ...(link ? { link } : {}) } },
       {
         onSuccess: () => {
           reset();
           scrollToBottom();
+          toast.success('생성되었습니다.');
         },
       },
     );
+  };
+
+  const handleCopyChat = (chat: Chat) => {
+    copy(chat.message);
+    toast.info(' 복사되었습니다.');
+  };
+
+  const handleEditChat = (chat: Chat) => {
+    setEditFormInfo({
+      id: chat.id,
+      message: chat.message,
+      roomId,
+    });
+  };
+
+  const handleDeleteChat = async (chat: Chat) => {
+    const res = await confirm({
+      headerTitle: '알림',
+      title: '메모를 삭제하시겠습니까?',
+      description: '연결된 메모에서도 확인이 불가능합니다.',
+      variant: 'danger',
+    });
+    if (!res) {
+      return;
+    }
+    deleteChat(
+      { chatId: chat.id, roomId },
+      {
+        onSuccess: () => {
+          toast.success('삭제되었습니다.');
+        },
+      },
+    );
+  };
+
+  const handleGoSetting = () => {
+    router.push(`/rooms/${roomId}/setting`);
   };
 
   useEffect(() => {
@@ -80,10 +143,6 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
 
     router.prefetch(`/rooms/${roomId}/setting`);
   }, [roomId, router]);
-
-  const handleGoSetting = () => {
-    router.push(`/rooms/${roomId}/setting`);
-  };
 
   return (
     <S.Wrapper>
@@ -96,16 +155,30 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
           </button>
         }
       />
-      <S.ChatContainer ref={chatContainerRef} memoFormHeight={height}>
-        <ChatList
-          ref={chatListRef}
-          data={chats}
-          emptyComponent={<ChatListEmpty />}
-          hasNextPage={hasNextPage}
-          fetchNextPage={fetchNextPage}
-        />
+      <S.ChatContainer ref={chatContainerRef} memoFormHeight={dimension.height}>
+        <ChatContextMenuContextProvider
+          onCopy={handleCopyChat}
+          onEdit={handleEditChat}
+          onDelete={handleDeleteChat}
+        >
+          <ChatList
+            ref={chatListRef}
+            data={chats}
+            emptyComponent={<ChatListEmpty />}
+            hasNextPage={hasNextPage}
+            fetchNextPage={fetchNextPage}
+          />
+        </ChatContextMenuContextProvider>
       </S.ChatContainer>
-      <RoomMemoForm ref={ref} roomId={roomId} onSubmit={handleSubmit} />
+      {Boolean(editFormInfo) ? (
+        <RoomMemoEditForm
+          onClose={handleCloseEditForm}
+          onSubmit={handleUpdateChat}
+          defaultValues={editFormInfo}
+        />
+      ) : (
+        <RoomMemoForm ref={ref} roomId={roomId} onSubmit={handleCreateChat} />
+      )}
     </S.Wrapper>
   );
 };

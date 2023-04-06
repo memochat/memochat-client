@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react';
-import { createPortal } from 'react-dom';
+import { useClickAway } from 'react-use';
 
-import { ChatContextMenuProps } from './ChatContextMenu.types';
 import * as S from './ChatContextMenu.styles';
+import { ChatContextMenuProps } from './ChatContextMenu.types';
 
 const ChatContextMenu = ({
-  isShow,
+  isOpen,
   top,
   left,
   onEdit,
@@ -15,33 +15,71 @@ const ChatContextMenu = ({
 }: ChatContextMenuProps) => {
   const ref = useRef<HTMLUListElement>(null);
 
-  useEffect(() => {
-    if (isShow) {
-      ref.current.focus();
-    }
-  }, [isShow]);
+  useClickAway(ref, () => {
+    onClose();
+  });
 
   const clickEdit = () => {
-    onEdit?.();
+    onEdit();
     onClose();
   };
 
   const clickCopy = () => {
-    onCopy?.();
+    onCopy();
     onClose();
   };
 
   const clickDelete = () => {
-    onDelete?.();
+    onDelete();
     onClose();
   };
 
-  if (!isShow) {
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+    const chatContextRef = ref.current;
+
+    const focusableEls = Array.from<HTMLElement>(
+      chatContextRef.querySelectorAll(
+        "select,input:not([disabled]),textarea,[role='button'],button",
+      ),
+    );
+
+    const firstFocusableEl = focusableEls[0];
+    let currentFocus: HTMLElement;
+    firstFocusableEl.focus();
+    currentFocus = firstFocusableEl;
+
+    const handleFocus = (e: FocusEvent) => {
+      e.preventDefault();
+      const target = e.target as HTMLElement;
+
+      if (focusableEls.length === 0) {
+        return;
+      } else if (focusableEls.includes(target)) {
+        currentFocus = target;
+      } else if (currentFocus === firstFocusableEl) {
+        focusableEls[focusableEls.length - 1].focus();
+      } else {
+        firstFocusableEl.focus();
+      }
+      currentFocus = document.activeElement as HTMLElement;
+    };
+    document.addEventListener('focus', handleFocus, true);
+    return () => {
+      currentFocus = null;
+      document.body.focus();
+      document.removeEventListener('focus', handleFocus, true);
+    };
+  }, [isOpen]);
+
+  if (!isOpen) {
     return null;
   }
 
-  return createPortal(
-    <S.Wrapper ref={ref} tabIndex={-1} onBlur={onClose} top={top} left={left}>
+  return (
+    <S.Wrapper ref={ref} top={top} left={left}>
       {[
         { label: '수정', onClick: clickEdit },
         { label: '복사', onClick: clickCopy },
@@ -53,8 +91,7 @@ const ChatContextMenu = ({
           </button>
         </S.MenuItem>
       ))}
-    </S.Wrapper>,
-    document.body,
+    </S.Wrapper>
   );
 };
 

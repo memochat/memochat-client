@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 
 export const Wrapper = styled.ul<{ top: number; left: number }>`
   position: fixed;
-  top: ${(p) => p.top};
-  left: ${(p) => p.left};
+  top: ${(p) => `${p.top}px`};
+  left: ${(p) => `${p.left}px`};
   width: 262px;
   max-width: 60%;
   border-radius: 8px;
@@ -22,7 +22,7 @@ export const MenuItem = styled.li`
     padding: 8px;
     text-align: left;
 
-    &:hover,
+    &:focus,
     &:active {
       color: ${(p) => p.theme.color.white};
       background-color: ${(p) => p.theme.color.purple1};

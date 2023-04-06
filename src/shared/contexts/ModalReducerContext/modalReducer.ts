@@ -26,6 +26,7 @@ const modalReducer = (state: ModalReducerState, action: ModalReducerAction): Mod
           open: false,
         },
       };
+
     default:
       return initialModalReducerState;
   }

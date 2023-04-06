@@ -6,8 +6,8 @@ import { NativeMessageSender } from '@src/shared/configs/webview';
 import { useOS } from '@src/shared/hooks/useOS';
 import { urlRegex } from '@src/shared/utils/parseUrls';
 
-import { RoomMemoFormProps } from './RoomMemoForm.types';
 import * as S from './RoomMemoForm.styles';
+import { RoomMemoFormProps } from './RoomMemoForm.types';
 
 // TODO: alert -> 커스텀 alert로 변경
 // TODO: 채팅 두번 전송 방지
@@ -16,12 +16,7 @@ const RoomMemoForm = forwardRef(
     { roomId, roomName, showSelectedRoom, onSubmit }: RoomMemoFormProps,
     ref: LegacyRef<HTMLFormElement>,
   ) => {
-    const {
-      register,
-      handleSubmit,
-      reset,
-      formState: { isDirty },
-    } = useRoomMemoForm();
+    const { register, handleSubmit, reset, formState } = useRoomMemoForm();
     const os = useOS();
 
     const autoGrow = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -119,7 +114,7 @@ const RoomMemoForm = forwardRef(
               </>
             )}
           </S.ToolBoxIconBox>
-          {isDirty && (
+          {formState.isDirty && (
             <S.SubmitBtn type="submit">
               <Icon name="Send" size={32} />
             </S.SubmitBtn>
@@ -130,5 +125,4 @@ const RoomMemoForm = forwardRef(
   },
 );
 RoomMemoForm.displayName = 'RoomMemoForm';
-
 export default RoomMemoForm;
