@@ -32,10 +32,6 @@ const RoomList: NextPageWithLayout = () => {
   const router = useRouter();
   const { confirm } = useConfirm();
 
-  useEffect(() => {
-    router.push('/rooms/32/chats');
-  }, []);
-
   const { data: rooms, isLoading } = useRoomsQuery();
 
   const [selectedRoom, setSelectedRoom] = useState<MemoRoom | null>(rooms?.[0]);
