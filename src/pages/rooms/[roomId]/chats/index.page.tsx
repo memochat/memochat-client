@@ -164,6 +164,7 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
           <ChatList
             ref={chatListRef}
             data={chats}
+            totalCount={data?.pages[0].meta.total}
             emptyComponent={<ChatListEmpty />}
             hasNextPage={hasNextPage}
             fetchNextPage={fetchNextPage}

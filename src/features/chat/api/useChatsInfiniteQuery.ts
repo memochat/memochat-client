@@ -7,7 +7,6 @@ import { MemoChatError } from '@src/shared/types/api';
 
 type Response = {
   data: Chat[];
-  //TODO:확인해주세요
   meta: {
     hasNextPage: boolean;
     hasPreviousPage: boolean;
@@ -19,8 +18,8 @@ type Response = {
 };
 type Variables = { roomId: number };
 type Query = {
-  limit: number;
-  offset: number;
+  page: number;
+  take: number;
 };
 
 export const getChats = async ({ roomId, query }: Variables & { query: Query }) => {
@@ -33,15 +32,14 @@ export const getChats = async ({ roomId, query }: Variables & { query: Query }) 
   return res.data;
 };
 
-const limit = 20;
+const take = 20;
 
 export const useChatsInfiniteQuery = createInfiniteQuery<Response, Variables, MemoChatError>({
   primaryKey: '/rooms/:id/chats',
   queryFn: ({ queryKey: [, { roomId }], pageParam = 1 }) => {
-    return getChats({ roomId, query: { offset: pageParam, limit } });
+    return getChats({ roomId, query: { page: pageParam, take } });
   },
   getNextPageParam: (lastPage, pages) => {
-    // //TODO:이부분 api응답이 변경되서 수정했는데 한번 확인부탁드립니다.
     if (!lastPage.meta.hasNextPage) {
       return;
     }
