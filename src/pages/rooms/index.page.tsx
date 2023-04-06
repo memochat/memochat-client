@@ -1,23 +1,19 @@
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import { SwipeableList, Type as ListType } from 'react-swipeable-list';
 
 import AuthGuard from '@src/features/auth/components/AuthGuard';
 import useCreateChatMutation from '@src/features/chat/api/useCreateChatMutation';
-import useDeleteRoomMutation from '@src/features/room/api/useDeleteRoomMutation';
 import useRoomCategoriesQuery from '@src/features/room/api/useRoomCategoriesQuery';
 import useRoomsQuery from '@src/features/room/api/useRoomsQuery';
 import RoomListEmpty from '@src/features/room/components/RoomListEmpty';
-import RoomListItem from '@src/features/room/components/RoomListItem';
+import RoomList from '@src/features/room/components/RoomList';
 import RoomMemoForm from '@src/features/room/components/RoomMemoForm';
 import UpsertRoomDialog from '@src/features/room/components/UpsertRoomDialog';
 import { Icon } from '@src/shared/components';
 import KeyboardFloatingLayout from '@src/shared/components/KeyboardFloatingLayout';
 import { setServerSideCookies } from '@src/shared/configs/axios';
 import { queryClient } from '@src/shared/configs/react-query';
-import useConfirm from '@src/shared/hooks/useConfirm';
 import useElementDimension from '@src/shared/hooks/useDimension';
 import { useOS } from '@src/shared/hooks/useOS';
 import { Chat } from '@src/shared/types/chat';
@@ -25,27 +21,21 @@ import { MemoRoom } from '@src/shared/types/memoRooms';
 import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/types/next';
 
 import * as S from './rooms.styles';
-import 'react-swipeable-list/dist/styles.css';
 
-const RoomList: NextPageWithLayout = () => {
+const RoomListPage: NextPageWithLayout = () => {
   const os = useOS();
-  const router = useRouter();
-  const { confirm } = useConfirm();
 
   const { data: rooms, isLoading } = useRoomsQuery();
 
   const [selectedRoom, setSelectedRoom] = useState<MemoRoom | null>(rooms?.[0]);
-  const [selectedUpdateRoom, setSelectedUpdateRoom] = useState<MemoRoom | null>(rooms?.[0]);
 
   const [isCreateRoomDialogOpen, setIsCreateRoomDialogOpen] = useState(false);
-  const [isUpdateRoomDialogOpen, setIsUpdateRoomDialogOpen] = useState(false);
 
   const {
     ref: memoFormRef,
     dimension: { height: memoFormHeight },
   } = useElementDimension<HTMLFormElement>();
 
-  const { mutate: deleteRoom } = useDeleteRoomMutation();
   const { mutate: createChat } = useCreateChatMutation();
 
   const listWrapperRef = useRef<HTMLDivElement>(null);
@@ -60,38 +50,6 @@ const RoomList: NextPageWithLayout = () => {
     listWrapper.addEventListener('touchmove', onTouchMove);
     return () => listWrapper.removeEventListener('touchmove', onTouchMove);
   }, [os]);
-
-  const handleRoomSelect = (room: MemoRoom) => {
-    const isSelected = room.id === selectedRoom?.id;
-    setSelectedRoom(isSelected ? null : room);
-  };
-
-  const handleRoomClick = (room: MemoRoom) => {
-    router.push(`/rooms/${room.id}/chats`);
-  };
-
-  const handleRoomEditClick = (room: MemoRoom) => {
-    setSelectedUpdateRoom(room);
-    setIsUpdateRoomDialogOpen(true);
-  };
-
-  const handleRoomDeleteClick = async (room: MemoRoom) => {
-    if (
-      await confirm({
-        headerTitle: '룸 삭제하기',
-        title: '메모룸을 삭제할까요?',
-        description: '메모 내용은 복구되지 않습니다.',
-        variant: 'danger',
-      })
-    ) {
-      await deleteRoom({ id: room.id });
-    }
-  };
-
-  const handleUpdateRoomDialogClose = () => {
-    setIsUpdateRoomDialogOpen(false);
-    setSelectedUpdateRoom(null);
-  };
 
   const handleRoomCreateClick = () => {
     setIsCreateRoomDialogOpen(true);
@@ -137,32 +95,20 @@ const RoomList: NextPageWithLayout = () => {
         </Link>
       </S.Header>
       <S.ListWrapper ref={listWrapperRef} paddingBottom={memoFormHeight}>
-        {isLoading && <>{/* TODO: 로딩시 스피너 띄우기 */}</>}
-        {!isLoading && !rooms?.length && <RoomListEmpty />}
-        {!isLoading && rooms?.length > 0 && (
-          <SwipeableList fullSwipe={false} type={ListType.IOS}>
-            {rooms.map((room) => (
-              <RoomListItem
-                key={room.id}
-                name={room.name}
-                roomCategory={room.roomCategory}
-                message={room.message}
-                isSelected={selectedRoom?.id === room.id}
-                onSelect={() => handleRoomSelect(room)}
-                onClick={() => handleRoomClick(room)}
-                onEdit={() => handleRoomEditClick(room)}
-                onDelete={() => handleRoomDeleteClick(room)}
-              />
-            ))}
-          </SwipeableList>
-        )}
+        <RoomList
+          data={rooms}
+          isLoading={isLoading}
+          emptyComponent={<RoomListEmpty />}
+          selectedRoom={selectedRoom}
+          onSelectedRoomChange={setSelectedRoom}
+        />
       </S.ListWrapper>
       <KeyboardFloatingLayout>
         <S.RoomCreateButton onClick={handleRoomCreateClick} />
         <RoomMemoForm
           ref={memoFormRef}
-          roomId={selectedRoom.id}
-          roomName={selectedRoom.name}
+          roomId={selectedRoom?.id}
+          roomName={selectedRoom?.name}
           showSelectedRoom
           onSubmit={handleSubmit}
         />
@@ -172,19 +118,6 @@ const RoomList: NextPageWithLayout = () => {
         open={isCreateRoomDialogOpen}
         onClose={handleCreateRoomDialogClose}
       />
-      {selectedUpdateRoom && (
-        <UpsertRoomDialog
-          type="update"
-          selectedRoomId={selectedUpdateRoom.id}
-          open={isUpdateRoomDialogOpen}
-          onClose={handleUpdateRoomDialogClose}
-          defaultValues={{
-            name: selectedUpdateRoom.name,
-
-            roomCategoryId: selectedUpdateRoom.roomCategory.id,
-          }}
-        />
-      )}
     </>
   );
 };
@@ -204,6 +137,6 @@ export const getServerSideProps: GetServerSidePropsWithState = async (ctx) => {
   };
 };
 
-RoomList.getLayout = (page) => <AuthGuard>{page}</AuthGuard>;
+RoomListPage.getLayout = (page) => <AuthGuard>{page}</AuthGuard>;
 
-export default RoomList;
+export default RoomListPage;
