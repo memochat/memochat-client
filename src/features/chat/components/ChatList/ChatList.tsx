@@ -33,6 +33,10 @@ const ChatList = forwardRef(
         const reversedIndex = totalCount - index - 1;
         const chat = data[reversedIndex];
 
+        if (!chat) {
+          return null;
+        }
+
         return (
           <>
             {checkIsDateVisible(reversedIndex) && (

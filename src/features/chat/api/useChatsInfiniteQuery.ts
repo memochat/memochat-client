@@ -37,7 +37,8 @@ const take = 20;
 export const useChatsInfiniteQuery = createInfiniteQuery<Response, Variables, MemoChatError>({
   primaryKey: '/rooms/:id/chats',
   queryFn: ({ queryKey: [, { roomId }], pageParam = 1 }) => {
-    return getChats({ roomId, query: { page: pageParam, take } });
+    // pageParam || 1 : pageParam이 null인 경우 page를 1로 설정해주기 위함
+    return getChats({ roomId, query: { page: pageParam || 1, take } });
   },
   getNextPageParam: (lastPage, pages) => {
     if (!lastPage.meta.hasNextPage) {
