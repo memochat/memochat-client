@@ -75,7 +75,6 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
       { roomId, chatId: id, link, type, message },
       {
         onSuccess: () => {
-          toast.success('수정되었습니다.');
           handleCloseEditForm();
         },
       },
@@ -93,7 +92,6 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
         onSuccess: () => {
           reset();
           scrollToBottom();
-          toast.success('생성되었습니다.');
         },
       },
     );
@@ -122,14 +120,7 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
     if (!res) {
       return;
     }
-    deleteChat(
-      { chatId: chat.id, roomId },
-      {
-        onSuccess: () => {
-          toast.success('삭제되었습니다.');
-        },
-      },
-    );
+    deleteChat({ chatId: chat.id, roomId });
   };
 
   const handleGoSetting = () => {
