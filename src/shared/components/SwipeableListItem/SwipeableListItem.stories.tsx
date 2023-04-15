@@ -1,6 +1,6 @@
-import { ComponentMeta, StoryObj } from '@storybook/react';
+import { ComponentMeta, StoryFn } from '@storybook/react';
 
-import { SwipeAction } from '@src/shared/components/SwipeableListItem/components';
+import { SwipeAction, TrailingActions } from '@src/shared/components/SwipeableListItem/components';
 
 import SwipeableListItem from '.';
 
@@ -10,59 +10,67 @@ export default {
   argTypes: {},
 } as ComponentMeta<typeof SwipeableListItem>;
 
-export const Default: StoryObj<typeof SwipeableListItem> = {
-  args: {
-    children: (
-      <button
-        type="button"
-        onClick={() => {
-          alert('click');
-        }}
-        style={{ width: '100%', padding: '0 16px' }}
-      >
-        <div
-          style={{
-            width: '100%',
-            height: '63px',
-            borderRadius: '16px',
-            backgroundColor: 'grey',
-          }}
-        />
-      </button>
-    ),
-    trailingActions: (
-      <div style={{ width: '100%', height: '100%', display: 'flex', flexShrink: 0 }}>
-        <SwipeAction onClick={() => alert('수정')}>
-          <span
-            style={{
-              width: '63px',
-              height: '63px',
-              margin: '0 6px 0 0',
-              color: 'white',
-              borderRadius: '16px',
-              flexShrink: '0',
-              backgroundColor: 'lightblue',
-            }}
-          >
+const actionStyles: React.CSSProperties = {
+  width: '63px',
+  height: '63px',
+  margin: '0 6px 0 0',
+  color: 'white',
+  borderRadius: '16px',
+  flexShrink: '0',
+  backgroundColor: 'lightblue',
+  textAlign: 'center',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+};
+
+export const Item: StoryFn = () => {
+  return (
+    <SwipeableListItem
+      trailingActions={
+        <TrailingActions style={{ padding: '0 6px' }}>
+          <SwipeAction onClick={() => alert('수정')} style={actionStyles}>
             수정
-          </span>
-        </SwipeAction>
-        <SwipeAction onClick={() => alert('삭제')}>
-          <span
-            style={{
-              width: '63px',
-              height: '63px',
-              margin: '0 6px 0 0',
-              color: 'white',
-              borderRadius: '16px',
-              flexShrink: '0',
-              backgroundColor: 'lightpink',
-            }}
+          </SwipeAction>
+          <SwipeAction
+            onClick={() => alert('삭제')}
+            style={{ ...actionStyles, backgroundColor: 'lightpink' }}
           >
             삭제
-          </span>
-        </SwipeAction>
-      </div>
-    ),
-  },
+          </SwipeAction>
+        </TrailingActions>
+      }
+    >
+      {({ isSwiping, isTrailingActionsOpen }) => (
+        <button
+          type="button"
+          onClick={() => {
+            if (isSwiping || isTrailingActionsOpen) {
+              return;
+            }
+            alert('click');
+          }}
+          style={{ width: '100%', padding: '0 16px' }}
+        >
+          <div
+            style={{
+              width: '100%',
+              height: '63px',
+              borderRadius: '16px',
+              backgroundColor: 'grey',
+            }}
+          />
+        </button>
+      )}
+    </SwipeableListItem>
+  );
+};
+
+export const List = () => {
+  return (
+    <div>
+      <Item />
+      <Item />
+    </div>
+  );
 };

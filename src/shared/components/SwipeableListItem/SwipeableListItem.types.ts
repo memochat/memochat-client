@@ -1,7 +1,6 @@
 export interface SwipeableListItemProps {
-  children: React.ReactNode;
+  children: (value?: { isSwiping: boolean; isTrailingActionsOpen: boolean }) => React.ReactNode;
   trailingActions: React.ReactNode;
-  onSwipingChange?: (isSwiping: boolean) => void;
   className?: string;
   style?: React.CSSProperties;
 }

@@ -13,7 +13,7 @@ export const Contents = styled.div`
   flex-shrink: 0;
 `;
 
-export const TrailingActions = styled.div`
+export const TrailingActionsWrapper = styled.div`
   display: flex;
   flex-shrink: 0;
   position: absolute;
@@ -22,14 +22,4 @@ export const TrailingActions = styled.div`
   overflow: hidden;
   width: 0;
   height: 100%;
-
-  > button {
-    width: 63px;
-    height: 63px;
-    margin: 0 6px 0 0;
-    color: white;
-    background-color: ${(p) => p.theme.color.blue1};
-    border-radius: 16px;
-    flex-shrink: 0;
-  }
 `;
