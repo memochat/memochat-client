@@ -18,7 +18,12 @@ const nextConfig = {
   reactStrictMode: false,
   pageExtensions: ['page.tsx', 'page.ts'],
   images: {
-    domains: ['memochat-develop.s3.ap-northeast-2.amazonaws.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'memochat-public.s3.ap-northeast-2.amazonaws.com',
+      },
+    ],
   },
   typescript: {
     ignoreBuildErrors: true,
