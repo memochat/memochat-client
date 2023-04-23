@@ -1,20 +1,17 @@
 import queryString from 'query-string';
 import { createInfiniteQuery } from 'react-query-kit';
+import { z } from 'zod';
 
 import axios from '@src/shared/configs/axios';
 import { Chat } from '@src/shared/types/chat';
 import { MemoChatError } from '@src/shared/types/api';
+import { PageMeta } from '@src/shared/types/pageMeta';
+import { ChatListSchema, PageMetaSchema } from '@src/schema';
+import { logError } from '@src/shared/utils/log';
 
 type Response = {
   data: Chat[];
-  meta: {
-    hasNextPage: boolean;
-    hasPreviousPage: boolean;
-    page: number;
-    pageCount: number;
-    take: number;
-    total: number;
-  };
+  meta: PageMeta;
 };
 type Variables = { roomId: number };
 type Query = {
@@ -29,6 +26,15 @@ export const getChats = async ({ roomId, query }: Variables & { query: Query }) 
       query,
     }),
   );
+
+  try {
+    z.object({
+      data: ChatListSchema,
+      meta: PageMetaSchema,
+    }).parse(res.data);
+  } catch (e) {
+    logError(e);
+  }
   return res.data;
 };
 

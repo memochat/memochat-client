@@ -1,10 +1,5 @@
-export type User = {
-  id: number;
-  createdAt: string;
-  updatedAt: string;
-  email: string;
-  password: string;
-  nickname: string;
-  thumbnail: string;
-  verified: boolean;
-};
+import { z } from 'zod';
+
+import { UserSchema } from '@src/schema';
+
+export type User = z.infer<typeof UserSchema>;
