@@ -1,3 +1,7 @@
+import { z } from 'zod';
+
+import { MemoRoomSchema, MemoRoomCategorySchema } from '@src/schema';
+
 export const memoRoomCategoryNames = [
   'DEFAULT',
   'WISHLIST',
@@ -7,16 +11,5 @@ export const memoRoomCategoryNames = [
 ] as const;
 export type MemoRoomCategoryName = typeof memoRoomCategoryNames[number];
 
-export type MemoRoomCategory = {
-  id: number;
-  name: MemoRoomCategoryName;
-  thumbnail: string;
-};
-
-export type MemoRoom = {
-  id: number;
-  name: string;
-  /** 마지막 메시지 */
-  message?: string;
-  roomCategory: MemoRoomCategory;
-};
+export type MemoRoomCategory = z.infer<typeof MemoRoomCategorySchema>;
+export type MemoRoom = z.infer<typeof MemoRoomSchema>;
