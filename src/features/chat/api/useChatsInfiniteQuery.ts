@@ -1,6 +1,7 @@
 import queryString from 'query-string';
 import { createInfiniteQuery } from 'react-query-kit';
 import { z } from 'zod';
+import { fromZodError } from 'zod-validation-error';
 
 import axios from '@src/shared/configs/axios';
 import { Chat } from '@src/shared/types/chat';
@@ -33,7 +34,7 @@ export const getChats = async ({ roomId, query }: Variables & { query: Query }) 
       meta: PageMetaSchema,
     }).parse(res.data);
   } catch (e) {
-    logError(e);
+    logError(fromZodError(e));
   }
   return res.data;
 };
