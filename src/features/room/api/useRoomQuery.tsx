@@ -1,4 +1,5 @@
 import { createQuery } from 'react-query-kit';
+import { fromZodError } from 'zod-validation-error';
 
 import axios from '@src/shared/configs/axios';
 import { MemoRoom } from '@src/shared/types/memoRooms';
@@ -14,7 +15,7 @@ export const getRoom = async ({ roomId }: Variables) => {
   try {
     MemoRoomSchema.parse(res.data);
   } catch (e) {
-    logError(e);
+    logError(fromZodError(e));
   }
 
   return res.data;

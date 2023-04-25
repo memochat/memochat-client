@@ -1,4 +1,6 @@
 import { createQuery } from 'react-query-kit';
+import { fromZodError } from 'zod-validation-error';
+import { ZodError } from 'zod';
 
 import { MemoRoomCategoryListSchema } from '@src/schema';
 import axios from '@src/shared/configs/axios';
@@ -13,7 +15,7 @@ export const getRoomCategories = async () => {
   try {
     MemoRoomCategoryListSchema.parse(res.data);
   } catch (e) {
-    logError(res.data);
+    logError(fromZodError(e));
   }
   return res.data;
 };
