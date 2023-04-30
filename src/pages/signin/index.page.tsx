@@ -48,6 +48,7 @@ const SignIn: NextPageWithLayout = () => {
             <TextField
               maxLength={20}
               label="비밀번호"
+              type="password"
               placeholder="비밀번호를 입력하세요."
               id="password-field"
               {...field}
