@@ -29,7 +29,6 @@ const useSigninForm = (props?: UseFormProps<SigninFormType>) => {
     mode: 'all',
     defaultValues: props?.defaultValues || defaultValues,
     resolver: async (data, ctx, options) => {
-      console.log(data);
       const errors = (await zodResolver(schema)(data, ctx, options)).errors;
       if (Object.keys(errors).length > 0) {
         console.error(errors);
