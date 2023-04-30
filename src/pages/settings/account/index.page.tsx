@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-import ProfileImg from '@public/images/ProfileImg.png';
+import ProfileImg from '@public/images/profile.png';
 import { Pencil } from '@src/assets/icons';
 import AuthGuard from '@src/features/auth/components/AuthGuard';
 import NicknameChangeModal from '@src/features/settings/components/NicknameChangeModal';
