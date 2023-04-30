@@ -11,12 +11,14 @@ import 'react-swipeable-list/dist/styles.css';
 import { RoomListItemProps } from './RoomListItem.types';
 import * as S from './RoomListItem.styles';
 
+const DEFAULT_MESSAGE = '작성된 메모가 없습니다.';
+
 // TODO 고정 또는 순서 변경 기능 추가
 const RoomListItem = ({
   name = '-',
   roomCategory,
   isSelected,
-  message = '작성된 메모가 없습니다.',
+  message = DEFAULT_MESSAGE,
   className,
   onSelect,
   onClick,
@@ -68,7 +70,7 @@ const RoomListItem = ({
           }}
         >
           <S.RoomName>{name}</S.RoomName>
-          <S.RoomLastChat>{message}</S.RoomLastChat>
+          <S.RoomLastChat>{message ?? DEFAULT_MESSAGE}</S.RoomLastChat>
         </S.Preview>
       </S.Wrapper>
     </SwipeableListItem>
