@@ -12,7 +12,7 @@ import { logError } from '@src/shared/utils/log';
 
 type Response = {
   data: Chat[];
-  meta: PageMeta;
+  meta?: PageMeta;
 };
 type Variables = { roomId: number };
 type Query = {
@@ -31,7 +31,7 @@ export const getChats = async ({ roomId, query }: Variables & { query: Query }) 
   try {
     z.object({
       data: ChatListSchema,
-      meta: PageMetaSchema,
+      meta: PageMetaSchema.nullable(),
     }).parse(res.data);
   } catch (e) {
     logError(fromZodError(e));
@@ -48,7 +48,7 @@ export const useChatsInfiniteQuery = createInfiniteQuery<Response, Variables, Me
     return getChats({ roomId, query: { page: pageParam || 1, take } });
   },
   getNextPageParam: (lastPage, pages) => {
-    if (!lastPage.meta.hasNextPage) {
+    if (!lastPage.meta?.hasNextPage) {
       return;
     }
 
