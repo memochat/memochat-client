@@ -1,4 +1,5 @@
-import { ChangeEvent, forwardRef, LegacyRef, MouseEventHandler } from 'react';
+import { ChangeEvent, forwardRef, LegacyRef, MouseEventHandler, useCallback } from 'react';
+import { debounce } from 'lodash-es';
 
 import useRoomMemoForm, { RoomMemoFormType } from '@src/features/room/hooks/useMemoForm';
 import { Icon } from '@src/shared/components';
@@ -10,7 +11,6 @@ import * as S from './RoomMemoForm.styles';
 import { RoomMemoFormProps } from './RoomMemoForm.types';
 
 // TODO: alert -> 커스텀 alert로 변경
-// TODO: 채팅 두번 전송 방지
 const RoomMemoForm = forwardRef(
   (
     { roomId, roomName, showSelectedRoom, onSubmit }: RoomMemoFormProps,
@@ -61,30 +61,36 @@ const RoomMemoForm = forwardRef(
       }
     };
 
-    const submit = (value: RoomMemoFormType) => {
-      if (!roomId) {
-        alert('채팅방을 선택해주세요.');
-        return;
-      }
+    const debouncedSubmit = debounce(
+      (value: RoomMemoFormType) => {
+        if (!roomId) {
+          alert('채팅방을 선택해주세요.');
+          return;
+        }
 
-      // NOTE: 빈 문자열인 경우 메시지를 보내지 않음 (카카오톡과 동일하게 구현)
-      if (!value.message.trim()) {
-        return;
-      }
+        // NOTE: 빈 문자열인 경우 메시지를 보내지 않음 (카카오톡과 동일하게 구현)
+        if (!value.message.trim()) {
+          return;
+        }
 
-      const urls = value.message.match(urlRegex);
-      const link = urls?.[0];
+        const urls = value.message.match(urlRegex);
+        const link = urls?.[0];
 
-      onSubmit?.(
-        {
-          roomId,
-          type: link ? 'LINK' : 'TEXT',
-          message: value.message,
-          link,
-        },
-        reset,
-      );
-    };
+        onSubmit?.(
+          {
+            roomId,
+            type: link ? 'LINK' : 'TEXT',
+            message: value.message,
+            link,
+          },
+          reset,
+        );
+      },
+      300,
+      { leading: true, trailing: false },
+    );
+
+    const submit = useCallback(debouncedSubmit, []);
 
     return (
       <S.Form ref={ref} onSubmit={handleSubmit((v) => submit(v as RoomMemoFormType))}>
