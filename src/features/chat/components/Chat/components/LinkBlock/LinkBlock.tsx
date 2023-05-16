@@ -1,10 +1,10 @@
 import { LinkBlockProps } from './LinkBlock.types';
 import * as S from './LinkBlock.styles';
 
-const LinkBlock = ({ href, thumbnail, title, description, onClick }: LinkBlockProps) => {
+const LinkBlock = ({ href, thumbnail, title, description }: LinkBlockProps) => {
   return (
-    <S.Wrapper onClick={onClick}>
-      <a href={href}>
+    <S.Wrapper>
+      <a href={href} target="_blank" rel="noopener noreferrer">
         <S.ImageContainer>
           <img src={thumbnail} alt="" width="100%" />
         </S.ImageContainer>

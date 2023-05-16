@@ -3,20 +3,15 @@ import LinkBlock from '@src/features/chat/components/Chat/components/LinkBlock/L
 
 import { LinkChatProps } from './LinkChat.types';
 
-const LinkChat = ({ createdAt, message, onContextMenu, link }: LinkChatProps) => {
-  const handleGoUrl = () => {
-    //TODO: webview newWebview or 설치된 브라우저 열어주는 액션 필요함
-    window.open(link.href, '_blank');
-  };
+const LinkChat = ({ createdAt, message, onOpenContextMenu, link }: LinkChatProps) => {
   return (
     <>
-      <BaseChat message={message} createdAt={createdAt} onContextMenu={onContextMenu} />
+      <BaseChat message={message} createdAt={createdAt} onOpenContextMenu={onOpenContextMenu} />
       <LinkBlock
         title={link.title}
         description={link.description}
         thumbnail={link.thumbnail}
         href={link.href}
-        onClick={handleGoUrl}
       />
     </>
   );
