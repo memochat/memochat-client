@@ -5,7 +5,7 @@ import ChatContextMenu from '@src/features/chat/components/ChatContextMenu/ChatC
 import { Chat } from '@src/shared/types/chat';
 
 type ChatContextMenuContextType = {
-  renderContextMenu: ({ x, y }: { x: number; y: number }, chat: Chat) => Promise<boolean>;
+  renderContextMenu: ({ x, y, chat }: { x: number; y: number; chat: Chat }) => Promise<boolean>;
   closeContextMenu: () => void;
 };
 const ChatContextMenuContext = createContext<ChatContextMenuContextType>(null);
@@ -41,12 +41,13 @@ export const ChatContextMenuContextProvider: FC<{
   }, [handleClose]);
 
   const renderContextMenu = useCallback(
-    ({ x, y }: { x: number; y: number }, currentChat: Chat) => {
+    ({ x, y, chat }: { x: number; y: number; chat: Chat }) => {
       if (isOpen) {
         closeContextMenu();
+        return;
       }
 
-      setCurrentChat(currentChat);
+      setCurrentChat(chat);
       const menuWidth = 262;
 
       if (x + menuWidth > window.innerWidth) {

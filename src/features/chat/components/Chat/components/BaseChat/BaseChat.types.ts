@@ -1,7 +1,9 @@
-import { MouseEvent, ReactNode } from 'react';
+import { ReactNode } from 'react';
+
+import { Chat } from '@src/shared/types/chat';
 
 export interface BaseChatProps {
   message: ReactNode;
   createdAt: Date;
-  onContextMenu?: (e?: MouseEvent<HTMLDivElement>) => void;
+  onOpenContextMenu?: ({ x, y }: { x: number; y: number }) => void;
 }

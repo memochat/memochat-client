@@ -11,7 +11,13 @@ export const highlightenLink = (text: string): ReactNode => {
         return (
           <>
             {acc}
-            {type === 'link' ? <a href={content}>{content}</a> : content}
+            {type === 'link' ? (
+              <a href={content} target="_blank" rel="noopener noreferrer">
+                {content}
+              </a>
+            ) : (
+              content
+            )}
           </>
         );
       }, <></>);

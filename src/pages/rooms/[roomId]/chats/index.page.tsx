@@ -1,19 +1,20 @@
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import { VirtuosoHandle } from 'react-virtuoso';
 import { useCopyToClipboard } from 'react-use';
-import { SubmitHandler } from 'react-hook-form';
+import { VirtuosoHandle } from 'react-virtuoso';
 
 import AuthGuard from '@src/features/auth/components/AuthGuard';
 import { useChatsInfiniteQuery } from '@src/features/chat/api/useChatsInfiniteQuery';
 import useCreateChatMutation from '@src/features/chat/api/useCreateChatMutation';
 import useDeleteChatMutation from '@src/features/chat/api/useDeleteChatMutation';
+import useUpdateChatMutation from '@src/features/chat/api/useUpdateChatMutation';
 import { ChatContextMenuContextProvider } from '@src/features/chat/components/Chat/contexts/ChatContext';
 import ChatList from '@src/features/chat/components/ChatList';
 import ChatListEmpty from '@src/features/chat/components/ChatListEmpty';
 import useRoomQuery from '@src/features/room/api/useRoomQuery';
 import { RoomMemoForm } from '@src/features/room/components';
+import RoomMemoEditForm from '@src/features/room/components/RoomMemoEditForm/RoomMemoEditForm';
 import { Header, Icon } from '@src/shared/components';
 import { setServerSideCookies } from '@src/shared/configs/axios';
 import useConfirm from '@src/shared/hooks/useConfirm';
@@ -21,8 +22,6 @@ import useElementDimension from '@src/shared/hooks/useDimension';
 import { Chat } from '@src/shared/types/chat';
 import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/types/next';
 import { toast } from '@src/shared/utils/toast';
-import RoomMemoEditForm from '@src/features/room/components/RoomMemoEditForm/RoomMemoEditForm';
-import useUpdateChatMutation from '@src/features/chat/api/useUpdateChatMutation';
 
 import * as S from './chats.styles';
 
@@ -124,7 +123,7 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
   };
 
   const handleGoSetting = () => {
-    router.push(`/rooms/${roomId}/setting`);
+    void router.push(`/rooms/${roomId}/setting`);
   };
 
   useEffect(() => {
@@ -132,7 +131,7 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
       return;
     }
 
-    router.prefetch(`/rooms/${roomId}/setting`);
+    void router.prefetch(`/rooms/${roomId}/setting`);
   }, [roomId, router]);
 
   return (
