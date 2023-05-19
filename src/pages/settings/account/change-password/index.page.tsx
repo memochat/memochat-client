@@ -10,7 +10,7 @@ import useChangePasswordForm, {
 import useCheckPasswordForm, {
   CheckPasswordFormType,
 } from '@src/features/settings/hooks/useCheckPasswordForm';
-import { Button, Stepper, TextField } from '@src/shared/components';
+import { Button, Header, Stepper, TextField } from '@src/shared/components';
 import { MemoChatError } from '@src/shared/types/api';
 import { NextPageWithLayout } from '@src/shared/types/next';
 import { toast } from '@src/shared/utils/toast';
@@ -46,6 +46,7 @@ const ChangePassword: NextPageWithLayout = () => {
 
   return (
     <S.Wrapper>
+      <Header />
       <S.Title>
         비밀번호 변경을 위해
         <br /> 현재 비밀번호를 입력해주세요.
