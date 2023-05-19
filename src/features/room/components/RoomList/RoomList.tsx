@@ -32,7 +32,7 @@ const RoomList = ({
   };
 
   const handleRoomClick = (room: MemoRoom) => {
-    router.push(`/rooms/${room.id}/chats`);
+    void router.push(`/rooms/${room.id}/chats`);
   };
 
   const handleRoomEditClick = (room: MemoRoom) => {

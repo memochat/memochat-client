@@ -15,7 +15,7 @@ export const deleteRoom = async ({ id }: Variables) => {
 const useDeleteRoomMutation = createMutation<Response, Variables>({
   mutationFn: deleteRoom,
   onSuccess: () => {
-    queryClient.invalidateQueries(useRoomsQuery.getKey());
+    void queryClient.invalidateQueries(useRoomsQuery.getKey());
   },
 });
 export default useDeleteRoomMutation;

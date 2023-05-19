@@ -26,7 +26,7 @@ const AuthGuard = ({ children }: AuthGuardProps) => {
       .catch((e) => {
         setShowRoute(false);
         toast.error(e.message || '로그인이 필요합니다.');
-        router.push('/home');
+        void router.push('/home');
       });
   }, [checkUserState, router]);
 

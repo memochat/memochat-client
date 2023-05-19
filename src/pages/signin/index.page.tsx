@@ -17,7 +17,7 @@ const SignIn: NextPageWithLayout = () => {
   const onSubmit: SubmitHandler<SigninFormType> = async (values) => {
     try {
       await login(values);
-      router.push('/signin/complete');
+      void router.push('/signin/complete');
     } catch (e) {
       console.error(e);
     }

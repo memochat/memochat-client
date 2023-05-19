@@ -26,7 +26,7 @@ const ChangePassword: NextPageWithLayout = () => {
   const { isLoading, mutate: updatePassword } = useUpdatePasswordMutation({
     onSuccess: () => {
       toast.success('변경에 성공했습니다');
-      router.replace('/settings/account');
+      void router.replace('/settings/account');
     },
     onError: (e) => {
       if (e instanceof MemoChatError) {

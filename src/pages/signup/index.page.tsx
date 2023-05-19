@@ -5,9 +5,8 @@ import { useTranslation } from 'react-i18next';
 
 import useSendEmailMutation from '@src/features/auth/api/useSendEmailMutation';
 import useSignUpMutation from '@src/features/auth/api/useSignUpMutation';
-import useVerificationsQuery from '@src/features/auth/api/useVerifications';
+import useVerificationsMutation from '@src/features/auth/api/useVerificationsMutation';
 import EmailSection from '@src/features/auth/components/EmailSection';
-import GuestGuard from '@src/features/auth/components/GuestGuard';
 import PasswordSection from '@src/features/auth/components/PasswordSection';
 import useSignupForm, { SignUpFormType } from '@src/features/auth/hooks/useSignupForm';
 import { Button, Stepper } from '@src/shared/components';
@@ -42,11 +41,7 @@ const SignUp: NextPageWithLayout = () => {
     },
   });
 
-  const email = watch('email');
-
-  const { refetch: checkIsEmailVerified } = useVerificationsQuery({
-    variables: { email },
-    enabled: false,
+  const { mutate: checkIsEmailVerified } = useVerificationsMutation({
     onSuccess: () => {
       setActiveIndex((prev) => prev + 1);
     },
@@ -55,7 +50,7 @@ const SignUp: NextPageWithLayout = () => {
   const { mutate: signUp } = useSignUpMutation({
     onSuccess: () => {
       toast.success('회원가입이 완료되었습니다. 로그인해주세요.');
-      router.push('/signup/complete');
+      void router.push('/signup/complete');
     },
   });
 
@@ -65,7 +60,8 @@ const SignUp: NextPageWithLayout = () => {
   };
 
   const onCheckIsEmailVerified = () => {
-    checkIsEmailVerified();
+    const email = watch('email');
+    void checkIsEmailVerified({ email });
   };
 
   const onSubmit: SubmitHandler<SignUpFormType> = (values) => {
