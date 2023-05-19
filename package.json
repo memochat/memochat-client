@@ -21,6 +21,7 @@
     "development:docker": "docker build -t memochat-client-dev:latest . --network=host --build-arg NODE_ENV=development",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
     "prettier": "prettier --write **/*.{ts,tsx}",
     "analyze": "ANALYZE=true yarn build",
     "type-check": "tsc --noEmit",

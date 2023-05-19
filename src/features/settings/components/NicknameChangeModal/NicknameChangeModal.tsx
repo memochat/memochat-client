@@ -22,7 +22,7 @@ const NicknameChangeModal = (props: NicknameChangeModalProps) => {
       toast.error(e.message);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(useUsersMeQuery.getKey());
+      void queryClient.invalidateQueries(useUsersMeQuery.getKey());
       onClose();
     },
   });

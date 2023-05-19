@@ -16,8 +16,8 @@ export const updateRoom = async ({ roomId, payload }: Variables) => {
 const useUpdateRoomMutation = createMutation<Response, Variables>({
   mutationFn: updateRoom,
   onSuccess: (_, { roomId }) => {
-    queryClient.invalidateQueries(useRoomsQuery.getKey());
-    queryClient.invalidateQueries(useRoomQuery.getKey({ roomId }));
+    void queryClient.invalidateQueries(useRoomsQuery.getKey());
+    void queryClient.invalidateQueries(useRoomQuery.getKey({ roomId }));
   },
 });
 

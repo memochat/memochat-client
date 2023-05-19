@@ -20,7 +20,7 @@ const GuestGuard = ({ children }: GuestGuardProps) => {
     checkUserState()
       .then(() => {
         setShowRoute(false);
-        router.replace('/');
+        void router.replace('/');
       })
       .catch(() => {
         setShowRoute(true);

@@ -11,7 +11,7 @@ const SignUpComplete: NextPage = () => {
   const router = useRouter();
 
   const handleOnStartBtnClick = () => {
-    router.push('/signin');
+    void router.push('/signin');
   };
 
   return (

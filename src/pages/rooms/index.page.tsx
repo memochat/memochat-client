@@ -79,7 +79,7 @@ const RoomListPage: NextPageWithLayout = () => {
       },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries(useRoomsQuery.getKey());
+          void queryClient.invalidateQueries(useRoomsQuery.getKey());
           reset();
         },
       },

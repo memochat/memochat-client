@@ -23,7 +23,7 @@ export const updateChat = async ({ roomId, chatId, ...reqBody }: Variables) => {
 const useUpdateChatMutation = createMutation<Response, Variables>({
   mutationFn: updateChat,
   onSuccess: () => {
-    queryClient.invalidateQueries(useChatsInfiniteQuery.getKey());
+    void queryClient.invalidateQueries(useChatsInfiniteQuery.getKey());
   },
 });
 
