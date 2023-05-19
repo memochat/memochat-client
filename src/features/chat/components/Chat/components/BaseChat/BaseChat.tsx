@@ -16,6 +16,7 @@ const BaseChat = ({ message, createdAt, onOpenContextMenu }: BaseChatProps) => {
   useEffect(() => {
     return () => {
       ref.current = null;
+      clearTimeout(ref.current);
     };
   }, []);
 
