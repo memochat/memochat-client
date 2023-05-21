@@ -19,6 +19,7 @@ import { useOS } from '@src/shared/hooks/useOS';
 import { Chat } from '@src/shared/types/chat';
 import { MemoRoom } from '@src/shared/types/memoRooms';
 import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/types/next';
+import { ImageProfile } from '@public/static/images';
 
 import * as S from './rooms.styles';
 
@@ -91,7 +92,7 @@ const RoomListPage: NextPageWithLayout = () => {
       <S.Header>
         <Icon name="Logo" width="134px" height="22px" />
         <Link href="/settings" aria-label="설정페이지">
-          <S.ProfileImg src="/images/profile.png" alt="프로필" />
+          <S.ProfileImg src={ImageProfile.src} alt="프로필" />
         </Link>
       </S.Header>
       <S.ListWrapper ref={listWrapperRef} paddingBottom={memoFormHeight}>
