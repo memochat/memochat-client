@@ -14,7 +14,10 @@ export const Title = styled.h1`
 export const FieldContainer = styled.div`
   flex-grow: 1;
   padding-top: 26px;
-  gap: 40px;
   display: flex;
   flex-direction: column;
+
+  > * + * {
+    margin-top: 40px;
+  }
 `;
