@@ -2,26 +2,19 @@ import styled from '@emotion/styled';
 
 import RoomCreateButtonComponent from '@src/features/room/components/RoomCreateButton';
 
-const HEADER_HEIGHT = 51;
-
 export const ListWrapper = styled.div<{ paddingBottom: number }>`
-  min-height: 100vh;
-  ${(p) => `padding: ${HEADER_HEIGHT + 12}px 0 ${p.paddingBottom}px;`}
+  ${(p) => `padding: 12px 0 ${p.paddingBottom}px;`}
   -webkit-overflow-scrolling: touch;
 `;
 
 export const Header = styled.header`
-  position: fixed;
-  left: 0;
-  top: 0;
   transform: translate3d(0, 0, 0);
   width: 100%;
-  height: ${HEADER_HEIGHT}px;
+  height: 51px;
   display: flex;
   justify-content: space-between;
   padding: 15px 20px 14px 18px;
   background-color: ${(p) => p.theme.color.white};
-  z-index: ${(p) => p.theme.zIndex.header};
 `;
 
 export const ProfileImg = styled.img`

@@ -7,6 +7,7 @@ import { Icon } from '@src/shared/components';
 import Header from '@src/shared/components/Header';
 import useConfirm from '@src/shared/hooks/useConfirm';
 import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/types/next';
+import PageLayout from '@src/shared/components/layouts/PageLayout/PageLayout';
 
 import { LinkManageListProps, LinkManageMode } from './links.types';
 import * as S from './links.styles';
@@ -85,26 +86,29 @@ const LinkManageList: NextPageWithLayout<LinkManageListProps> = ({ roomId }) => 
   };
 
   return (
-    <>
-      <Header
-        title="링크"
-        leftButtons={
-          <button type="button">
-            <Icon name="Close" color="black1" size={20} />
-          </button>
-        }
-        rightButtons={
-          mode === 'read' ? (
-            <button type="button" onClick={handleCheckButtonClick}>
-              <Icon name="Check" color="black1" size={20} />
+    <PageLayout
+      topFixed={
+        <Header
+          title="링크"
+          leftButtons={
+            <button type="button">
+              <Icon name="Close" color="black1" size={20} />
             </button>
-          ) : (
-            <S.TextButton type="button" onClick={handleCancelButtonClick}>
-              취소
-            </S.TextButton>
-          )
-        }
-      />
+          }
+          rightButtons={
+            mode === 'read' ? (
+              <button type="button" onClick={handleCheckButtonClick}>
+                <Icon name="Check" color="black1" size={20} />
+              </button>
+            ) : (
+              <S.TextButton type="button" onClick={handleCancelButtonClick}>
+                취소
+              </S.TextButton>
+            )
+          }
+        />
+      }
+    >
       <S.ListWrapper>
         {MOCK_LINKS.map((link, index) => {
           const previousDate = MOCK_LINKS[index - 1]?.date;
@@ -137,7 +141,7 @@ const LinkManageList: NextPageWithLayout<LinkManageListProps> = ({ roomId }) => 
           </S.DeleteButton>
         </S.EditActionRow>
       )}
-    </>
+    </PageLayout>
   );
 };
 

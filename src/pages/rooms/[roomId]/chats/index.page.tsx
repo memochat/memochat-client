@@ -23,6 +23,7 @@ import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/typ
 import { toast } from '@src/shared/utils/toast';
 import RoomMemoEditForm from '@src/features/room/components/RoomMemoEditForm/RoomMemoEditForm';
 import useUpdateChatMutation from '@src/features/chat/api/useUpdateChatMutation';
+import FixedLayout from '@src/shared/components/layouts/FixedLayout/FixedLayout';
 
 import * as S from './chats.styles';
 
@@ -30,7 +31,6 @@ type ChatListProps = {
   roomId: number;
 };
 
-// TODO: 키보드 위에 RoomMemoForm 뜰 때 기기에서 깨지는지 테스트
 const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
   const chatContainerRef = useRef<HTMLDivElement>();
   const router = useRouter();
@@ -40,7 +40,10 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
   const { data, hasNextPage, fetchNextPage } = useChatsInfiniteQuery({
     variables: { roomId },
   });
-  const { ref, dimension } = useElementDimension<HTMLFormElement>();
+  const {
+    ref: bottomFixedLayoutRef,
+    dimension: { height: bottomFixedLayoutHeight },
+  } = useElementDimension<HTMLDivElement>();
   const { data: room } = useRoomQuery({ variables: { roomId } });
   const { mutate: createChat } = useCreateChatMutation();
   const { mutate: updateChat } = useUpdateChatMutation();
@@ -135,18 +138,23 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
     router.prefetch(`/rooms/${roomId}/setting`);
   }, [roomId, router]);
 
+  console.log('chats', chats);
+
   return (
-    <S.Wrapper>
-      <Header
-        title={room?.name || '-'}
-        titleAlign="left"
-        rightButtons={
-          <button type="button" onClick={handleGoSetting}>
-            <Icon name="Hamburger" color="black1" size={20} />
-          </button>
-        }
-      />
-      <S.ChatContainer ref={chatContainerRef} memoFormHeight={dimension.height}>
+    <S.PageLayout
+      topFixed={
+        <Header
+          title={room?.name || '-'}
+          titleAlign="left"
+          rightButtons={
+            <button type="button" onClick={handleGoSetting}>
+              <Icon name="Hamburger" color="black1" size={20} />
+            </button>
+          }
+        />
+      }
+    >
+      <S.ChatContainer ref={chatContainerRef} memoFormHeight={bottomFixedLayoutHeight}>
         <ChatContextMenuContextProvider
           onCopy={handleCopyChat}
           onEdit={handleEditChat}
@@ -162,16 +170,18 @@ const ChatListPage: NextPageWithLayout<ChatListProps> = ({ roomId }) => {
           />
         </ChatContextMenuContextProvider>
       </S.ChatContainer>
-      {Boolean(editFormInfo) ? (
-        <RoomMemoEditForm
-          onClose={handleCloseEditForm}
-          onSubmit={handleUpdateChat}
-          defaultValues={editFormInfo}
-        />
-      ) : (
-        <RoomMemoForm ref={ref} roomId={roomId} onSubmit={handleCreateChat} />
-      )}
-    </S.Wrapper>
+      <FixedLayout ref={bottomFixedLayoutRef} position="bottom">
+        {Boolean(editFormInfo) ? (
+          <RoomMemoEditForm
+            onClose={handleCloseEditForm}
+            onSubmit={handleUpdateChat}
+            defaultValues={editFormInfo}
+          />
+        ) : (
+          <RoomMemoForm roomId={roomId} onSubmit={handleCreateChat} />
+        )}
+      </FixedLayout>
+    </S.PageLayout>
   );
 };
 

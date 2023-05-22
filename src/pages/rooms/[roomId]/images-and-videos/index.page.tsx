@@ -7,6 +7,7 @@ import { Icon } from '@src/shared/components';
 import Header from '@src/shared/components/Header';
 import useConfirm from '@src/shared/hooks/useConfirm';
 import { GetServerSidePropsWithState, NextPageWithLayout } from '@src/shared/types/next';
+import PageLayout from '@src/shared/components/layouts/PageLayout/PageLayout';
 
 import { ImageAndVideoManageListProps, ImageAndVideoManageMode } from './images-and-videos.types';
 import * as S from './images-and-videos.styles';
@@ -85,26 +86,29 @@ const ImageAndVideoManageList: NextPageWithLayout<ImageAndVideoManageListProps> 
   };
 
   return (
-    <>
-      <Header
-        title={`사진 & 동영상`}
-        leftButtons={
-          <button type="button">
-            <Icon name="Close" color="black1" size={20} />
-          </button>
-        }
-        rightButtons={
-          mode === 'read' ? (
-            <button type="button" onClick={handleCheckButtonClick}>
-              <Icon name="Check" color="black1" size={20} />
+    <PageLayout
+      topFixed={
+        <Header
+          title={`사진 & 동영상`}
+          leftButtons={
+            <button type="button">
+              <Icon name="Close" color="black1" size={20} />
             </button>
-          ) : (
-            <S.TextButton type="button" onClick={handleCancelButtonClick}>
-              취소
-            </S.TextButton>
-          )
-        }
-      />
+          }
+          rightButtons={
+            mode === 'read' ? (
+              <button type="button" onClick={handleCheckButtonClick}>
+                <Icon name="Check" color="black1" size={20} />
+              </button>
+            ) : (
+              <S.TextButton type="button" onClick={handleCancelButtonClick}>
+                취소
+              </S.TextButton>
+            )
+          }
+        />
+      }
+    >
       <S.ListWrapper>
         {MOCK_IMAGES.map((image, index) => {
           const previousDate = MOCK_IMAGES[index - 1]?.date;
@@ -143,7 +147,7 @@ const ImageAndVideoManageList: NextPageWithLayout<ImageAndVideoManageListProps> 
           </button>
         </S.EditActionRow>
       )}
-    </>
+    </PageLayout>
   );
 };
 

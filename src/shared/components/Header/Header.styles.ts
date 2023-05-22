@@ -5,6 +5,7 @@ import { ellipsis } from '@src/shared/styles';
 import { HeaderProps } from './Header.types';
 
 export const Wrapper = styled.header<{ hasBottomLine?: boolean }>`
+  position: relative;
   background-color: white;
   height: 56px;
   width: 100%;

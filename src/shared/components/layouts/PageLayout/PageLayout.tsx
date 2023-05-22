@@ -8,11 +8,13 @@ const PageLayout = ({ className, topFixed, children }: PageLayoutProps) => {
   const { ref, dimension } = useElementDimension<HTMLDivElement>();
 
   return (
-    <S.Container className={className}>
+    <S.Container>
       <FixedLayout position="top" ref={ref}>
         {topFixed}
       </FixedLayout>
-      <S.Wrapper style={{ paddingTop: dimension.height }}>{children}</S.Wrapper>
+      <S.Wrapper className={className} style={{ paddingTop: dimension.height }}>
+        {children}
+      </S.Wrapper>
     </S.Container>
   );
 };
