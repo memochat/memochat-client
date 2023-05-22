@@ -10,7 +10,7 @@ import useChangePasswordForm, {
 import useCheckPasswordForm, {
   CheckPasswordFormType,
 } from '@src/features/settings/hooks/useCheckPasswordForm';
-import { Button, Stepper, TextField } from '@src/shared/components';
+import { Button, Header, Stepper, TextField } from '@src/shared/components';
 import { MemoChatError } from '@src/shared/types/api';
 import { NextPageWithLayout } from '@src/shared/types/next';
 import { toast } from '@src/shared/utils/toast';
@@ -27,7 +27,7 @@ const ChangePassword: NextPageWithLayout = () => {
   const { isLoading, mutate: updatePassword } = useUpdatePasswordMutation({
     onSuccess: () => {
       toast.success('변경에 성공했습니다');
-      router.replace('/settings/account');
+      void router.replace('/settings/account');
     },
     onError: (e) => {
       if (e instanceof MemoChatError) {
@@ -46,7 +46,7 @@ const ChangePassword: NextPageWithLayout = () => {
   };
 
   return (
-    <S.PageLayout>
+    <S.PageLayout topFixed={<Header />}>
       <S.Title>비밀번호 변경을 위해{'\n'}현재 비밀번호를 입력해주세요.</S.Title>
       <Stepper
         activeIndex={activeIndex}

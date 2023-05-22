@@ -42,7 +42,7 @@ const useAuth = () => {
     removeAccessToken();
     removeRefreshToken();
     queryClient.removeQueries(useUsersMeQuery.getKey());
-    router.push('/home');
+    void router.push('/home');
   };
 
   const checkUserState = useCallback(async () => {

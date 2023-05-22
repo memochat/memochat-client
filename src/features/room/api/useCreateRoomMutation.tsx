@@ -15,7 +15,7 @@ export const createRoom = async (payload: Variables) => {
 const useCreateRoomMutation = createMutation<Response, Variables>({
   mutationFn: createRoom,
   onSuccess: () => {
-    queryClient.invalidateQueries(useRoomsQuery.getKey());
+    void queryClient.invalidateQueries(useRoomsQuery.getKey());
   },
 });
 

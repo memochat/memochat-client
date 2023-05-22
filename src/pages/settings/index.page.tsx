@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import settingImg from '@public/images/settings.png';
+import { ImageSettings } from '@public/static/images';
 import AuthGuard from '@src/features/auth/components/AuthGuard';
 import SettingDetailMenu from '@src/features/settings/components/SettingDetailMenu';
 import { Header } from '@src/shared/components';
@@ -33,7 +33,7 @@ const Settings: NextPageWithLayout = () => {
   return (
     <PageLayout topFixed={<Header title="설정" titleAlign="center" />}>
       <S.Wrapper>
-        <Image src={settingImg} alt="setting" width={265} height={168} />
+        <Image src={ImageSettings} alt="setting" width={265} height={168} />
         <S.DetailMenuList>
           <SettingDetailMenu
             href="/settings/account"

@@ -18,7 +18,7 @@ export const deleteChat = async ({ roomId, chatId }: Variables) => {
 const useDeleteChatMutation = createMutation<Response, Variables>({
   mutationFn: deleteChat,
   onSuccess: () => {
-    queryClient.invalidateQueries(useChatsInfiniteQuery.getKey());
+    void queryClient.invalidateQueries(useChatsInfiniteQuery.getKey());
   },
 });
 

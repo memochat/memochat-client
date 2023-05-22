@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-import ProfileImg from '@public/images/profile.png';
+import { ImageProfile } from '@public/static/images';
 import { Pencil } from '@src/assets/icons';
 import AuthGuard from '@src/features/auth/components/AuthGuard';
 import NicknameChangeModal from '@src/features/settings/components/NicknameChangeModal';
@@ -26,7 +26,7 @@ const Account: NextPageWithLayout = () => {
     <>
       <PageLayout topFixed={<Header title="계정 및 프로필 관리" titleAlign="center" />}>
         <S.ImageWrapper>
-          <Image src={ProfileImg} alt="setting" width={96} height={96} />
+          <Image src={ImageProfile} alt="setting" width={96} height={96} />
         </S.ImageWrapper>
         <S.MenuList>
           <S.MenuListItem>

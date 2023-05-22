@@ -49,7 +49,7 @@ const RoomSetting: NextPageWithLayout<RoomSettingProps> = ({ roomId }) => {
         { id: room.id },
         {
           onSuccess: () => {
-            router.replace('/');
+            void router.replace('/');
           },
         },
       );

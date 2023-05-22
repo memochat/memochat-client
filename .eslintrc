@@ -48,6 +48,7 @@
         "unusedExports": true,
         "ignoreExports": ["./src/pages"]
       }
-    ]
+    ],
+    "@typescript-eslint/no-floating-promises": "error"
   }
 }
