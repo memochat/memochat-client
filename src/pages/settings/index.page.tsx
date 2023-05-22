@@ -8,6 +8,7 @@ import useConfirm from '@src/shared/hooks/useConfirm';
 import { NextPageWithLayout } from '@src/shared/types/next';
 import { toast } from '@src/shared/utils/toast';
 import useAuth from '@src/features/auth/hooks/useAuth';
+import PageLayout from '@src/shared/components/layouts/PageLayout/PageLayout';
 
 import * as S from './settings.styles';
 
@@ -30,8 +31,7 @@ const Settings: NextPageWithLayout = () => {
   };
 
   return (
-    <>
-      <Header title="설정" titleAlign="center" />
+    <PageLayout topFixed={<Header title="설정" titleAlign="center" />}>
       <S.Wrapper>
         <Image src={settingImg} alt="setting" width={265} height={168} />
         <S.DetailMenuList>
@@ -53,7 +53,7 @@ const Settings: NextPageWithLayout = () => {
           <S.TextButton color="gray3">버전</S.TextButton>
         </S.Box>
       </S.Wrapper>
-    </>
+    </PageLayout>
   );
 };
 

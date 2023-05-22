@@ -1,12 +1,6 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
 
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-`;
-
 export const ImageWrapper = styled.div`
   display: flex;
   flex-direction: column;
