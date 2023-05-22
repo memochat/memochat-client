@@ -7,8 +7,7 @@ import LottieComponent from '@src/shared/components/Lottie';
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  min-height: 100vh;
+  min-height: 100%;
   padding: 48px 32px calc(48px + env(safe-area-inset-bottom, 0));
 `;
 

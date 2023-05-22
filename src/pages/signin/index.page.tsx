@@ -25,6 +25,7 @@ const SignIn: NextPageWithLayout = () => {
 
   return (
     <S.Wrapper as="form" onSubmit={handleSubmit(onSubmit)}>
+      {/* TODO: 로딩중 컴포넌트 추가 */}
       {formState.isSubmitting && <div>loading</div>}
       <S.Title>메모챗 로그인</S.Title>
       <S.FieldContainer>

@@ -10,15 +10,13 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 
 import GlobalConfirmModal from '@src/shared/components/GlobalConfirmModal';
-import Loading from '@src/shared/components/Loading';
-import MainLayout from '@src/shared/components/MainLayout';
-import ToastContainer from '@src/shared/components/ToastContainer';
 import { queryClient } from '@src/shared/configs/react-query';
 import { ModalReducerContextProvider } from '@src/shared/contexts/ModalReducerContext';
 import GlobalStyle from '@src/shared/styles/GlobalStyle';
 import { lightTheme } from '@src/shared/styles/themes';
 import { NextPageWithLayout } from '@src/shared/types/next';
 import { NativeBridge } from '@src/shared/configs/webview';
+import GlobalLayout from '@src/shared/components/layouts/GlobalLayout';
 
 dayjs.locale('ko');
 
@@ -41,22 +39,20 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <link rel="icon" href="/favicon.png" />
         <meta
           name="viewport"
-          content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
         />
       </Head>
       <ThemeProvider theme={lightTheme}>
         <GlobalStyle />
-        <Loading />
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps.dehydratedState}>
             <RecoilRoot>
-              <ToastContainer />
-              <MainLayout>
+              <GlobalLayout>
                 <ModalReducerContextProvider>
                   {getLayout(<Component {...pageProps} />)}
                   <GlobalConfirmModal />
                 </ModalReducerContextProvider>
-              </MainLayout>
+              </GlobalLayout>
             </RecoilRoot>
           </Hydrate>
           <ReactQueryDevtools />
