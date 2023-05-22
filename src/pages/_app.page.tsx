@@ -19,6 +19,7 @@ import GlobalStyle from '@src/shared/styles/GlobalStyle';
 import { lightTheme } from '@src/shared/styles/themes';
 import { NextPageWithLayout } from '@src/shared/types/next';
 import { NativeBridge } from '@src/shared/configs/webview';
+import Favicon from '@public/static/favicon.ico';
 
 dayjs.locale('ko');
 
@@ -38,7 +39,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       <Head>
         <title>MEMOCHAT | Light up Your Idea</title>
         <meta name="description" content="Light up Your Idea." />
-        <link rel="icon" href="/favicon.png" />
+        <link rel="icon" href={Favicon.src} />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"

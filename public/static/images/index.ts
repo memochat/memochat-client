@@ -1,0 +1,9 @@
+export { default as Image404 } from './404.png';
+export { default as ImageAlaram } from './alarm.png';
+export { default as ImageBell } from './bell.png';
+export { default as ImageBigChat } from './big-chat.png';
+export { default as ImageChatEmpty } from './chat-empty.png';
+export { default as ImageLogo } from './logo.png';
+export { default as ImageProfile } from './profile.png';
+export { default as ImageRoomEmpty } from './room-empty.png';
+export { default as ImageSettings } from './settings.png';
