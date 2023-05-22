@@ -7,7 +7,6 @@ export const StepperRoot = styled.div`
   display: flex;
   flex-direction: column;
   ${({ css }) => css as SerializedStyles}
-  height: 100%;
 `;
 
 export const StepperStepConnector = styled.div`
