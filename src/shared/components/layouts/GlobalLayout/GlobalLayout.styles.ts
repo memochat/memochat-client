@@ -2,20 +2,18 @@ import styled from '@emotion/styled';
 
 import { breakpoint } from '@src/shared/styles/themes';
 
-const STATUS_BAR_HEIGHT = 'env(safe-area-inset-top)';
+export const STATUS_BAR_HEIGHT = 'env(safe-area-inset-top)';
+export const MAX_WIDTH = `${breakpoint.small}px`;
 
 export const Container = styled.div`
   position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
+  max-width: ${MAX_WIDTH};
   height: 100vh;
   overflow: hidden;
   padding-top: ${STATUS_BAR_HEIGHT};
-  margin: 0 auto;
-  background-color: lightblue;
-
-  ${(p) => p.theme.breakpoint.small} {
-    max-width: ${breakpoint.small}px;
-  }
 `;
 
 export const Main = styled.main`
@@ -23,7 +21,6 @@ export const Main = styled.main`
   width: 100%;
   height: 100%;
   overflow-y: scroll;
-  background-color: lightcoral;
 
   #nprogress {
     pointer-events: none;

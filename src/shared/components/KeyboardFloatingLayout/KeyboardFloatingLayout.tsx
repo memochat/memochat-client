@@ -6,6 +6,7 @@ import { useOS } from '@src/shared/hooks/useOS';
 import { KeyboardFloatingLayoutProps } from './KeyboardFloatingLayout.types';
 import * as S from './KeyboardFloatingLayout.styles';
 
+// TODO: 추후 살펴보고 사용안하면 제거
 const KeyboardFloatingLayout = ({ children }: KeyboardFloatingLayoutProps) => {
   const os = useOS();
 
