@@ -1,10 +1,8 @@
 import styled from '@emotion/styled';
 
 export const Wrapper = styled.div`
-  position: absolute;
   width: 100%;
-  bottom: 0;
-  background: #ffffff;
+  background: ${(p) => p.theme.color.white};
 
   display: flex;
   flex-direction: column;

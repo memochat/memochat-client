@@ -13,6 +13,7 @@ import { Button, Stepper } from '@src/shared/components';
 import { MemoChatError } from '@src/shared/types/api';
 import { NextPageWithLayout } from '@src/shared/types/next';
 import { toast } from '@src/shared/utils/toast';
+import FloatingLayout from '@src/shared/components/layouts/FloatingLayout/FloatingLayout';
 
 import * as S from './signup.styles';
 
@@ -70,7 +71,7 @@ const SignUp: NextPageWithLayout = () => {
   };
 
   return (
-    <S.Wrapper as="form" onSubmit={handleSubmit(onSubmit)}>
+    <S.Wrapper onSubmit={handleSubmit(onSubmit)}>
       <S.Title>
         작성한 메모의 저장을 위해서
         <br /> 회원가입이 필요해요!
@@ -81,6 +82,7 @@ const SignUp: NextPageWithLayout = () => {
           '& .stepper-connector': {
             marginBottom: '16px',
           },
+          paddingBottom: '100px',
         }}
       >
         <S.Content>
@@ -94,9 +96,11 @@ const SignUp: NextPageWithLayout = () => {
         </S.Content>
         <S.Content>
           <PasswordSection control={control} name={['password', 'password2']} />
-          <Button disabled={!formState.isValid} type="submit">
-            제출
-          </Button>
+          <FloatingLayout>
+            <Button disabled={!formState.isValid} type="submit">
+              가입
+            </Button>
+          </FloatingLayout>
         </S.Content>
       </Stepper>
     </S.Wrapper>

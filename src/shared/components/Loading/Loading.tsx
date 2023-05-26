@@ -14,10 +14,12 @@ const Loading = ({ initialLoadingState = false }: LoadingProps) => {
     if (!router.isReady) {
       return;
     }
+
     const handleNprogressStart = () => {
       setIsLoading(true);
       nProgress.start();
     };
+
     const handleNprogressDone = () => {
       setIsLoading(false);
       nProgress.done();
@@ -33,6 +35,7 @@ const Loading = ({ initialLoadingState = false }: LoadingProps) => {
       router.events.off('routeChangeComplete', handleNprogressDone);
     };
   });
+
   if (!isLoading) {
     return null;
   }

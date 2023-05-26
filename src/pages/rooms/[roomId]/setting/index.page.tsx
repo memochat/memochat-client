@@ -88,8 +88,7 @@ const RoomSetting: NextPageWithLayout<RoomSettingProps> = ({ roomId }) => {
 
   return (
     <>
-      <Header title={room.name} hasBottomLine />
-      <S.Wrapper>
+      <S.PageLayout topFixed={<Header title={room.name} hasBottomLine />}>
         <S.RoomBaseInfo>
           <S.Thumbnail alt="ok" src={room.roomCategory.thumbnail} width={120} height={120} />
           <S.RoomTitleBox>
@@ -101,7 +100,7 @@ const RoomSetting: NextPageWithLayout<RoomSettingProps> = ({ roomId }) => {
           <RoomDetailMenu key={`${menuItem.title}-${index}`} {...menuItem} />
         ))}
         <RoomDetailMenu onClick={handleDeleteClick} variant="danger" title="메모룸 나가기" />
-      </S.Wrapper>
+      </S.PageLayout>
       <UpsertRoomDialog
         type="update"
         selectedRoomId={room.id}

@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 
-import { HEADER_HEIGHT } from '@src/shared/components/Header/Header.styles';
+import _PageLayout from '@src/shared/components/layouts/PageLayout/PageLayout';
 
-export const Wrapper = styled.div`
+export const PageLayout = styled(_PageLayout)`
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -10,7 +10,6 @@ export const Wrapper = styled.div`
 `;
 
 export const ChatContainer = styled.div<{ memoFormHeight?: number }>`
-  flex: 1;
-  overflow-y: auto;
-  ${(p) => `max-height: calc(100vh - ${HEADER_HEIGHT}px - ${p.memoFormHeight}px);`}
+  height: 100%;
+  ${(p) => `max-height: calc(100% - ${p.memoFormHeight}px);`}
 `;

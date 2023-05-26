@@ -16,25 +16,10 @@ const customReset = css`
     padding: 0;
   }
 
-  html,
   body {
-    height: 100%;
-  }
-
-  body {
-    position: relative;
     width: 100%;
-    overflow-y: auto;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
-
-    > #make-scrollable {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 1px;
-      height: calc(100% + 1px); // height를 100%보다 1px높게 잡아 실제로 scroll이 되도록 만듭니다.
-    }
   }
 
   img,
@@ -99,7 +84,6 @@ const global = css`
 
   html {
     font-size: 13px;
-
     font-family: 'Spoqa Han Sans Neo', 'M PLUS 1', 'sans-serif';
   }
 
@@ -113,20 +97,7 @@ const global = css`
   body,
   #__next {
     height: 100%;
-  }
-
-  #nprogress {
-    pointer-events: none;
-  }
-
-  #nprogress .bar {
-    background-color: ${lightColorTheme.purple1};
-    height: 3px;
-    left: 0;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 2000;
+    overflow: hidden;
   }
 
   /** 작은 단말 대응 (iPhone SE, Galaxy Fold ) */

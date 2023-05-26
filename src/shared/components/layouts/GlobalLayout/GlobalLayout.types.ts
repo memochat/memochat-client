@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
 
-export interface MainLayoutProps {
+export interface GlobalLayoutProps {
   children: ReactNode;
 }

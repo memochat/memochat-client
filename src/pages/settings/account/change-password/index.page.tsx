@@ -14,6 +14,7 @@ import { Button, Header, Stepper, TextField } from '@src/shared/components';
 import { MemoChatError } from '@src/shared/types/api';
 import { NextPageWithLayout } from '@src/shared/types/next';
 import { toast } from '@src/shared/utils/toast';
+import FloatingLayout from '@src/shared/components/layouts/FloatingLayout/FloatingLayout';
 
 import * as S from './changepassword.styles';
 
@@ -45,12 +46,8 @@ const ChangePassword: NextPageWithLayout = () => {
   };
 
   return (
-    <S.Wrapper>
-      <Header />
-      <S.Title>
-        비밀번호 변경을 위해
-        <br /> 현재 비밀번호를 입력해주세요.
-      </S.Title>
+    <S.PageLayout topFixed={<Header />}>
+      <S.Title>비밀번호 변경을 위해{'\n'}현재 비밀번호를 입력해주세요.</S.Title>
       <Stepper
         activeIndex={activeIndex}
         css={{
@@ -84,7 +81,9 @@ const ChangePassword: NextPageWithLayout = () => {
               )}
             />
           </div>
-          <Button type="submit">계속</Button>
+          <FloatingLayout>
+            <Button type="submit">계속</Button>
+          </FloatingLayout>
         </S.Content>
         <S.Content
           as="form"
@@ -129,12 +128,17 @@ const ChangePassword: NextPageWithLayout = () => {
               )}
             />
           </div>
-          <Button disabled={!changePasswordFormProps.formState.isValid && isLoading} type="submit">
-            변경
-          </Button>
+          <FloatingLayout>
+            <Button
+              disabled={!changePasswordFormProps.formState.isValid && isLoading}
+              type="submit"
+            >
+              변경
+            </Button>
+          </FloatingLayout>
         </S.Content>
       </Stepper>
-    </S.Wrapper>
+    </S.PageLayout>
   );
 };
 

@@ -4,14 +4,10 @@ import { ellipsis } from '@src/shared/styles';
 
 import { HeaderProps } from './Header.types';
 
-export const HEADER_HEIGHT = 56;
-
 export const Wrapper = styled.header<{ hasBottomLine?: boolean }>`
+  position: relative;
   background-color: white;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: ${HEADER_HEIGHT + 'px'};
+  height: 56px;
   width: 100%;
   text-align: center;
   padding: 18px 52px;
@@ -50,9 +46,4 @@ export const ButtonsWrapper = styled.div<{ align: 'right' | 'left' }>`
         margin-right: 4px;
       }
       `};
-`;
-
-export const VirtualSpace = styled.div`
-  width: 100%;
-  height: ${HEADER_HEIGHT}px;
 `;

@@ -1,6 +1,7 @@
 import { useController } from 'react-hook-form';
 
 import { Button, TextField } from '@src/shared/components';
+import FloatingLayout from '@src/shared/components/layouts/FloatingLayout/FloatingLayout';
 
 import { EmailSectionProps } from './EmailSection.types';
 
@@ -45,9 +46,11 @@ const EmailSection = (props: EmailSectionProps) => {
           </Button>
         </div>
       </div>
-      <Button disabled={!isVerifyEmailSent} type="button" onClick={handleIdNextBtnClick}>
-        계속
-      </Button>
+      <FloatingLayout>
+        <Button disabled={!isVerifyEmailSent} type="button" onClick={handleIdNextBtnClick}>
+          계속
+        </Button>
+      </FloatingLayout>
     </>
   );
 };

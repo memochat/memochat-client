@@ -8,6 +8,7 @@ import NicknameChangeModal from '@src/features/settings/components/NicknameChang
 import useUsersMeQuery from '@src/features/user/api/useUsersMeQuery';
 import { Header } from '@src/shared/components';
 import { NextPageWithLayout } from '@src/shared/types/next';
+import PageLayout from '@src/shared/components/layouts/PageLayout/PageLayout';
 
 import * as S from './account.styles';
 
@@ -23,8 +24,7 @@ const Account: NextPageWithLayout = () => {
   };
   return (
     <>
-      <S.Wrapper>
-        <Header title="계정 및 프로필 관리" titleAlign="center" />
+      <PageLayout topFixed={<Header title="계정 및 프로필 관리" titleAlign="center" />}>
         <S.ImageWrapper>
           <Image src={ImageProfile} alt="setting" width={96} height={96} />
         </S.ImageWrapper>
@@ -44,7 +44,7 @@ const Account: NextPageWithLayout = () => {
             <S.DeleteButton type="button">계정삭제</S.DeleteButton>
           </S.MenuListItem>
         </S.MenuList>
-      </S.Wrapper>
+      </PageLayout>
       <NicknameChangeModal
         open={isNicknameChangeModalOpen}
         onClose={handleNicknameChangeModalClose}

@@ -11,14 +11,11 @@ const Header = ({
   hasBottomLine = false,
 }: HeaderProps) => {
   return (
-    <>
-      <S.Wrapper hasBottomLine={hasBottomLine}>
-        {leftButtons && <S.ButtonsWrapper align="left">{leftButtons}</S.ButtonsWrapper>}
-        <S.Title titleAlign={titleAlign}>{title}</S.Title>
-        {rightButtons && <S.ButtonsWrapper align="right">{rightButtons}</S.ButtonsWrapper>}
-      </S.Wrapper>
-      <S.VirtualSpace />
-    </>
+    <S.Wrapper hasBottomLine={hasBottomLine}>
+      {leftButtons && <S.ButtonsWrapper align="left">{leftButtons}</S.ButtonsWrapper>}
+      <S.Title titleAlign={titleAlign}>{title}</S.Title>
+      {rightButtons && <S.ButtonsWrapper align="right">{rightButtons}</S.ButtonsWrapper>}
+    </S.Wrapper>
   );
 };
 

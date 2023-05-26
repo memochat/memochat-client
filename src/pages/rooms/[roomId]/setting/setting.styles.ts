@@ -1,6 +1,18 @@
 import NextImage from 'next/image';
 import styled from '@emotion/styled';
 
+import _PageLayout from '@src/shared/components/layouts/PageLayout/PageLayout';
+
+export const PageLayout = styled(_PageLayout)`
+  display: flex;
+  flex-direction: column;
+  background-color: ${({ theme }) => theme.color.gray6};
+
+  > * + * {
+    margin-top: 8px;
+  }
+`;
+
 export const Title = styled.h1`
   ${({ theme }) => theme.typography.h3};
   color: ${({ theme }) => theme.color.black1};
@@ -14,13 +26,6 @@ export const IconBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  background-color: ${({ theme }) => theme.color.gray6};
 `;
 
 export const RoomBaseInfo = styled.section`
